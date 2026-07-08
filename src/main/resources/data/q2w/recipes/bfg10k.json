@@ -8,10 +8,10 @@
   ],
   "key": {
     "D": {
-      "item": "minecraft:diamond"
+      "item": "minecraft:netherite_ingot"
     },
     "B": {
-      "item": "minecraft:blaze_rod"
+      "item": "minecraft:end_rod"
     },
     "I": {
       "item": "minecraft:iron_ingot"
@@ -24,7 +24,7 @@
     }
   },
   "result": {
-    "item": "quakeweapons:thunderbolt",
+    "item": "q2w:bfg10k",
     "count": 1
   }
 }

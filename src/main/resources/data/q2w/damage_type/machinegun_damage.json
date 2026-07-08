@@ -1,5 +1,5 @@
 {
-  "message_id": "quakeweapons.thunderbolt_discharge",
+  "message_id": "q2w.machinegun_damage",
   "exhaustion": 0.1,
   "scaling": "never",
   "effects": "hurt",

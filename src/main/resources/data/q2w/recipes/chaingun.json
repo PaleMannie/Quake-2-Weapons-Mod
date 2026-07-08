@@ -8,7 +8,7 @@
   ],
   "key": {
     "N": {
-      "item": "quakeweapons:nailgun"
+      "item": "q2w:machinegun"
     },
     "I": {
       "item": "minecraft:iron_block"
@@ -27,7 +27,7 @@
     }
   },
   "result": {
-    "item": "quakeweapons:super_nailgun",
+    "item": "q2w:chaingun",
     "count": 1
   }
 }

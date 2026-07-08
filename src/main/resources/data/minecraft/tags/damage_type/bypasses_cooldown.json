@@ -1,13 +1,16 @@
 {
   "values": [
-    "quakeweapons:nailgun_damage",
-    "quakeweapons:super_nailgun_damage",
-    "quakeweapons:thunderbolt_damage",
-    "quakeweapons:thunderbolt_discharge",
+    "quakeweapons:machinegun_damage",
+    "quakeweapons:chaingun_damage",
+    "quakeweapons:railgun_damage",
+    "quakeweapons:bfg10k_damage",
+    "quakeweapons:bfg10k_laser",
+    "quakeweapons:bfg10k_impact",
     "quakeweapons:shotgun_damage",
     "quakeweapons:super_shotgun_damage",
     "quakeweapons:rocketlauncher_damage",
     "quakeweapons:grenadelauncher_damage",
-    "quakeweapons:axe_damage"
+    "quakeweapons:blaster_damage",
+    "quakeweapons:hyperblaster_damage"
   ]
 }

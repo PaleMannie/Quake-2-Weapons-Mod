@@ -4,7 +4,7 @@
   "pattern": [
     "II",
     "IL",
-    " L"
+    "LL"
   ],
   "key": {
     "I": {
@@ -15,7 +15,7 @@
     }
   },
   "result": {
-    "item": "quakeweapons:qwaxe",
+    "item": "q2w:hyperblaster",
     "count": 1
   }
 }

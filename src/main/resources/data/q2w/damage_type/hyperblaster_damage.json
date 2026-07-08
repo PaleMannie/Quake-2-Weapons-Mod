@@ -1,5 +1,5 @@
 {
-  "message_id": "q2w.shotgun_damage",
+  "message_id": "q2w.hyperblaster_damage",
   "exhaustion": 0.1,
   "scaling": "never",
   "effects": "hurt",

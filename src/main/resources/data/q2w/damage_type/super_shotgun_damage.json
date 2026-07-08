@@ -1,5 +1,5 @@
 {
-  "message_id": "quakeweapons.super_shotgun_damage",
+  "message_id": "q2w.super_shotgun_damage",
   "exhaustion": 0.1,
   "scaling": "never",
   "effects": "hurt",

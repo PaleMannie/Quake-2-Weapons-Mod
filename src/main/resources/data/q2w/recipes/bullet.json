@@ -7,10 +7,13 @@
     },
     {
       "item": "minecraft:gold_nugget"
+    },
+    {
+      "item": "minecraft:gunpowder"
     }
   ],
   "result": {
-    "item": "quakeweapons:nail",
+    "item": "q2w:bullet",
     "count": 4
   }
 }
