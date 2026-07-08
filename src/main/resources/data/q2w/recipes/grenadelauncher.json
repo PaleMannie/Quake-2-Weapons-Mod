@@ -1,0 +1,33 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "WII",
+    "DBR",
+    "IIS"
+  ],
+  "key": {
+    "I": {
+    "item": "minecraft:iron_block"
+    },
+    "B": {
+      "item": "minecraft:blaze_rod"
+    },
+    "S": {
+      "item": "minecraft:stick"
+    },
+    "R": {
+      "item": "minecraft:repeater"
+    },
+    "W": {
+      "tag": "minecraft:planks"
+    },
+    "D": {
+      "item": "minecraft:dispenser"
+    }
+  },
+  "result": {
+    "item": "quakeweapons:grenadelauncher",
+    "count": 1
+  }
+}

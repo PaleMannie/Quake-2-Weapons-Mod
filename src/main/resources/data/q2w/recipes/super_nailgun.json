@@ -1,0 +1,33 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "GIR",
+    "INW",
+    "RWS"
+  ],
+  "key": {
+    "N": {
+      "item": "quakeweapons:nailgun"
+    },
+    "I": {
+      "item": "minecraft:iron_block"
+    },
+    "W": {
+      "tag": "minecraft:planks"
+    },
+    "S": {
+      "item": "minecraft:stick"
+    },
+    "R": {
+      "item": "minecraft:redstone"
+    },
+    "G": {
+      "item": "minecraft:gold_ingot"
+    }
+  },
+  "result": {
+    "item": "quakeweapons:super_nailgun",
+    "count": 1
+  }
+}

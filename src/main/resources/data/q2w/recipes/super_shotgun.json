@@ -1,0 +1,33 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "GI ",
+    "ISW",
+    "PWs"
+  ],
+  "key": {
+    "I": {
+      "item": "minecraft:iron_block"
+    },
+    "G": {
+      "item": "minecraft:gold_ingot"
+    },
+    "S": {
+      "item": "quakeweapons:shotgun"
+    },
+    "P": {
+      "item": "minecraft:piston"
+    },
+    "s": {
+      "item": "minecraft:stick"
+    },
+    "W": {
+      "tag": "minecraft:planks"
+    }
+  },
+  "result": {
+    "item": "quakeweapons:super_shotgun",
+    "count": 1
+  }
+}

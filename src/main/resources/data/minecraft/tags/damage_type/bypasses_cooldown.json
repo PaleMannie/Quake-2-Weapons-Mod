@@ -1,0 +1,13 @@
+{
+  "values": [
+    "quakeweapons:nailgun_damage",
+    "quakeweapons:super_nailgun_damage",
+    "quakeweapons:thunderbolt_damage",
+    "quakeweapons:thunderbolt_discharge",
+    "quakeweapons:shotgun_damage",
+    "quakeweapons:super_shotgun_damage",
+    "quakeweapons:rocketlauncher_damage",
+    "quakeweapons:grenadelauncher_damage",
+    "quakeweapons:axe_damage"
+  ]
+}

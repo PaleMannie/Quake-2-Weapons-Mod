@@ -1,0 +1,181 @@
+{
+
+  "nailgun_shoot": {
+    "subtitle": "sounds.quakeweapons.nailgun_shoot",
+    "sounds": [
+      "quakeweapons:nailgun_shoot"
+    ]
+  },
+
+  "super_nailgun_shoot": {
+    "subtitle": "sounds.quakeweapons.super_nailgun_shoot",
+    "sounds": [
+      "quakeweapons:super_nailgun_shoot"
+    ]
+  },
+
+  "nailgun_hit": {
+    "subtitle": "sounds.quakeweapons.nailgun_hit",
+    "sounds": [
+      "quakeweapons:nail_hit1",
+      "quakeweapons:nail_hit2",
+      "quakeweapons:nail_hit3",
+      "quakeweapons:nail_hit4"
+    ]
+  },
+
+  "thunderbolt_start": {
+    "subtitle": "sounds.quakeweapons.thunderbolt_start",
+    "sounds": [
+      "quakeweapons:thunderbolt_start"
+    ]
+  },
+
+  "thunderbolt_loop": {
+    "subtitle": "sounds.quakeweapons.thunderbolt_loop",
+    "sounds": [
+      "quakeweapons:thunderbolt_loop"
+    ]
+  },
+
+  "shotgun_shoot": {
+    "subtitle": "sounds.quakeweapons.shotgun_shoot",
+    "sounds": [
+      "quakeweapons:shotgun_shoot"
+    ]
+  },
+
+  "super_shotgun_shoot": {
+    "subtitle": "sounds.quakeweapons.super_shotgun_shoot",
+    "sounds": [
+      "quakeweapons:super_shotgun_shoot"
+    ]
+  },
+
+  "rocketlauncher_shoot": {
+    "subtitle": "sounds.quakeweapons.rocketlauncher_shoot",
+    "sounds": [
+      "quakeweapons:rocketlauncher_shoot"
+    ]
+  },
+
+  "grenadelauncher_shoot": {
+    "subtitle": "sounds.quakeweapons.grenadelauncher_shoot",
+    "sounds": [
+      "quakeweapons:grenadelauncher_shoot"
+    ]
+  },
+
+  "grenade_bounce": {
+    "subtitle": "sounds.quakeweapons.grenade_bounce",
+    "sounds": [
+      "quakeweapons:grenade_bounce"
+    ]
+  },
+
+  "explosion": {
+    "subtitle": "sounds.quakeweapons.explosion",
+    "sounds": [
+      "quakeweapons:explosion"
+    ]
+  },
+
+  "axe_hit_air": {
+    "subtitle": "sounds.quakeweapons.axe_hit_air",
+    "sounds": [
+      "quakeweapons:axe_hit_air"
+    ]
+  },
+
+  "axe_hit_solid": {
+    "subtitle": "sounds.quakeweapons.axe_hit_solid",
+    "sounds": [
+      "quakeweapons:axe_hit_solid"
+    ]
+  },
+
+  "axe_hit_entity": {
+    "subtitle": "sounds.quakeweapons.axe_hit_entity",
+    "sounds": [
+      "quakeweapons:axe_hit_entity"
+    ]
+  },
+
+  "quad_damage_pickup": {
+    "subtitle": "sounds.quakeweapons.quad_damage_pickup",
+    "sounds": [
+      "quakeweapons:quad_damage_pickup"
+    ]
+  },
+
+  "quad_damage_use": {
+    "subtitle": "sounds.quakeweapons.quad_damage_use",
+    "sounds": [
+      "quakeweapons:quad_damage_use"
+    ]
+  },
+
+  "quad_damage_expire": {
+    "subtitle": "sounds.quakeweapons.quad_damage_expire",
+    "sounds": [
+      "quakeweapons:quad_damage_expire"
+    ]
+  },
+
+  "pentagram_pickup": {
+    "subtitle": "sounds.quakeweapons.pentagram_pickup",
+    "sounds": [
+      "quakeweapons:pentagram_pickup"
+    ]
+  },
+
+  "pentagram_use": {
+    "subtitle": "sounds.quakeweapons.pentagram_use",
+    "sounds": [
+      "quakeweapons:pentagram_use"
+    ]
+  },
+
+  "pentagram_expire": {
+    "subtitle": "sounds.quakeweapons.pentagram_expire",
+    "sounds": [
+      "quakeweapons:pentagram_expire"
+    ]
+  },
+
+  "ring_pickup": {
+    "subtitle": "sounds.quakeweapons.ring_pickup",
+    "sounds": [
+      "quakeweapons:ring_pickup"
+    ]
+  },
+
+  "ring_use": {
+    "subtitle": "sounds.quakeweapons.ring_use",
+    "sounds": [
+      "quakeweapons:ring_use"
+    ]
+  },
+
+  "ring_expire": {
+    "subtitle": "sounds.quakeweapons.ring_expire",
+    "sounds": [
+      "quakeweapons:ring_expire"
+    ]
+  },
+
+  "biosuit_pickup": {
+    "subtitle": "sounds.quakeweapons.biosuit_pickup",
+    "sounds": [
+      "quakeweapons:biosuit_pickup"
+    ]
+  },
+
+  "biosuit_expire": {
+    "subtitle": "sounds.quakeweapons.biosuit_expire",
+    "sounds": [
+      "quakeweapons:biosuit_expire"
+    ]
+  }
+
+}

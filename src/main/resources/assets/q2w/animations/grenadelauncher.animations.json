@@ -1,0 +1,137 @@
+{
+	"format_version": "1.8.0",
+	"animations": {
+		"grenadelauncher.animations.shooting": {
+			"loop": true,
+			"animation_length": 0.59,
+			"bones": {
+				"gun": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.04": {
+							"vector": [0, 0, 0]
+						},
+						"0.05": {
+							"vector": [-10, 0, 0]
+						},
+						"0.09": {
+							"vector": [-10, 0, 0]
+						},
+						"0.1": {
+							"vector": [-15, 0, 0]
+						},
+						"0.14": {
+							"vector": [-15, 0, 0]
+						},
+						"0.15": {
+							"vector": [-20, 0, 0]
+						},
+						"0.4": {
+							"vector": [0, 0, 0],
+							"easing": "easeInBack"
+						}
+					},
+					"position": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.04": {
+							"vector": [0, 0, 0]
+						},
+						"0.05": {
+							"vector": [0, 0, 1]
+						},
+						"0.09": {
+							"vector": [0, 0, 1],
+							"easing": "linear"
+						},
+						"0.1": {
+							"vector": [0, 0, 1.5]
+						},
+						"0.14": {
+							"vector": [0, 0, 1.5]
+						},
+						"0.15": {
+							"vector": [0, 0, 2]
+						},
+						"0.4": {
+							"vector": [0, 0, 0],
+							"easing": "easeInBack"
+						}
+					}
+				}
+			}
+		},
+		"grenadelauncher.animations.ammoempty": {
+			"loop": true,
+			"animation_length": 0.63,
+			"bones": {
+				"gun": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.04": {
+							"vector": [0, 0, 0]
+						},
+						"0.05": {
+							"vector": [-10, 0, 0]
+						},
+						"0.09": {
+							"vector": [-10, 0, 0]
+						},
+						"0.1": {
+							"vector": [-15, 0, 0]
+						},
+						"0.14": {
+							"vector": [-15, 0, 0]
+						},
+						"0.15": {
+							"vector": [-20, 0, 0]
+						},
+						"0.3": {
+							"vector": [0, 0, 0],
+							"easing": "linear"
+						}
+					},
+					"position": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.04": {
+							"vector": [0, 0, 0]
+						},
+						"0.05": {
+							"vector": [0, 0, 1]
+						},
+						"0.09": {
+							"vector": [0, 0, 1],
+							"easing": "linear"
+						},
+						"0.1": {
+							"vector": [0, 0, 1.5]
+						},
+						"0.14": {
+							"vector": [0, 0, 1.5]
+						},
+						"0.15": {
+							"vector": [0, 0, 2],
+							"easing": "linear"
+						},
+						"0.3": {
+							"vector": [0, 0, 0],
+							"easing": "linear"
+						}
+					}
+				}
+			}
+		},
+		"grenadelauncher.animations.idle": {
+			"loop": true,
+			"animation_length": 0.01
+		}
+	},
+	"geckolib_format_version": 2
+}
