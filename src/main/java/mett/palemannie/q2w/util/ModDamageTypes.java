@@ -24,5 +24,5 @@ public class ModDamageTypes {
     public static final ResourceKey<DamageType> RAILGUN_DAMAGE = register("railgun_damage");
     public static final ResourceKey<DamageType> BFG10K_DAMAGE = register("bfg10k_damage");
     public static final ResourceKey<DamageType> BFG10K_LASER_DAMAGE = register("bfg10k_laser");
-    public static final ResourceKey<DamageType> BFG10K_SPLASH_DAMAGE = register("bfg10k_splash");
+    public static final ResourceKey<DamageType> BFG10K_FLASH_DAMAGE = register("bfg10k_flash");
 }
