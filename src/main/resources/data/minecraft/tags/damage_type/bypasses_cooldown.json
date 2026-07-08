@@ -1,16 +1,17 @@
 {
   "values": [
-    "quakeweapons:machinegun_damage",
-    "quakeweapons:chaingun_damage",
-    "quakeweapons:railgun_damage",
-    "quakeweapons:bfg10k_damage",
-    "quakeweapons:bfg10k_laser",
-    "quakeweapons:bfg10k_impact",
-    "quakeweapons:shotgun_damage",
-    "quakeweapons:super_shotgun_damage",
-    "quakeweapons:rocketlauncher_damage",
-    "quakeweapons:grenadelauncher_damage",
-    "quakeweapons:blaster_damage",
-    "quakeweapons:hyperblaster_damage"
+    "q2w:blaster_damage",
+    "q2w:shotgun_damage",
+    "q2w:super_shotgun_damage",
+    "q2w:machinegun_damage",
+    "q2w:chaingun_damage",
+    "q2w:grenade_damage",
+    "q2w:grenadelauncher_damage",
+    "q2w:rocketlauncher_damage",
+    "q2w:hyperblaster_damage",
+    "q2w:railgun_damage",
+    "q2w:bfg10k_damage",
+    "q2w:bfg10k_laser",
+    "q2w:bfg10k_splash"
   ]
 }

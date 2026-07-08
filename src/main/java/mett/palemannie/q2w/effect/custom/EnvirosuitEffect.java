@@ -8,9 +8,9 @@ import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
 
-public class BiosuitEffect extends MobEffect {
+public class EnvirosuitEffect extends MobEffect {
 
-    public BiosuitEffect(MobEffectCategory pCategory, int pColor) {
+    public EnvirosuitEffect(MobEffectCategory pCategory, int pColor) {
         super(pCategory, pColor);
     }
 
@@ -22,14 +22,14 @@ public class BiosuitEffect extends MobEffect {
 
         entity.setAirSupply(entity.getMaxAirSupply());
 
-        MobEffectInstance inst = entity.getEffect(ModEffects.BIOSUIT.get());
+        MobEffectInstance inst = entity.getEffect(ModEffects.ENVIROSUIT.get());
         if (inst != null) {
             int remaining = inst.getDuration();
 
             if (remaining == 60) {
                 if (entity.level().isClientSide) {
 
-                    entity.level().playLocalSound(entity.getX(), entity.getY(), entity.getZ(), ModSounds.BIOSUIT_EXPIRE.get(), SoundSource.PLAYERS, 3f, 1f, false);
+                    entity.level().playLocalSound(entity.getX(), entity.getY(), entity.getZ(), ModSounds.ENVIROSUIT_EXPIRE.get(), SoundSource.PLAYERS, 3f, 1f, false);
                 }
             }
         }

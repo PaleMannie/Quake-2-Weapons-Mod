@@ -17,9 +17,9 @@ public class ModCreativeModeTabs {
     public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS =
             DeferredRegister.create(Registries.CREATIVE_MODE_TAB, Quake2Weapons.MODID);
 
-    public static final RegistryObject<CreativeModeTab> QUAKEWEAPONS_TAB = CREATIVE_MODE_TABS.register("quakeweapons_tab",
+    public static final RegistryObject<CreativeModeTab> Q2W_TAB = CREATIVE_MODE_TABS.register("q2w_tab",
             () -> CreativeModeTab.builder().icon(() -> new ItemStack(ModItems.BULLET.get()))
-                    .title(Component.translatable("quakeweapons.creativetab.quakeweapons_tab"))
+                    .title(Component.translatable("q2w.creativetab.q2w_tab"))
                     .displayItems((pParameters, pOutput) -> {
 
                         /// Weapons ordered in gameplay order
