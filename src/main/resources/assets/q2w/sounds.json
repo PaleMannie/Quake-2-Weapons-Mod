@@ -1,5 +1,4 @@
 {
-
   "weapon_switch": {
     "subtitle": "sounds.q2w.weapon_switch",
     "sounds": [
@@ -11,6 +10,287 @@
     "subtitle": "sounds.q2w.shotgun_shoot",
     "sounds": [
       "q2w:shotgun_shoot"
+    ]
+  },
+
+  "blaster_shoot": {
+    "subtitle": "sounds.q2w.blaster_shoot",
+    "sounds": [
+      "q2w:blaster_shoot"
+    ]
+  },
+
+  "super_shotgun_shoot": {
+    "subtitle": "sounds.q2w.super_shotgun_shoot",
+    "sounds": [
+      "q2w:super_shotgun_shoot"
+    ]
+  },
+
+  "bullet_hit": {
+    "subtitle": "sounds.q2w.bullet_hit",
+    "sounds": [
+      "q2w:bullet_hit1",
+      "q2w:bullet_hit2",
+      "q2w:bullet_hit3",
+      "q2w:bullet_hit4"
+    ]
+  },
+
+  "chaingun_shoot": {
+    "subtitle": "sounds.q2w.chaingun_shoot",
+    "sounds": [
+      "q2w:chaingun_shoot1",
+      "q2w:chaingun_shoot2",
+      "q2w:chaingun_shoot3",
+      "q2w:chaingun_shoot4",
+      "q2w:chaingun_shoot5"
+    ]
+  },
+
+  "chaingun_spinup": {
+    "subtitle": "sounds.q2w.chaingun_spinup",
+    "sounds": [
+      "q2w:chaingun_spinup"
+    ]
+  },
+
+  "chaingun_loop": {
+    "subtitle": "sounds.q2w.chaingun_loop",
+    "sounds": [
+      "q2w:chaingun_loop"
+    ]
+  },
+
+  "chaingun_spindown": {
+    "subtitle": "sounds.q2w.chaingun_spindown",
+    "sounds": [
+      "q2w:chaingun_spindown"
+    ]
+  },
+
+  "explosion": {
+    "subtitle": "sounds.q2w.explosion",
+    "sounds": [
+      "q2w:explosion"
+    ]
+  },
+
+  "handgrenade_start": {
+    "subtitle": "sounds.q2w.handgrenade_start",
+    "sounds": [
+      "q2w:handgrenade_start"
+    ]
+  },
+
+  "handgrenade_cook": {
+    "subtitle": "sounds.q2w.handgrenade_cook",
+    "sounds": [
+      "q2w:handgrenade_cook"
+    ]
+  },
+
+  "handgrenade_toss": {
+    "subtitle": "sounds.q2w.handgrenade_toss",
+    "sounds": [
+      "q2w:handgrenade_toss"
+    ]
+  },
+
+  "handgrenade_bounce": {
+    "subtitle": "sounds.q2w.handgrenade_bounce",
+    "sounds": [
+      "q2w:handgrenade_bounce1",
+      "q2w:handgrenade_bounce2"
+    ]
+  },
+
+  "grenadelauncher_bounce": {
+    "subtitle": "sounds.q2w.grenadelauncher_bounce",
+    "sounds": [
+      "q2w:grenadelauncher_bounce"
+    ]
+  },
+
+  "grenadelauncher_shoot": {
+    "subtitle": "sounds.q2w.grenadelauncher_shoot",
+    "sounds": [
+      "q2w:grenadelauncher_shoot"
+    ]
+  },
+
+  "rocketlauncher_shoot": {
+    "subtitle": "sounds.q2w.rocketlauncher_shoot",
+    "sounds": [
+      "q2w:rocketlauncher_shoot"
+    ]
+  },
+
+  "rocket_loop": {
+    "subtitle": "sounds.q2w.rocket_loop",
+    "sounds": [
+      "q2w:rocket_loop"
+    ]
+  },
+
+  "hyperblaster_shoot": {
+    "subtitle": "sounds.q2w.hyperblaster_shoot",
+    "sounds": [
+      "q2w:hyperblaster_shoot"
+    ]
+  },
+
+  "hyperblaster_loop": {
+    "subtitle": "sounds.q2w.hyperblaster_loop",
+    "sounds": [
+      "q2w:hyperblaster_loop"
+    ]
+  },
+
+  "hyperblaster_spinup": {
+    "subtitle": "sounds.q2w.hyperblaster_spinup",
+    "sounds": [
+      "q2w:hyperblaster_spinup"
+    ]
+  },
+
+  "hyperblaster_spindown": {
+    "subtitle": "sounds.q2w.hyperblaster_spindown",
+    "sounds": [
+      "q2w:hyperblaster_spindown"
+    ]
+  },
+
+  "railgun_shoot": {
+    "subtitle": "sounds.q2w.railgun_shoot",
+    "sounds": [
+      "q2w:railgun_shoot"
+    ]
+  },
+
+  "railgun_hum": {
+    "subtitle": "sounds.q2w.railgun_hum",
+    "sounds": [
+      "q2w:railgun_hum"
+    ]
+  },
+
+  "bfg10k_shoot": {
+    "subtitle": "sounds.q2w.bfg10k_shoot",
+    "sounds": [
+      "q2w:bfg10k_shoot"
+    ]
+  },
+
+  "bfg10k_projectile_loop": {
+    "subtitle": "sounds.q2w.bfg10k_projectile_loop",
+    "sounds": [
+      "q2w:bfg10k_projectile_loop"
+    ]
+  },
+
+  "bfg10k_projectile_flash": {
+    "subtitle": "sounds.q2w.bfg10k_projectile_flash",
+    "sounds": [
+      "q2w:bfg10k_projectile_flash"
+    ]
+  },
+
+  "bfg10k_hum": {
+    "subtitle": "sounds.q2w.bfg10k_hum",
+    "sounds": [
+      "q2w:bfg10k_hum"
+    ]
+  },
+
+  "quad_damage_pickup": {
+    "subtitle": "sounds.q2w.quad_damage_pickup",
+    "sounds": [
+      "q2w:quad_damage_pickup"
+    ]
+  },
+
+  "quad_damage_use": {
+    "subtitle": "sounds.q2w.quad_damage_use",
+    "sounds": [
+      "q2w:quad_damage_use"
+    ]
+  },
+
+  "quad_damage_expire": {
+    "subtitle": "sounds.q2w.quad_damage_expire",
+    "sounds": [
+      "q2w:quad_damage_expire"
+    ]
+  },
+
+  "invuln_pickup": {
+    "subtitle": "sounds.q2w.invuln_pickup",
+    "sounds": [
+      "q2w:invuln_pickup"
+    ]
+  },
+
+  "invuln_use": {
+    "subtitle": "sounds.q2w.invuln_use",
+    "sounds": [
+      "q2w:invuln_use"
+    ]
+  },
+
+  "invuln_expire": {
+    "subtitle": "sounds.q2w.invuln_expire",
+    "sounds": [
+      "q2w:invuln_expire"
+    ]
+  },
+
+  "envirosuit_pickup": {
+    "subtitle": "sounds.q2w.envirosuit_pickup",
+    "sounds": [
+      "q2w:envirosuit_pickup"
+    ]
+  },
+
+  "envirosuit_expire": {
+    "subtitle": "sounds.q2w.envirosuit_expire",
+    "sounds": [
+      "q2w:envirosuit_expire"
+    ]
+  },
+
+  "rebreather_use": {
+    "subtitle": "sounds.q2w.rebreather_use",
+    "sounds": [
+      "q2w:rebreather_use"
+    ]
+  },
+
+  "adrenaline_use": {
+    "subtitle": "sounds.q2w.adrenaline_use",
+    "sounds": [
+      "q2w:adrenaline_use"
+    ]
+  },
+
+  "powershield_enable": {
+    "subtitle": "sounds.q2w.powershield_enable",
+    "sounds": [
+      "q2w:powershield_enable"
+    ]
+  },
+
+  "powershield_disable": {
+    "subtitle": "sounds.q2w.powershield_disable",
+    "sounds": [
+      "q2w:powershield_disable"
+    ]
+  },
+
+  "ammoempty": {
+    "subtitle": "sounds.q2w.ammoempty",
+    "sounds": [
+      "q2w:ammoempty"
     ]
   }
 
