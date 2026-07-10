@@ -58,6 +58,8 @@
   "effect.q2w.quad_damage": "Quad Damage",
   "effect.q2w.invulnerability": "Invulnerability",
   "effect.q2w.envirosuit": "Enviro-Suit",
+  "effect.q2w.rebreather": "Rebreather",
+  "effect.q2w.silencer": "Silencer",
 
   "entity.q2w.nail_projectile": "Nail",
   "entity.q2w.super_nail_projectile": "Super Nail",
