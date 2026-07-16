@@ -21,6 +21,7 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> SUPER_SHOTGUN_SHOOT = registerSoundEvents("super_shotgun_shoot");
 
     public static final RegistryObject<SoundEvent> BULLET_HIT = registerSoundEvents("bullet_hit");
+    public static final RegistryObject<SoundEvent> BLASTER_HIT = registerSoundEvents("blaster_hit");
 
     public static final RegistryObject<SoundEvent> CHAINGUN_SHOOT = registerSoundEvents("chaingun_shoot");
     public static final RegistryObject<SoundEvent> CHAINGUN_SPINUP = registerSoundEvents("chaingun_spinup");

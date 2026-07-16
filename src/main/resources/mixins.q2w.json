@@ -8,9 +8,11 @@
   },
   "compatibilityLevel": "JAVA_17",
   "mixins": [
-
   ],
   "client": [
+    "ItemInHandRendererMixin",
+    "LocalPlayerMixin",
+    "MinecraftMixin"
   ],
   "server": [
   ]

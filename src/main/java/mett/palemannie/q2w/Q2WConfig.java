@@ -1,18 +1,8 @@
 package mett.palemannie.q2w;
 
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.Item;
 import net.minecraftforge.common.ForgeConfigSpec;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModLoadingContext;
-import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
-import net.minecraftforge.fml.event.config.ModConfigEvent;
-import net.minecraftforge.registries.ForgeRegistries;
-
-import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 public class Q2WConfig {
 
@@ -34,7 +24,7 @@ public class Q2WConfig {
         public final ForgeConfigSpec.DoubleValue superShotgunDamage;
         public final ForgeConfigSpec.DoubleValue machinegunDamage;
         public final ForgeConfigSpec.DoubleValue chaingunDamage;
-        public final ForgeConfigSpec.DoubleValue grenadeDamage;
+        public final ForgeConfigSpec.DoubleValue handgrenadeDamage;
         public final ForgeConfigSpec.DoubleValue grenadelauncherDamage;
         public final ForgeConfigSpec.DoubleValue rocketlauncherDamage;
         public final ForgeConfigSpec.DoubleValue hyperblasterDamage;
@@ -51,7 +41,7 @@ public class Q2WConfig {
                     .define("enableMuzzleFlash", false);
 
             enableProjectileTrailLight = builder.comment("\n[EXPERIMENTAL: EPILEPSY WARNING] Enables/Disables projectile trail lighting (Blaster(s), Rocket, BFG10k)")
-                    .define("enableRocketTrailLight", false);
+                    .define("enableProjectileTrailLight", false);
 
             enableGore = builder.comment("\nEnables/Disables Gore particles when hitting a mob with Quake weapons")
                     .define("enableGore", false);
@@ -79,9 +69,9 @@ public class Q2WConfig {
                     .comment("\nHow much damage the Chaingun deals per shot")
                     .defineInRange("chaingunDamage", 1.2, 0.0, Float.MAX_VALUE);
 
-            grenadeDamage = builder
+            handgrenadeDamage = builder
                     .comment("\nHow much damage the Grenade deals. WARNING: Damage increases blast radius")
-                    .defineInRange("grenadeDamage", 28.0, 0.0, Float.MAX_VALUE);
+                    .defineInRange("handgrenadeDamage", 28.0, 0.0, Float.MAX_VALUE);
 
             grenadelauncherDamage = builder
                     .comment("\nHow much damage the Grenade Launcher deals per shot. WARNING: Damage increases blast radius")

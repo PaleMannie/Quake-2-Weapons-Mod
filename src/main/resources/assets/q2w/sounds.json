@@ -37,6 +37,13 @@
     ]
   },
 
+  "blaster_hit": {
+    "subtitle": "sounds.q2w.blaster_hit",
+    "sounds": [
+      "q2w:blaster_hit"
+    ]
+  },
+
   "chaingun_shoot": {
     "subtitle": "sounds.q2w.chaingun_shoot",
     "sounds": [
