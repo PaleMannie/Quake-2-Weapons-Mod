@@ -49,6 +49,7 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> RAILGUN_SHOOT = registerSoundEvents("railgun_shoot");
     public static final RegistryObject<SoundEvent> RAILGUN_HUM = registerSoundEvents("railgun_hum");
 
+    public static final RegistryObject<SoundEvent> BFG10K_WINDUP = registerSoundEvents("bfg10k_windup");
     public static final RegistryObject<SoundEvent> BFG10K_SHOOT = registerSoundEvents("bfg10k_shoot");
     public static final RegistryObject<SoundEvent> BFG10K_PROJECTILE_LOOP = registerSoundEvents("bfg10k_projectile_loop");
     public static final RegistryObject<SoundEvent> BFG10K_PROJECTILE_FLASH = registerSoundEvents("bfg10k_projectile_flash");

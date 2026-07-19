@@ -182,6 +182,13 @@
     ]
   },
 
+  "bfg10k_windup": {
+    "subtitle": "sounds.q2w.bfg10k_windup",
+    "sounds": [
+      "q2w:bfg10k_windup"
+    ]
+  },
+
   "bfg10k_shoot": {
     "subtitle": "sounds.q2w.bfg10k_shoot",
     "sounds": [
