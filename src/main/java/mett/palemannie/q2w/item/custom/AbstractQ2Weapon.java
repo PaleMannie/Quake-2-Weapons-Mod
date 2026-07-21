@@ -44,59 +44,26 @@ public abstract class AbstractQ2Weapon extends AbstractWeapon {
         return this.releaseCooldownTicks;
     }
 
-    /**
-     * null means this weapon does not need ammo.
-     * Example: Blaster.
-     */
     @Nullable
     protected Item ammoItem() {
         return null;
     }
 
-    /**
-     * Cost per logical shot.
-     *
-     * Examples:
-     * Blaster: 0
-     * Machinegun: 1
-     * Chaingun: 1, but shotsPerTrigger() can return 1-3
-     * BFG10K: 50
-     */
     protected int ammoCostPerShot() {
         return 0;
     }
 
-    /**
-     * Most weapons fire once per trigger.
-     * Chaingun can override this for spin-up.
-     */
     protected int shotsPerTrigger(ServerLevel level, ServerPlayer player, ItemStack stack, int useTicks) {
         return 1;
     }
 
-    /**
-     * Called every server tick while the weapon is held down.
-     * Useful for spin-up sounds, wind-up animations, charging logic, etc.
-     */
     protected void heldTick(ServerLevel level, ServerPlayer player, ItemStack stack, int useTicks) {
     }
 
-    /**
-     * Standard auto-fire logic.
-     *
-     * useTicks starts at 0 when right click begins.
-     */
     protected boolean shouldAttemptFire(ServerLevel level, ServerPlayer player, ItemStack stack, int useTicks) {
         return useTicks % fireIntervalTicks() == 0;
     }
 
-    /**
-     * Actual weapon behavior.
-     *
-     * Examples:
-     * ServerPlayHandler.handleBlasterShoot(player);
-     * ServerPlayHandler.handleRocketLauncherShoot(player);
-     */
     protected abstract void fireWeapon(ServerLevel level, ServerPlayer player, ItemStack stack, int useTicks);
 
     @Override
@@ -128,17 +95,12 @@ public abstract class AbstractQ2Weapon extends AbstractWeapon {
     }
 
     protected void onSuccessfulFire(ServerLevel level, ServerPlayer player, ItemStack stack) {
-        stopAmmoEmptyAnimation(player, level, stack);
-        stopIdleAnimation(player, level, stack);
-        startShootingAnimation(player, level, stack);
+        triggerShootingAnimation(player, level, stack);
     }
 
     protected void onAmmoEmpty(ServerLevel level, ServerPlayer player, ItemStack stack) {
         ServerPlayHandler.playAmmoEmptySound(player);
-
-        stopShootingAnimation(player, level, stack);
-        stopIdleAnimation(player, level, stack);
-        startAmmoEmptyAnimation(player, level, stack);
+        triggerAmmoEmptyAnimation(player, level, stack);
     }
 
     protected boolean consumeAmmo(Player player, @Nullable Item ammoItem, int amount) {

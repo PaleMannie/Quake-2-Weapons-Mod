@@ -356,7 +356,7 @@ public class ServerPlayHandler {
         Level lvl = player.level();
 
         ///Entity
-        double forwardOffset = 0.2;
+        /*double forwardOffset = 0.2;
 
         Vec3 look = player.getLookAngle();
         Vec3 right = look.cross(new Vec3(0, 0, 0)).normalize();
@@ -377,7 +377,7 @@ public class ServerPlayHandler {
             flash.setPos(spawnX, spawnY, spawnZ);
 
             sevel.addFreshEntity(flash);
-        }
+        }*/
 
         ///Sound
         double posX = player.getX();
@@ -389,6 +389,6 @@ public class ServerPlayHandler {
     public static void playAmmoEmptySound(ServerPlayer player){
 
         Level level = player.level();
-        level.playSound(null, player.blockPosition(), SoundEvents.DISPENSER_FAIL, SoundSource.NEUTRAL, 1f, 1f);
+        level.playSound(null, player.blockPosition(), ModSounds.AMMOEMPTY.get(), SoundSource.NEUTRAL, 1f, 1f);
     }
 }

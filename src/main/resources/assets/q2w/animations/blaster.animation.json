@@ -1,0 +1,94 @@
+{
+	"format_version": "1.8.0",
+	"loop": false,
+	"animations": {
+		"blaster.animation.idle": {
+			"animation_length": 0.05,
+			"bones": {
+				"blaster": {
+					"position": {
+						"vector": [0, 0, 0]
+					}
+				},
+				"fire": {
+					"position": {
+						"vector": [0, 0, 6.75]
+					},
+					"scale": {
+						"vector": [0.3, 0.5, 1]
+					}
+				}
+			}
+		},
+		"blaster.animation.shooting": {
+			"animation_length": 0.45,
+			"bones": {
+				"blaster": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.1": {
+							"vector": [5, 0, 0],
+							"easing": "easeInQuad"
+						},
+						"0.25": {
+							"vector": [-12.5, 0, 0],
+							"easing": "easeInOutBounce"
+						},
+						"0.45": {
+							"vector": [0, 0, 0],
+							"easing": "easeInBack"
+						}
+					},
+					"position": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.1": {
+							"vector": [0, 0, 6],
+							"easing": "easeInQuad"
+						},
+						"0.25": {
+							"vector": [0, 7, 6],
+							"easing": "easeOutBounce"
+						},
+						"0.45": {
+							"vector": [0, 0, 0],
+							"easing": "easeInBack"
+						}
+					}
+				},
+				"fire": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.05": {
+							"vector": [0, 0, 0]
+						}
+					},
+					"position": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.05": {
+							"vector": [0, 0, 1.4]
+						}
+					},
+					"scale": {
+						"0.0": {
+							"vector": [1, 1, 1]
+						},
+						"0.05": {
+							"vector": [1, 1, 1]
+						},
+						"0.06": {
+							"vector": [0, 0, 0]
+						}
+					}
+				}
+			}
+		}
+	}
+}

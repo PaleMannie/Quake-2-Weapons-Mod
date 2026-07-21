@@ -12,7 +12,7 @@ public class RocketlauncherModel extends GeoModel<RocketlauncherItem> {
 
     private static final ResourceLocation DEFAULT_TEXTURE = ResourceLocation.fromNamespaceAndPath(Quake2Weapons.MODID, "textures/item/rocketlauncher.png");
 
-    private static final ResourceLocation DEFAULT_ANIM = ResourceLocation.fromNamespaceAndPath(Quake2Weapons.MODID, "animations/rocketlauncher.animations.json");
+    private static final ResourceLocation DEFAULT_ANIM = ResourceLocation.fromNamespaceAndPath(Quake2Weapons.MODID, "animations/rocketlauncher.animation.json");
 
     @Override
     public ResourceLocation getModelResource(RocketlauncherItem animatable) {

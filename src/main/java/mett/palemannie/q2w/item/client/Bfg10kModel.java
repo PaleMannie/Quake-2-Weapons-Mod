@@ -11,7 +11,7 @@ public class Bfg10kModel extends GeoModel<Bfg10kItem> {
 
     private static final ResourceLocation DEFAULT_TEXTURE = ResourceLocation.fromNamespaceAndPath(Quake2Weapons.MODID, "textures/item/bfg10k.png");
 
-    private static final ResourceLocation DEFAULT_ANIM = ResourceLocation.fromNamespaceAndPath(Quake2Weapons.MODID, "animations/bfg10k.animations.json");
+    private static final ResourceLocation DEFAULT_ANIM = ResourceLocation.fromNamespaceAndPath(Quake2Weapons.MODID, "animations/bfg10k.animation.json");
 
     @Override
     public ResourceLocation getModelResource(Bfg10kItem animatable) {

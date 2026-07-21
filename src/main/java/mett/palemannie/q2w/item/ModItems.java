@@ -1,6 +1,8 @@
 package mett.palemannie.q2w.item;
 
 import mett.palemannie.q2w.Quake2Weapons;
+import mett.palemannie.q2w.item.custom.BlasterItem;
+import mett.palemannie.q2w.item.custom.ShotgunItem;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
@@ -12,6 +14,7 @@ public class ModItems {
     public static final DeferredRegister<Item> ITEMS =
             DeferredRegister.create(ForgeRegistries.ITEMS, Quake2Weapons.MODID);
 
+    /// Ammo
 
     public static final RegistryObject<Item> BULLET = ITEMS.register("bullet",
             () -> new Item(new Item.Properties().stacksTo(64)));
@@ -31,11 +34,13 @@ public class ModItems {
     public static final RegistryObject<Item> SLUG = ITEMS.register("slug",
             () -> new Item(new Item.Properties().stacksTo(64)));
 
+    /// Weapons
+
     public static final RegistryObject<Item> BLASTER = ITEMS.register("blaster",
-            () -> new Item(new Item.Properties().stacksTo(1)));
+            () -> new BlasterItem(new Item.Properties().stacksTo(1)));
 
     public static final RegistryObject<Item> SHOTGUN = ITEMS.register("shotgun",
-            () -> new Item(new Item.Properties().stacksTo(1)));
+            () -> new ShotgunItem(new Item.Properties().stacksTo(1)));
 
     public static final RegistryObject<Item> SUPER_SHOTGUN = ITEMS.register("super_shotgun",
             () -> new Item(new Item.Properties().stacksTo(1)));
@@ -60,6 +65,8 @@ public class ModItems {
 
     public static final RegistryObject<Item> BFG10K = ITEMS.register("bfg10k",
             () -> new Item(new Item.Properties().stacksTo(1)));
+
+    /// Powerup Items
 
     public static final RegistryObject<Item> QUAD_DAMAGE_ITEM = ITEMS.register("quad_damage_item",
             () -> new Item(new Item.Properties().stacksTo(1)));

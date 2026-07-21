@@ -12,7 +12,7 @@ public class ChaingunModel extends GeoModel<ChaingunItem> {
 
     private static final ResourceLocation DEFAULT_TEXTURE = ResourceLocation.fromNamespaceAndPath(Quake2Weapons.MODID, "textures/item/chaingun.png");
 
-    private static final ResourceLocation DEFAULT_ANIM = ResourceLocation.fromNamespaceAndPath(Quake2Weapons.MODID, "animations/chaingun.animations.json");
+    private static final ResourceLocation DEFAULT_ANIM = ResourceLocation.fromNamespaceAndPath(Quake2Weapons.MODID, "animations/chaingun.animation.json");
 
     @Override
     public ResourceLocation getModelResource(ChaingunItem animatable) {

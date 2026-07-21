@@ -10,7 +10,7 @@ import net.minecraft.world.item.ItemStack;
 public class BlasterItem extends AbstractQ2Weapon {
 
     public BlasterItem(Properties properties) {
-        super(properties, 10, 10);
+        super(properties, 10, 8);
     }
 
     @Override

@@ -18,7 +18,7 @@ public class QWConfigEvents {
             System.out.println("[QW] SERVER config loaded — reloading spawner values");
 
             PowerupSpawner.reloadConfigValues();
-            AbstractWeaponItemDroppedAnimationFixer.reloadConfigValues();
+            //AbstractWeaponItemDroppedAnimationFixer.reloadConfigValues();
         }
 
         if(event.getConfig().getSpec() == Q2WConfig.COMMON_SPEC){
@@ -36,14 +36,12 @@ public class QWConfigEvents {
             System.out.println("[QW] SERVER config reloaded — reloading spawner values");
 
             PowerupSpawner.reloadConfigValues();
-            AbstractWeaponItemDroppedAnimationFixer.reloadConfigValues();
         }
 
         if(event.getConfig().getSpec() == Q2WConfig.COMMON_SPEC){
 
             Quake2Weapons.LOGGER.trace("[QW] COMMON config reloaded — reloading animation switches");
 
-            //AbstractWeapon.reloadAltModelConfig();
         }
     }
 }

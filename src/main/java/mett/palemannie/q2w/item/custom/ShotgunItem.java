@@ -12,7 +12,7 @@ import net.minecraft.world.item.ItemStack;
 public class ShotgunItem extends AbstractQ2Weapon{
 
     public ShotgunItem(Properties properties) {
-        super(properties, 24, 24);
+        super(properties, 25, 23);
     }
 
     @Override

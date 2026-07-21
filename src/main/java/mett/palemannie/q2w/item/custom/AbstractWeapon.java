@@ -44,6 +44,13 @@ public abstract class AbstractWeapon extends Item implements GeoItem {
 
     protected final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
 
+    protected static final String SHOOT_CONTROLLER = "shoot_controller";
+    protected static final String AMMO_EMPTY_CONTROLLER = "ammo_empty_controller";
+    protected static final String IDLE_CONTROLLER = "idle_controller";
+
+    protected static final String SHOOT_TRIGGER = "shoot";
+    protected static final String AMMO_EMPTY_TRIGGER = "ammoempty";
+
     public AbstractWeapon(Properties properties) {
         super(properties);
         SingletonGeoAnimatable.registerSyncedAnimatable(this);
@@ -54,34 +61,22 @@ public abstract class AbstractWeapon extends Item implements GeoItem {
         return this.cache;
     }
 
-    /**
-     * Example:
-     * blaster -> blaster.animations.shooting
-     * bfg10k  -> bfg10k.animations.shooting
-     */
     protected abstract String animationPrefix();
 
-    /**
-     * Each weapon still provides its renderer,
-     * but initializeClient() itself lives here.
-     */
     protected abstract BlockEntityWithoutLevelRenderer createRenderer();
 
     protected String shootingAnimationName() {
-        return animationPrefix() + ".animations.shooting";
+        return animationPrefix() + ".animation.shooting";
     }
 
     protected String ammoEmptyAnimationName() {
-        return animationPrefix() + ".animations.ammoempty";
+        return animationPrefix() + ".animation.ammoempty";
     }
 
     protected String idleAnimationName() {
-        return animationPrefix() + ".animations.idle";
+        return animationPrefix() + ".animation.idle";
     }
 
-    /**
-     * Override in child classes if a weapon should apply a cooldown after releasing right click.
-     */
     protected int getReleaseCooldownTicks() {
         return 0;
     }
@@ -89,22 +84,20 @@ public abstract class AbstractWeapon extends Item implements GeoItem {
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
         RawAnimation shootingAnim = RawAnimation.begin()
-                .then(shootingAnimationName(), Animation.LoopType.LOOP);
+                .then(shootingAnimationName(), Animation.LoopType.PLAY_ONCE);
 
         RawAnimation ammoEmptyAnim = RawAnimation.begin()
-                .then(ammoEmptyAnimationName(), Animation.LoopType.LOOP);
+                .then(ammoEmptyAnimationName(), Animation.LoopType.PLAY_ONCE);
 
         RawAnimation idleAnim = RawAnimation.begin()
                 .then(idleAnimationName(), Animation.LoopType.LOOP);
 
-        controllers.add(new AnimationController<>(this, "controller", 0, state -> PlayState.CONTINUE)
-                .triggerableAnim("shooting", shootingAnim));
-
-        controllers.add(new AnimationController<>(this, "controller2", 0, state -> PlayState.CONTINUE)
+        controllers.add(new AnimationController<>(this, "weapon_controller", 0, state -> {
+            state.setAndContinue(idleAnim);
+            return PlayState.CONTINUE;
+        })
+                .triggerableAnim("shoot", shootingAnim)
                 .triggerableAnim("ammoempty", ammoEmptyAnim));
-
-        controllers.add(new AnimationController<>(this, "controller3", 0, state -> PlayState.CONTINUE)
-                .triggerableAnim("idle", idleAnim));
     }
 
     @Override
@@ -149,7 +142,7 @@ public abstract class AbstractWeapon extends Item implements GeoItem {
 
     @Override
     public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
-        return false;
+        return slotChanged;
     }
 
     @Override
@@ -159,7 +152,7 @@ public abstract class AbstractWeapon extends Item implements GeoItem {
 
     @Override
     public int getUseDuration(ItemStack stack) {
-        return 2000000000;
+        return 2_000_000_000;
     }
 
     @Override
@@ -179,7 +172,7 @@ public abstract class AbstractWeapon extends Item implements GeoItem {
         }
 
         setCurrentHand(usedHand, player);
-        return InteractionResultHolder.pass(player.getItemInHand(usedHand));
+        return InteractionResultHolder.consume(player.getItemInHand(usedHand));
     }
 
     protected abstract void executeWeaponFire(Level level, LivingEntity user, ItemStack stack, int remainingUseDuration);
@@ -200,9 +193,11 @@ public abstract class AbstractWeapon extends Item implements GeoItem {
             player.getCooldowns().addCooldown(this, releaseCooldown);
         }
 
-        if (level instanceof ServerLevel serverLevel) {
-            resetToIdle(livingEntity, serverLevel, stack);
-        }
+        /*
+         * Wichtig:
+         * Hier NICHT mehr stopShootingAnimation() aufrufen.
+         * Sonst wird die PLAY_ONCE-Schießanimation beim kurzen Klick abgeschnitten.
+         */
     }
 
     @Override
@@ -213,46 +208,50 @@ public abstract class AbstractWeapon extends Item implements GeoItem {
         if (!(entity instanceof LivingEntity livingEntity)) return;
 
         if (stack.hasTag() && stack.getTag().getBoolean("WasDropped")) {
-            resetToIdle(livingEntity, serverLevel, stack);
+            hardStopTriggeredAnimations(livingEntity, serverLevel, stack);
             stack.getTag().remove("WasDropped");
         }
 
         if (entity instanceof Player player) {
             boolean usingThisStack = player.isUsingItem() && player.getUseItem() == stack;
 
-            if (!selected || !usingThisStack) {
-                resetToIdle(livingEntity, serverLevel, stack);
+            if (!selected && !usingThisStack) {
+                hardStopTriggeredAnimations(livingEntity, serverLevel, stack);
             }
         }
     }
 
-    protected void resetToIdle(LivingEntity livingEntity, ServerLevel serverLevel, ItemStack stack) {
-        stopShootingAnimation(livingEntity, serverLevel, stack);
-        stopAmmoEmptyAnimation(livingEntity, serverLevel, stack);
-        startIdleAnimation(livingEntity, serverLevel, stack);
+    protected void triggerShootingAnimation(LivingEntity livingEntity, ServerLevel serverLevel, ItemStack stack) {
+        triggerAnim(
+                livingEntity,
+                GeoItem.getOrAssignId(stack, serverLevel),
+                "weapon_controller",
+                "shoot"
+        );
     }
 
-    public void startShootingAnimation(LivingEntity livingEntity, ServerLevel serverLevel, ItemStack stack) {
-        triggerAnim(livingEntity, GeoItem.getOrAssignId(stack, serverLevel), "controller", "shooting");
+    protected void triggerAmmoEmptyAnimation(LivingEntity livingEntity, ServerLevel serverLevel, ItemStack stack) {
+        triggerAnim(
+                livingEntity,
+                GeoItem.getOrAssignId(stack, serverLevel),
+                "weapon_controller",
+                "ammoempty"
+        );
     }
 
-    public void stopShootingAnimation(LivingEntity livingEntity, ServerLevel serverLevel, ItemStack stack) {
-        stopTriggeredAnim(livingEntity, GeoItem.getOrAssignId(stack, serverLevel), "controller", "shooting");
-    }
+    public void hardStopTriggeredAnimations(LivingEntity livingEntity, ServerLevel serverLevel, ItemStack stack) {
+        stopTriggeredAnim(
+                livingEntity,
+                GeoItem.getOrAssignId(stack, serverLevel),
+                "weapon_controller",
+                "shoot"
+        );
 
-    public void startAmmoEmptyAnimation(LivingEntity livingEntity, ServerLevel serverLevel, ItemStack stack) {
-        triggerAnim(livingEntity, GeoItem.getOrAssignId(stack, serverLevel), "controller2", "ammoempty");
-    }
-
-    public void stopAmmoEmptyAnimation(LivingEntity livingEntity, ServerLevel serverLevel, ItemStack stack) {
-        stopTriggeredAnim(livingEntity, GeoItem.getOrAssignId(stack, serverLevel), "controller2", "ammoempty");
-    }
-
-    public void startIdleAnimation(LivingEntity livingEntity, ServerLevel serverLevel, ItemStack stack) {
-        triggerAnim(livingEntity, GeoItem.getOrAssignId(stack, serverLevel), "controller3", "idle");
-    }
-
-    public void stopIdleAnimation(LivingEntity livingEntity, ServerLevel serverLevel, ItemStack stack) {
-        stopTriggeredAnim(livingEntity, GeoItem.getOrAssignId(stack, serverLevel), "controller3", "idle");
+        stopTriggeredAnim(
+                livingEntity,
+                GeoItem.getOrAssignId(stack, serverLevel),
+                "weapon_controller",
+                "ammoempty"
+        );
     }
 }

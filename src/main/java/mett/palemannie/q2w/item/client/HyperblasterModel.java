@@ -12,7 +12,7 @@ public class HyperblasterModel extends GeoModel<HyperblasterItem> {
 
     private static final ResourceLocation DEFAULT_TEXTURE = ResourceLocation.fromNamespaceAndPath(Quake2Weapons.MODID, "textures/item/hyperblaster.png");
 
-    private static final ResourceLocation DEFAULT_ANIM = ResourceLocation.fromNamespaceAndPath(Quake2Weapons.MODID, "animations/hyperblaster.animations.json");
+    private static final ResourceLocation DEFAULT_ANIM = ResourceLocation.fromNamespaceAndPath(Quake2Weapons.MODID, "animations/hyperblaster.animation.json");
 
     @Override
     public ResourceLocation getModelResource(HyperblasterItem animatable) {

@@ -12,7 +12,7 @@ public class SuperShotgunModel extends GeoModel<SuperShotgunItem> {
 
     private static final ResourceLocation DEFAULT_TEXTURE = ResourceLocation.fromNamespaceAndPath(Quake2Weapons.MODID, "textures/item/super_shotgun.png");
 
-    private static final ResourceLocation DEFAULT_ANIM = ResourceLocation.fromNamespaceAndPath(Quake2Weapons.MODID, "animations/super_shotgun.animations.json");
+    private static final ResourceLocation DEFAULT_ANIM = ResourceLocation.fromNamespaceAndPath(Quake2Weapons.MODID, "animations/super_shotgun.animation.json");
 
     @Override
     public ResourceLocation getModelResource(SuperShotgunItem animatable) {

@@ -12,7 +12,7 @@ public class HandgrenadeModel extends GeoModel<HandgrenadeItem> {
 
     private static final ResourceLocation DEFAULT_TEXTURE = ResourceLocation.fromNamespaceAndPath(Quake2Weapons.MODID, "textures/item/handgrenade.png");
 
-    private static final ResourceLocation DEFAULT_ANIM = ResourceLocation.fromNamespaceAndPath(Quake2Weapons.MODID, "animations/handgrenade.animations.json");
+    private static final ResourceLocation DEFAULT_ANIM = ResourceLocation.fromNamespaceAndPath(Quake2Weapons.MODID, "animations/handgrenade.animation.json");
 
     @Override
     public ResourceLocation getModelResource(HandgrenadeItem animatable) {

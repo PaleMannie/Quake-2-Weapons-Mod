@@ -48,13 +48,13 @@ minecraft {
 
         client {
             property 'forge.enabledGameTestNamespaces', mod_id
-            arg '-mixin.config=mixins.quakeweapons.json'
+            arg '-mixin.config=mixins.q2w.json'
         }
 
         server {
             property 'forge.enabledGameTestNamespaces', mod_id
             //args '--nogui'
-            arg '-mixin.config=mixins.quakeweapons.json'
+            arg '-mixin.config=mixins.q2w.json'
         }
 
         gameTestServer {

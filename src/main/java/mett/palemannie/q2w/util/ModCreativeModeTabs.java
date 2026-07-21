@@ -29,6 +29,9 @@ public class ModCreativeModeTabs {
                         pOutput.accept(ModItems.GRENADE.get());
                         pOutput.accept(ModItems.ROCKET.get());
                         pOutput.accept(ModItems.CELL.get());
+                        pOutput.accept(ModItems.SLUG.get());
+                        pOutput.accept(ModItems.BLASTER.get());
+                        pOutput.accept(ModItems.SHOTGUN.get());
 
                     })
                     .build());

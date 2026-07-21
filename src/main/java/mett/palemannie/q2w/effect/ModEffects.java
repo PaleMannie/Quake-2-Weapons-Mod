@@ -18,7 +18,7 @@ public class ModEffects {
     public static final RegistryObject<MobEffect> INVULNERABILITY = MOB_EFFECTS.register("invulnerability", ()-> new InvulnerabilityEffect(MobEffectCategory.BENEFICIAL, 16765184));
     public static final RegistryObject<MobEffect> ENVIROSUIT = MOB_EFFECTS.register("envirosuit", ()-> new EnvirosuitEffect(MobEffectCategory.BENEFICIAL, 65408));
     public static final RegistryObject<MobEffect> SILENCER = MOB_EFFECTS.register("silencer", ()-> new SilencerEffect(MobEffectCategory.BENEFICIAL, 0));
-    public static final RegistryObject<MobEffect> REBREATHER = MOB_EFFECTS.register("silencer", ()-> new RebreatherEffect(MobEffectCategory.BENEFICIAL, 0));
+    public static final RegistryObject<MobEffect> REBREATHER = MOB_EFFECTS.register("rebreather", ()-> new RebreatherEffect(MobEffectCategory.BENEFICIAL, 0));
 
     public static void register(IEventBus eventBus){
         MOB_EFFECTS.register(eventBus);
