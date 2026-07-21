@@ -1,6 +1,5 @@
 {
 	"format_version": "1.8.0",
-	"loop": false,
 	"animations": {
 		"blaster.animation.idle": {
 			"animation_length": 0.05,

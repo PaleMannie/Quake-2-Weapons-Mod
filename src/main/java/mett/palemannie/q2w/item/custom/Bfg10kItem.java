@@ -45,7 +45,7 @@ public class Bfg10kItem extends AbstractQ2Weapon {
     @Override
     protected boolean shouldAttemptFire(ServerLevel level, ServerPlayer player, ItemStack stack, int useTicks) {
         if (useTicks == 0) {
-            level.playSound(player, player.getOnPos(), ModSounds.BFG10K_SHOOT.get(), SoundSource.PLAYERS);
+            level.playSound(player, player.getOnPos(), ModSounds.BFG10K_WINDUP.get(), SoundSource.PLAYERS);
         }
 
         if (useTicks < WINDUP_TICKS) {
