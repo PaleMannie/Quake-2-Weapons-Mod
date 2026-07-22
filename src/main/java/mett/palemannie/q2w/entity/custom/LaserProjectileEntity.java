@@ -5,6 +5,7 @@ import mett.palemannie.q2w.effect.ModEffects;
 import mett.palemannie.q2w.sound.ModSounds;
 import mett.palemannie.q2w.util.ModDamageTypes;
 import mett.palemannie.q2w.util.Q2WConfigStats;
+import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
@@ -28,9 +29,16 @@ import net.minecraftforge.event.ForgeEventFactory;
 
 import javax.annotation.Nullable;
 
-public class HyperblasterProjectileEntity extends Projectile {
+public class LaserProjectileEntity extends Projectile {
 
-    public HyperblasterProjectileEntity(EntityType<? extends Projectile> entityType, Level level) {
+    public LaserProjectileEntity(EntityType<? extends Projectile> entityType, Level level, double damageValue) {
+        super(entityType, level);
+        this.damage = damageValue;
+    }
+
+    double damage = 0;
+
+    public LaserProjectileEntity(EntityType<LaserProjectileEntity> entityType, Level level) {
         super(entityType, level);
     }
 
@@ -71,7 +79,7 @@ public class HyperblasterProjectileEntity extends Projectile {
         if(pResult.getEntity() instanceof LivingEntity entity){
 
             entity.hurt(source2, Float.MIN_VALUE);
-            entity.hurt(source, player.hasEffect(ModEffects.QUAD_DAMAGE.get()) ? Q2WConfigStats.HyperBlasterDamage * 4 : Q2WConfigStats.HyperBlasterDamage);
+            entity.hurt(source, (float) (player.hasEffect(ModEffects.QUAD_DAMAGE.get()) ? damage * 4 : damage));
         }
     }
 
@@ -123,10 +131,10 @@ public class HyperblasterProjectileEntity extends Projectile {
     protected void onHitEntity(EntityHitResult pResult) {
         super.onHitEntity(pResult);
 
-        var damageType = ModDamageTypes.HYPERBLASTER_DAMAGE;
+        var damageType = ModDamageTypes.BLASTER_DAMAGE;
         var soundEvent = ModSounds.BLASTER_HIT.get();
 
-        handleDamage(pResult, level(), damageType, (Player)this.getOwner());
+        handleDamage(pResult, level(), damageType, (Player) this.getOwner());
         handleHitSound(pResult, null, level(), soundEvent, 1f, 1f);
 
         if(Q2WConfig.COMMON.enableGore.get()){

@@ -21,13 +21,9 @@ public class ModEntities {
             ENTITY_TYPES.register("muzzleflash", () -> EntityType.Builder.<MuzzleflashEntity>of(MuzzleflashEntity::new, MobCategory.MISC)
                     .sized(0.01f, 0.01f).fireImmune().build("muzzleflash"));
 
-    public static final RegistryObject<EntityType<BlasterProjectileEntity>> BLASTER_PROJECTILE =
-            ENTITY_TYPES.register("blaster_projectile", () -> EntityType.Builder.<BlasterProjectileEntity>of(BlasterProjectileEntity::new, MobCategory.MISC)
-                    .sized(0.15f, 0.15f).fireImmune().clientTrackingRange(256).updateInterval(1).build("blaster_projectile"));
-
-    public static final RegistryObject<EntityType<HyperblasterProjectileEntity>> HYPERBLASTER_PROJECTILE =
-            ENTITY_TYPES.register("hyperblaster_projectile", () -> EntityType.Builder.<HyperblasterProjectileEntity>of(HyperblasterProjectileEntity::new, MobCategory.MISC)
-                    .sized(0.15f, 0.15f).fireImmune().clientTrackingRange(256).updateInterval(1).build("hyperblaster_projectile"));
+    public static final RegistryObject<EntityType<LaserProjectileEntity>> LASER_PROJECTILE =
+            ENTITY_TYPES.register("laser_projectile", () -> EntityType.Builder.<LaserProjectileEntity>of(LaserProjectileEntity::new, MobCategory.MISC)
+                    .sized(0.15f, 0.15f).fireImmune().clientTrackingRange(256).updateInterval(1).build("laser_projectile"));
 
     public static final RegistryObject<EntityType<HandgrenadeProjectileEntity>> HANDGRENADE_PROJECTILE =
             ENTITY_TYPES.register("handgrenade_projectile", () -> EntityType.Builder.<HandgrenadeProjectileEntity>of(HandgrenadeProjectileEntity::new, MobCategory.MISC)

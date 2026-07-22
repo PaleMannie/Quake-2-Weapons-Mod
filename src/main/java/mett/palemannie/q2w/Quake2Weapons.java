@@ -4,10 +4,14 @@ import com.mojang.logging.LogUtils;
 import mett.palemannie.q2w.block.ModBlocks;
 import mett.palemannie.q2w.effect.ModEffects;
 import mett.palemannie.q2w.entity.ModEntities;
+import mett.palemannie.q2w.entity.client.LaserProjectileRenderer;
+import mett.palemannie.q2w.entity.client.MuzzleflashRenderer;
+import mett.palemannie.q2w.entity.custom.LaserProjectileEntity;
 import mett.palemannie.q2w.item.ModItems;
 import mett.palemannie.q2w.net.ModMessages;
 import mett.palemannie.q2w.sound.ModSounds;
 import mett.palemannie.q2w.util.ModCreativeModeTabs;
+import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.MinecraftForge;
@@ -59,7 +63,8 @@ public class Quake2Weapons {
         @SubscribeEvent
         public static void onClientSetup(FMLClientSetupEvent event){
 
-            //EntityRenderers.register(ModEntities.NAIL_PROJECTILE.get(), NailProjectileRenderer::new);
+            EntityRenderers.register(ModEntities.MUZZLE_FLASH.get(), MuzzleflashRenderer::new);
+            EntityRenderers.register(ModEntities.LASER_PROJECTILE.get(), LaserProjectileRenderer::new);
         }
     }
 

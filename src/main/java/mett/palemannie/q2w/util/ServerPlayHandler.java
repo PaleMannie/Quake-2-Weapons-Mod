@@ -2,6 +2,7 @@ package mett.palemannie.q2w.util;
 
 import mett.palemannie.q2w.Q2WConfig;
 import mett.palemannie.q2w.entity.ModEntities;
+import mett.palemannie.q2w.entity.client.LaserProjectileModel;
 import mett.palemannie.q2w.entity.custom.*;
 import mett.palemannie.q2w.sound.ModSounds;
 import net.minecraft.core.particles.ParticleTypes;
@@ -321,7 +322,7 @@ public class ServerPlayHandler {
         Level lvl = player.level();
 
         ///Entity
-        double forwardOffset = 0.2;
+        /*double forwardOffset = 0.2;
 
         Vec3 look = player.getLookAngle();
         Vec3 right = look.cross(new Vec3(0, 0, 0)).normalize();
@@ -341,7 +342,7 @@ public class ServerPlayHandler {
             flash.setPos(spawnX, spawnY, spawnZ);
 
             sevel.addFreshEntity(flash);
-        }
+        }*/
 
         ///Sound
         double posX = player.getX();
@@ -356,20 +357,21 @@ public class ServerPlayHandler {
         Level lvl = player.level();
 
         ///Entity
-        /*double forwardOffset = 0.2;
+        double forwardOffset = 0.3f;
 
         Vec3 look = player.getLookAngle();
-        Vec3 right = look.cross(new Vec3(0, 0, 0)).normalize();
+        float rightOffset = 0.3f;
+        Vec3 right = look.cross(new Vec3(0, 1.5, 0)).normalize();
 
-        double spawnX = player.getX() + right.x+ look.x * forwardOffset;
-        double spawnY = player.getEyeY() - 0.25 + right.y + look.y * forwardOffset;
-        double spawnZ = player.getZ() + right.z + look.z * forwardOffset;
+        double spawnX = player.getX() + right.x * rightOffset + look.x * forwardOffset;
+        double spawnY = player.getEyeY() - 0.25 + right.y * rightOffset + look.y * forwardOffset;
+        double spawnZ = player.getZ() + right.z * rightOffset + look.z * forwardOffset;
 
-        BlasterProjectileEntity nail = new BlasterProjectileEntity(ModEntities.BLASTER_PROJECTILE.get(), sevel);
+        LaserProjectileEntity laser = new LaserProjectileEntity(ModEntities.LASER_PROJECTILE.get(), sevel, Q2WConfigStats.BlasterDamage);
 
-        shootFromRotationNoMomentum(nail, player, player.getXRot(), player.getYRot(), 1f, 0.0f);
-        nail.setPos(spawnX, spawnY, spawnZ);
-        sevel.addFreshEntity(nail);
+        shootFromRotationNoMomentum(laser, player, player.getXRot(), player.getYRot(), 1f, 0.0f);
+        laser.setPos(spawnX, spawnY, spawnZ);
+        sevel.addFreshEntity(laser);
 
         if(isMuzzleFlashEnabled()){
 
@@ -377,7 +379,7 @@ public class ServerPlayHandler {
             flash.setPos(spawnX, spawnY, spawnZ);
 
             sevel.addFreshEntity(flash);
-        }*/
+        }
 
         ///Sound
         double posX = player.getX();
