@@ -12,12 +12,12 @@ import net.minecraft.world.item.ItemStack;
 public class SuperShotgunItem extends AbstractQ2Weapon{
 
     public SuperShotgunItem(Properties properties) {
-        super(properties, 24, 24);
+        super(properties, 31, 29);
     }
 
     @Override
     protected String animationPrefix() {
-        return "supershotgun";
+        return "super_shotgun";
     }
 
     @Override

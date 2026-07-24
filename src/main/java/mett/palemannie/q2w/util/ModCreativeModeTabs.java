@@ -32,6 +32,7 @@ public class ModCreativeModeTabs {
                         pOutput.accept(ModItems.SLUG.get());
                         pOutput.accept(ModItems.BLASTER.get());
                         pOutput.accept(ModItems.SHOTGUN.get());
+                        pOutput.accept(ModItems.SUPER_SHOTGUN.get());
 
                     })
                     .build());

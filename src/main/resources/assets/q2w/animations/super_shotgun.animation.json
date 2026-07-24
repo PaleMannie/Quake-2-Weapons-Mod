@@ -1,0 +1,119 @@
+{
+	"format_version": "1.8.0",
+	"animations": {
+		"super_shotgun.animation.idle": {
+			"animation_length": 0.0417,
+			"bones": {
+				"fire": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
+				}
+			}
+		},
+		"super_shotgun.animation.shooting": {
+			"animation_length": 1.16,
+			"bones": {
+				"shotgun": {
+					"rotation": {
+						"0.19": {
+							"vector": [0, 0, 0]
+						},
+						"0.35": {
+							"vector": [-22.5, 0, 0]
+						},
+						"0.64": {
+							"vector": [-12.5, 0, 12.5]
+						},
+						"1.15": {
+							"vector": [0, 0, 0],
+							"easing": "easeInBack"
+						}
+					},
+					"position": {
+						"0.09": {
+							"vector": [0, 0, 0]
+						},
+						"0.2": {
+							"vector": [0, 0, 6]
+						},
+						"0.35": {
+							"vector": [0, 6, 6]
+						},
+						"0.5": {
+							"vector": [0, 3.43, 3.43]
+						},
+						"0.7": {
+							"vector": [0, 0, 0]
+						},
+						"0.85": {
+							"vector": [0, 0, 3]
+						},
+						"1.15": {
+							"vector": [0, 0, 0]
+						}
+					}
+				},
+				"pump": {
+					"position": {
+						"0.5": {
+							"vector": [0, 0, 0]
+						},
+						"0.85": {
+							"vector": [0, 0, 4]
+						},
+						"1.15": {
+							"vector": [0, 0, 0]
+						}
+					}
+				},
+				"fire": {
+					"position": {
+						"0.09": {
+							"vector": [0, 0, 0]
+						},
+						"0.2": {
+							"vector": [0, 0, 6]
+						}
+					},
+					"scale": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.04": {
+							"vector": [0, 0, 0]
+						},
+						"0.06": {
+							"vector": [1, 1, 1]
+						},
+						"0.2": {
+							"vector": [1, 1, 1]
+						},
+						"0.21": {
+							"vector": [0, 0, 0]
+						}
+					}
+				}
+			}
+		},
+		"super_shotgun.animation.ammoempty": {
+			"animation_length": 0.26,
+			"bones": {
+				"shotgun": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.05": {
+							"vector": [-12.5, 0, 0]
+						},
+						"0.25": {
+							"vector": [0, 0, 0],
+							"easing": "easeOutBack"
+						}
+					}
+				}
+			}
+		}
+	}
+}
