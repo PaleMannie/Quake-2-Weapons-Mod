@@ -2,6 +2,7 @@ package mett.palemannie.q2w.item;
 
 import mett.palemannie.q2w.Quake2Weapons;
 import mett.palemannie.q2w.item.custom.BlasterItem;
+import mett.palemannie.q2w.item.custom.MachinegunItem;
 import mett.palemannie.q2w.item.custom.ShotgunItem;
 import mett.palemannie.q2w.item.custom.SuperShotgunItem;
 import net.minecraft.world.item.Item;
@@ -47,7 +48,7 @@ public class ModItems {
             () -> new SuperShotgunItem(new Item.Properties().stacksTo(1)));
 
     public static final RegistryObject<Item> MACHINEGUN = ITEMS.register("machinegun",
-            () -> new Item(new Item.Properties().stacksTo(1)));
+            () -> new MachinegunItem(new Item.Properties().stacksTo(1)));
 
     public static final RegistryObject<Item> CHAINGUN = ITEMS.register("chaingun",
             () -> new Item(new Item.Properties().stacksTo(1)));

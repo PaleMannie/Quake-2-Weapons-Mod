@@ -29,7 +29,7 @@ import java.util.function.Consumer;
 public class MachinegunItem extends AbstractQ2Weapon{
 
     public MachinegunItem(Properties pProperties) {
-        super(pProperties,2,2);
+        super(pProperties,2,1);
     }
 
     @Override

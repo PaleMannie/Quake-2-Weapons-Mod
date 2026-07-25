@@ -78,10 +78,110 @@ public class ServerPlayHandler {
         projectile.shoot(f, f1, f2, velocity, inaccuracy);
     }
 
+    private static Vec3 getMachinegunSpreadDirection(Vec3 forward, double spreadDegrees, RandomSource random) {
+        if (spreadDegrees <= 0.0D) {
+            return forward.normalize();
+        }
+
+        double spreadRad = Math.toRadians(spreadDegrees);
+        double angle = random.nextDouble() * Math.PI * 2.0D;
+        double radius = random.nextDouble() * Math.sin(spreadRad);
+
+        Vec3 up = new Vec3(0.0D, 1.0D, 0.0D);
+        Vec3 right = forward.cross(up);
+
+        if (right.lengthSqr() < 1.0E-7D) {
+            right = new Vec3(1.0D, 0.0D, 0.0D);
+        } else {
+            right = right.normalize();
+        }
+
+        up = right.cross(forward).normalize();
+
+        Vec3 offset = right.scale(Math.cos(angle) * radius)
+                .add(up.scale(Math.sin(angle) * radius));
+
+        return forward.add(offset).normalize();
+    }
+
+    private static void spawnMuzzleFlash(ServerLevel serverLevel, ServerPlayer player, Vec3 shotDir) {
+        if (!isMuzzleFlashEnabled()) {
+            return;
+        }
+
+        double forwardOffset = 0.35D;
+        double rightOffset = 0.25D;
+        double downOffset = 0.20D;
+
+        Vec3 up = new Vec3(0.0D, 1.0D, 0.0D);
+        Vec3 right = shotDir.cross(up);
+
+        if (right.lengthSqr() < 1.0E-7D) {
+            right = new Vec3(1.0D, 0.0D, 0.0D);
+        } else {
+            right = right.normalize();
+        }
+
+        Vec3 spawnPos = player.getEyePosition()
+                .add(shotDir.scale(forwardOffset))
+                .add(right.scale(rightOffset))
+                .add(0.0D, -downOffset, 0.0D);
+
+        MuzzleflashEntity flash = new MuzzleflashEntity(serverLevel, player);
+        flash.setPos(spawnPos.x, spawnPos.y, spawnPos.z);
+
+        serverLevel.addFreshEntity(flash);
+    }
+
     /// Weapon shooting handlers
 
-    public static void handleMachinegunShoot(Player player) {
+    public static void handleMachinegunShoot(ServerPlayer serverPlayer) {
 
+        ServerLevel serverLevel = serverPlayer.serverLevel();
+
+        final double RANGE = 96d;
+        final float DAMAGE = Q2WConfigStats.MachinegunDamage;
+
+        Vec3 eyePos = serverPlayer.getEyePosition();
+        Vec3 look = serverPlayer.getLookAngle();
+
+        final double INACCURACY_DEGREES = 2f;
+        Vec3 shotDir = getMachinegunSpreadDirection(look, INACCURACY_DEGREES, serverLevel.random);
+
+        Vec3 endPos = eyePos.add(shotDir.scale(RANGE));
+
+        BlockHitResult blockHit = serverLevel.clip(new ClipContext(eyePos, endPos, ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, serverPlayer));
+
+        double blockDistance = RANGE;
+
+        if (blockHit.getType() != HitResult.Type.MISS) {
+            blockDistance = blockHit.getLocation().distanceTo(eyePos);
+        }
+
+        EntityHitResult entityHit = ProjectileUtil.getEntityHitResult(serverLevel, serverPlayer, eyePos, endPos, new AABB(eyePos, endPos).inflate(0.35d), entity -> entity instanceof LivingEntity && entity != serverPlayer && !entity.isSpectator() && entity.isPickable());
+
+        if (entityHit != null && entityHit.getLocation().distanceTo(eyePos) < blockDistance) {
+            LivingEntity target = (LivingEntity) entityHit.getEntity();
+
+            target.hurt(serverLevel.damageSources().source(ModDamageTypes.MACHINEGUN_DAMAGE, serverPlayer, serverPlayer), DAMAGE);
+
+            Vec3 hitPos = entityHit.getLocation();
+
+            if (Q2WConfig.COMMON.enableGore.get()) {
+                serverLevel.sendParticles(serverPlayer, ParticleTypes.LANDING_LAVA, true, hitPos.x, hitPos.y, hitPos.z, 1, 0.25d, 0.25d, 0.25d, 0.0d);
+            }
+
+            serverLevel.sendParticles(serverPlayer, ParticleTypes.SMOKE, true, hitPos.x, hitPos.y, hitPos.z, 1, 0.05d, 0.05d, 0.05d, 0.0d);
+
+        } else if (blockHit.getType() != HitResult.Type.MISS) {
+            Vec3 hitPos = blockHit.getLocation();
+
+            serverLevel.sendParticles(serverPlayer, ParticleTypes.SMOKE, true, hitPos.x, hitPos.y, hitPos.z, 1, 0.05d, 0.05d, 0.05d, 0.0d);
+        }
+
+        spawnMuzzleFlash(serverLevel, serverPlayer, shotDir);
+
+        serverLevel.playSound(null,serverPlayer.getX(),serverPlayer.getY(),serverPlayer.getZ(),ModSounds.CHAINGUN_SHOOT.get(),SoundSource.PLAYERS,1.0f, 1.0f);
     }
 
     public static void handleChaingunShoot(ServerPlayer player){
@@ -224,7 +324,7 @@ public class ServerPlayHandler {
         double forwardOffset = 0.2;
 
         Vec3 look1 = player.getLookAngle();
-        Vec3 right = look1.cross(new Vec3(0, 0, 0)).normalize();
+        Vec3 right = look1.cross(new Vec3(0, 1.5f, 0)).normalize();
 
         double spawnX = player.getX() + right.x+ look1.x * forwardOffset;
         double spawnY = player.getEyeY() - 0.25 + right.y + look1.y * forwardOffset;
