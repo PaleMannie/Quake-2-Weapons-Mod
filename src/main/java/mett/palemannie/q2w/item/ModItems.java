@@ -1,10 +1,7 @@
 package mett.palemannie.q2w.item;
 
 import mett.palemannie.q2w.Quake2Weapons;
-import mett.palemannie.q2w.item.custom.BlasterItem;
-import mett.palemannie.q2w.item.custom.MachinegunItem;
-import mett.palemannie.q2w.item.custom.ShotgunItem;
-import mett.palemannie.q2w.item.custom.SuperShotgunItem;
+import mett.palemannie.q2w.item.custom.*;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
@@ -63,7 +60,7 @@ public class ModItems {
             () -> new Item(new Item.Properties().stacksTo(1)));
 
     public static final RegistryObject<Item> RAILGUN = ITEMS.register("railgun",
-            () -> new Item(new Item.Properties().stacksTo(1)));
+            () -> new RailgunItem(new Item.Properties().stacksTo(1)));
 
     public static final RegistryObject<Item> BFG10K = ITEMS.register("bfg10k",
             () -> new Item(new Item.Properties().stacksTo(1)));

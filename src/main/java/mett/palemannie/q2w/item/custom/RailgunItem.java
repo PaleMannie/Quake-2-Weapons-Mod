@@ -12,7 +12,7 @@ import net.minecraft.world.item.ItemStack;
 public class RailgunItem extends AbstractQ2Weapon{
 
     public RailgunItem(Properties properties) {
-        super(properties, 32, 32);
+        super(properties, 36, 34);
     }
 
     @Override
@@ -27,7 +27,7 @@ public class RailgunItem extends AbstractQ2Weapon{
 
     @Override
     protected Item ammoItem() {
-        return ModItems.CELL.get();
+        return ModItems.SLUG.get();
     }
 
     @Override

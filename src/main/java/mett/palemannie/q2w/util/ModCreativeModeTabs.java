@@ -22,7 +22,7 @@ public class ModCreativeModeTabs {
                     .title(Component.translatable("q2w.creativetab.q2w_tab"))
                     .displayItems((pParameters, pOutput) -> {
 
-                        /// Weapons ordered in gameplay order
+                        /// Weapons sorted in gameplay order
 
                         pOutput.accept(ModItems.SHELL.get());
                         pOutput.accept(ModItems.BULLET.get());
@@ -34,6 +34,7 @@ public class ModCreativeModeTabs {
                         pOutput.accept(ModItems.SHOTGUN.get());
                         pOutput.accept(ModItems.SUPER_SHOTGUN.get());
                         pOutput.accept(ModItems.MACHINEGUN.get());
+                        pOutput.accept(ModItems.RAILGUN.get());
 
                     })
                     .build());

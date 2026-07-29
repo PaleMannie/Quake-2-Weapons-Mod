@@ -2,23 +2,26 @@ package mett.palemannie.q2w.util;
 
 import mett.palemannie.q2w.Q2WConfig;
 import mett.palemannie.q2w.entity.ModEntities;
-import mett.palemannie.q2w.entity.client.LaserProjectileModel;
 import mett.palemannie.q2w.entity.custom.*;
 import mett.palemannie.q2w.sound.ModSounds;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.entity.projectile.ProjectileUtil;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.*;
+
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Optional;
 
 public class ServerPlayHandler {
 
@@ -66,9 +69,9 @@ public class ServerPlayHandler {
         projectile.setOwner(player);
         projectile.setPos(player.getEyePosition().x, player.getEyeY() - 0.2d, player.getEyePosition().z);
 
-        float f = -Mth.sin(yRot * ((float)Math.PI / 180F)) * Mth.cos(xRot * ((float)Math.PI / 180F));
-        float f1 = -Mth.sin(xRot * ((float)Math.PI / 180F));
-        float f2 =  Mth.cos(yRot * ((float)Math.PI / 180F)) * Mth.cos(xRot * ((float)Math.PI / 180F));
+        float f = -Mth.sin(yRot * ((float)Math.PI / 180f)) * Mth.cos(xRot * ((float)Math.PI / 180f));
+        float f1 = -Mth.sin(xRot * ((float)Math.PI / 180f));
+        float f2 =  Mth.cos(yRot * ((float)Math.PI / 180f)) * Mth.cos(xRot * ((float)Math.PI / 180f));
 
         projectile.setYRot(player.getYRot());
         projectile.yRotO = player.getYRot();
@@ -79,19 +82,20 @@ public class ServerPlayHandler {
     }
 
     private static Vec3 getMachinegunSpreadDirection(Vec3 forward, double spreadDegrees, RandomSource random) {
-        if (spreadDegrees <= 0.0D) {
+
+        if (spreadDegrees <= 0d) {
             return forward.normalize();
         }
 
         double spreadRad = Math.toRadians(spreadDegrees);
-        double angle = random.nextDouble() * Math.PI * 2.0D;
+        double angle = random.nextDouble() * Math.PI * 2d;
         double radius = random.nextDouble() * Math.sin(spreadRad);
 
-        Vec3 up = new Vec3(0.0D, 1.0D, 0.0D);
+        Vec3 up = new Vec3(0d, 1d, 0d);
         Vec3 right = forward.cross(up);
 
-        if (right.lengthSqr() < 1.0E-7D) {
-            right = new Vec3(1.0D, 0.0D, 0.0D);
+        if (right.lengthSqr() < 1e-7d) {
+            right = new Vec3(1d, 0d, 0d);
         } else {
             right = right.normalize();
         }
@@ -105,32 +109,97 @@ public class ServerPlayHandler {
     }
 
     private static void spawnMuzzleFlash(ServerLevel serverLevel, ServerPlayer player, Vec3 shotDir) {
-        if (!isMuzzleFlashEnabled()) {
-            return;
-        }
 
-        double forwardOffset = 0.35D;
-        double rightOffset = 0.25D;
-        double downOffset = 0.20D;
+        if (!isMuzzleFlashEnabled()) { return; }
 
-        Vec3 up = new Vec3(0.0D, 1.0D, 0.0D);
+        double forwardOffset = 0.35d;
+        double rightOffset = 0.25d;
+        double downOffset = 0.2d;
+
+        Vec3 up = new Vec3(0d, 1d, 0d);
         Vec3 right = shotDir.cross(up);
 
-        if (right.lengthSqr() < 1.0E-7D) {
-            right = new Vec3(1.0D, 0.0D, 0.0D);
+        if (right.lengthSqr() < 1e-7d) {
+
+            right = new Vec3(1d, 0d, 0d);
         } else {
+
             right = right.normalize();
         }
 
         Vec3 spawnPos = player.getEyePosition()
                 .add(shotDir.scale(forwardOffset))
                 .add(right.scale(rightOffset))
-                .add(0.0D, -downOffset, 0.0D);
+                .add(0d, -downOffset, 0d);
 
         MuzzleflashEntity flash = new MuzzleflashEntity(serverLevel, player);
         flash.setPos(spawnPos.x, spawnPos.y, spawnPos.z);
 
         serverLevel.addFreshEntity(flash);
+    }
+
+    private static void spawnRailgunTrail(ServerLevel serverLevel, ServerPlayer player, Vec3 start, Vec3 end) {
+
+        Vec3 axis = end.subtract(start);
+        double length = axis.length();
+
+        if (length <= 0.01d) { return; }
+
+        Vec3 direction = axis.normalize();
+
+        Vec3 worldUp = new Vec3(0d, 1d, 0d);
+        Vec3 right = direction.cross(worldUp);
+
+        if (right.lengthSqr() < 1e-7d) {
+
+            right = new Vec3(1d, 0d, 0d);
+        } else {
+
+            right = right.normalize();
+        }
+
+        Vec3 up = right.cross(direction).normalize();
+
+        final double STEP = 0.35d;
+        final double SMOKE_RADIUS = 0.35d;
+        final double ANGLE_STEP = 0.75d;
+
+        int index = 0;
+
+        for (double distance = 0d; distance <= length; distance += STEP) {
+
+            Vec3 center = start.add(direction.scale(distance));
+
+            serverLevel.sendParticles(player, ParticleTypes.SMOKE, true, center.x, center.y, center.z, 1, 0d, 0d, 0d, 0d);
+
+            double angle = index * ANGLE_STEP;
+            Vec3 smokeOffset = right.scale(Math.cos(angle) * SMOKE_RADIUS).add(up.scale(Math.sin(angle) * SMOKE_RADIUS));
+            Vec3 smokePos = center.add(smokeOffset);
+
+            serverLevel.sendParticles(player, ParticleTypes.END_ROD, true, smokePos.x, smokePos.y, smokePos.z, 1, 0.02d, 0.02d, 0.02d, 0d);
+
+            index++;
+        }
+    }
+
+    private record RailHit(LivingEntity target, Vec3 hitPos, double distance) {}
+
+    private static Vec3 getOffsetShotStart(ServerPlayer player, Vec3 direction, double rightOffset, double downOffset, double forwardOffset) {
+        Vec3 worldUp = new Vec3(0d, 1d, 0d);
+        Vec3 right = direction.cross(worldUp);
+
+        if (right.lengthSqr() < 1e-7d) {
+
+            right = new Vec3(1d, 0d, 0d);
+        } else {
+
+            right = right.normalize();
+        }
+
+        return player.getEyePosition()
+                .add(direction.scale(forwardOffset))
+                .add(right.scale(rightOffset))
+                .add(0d, -downOffset, 0d);
     }
 
     /// Weapon shooting handlers
@@ -146,8 +215,8 @@ public class ServerPlayHandler {
         Vec3 look = serverPlayer.getLookAngle();
 
         final double INACCURACY_DEGREES = 2f;
-        Vec3 shotDir = getMachinegunSpreadDirection(look, INACCURACY_DEGREES, serverLevel.random);
 
+        Vec3 shotDir = getMachinegunSpreadDirection(look, INACCURACY_DEGREES, serverLevel.random);
         Vec3 endPos = eyePos.add(shotDir.scale(RANGE));
 
         BlockHitResult blockHit = serverLevel.clip(new ClipContext(eyePos, endPos, ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, serverPlayer));
@@ -161,22 +230,25 @@ public class ServerPlayHandler {
         EntityHitResult entityHit = ProjectileUtil.getEntityHitResult(serverLevel, serverPlayer, eyePos, endPos, new AABB(eyePos, endPos).inflate(0.35d), entity -> entity instanceof LivingEntity && entity != serverPlayer && !entity.isSpectator() && entity.isPickable());
 
         if (entityHit != null && entityHit.getLocation().distanceTo(eyePos) < blockDistance) {
+
             LivingEntity target = (LivingEntity) entityHit.getEntity();
+            Vec3 hitPos = entityHit.getLocation();
 
             target.hurt(serverLevel.damageSources().source(ModDamageTypes.MACHINEGUN_DAMAGE, serverPlayer, serverPlayer), DAMAGE);
 
-            Vec3 hitPos = entityHit.getLocation();
-
             if (Q2WConfig.COMMON.enableGore.get()) {
+
                 serverLevel.sendParticles(serverPlayer, ParticleTypes.LANDING_LAVA, true, hitPos.x, hitPos.y, hitPos.z, 1, 0.25d, 0.25d, 0.25d, 0.0d);
             }
 
             serverLevel.sendParticles(serverPlayer, ParticleTypes.SMOKE, true, hitPos.x, hitPos.y, hitPos.z, 1, 0.05d, 0.05d, 0.05d, 0.0d);
+            serverLevel.playSound(serverPlayer, hitPos.x, hitPos.y, hitPos.z, ModSounds.BULLET_HIT.get(), SoundSource.PLAYERS, 1f, 1f);
 
         } else if (blockHit.getType() != HitResult.Type.MISS) {
-            Vec3 hitPos = blockHit.getLocation();
 
+            Vec3 hitPos = blockHit.getLocation();
             serverLevel.sendParticles(serverPlayer, ParticleTypes.SMOKE, true, hitPos.x, hitPos.y, hitPos.z, 1, 0.05d, 0.05d, 0.05d, 0.0d);
+            serverLevel.playSound(serverPlayer, hitPos.x, hitPos.y, hitPos.z, ModSounds.BULLET_HIT.get(), SoundSource.PLAYERS, 1f, 1f);
         }
 
         spawnMuzzleFlash(serverLevel, serverPlayer, shotDir);
@@ -190,6 +262,83 @@ public class ServerPlayHandler {
 
     public static void handleRailgunShoot(ServerPlayer player){
 
+        ServerLevel serverLevel = player.serverLevel();
+
+        final double RANGE = 128d;
+        final double HITBOX_INFLATE = 0.3d;
+        final float DAMAGE = Q2WConfigStats.RailgunDamage;
+
+        final double RIGHT_OFFSET = 0.35d;
+        final double DOWN_OFFSET = 0.25d;
+        final double FORWARD_OFFSET = 0.45d;
+
+        Vec3 direction = player.getLookAngle().normalize();
+        Vec3 shotStart = getOffsetShotStart(player, direction, RIGHT_OFFSET, DOWN_OFFSET, FORWARD_OFFSET);
+        Vec3 wantedEndPos = shotStart.add(direction.scale(RANGE));
+
+        BlockHitResult blockHit = serverLevel.clip(new ClipContext(shotStart, wantedEndPos, ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, player));
+
+        Vec3 endPos = wantedEndPos;
+
+        if (blockHit.getType() != HitResult.Type.MISS) {
+
+            endPos = blockHit.getLocation();
+        }
+
+        double maxDistance = shotStart.distanceTo(endPos);
+
+        AABB searchBox = new AABB(shotStart, endPos).inflate(1d);
+
+        List<RailHit> hits = new ArrayList<>();
+
+        for (Entity entity : serverLevel.getEntities(player, searchBox, candidate ->
+                candidate instanceof LivingEntity && candidate != player && candidate.isAlive() && !candidate.isSpectator() && candidate.isPickable())) {
+
+            LivingEntity livingTarget = (LivingEntity) entity;
+
+            Optional<Vec3> optionalHitPos = livingTarget.getBoundingBox()
+                    .inflate(HITBOX_INFLATE)
+                    .clip(shotStart, endPos);
+
+            if (optionalHitPos.isEmpty()) { continue; }
+
+            Vec3 hitPos = optionalHitPos.get();
+            double distance = shotStart.distanceTo(hitPos);
+
+            if (distance <= maxDistance) {
+
+                hits.add(new RailHit(livingTarget, hitPos, distance));
+            }
+        }
+
+        hits.sort(Comparator.comparingDouble(RailHit::distance));
+
+        for (RailHit hit : hits) {
+
+            hit.target().hurt(serverLevel.damageSources().source(ModDamageTypes.RAILGUN_DAMAGE, player, player), DAMAGE);
+            Vec3 hitPos = hit.hitPos();
+
+            if (Q2WConfig.COMMON.enableGore.get()) {
+
+                serverLevel.sendParticles(ParticleTypes.LANDING_LAVA, hitPos.x, hitPos.y, hitPos.z, 4, 0.25d, 0.25d, 0.25d, 0.0d);
+            }
+
+            serverLevel.sendParticles(ParticleTypes.END_ROD, hitPos.x, hitPos.y, hitPos.z, 3, 0.12d, 0.12d, 0.12d, 0.0d);
+        }
+
+        spawnRailgunTrail(serverLevel, player, shotStart, endPos);
+
+        if (blockHit.getType() != HitResult.Type.MISS) {
+
+            Vec3 blockHitPos = blockHit.getLocation();
+            serverLevel.sendParticles(ParticleTypes.SMOKE, blockHitPos.x, blockHitPos.y, blockHitPos.z, 8, 0.15d, 0.15d, 0.15d, 0d);
+        }
+
+        //TODO: ganzen Railgunsound finden
+
+        serverLevel.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.RAILGUN_SHOOT.get(), SoundSource.PLAYERS, 1f, 1f);
+
+        spawnMuzzleFlash(serverLevel, player, direction);
     }
 
     public static void handleBfg10kShoot(ServerPlayer player){
@@ -207,7 +356,7 @@ public class ServerPlayHandler {
         Vec3 look = player.getLookAngle();
         Vec3 right = look.cross(new Vec3(0, 0, 0)).normalize();
 
-        double spawnX = player.getX() + right.x+ look.x * forwardOffset;
+        double spawnX = player.getX() + right.x + look.x * forwardOffset;
         double spawnY = player.getEyeY() - 0.2f + right.y + look.y * forwardOffset;
         double spawnZ = player.getZ() + right.z + look.z * forwardOffset;
 
@@ -274,29 +423,21 @@ public class ServerPlayHandler {
         Vec3 look = player.getLookAngle();
 
         final int PELLETS = 20;
-        final double RANGE = 64.0;
-        final double SPREAD_H = 11.0;
-        final double SPREAD_V = 7.0;
+        final double RANGE = 64d;
+        final double SPREAD_H = 11d;
+        final double SPREAD_V = 7d;
         final float DAMAGE_PER_PELLET = Q2WConfigStats.SuperShotgunDamage;
 
         for (int i = 0; i < PELLETS; i++) {
+
             Vec3 pelletDir = getSuperShotgunNormalizedSpreadDirection(look, SPREAD_H, SPREAD_V, sevel.random);
             Vec3 endPos = eyePos.add(pelletDir.scale(RANGE));
 
-            BlockHitResult blockHit = sevel.clip(new ClipContext(
-                    eyePos, endPos,
-                    ClipContext.Block.COLLIDER,
-                    ClipContext.Fluid.NONE,
-                    player
-            ));
-
-            EntityHitResult entityHit = ProjectileUtil.getEntityHitResult(
-                    sevel, player, eyePos, endPos,
-                    new AABB(eyePos, endPos).inflate(1.0),
-                    e -> e instanceof LivingEntity && e != player
-            );
+            BlockHitResult blockHit = sevel.clip(new ClipContext(eyePos, endPos, ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, player));
+            EntityHitResult entityHit = ProjectileUtil.getEntityHitResult(sevel, player, eyePos, endPos, new AABB(eyePos, endPos).inflate(1.0), e -> e instanceof LivingEntity && e != player);
 
             if (entityHit != null && (blockHit == null || entityHit.getLocation().distanceTo(eyePos) < blockHit.getLocation().distanceTo(eyePos))) {
+
                 LivingEntity target = (LivingEntity) entityHit.getEntity();
                 target.hurt(sevel.damageSources().source(ModDamageTypes.SUPER_SHOTGUN_DAMAGE, player, player), DAMAGE_PER_PELLET);
 
@@ -347,9 +488,9 @@ public class ServerPlayHandler {
 
         ///Hitscan
         final int PELLETS = 12;
+        final double RANGE = 64d;
+        final double SPREAD_DEGREES = 10d;
         final float DAMAGE_PER_PELLET = Q2WConfigStats.ShotgunDamage;
-        final double RANGE = 64.0;
-        final double SPREAD_DEGREES = 10.0;
 
         Vec3 eyePos = player.getEyePosition();
         Vec3 look = player.getLookAngle();
@@ -368,7 +509,7 @@ public class ServerPlayHandler {
 
             EntityHitResult entityHit = ProjectileUtil.getEntityHitResult(
                     level, player, eyePos, endPos,
-                    new AABB(eyePos, endPos).inflate(1.0),
+                    new AABB(eyePos, endPos).inflate(1),
                     e -> e instanceof LivingEntity && e != player
             );
 
@@ -469,7 +610,7 @@ public class ServerPlayHandler {
 
         LaserProjectileEntity laser = new LaserProjectileEntity(ModEntities.LASER_PROJECTILE.get(), sevel, Q2WConfigStats.BlasterDamage);
 
-        shootFromRotationNoMomentum(laser, player, player.getXRot(), player.getYRot(), 1f, 0.0f);
+        shootFromRotationNoMomentum(laser, player, player.getXRot(), player.getYRot(), 1f, 0f);
         laser.setPos(spawnX, spawnY, spawnZ);
         sevel.addFreshEntity(laser);
 

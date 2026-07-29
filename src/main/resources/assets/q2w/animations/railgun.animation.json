@@ -1,0 +1,143 @@
+{
+	"format_version": "1.8.0",
+	"animations": {
+		"railgun.animation.idle": {
+			"animation_length": 0.02,
+			"bones": {
+				"fire": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
+				}
+			}
+		},
+		"railgun.animation.shooting": {
+			"animation_length": 1.5,
+			"bones": {
+				"railgun": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.1": {
+							"vector": [2.5, 0, 0]
+						},
+						"0.25": {
+							"vector": [-30, 0, 0],
+							"easing": "linear"
+						},
+						"0.6": {
+							"vector": [0, 0, 0],
+							"easing": "easeInOutBack"
+						},
+						"0.9": {
+							"vector": [-9.0072, -20.7048, 24.1487]
+						},
+						"1.0": {
+							"vector": [-8.3301, -19.838, 29.4006]
+						},
+						"1.2": {
+							"vector": [-5.7452, -17.3526, 29.134]
+						},
+						"1.5": {
+							"vector": [0, 0, 0]
+						}
+					},
+					"position": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.1": {
+							"vector": [0, 0, 3]
+						},
+						"0.25": {
+							"vector": [0, 4, 4],
+							"easing": "linear"
+						},
+						"0.6": {
+							"vector": [0, 0, 0],
+							"easing": "easeInOutBack"
+						},
+						"0.9": {
+							"vector": [4, -3, 0]
+						},
+						"1.0": {
+							"vector": [4, -2.5, 0]
+						},
+						"1.2": {
+							"vector": [4, -2.5, 2]
+						},
+						"1.5": {
+							"vector": [0, 0, 0]
+						}
+					}
+				},
+				"fire": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.1": {
+							"vector": [2.5, 0, 0]
+						}
+					},
+					"position": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.1": {
+							"vector": [0, 0, 3]
+						}
+					},
+					"scale": {
+						"0.0": {
+							"vector": [1, 1, 1]
+						},
+						"0.1": {
+							"vector": [1, 1, 1]
+						},
+						"0.11": {
+							"vector": [0, 0, 0]
+						}
+					}
+				}
+			}
+		},
+		"railgun.animation.ammoempty": {
+			"animation_length": 0.15,
+			"bones": {
+				"railgun": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.05": {
+							"vector": [-10, 0, 0],
+							"easing": "easeInBack"
+						},
+						"0.1": {
+							"vector": [0, 0, 0]
+						}
+					},
+					"position": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.05": {
+							"vector": [0, -1, -1],
+							"easing": "easeInBack"
+						},
+						"0.1": {
+							"vector": [0, 0, 0]
+						}
+					}
+				},
+				"fire": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
+				}
+			}
+		}
+	}
+}
