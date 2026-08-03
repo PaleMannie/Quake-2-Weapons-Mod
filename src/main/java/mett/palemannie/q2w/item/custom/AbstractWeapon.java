@@ -29,17 +29,6 @@ import software.bernie.geckolib.util.GeckoLibUtil;
 
 import java.util.function.Consumer;
 
-/*
- * Base class for all Q2W weapons.
- *
- * Handles:
- * - Minecraft use lifecycle
- * - GeckoLib cache
- * - common animation controllers
- * - common client renderer setup
- * - bow-style arm pose
- * - idle/shooting/ammoempty animation helpers
- */
 public abstract class AbstractWeapon extends Item implements GeoItem {
 
     protected final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
@@ -177,6 +166,8 @@ public abstract class AbstractWeapon extends Item implements GeoItem {
 
     protected abstract void executeWeaponFire(Level level, LivingEntity user, ItemStack stack, int remainingUseDuration);
 
+    protected abstract void afterShooting(ItemStack stack, Level level, LivingEntity livingEntity, int timeCharged);
+
     @Override
     public void onUseTick(Level level, LivingEntity livingEntity, ItemStack stack, int remainingUseDuration) {
         super.onUseTick(level, livingEntity, stack, remainingUseDuration);
@@ -193,11 +184,7 @@ public abstract class AbstractWeapon extends Item implements GeoItem {
             player.getCooldowns().addCooldown(this, releaseCooldown);
         }
 
-        /*
-         * Wichtig:
-         * Hier NICHT mehr stopShootingAnimation() aufrufen.
-         * Sonst wird die PLAY_ONCE-Schießanimation beim kurzen Klick abgeschnitten.
-         */
+        afterShooting(stack, level, livingEntity, timeCharged);
     }
 
     @Override

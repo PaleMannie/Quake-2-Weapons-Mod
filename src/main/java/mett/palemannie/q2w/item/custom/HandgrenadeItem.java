@@ -26,4 +26,9 @@ public class HandgrenadeItem extends AbstractWeapon{
     protected void executeWeaponFire(Level level, LivingEntity user, ItemStack stack, int remainingUseDuration) {
 
     }
+
+    @Override
+    protected void afterShooting(ItemStack stack, Level level, LivingEntity livingEntity, int timeCharged) {
+
+    }
 }

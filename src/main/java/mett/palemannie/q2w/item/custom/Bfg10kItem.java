@@ -8,8 +8,10 @@ import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 
 public class Bfg10kItem extends AbstractQ2Weapon {
 
@@ -58,5 +60,10 @@ public class Bfg10kItem extends AbstractQ2Weapon {
     @Override
     protected void fireWeapon(ServerLevel level, ServerPlayer player, ItemStack stack, int useTicks) {
         ServerPlayHandler.handleBfg10kShoot(player);
+    }
+
+    @Override
+    protected void afterShooting(ItemStack stack, Level level, LivingEntity livingEntity, int timeCharged) {
+
     }
 }

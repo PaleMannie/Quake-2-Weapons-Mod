@@ -10,6 +10,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.projectile.Projectile;
@@ -202,62 +203,127 @@ public class ServerPlayHandler {
                 .add(0d, -downOffset, 0d);
     }
 
+    private static boolean hurtWithScaledKnockback(LivingEntity target, DamageSource damageSource, float damage, double knockbackScale) {
+
+        Vec3 motionBefore = target.getDeltaMovement();
+
+        boolean hurt = target.hurt(damageSource, damage);
+
+        if (hurt) {
+
+            Vec3 motionAfter = target.getDeltaMovement();
+            Vec3 addedKnockback = motionAfter.subtract(motionBefore);
+            Vec3 scaledMotion = motionBefore.add(addedKnockback.scale(knockbackScale));
+
+            target.setDeltaMovement(scaledMotion);
+            target.hurtMarked = true;
+        }
+
+        return hurt;
+    }
+
     /// Weapon shooting handlers
 
-    public static void handleMachinegunShoot(ServerPlayer serverPlayer) {
+    public static void handleMachinegunShoot(ServerPlayer player) {
 
-        ServerLevel serverLevel = serverPlayer.serverLevel();
+        ServerLevel serverLevel = player.serverLevel();
 
         final double RANGE = 96d;
+        final double INACCURACY_DEGREES = 2f;
         final float DAMAGE = Q2WConfigStats.MachinegunDamage;
 
-        Vec3 eyePos = serverPlayer.getEyePosition();
-        Vec3 look = serverPlayer.getLookAngle();
-
-        final double INACCURACY_DEGREES = 2f;
-
+        Vec3 eyePos = player.getEyePosition();
+        Vec3 look = player.getLookAngle();
         Vec3 shotDir = getMachinegunSpreadDirection(look, INACCURACY_DEGREES, serverLevel.random);
         Vec3 endPos = eyePos.add(shotDir.scale(RANGE));
 
-        BlockHitResult blockHit = serverLevel.clip(new ClipContext(eyePos, endPos, ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, serverPlayer));
+        BlockHitResult blockHit = serverLevel.clip(new ClipContext(eyePos, endPos, ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, player));
 
         double blockDistance = RANGE;
 
         if (blockHit.getType() != HitResult.Type.MISS) {
+
             blockDistance = blockHit.getLocation().distanceTo(eyePos);
         }
 
-        EntityHitResult entityHit = ProjectileUtil.getEntityHitResult(serverLevel, serverPlayer, eyePos, endPos, new AABB(eyePos, endPos).inflate(0.35d), entity -> entity instanceof LivingEntity && entity != serverPlayer && !entity.isSpectator() && entity.isPickable());
+        EntityHitResult entityHit = ProjectileUtil.getEntityHitResult(serverLevel, player, eyePos, endPos, new AABB(eyePos, endPos).inflate(0.35d), entity -> entity instanceof LivingEntity && entity != player && !entity.isSpectator() && entity.isPickable());
 
         if (entityHit != null && entityHit.getLocation().distanceTo(eyePos) < blockDistance) {
 
             LivingEntity target = (LivingEntity) entityHit.getEntity();
             Vec3 hitPos = entityHit.getLocation();
 
-            target.hurt(serverLevel.damageSources().source(ModDamageTypes.MACHINEGUN_DAMAGE, serverPlayer, serverPlayer), DAMAGE);
+            hurtWithScaledKnockback(target, serverLevel.damageSources().source(ModDamageTypes.MACHINEGUN_DAMAGE, player, player), DAMAGE, 0.25d);
 
             if (Q2WConfig.COMMON.enableGore.get()) {
 
-                serverLevel.sendParticles(serverPlayer, ParticleTypes.LANDING_LAVA, true, hitPos.x, hitPos.y, hitPos.z, 1, 0.25d, 0.25d, 0.25d, 0.0d);
+                serverLevel.sendParticles(player, ParticleTypes.LANDING_LAVA, true, hitPos.x, hitPos.y, hitPos.z, 1, 0.25d, 0.25d, 0.25d, 0.0d);
             }
 
-            serverLevel.sendParticles(serverPlayer, ParticleTypes.SMOKE, true, hitPos.x, hitPos.y, hitPos.z, 1, 0.05d, 0.05d, 0.05d, 0.0d);
-            serverLevel.playSound(serverPlayer, hitPos.x, hitPos.y, hitPos.z, ModSounds.BULLET_HIT.get(), SoundSource.PLAYERS, 1f, 1f);
+            serverLevel.sendParticles(player, ParticleTypes.SMOKE, true, hitPos.x, hitPos.y, hitPos.z, 1, 0.05d, 0.05d, 0.05d, 0.0d);
+            serverLevel.playSound(null, hitPos.x, hitPos.y, hitPos.z, ModSounds.BULLET_HIT.get(), SoundSource.NEUTRAL, 0.5f, 1f);
 
         } else if (blockHit.getType() != HitResult.Type.MISS) {
 
             Vec3 hitPos = blockHit.getLocation();
-            serverLevel.sendParticles(serverPlayer, ParticleTypes.SMOKE, true, hitPos.x, hitPos.y, hitPos.z, 1, 0.05d, 0.05d, 0.05d, 0.0d);
-            serverLevel.playSound(serverPlayer, hitPos.x, hitPos.y, hitPos.z, ModSounds.BULLET_HIT.get(), SoundSource.PLAYERS, 1f, 1f);
+            serverLevel.sendParticles(player, ParticleTypes.SMOKE, true, hitPos.x, hitPos.y, hitPos.z, 1, 0.05d, 0.05d, 0.05d, 0.0d);
+            player.level().playSound(null, hitPos.x, hitPos.y, hitPos.z, ModSounds.BULLET_HIT.get(), SoundSource.NEUTRAL, 0.5f, 1f);
         }
 
-        spawnMuzzleFlash(serverLevel, serverPlayer, shotDir);
+        spawnMuzzleFlash(serverLevel, player, shotDir);
 
-        serverLevel.playSound(null,serverPlayer.getX(),serverPlayer.getY(),serverPlayer.getZ(),ModSounds.CHAINGUN_SHOOT.get(),SoundSource.PLAYERS,1.0f, 1.0f);
+        player.level().playSound(null,player.getX(),player.getY(),player.getZ(),ModSounds.CHAINGUN_SHOOT.get(),SoundSource.PLAYERS,1.0f, 1.0f);
     }
 
     public static void handleChaingunShoot(ServerPlayer player){
 
+        ServerLevel serverLevel = player.serverLevel();
+
+        final double RANGE = 96d;
+        final double INACCURACY_DEGREES = 4f;
+        final float DAMAGE = Q2WConfigStats.ChaingunDamage;
+
+        Vec3 eyePos = player.getEyePosition();
+        Vec3 look = player.getLookAngle();
+        Vec3 shotDir = getMachinegunSpreadDirection(look, INACCURACY_DEGREES, serverLevel.random);
+        Vec3 endPos = eyePos.add(shotDir.scale(RANGE));
+
+        BlockHitResult blockHit = serverLevel.clip(new ClipContext(eyePos, endPos, ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, player));
+
+        double blockDistance = RANGE;
+
+        if (blockHit.getType() != HitResult.Type.MISS) {
+
+            blockDistance = blockHit.getLocation().distanceTo(eyePos);
+        }
+
+        EntityHitResult entityHit = ProjectileUtil.getEntityHitResult(serverLevel, player, eyePos, endPos, new AABB(eyePos, endPos).inflate(0.35d), entity -> entity instanceof LivingEntity && entity != player && !entity.isSpectator() && entity.isPickable());
+
+        if (entityHit != null && entityHit.getLocation().distanceTo(eyePos) < blockDistance) {
+
+            LivingEntity target = (LivingEntity) entityHit.getEntity();
+            Vec3 hitPos = entityHit.getLocation();
+
+            hurtWithScaledKnockback(target, serverLevel.damageSources().source(ModDamageTypes.MACHINEGUN_DAMAGE, player, player), DAMAGE, 0.25d);
+
+            if (Q2WConfig.COMMON.enableGore.get()) {
+
+                serverLevel.sendParticles(player, ParticleTypes.LANDING_LAVA, true, hitPos.x, hitPos.y, hitPos.z, 1, 0.25d, 0.25d, 0.25d, 0.0d);
+            }
+
+            serverLevel.sendParticles(player, ParticleTypes.SMOKE, true, hitPos.x, hitPos.y, hitPos.z, 1, 0.05d, 0.05d, 0.05d, 0.0d);
+            serverLevel.playSound(null, hitPos.x, hitPos.y, hitPos.z, ModSounds.BULLET_HIT.get(), SoundSource.NEUTRAL, 0.25f, 1f);
+
+        } else if (blockHit.getType() != HitResult.Type.MISS) {
+
+            Vec3 hitPos = blockHit.getLocation();
+            serverLevel.sendParticles(player, ParticleTypes.SMOKE, true, hitPos.x, hitPos.y, hitPos.z, 1, 0.05d, 0.05d, 0.05d, 0.0d);
+            player.level().playSound(null, hitPos.x, hitPos.y, hitPos.z, ModSounds.BULLET_HIT.get(), SoundSource.NEUTRAL, 0.25f, 1f);
+        }
+
+        spawnMuzzleFlash(serverLevel, player, shotDir);
+
+        player.level().playSound(null,player.getX(),player.getY(),player.getZ(),ModSounds.CHAINGUN_SHOOT.get(),SoundSource.PLAYERS,0.25f, 1.0f);
     }
 
     public static void handleRailgunShoot(ServerPlayer player){
@@ -336,7 +402,7 @@ public class ServerPlayHandler {
 
         //TODO: ganzen Railgunsound finden
 
-        serverLevel.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.RAILGUN_SHOOT.get(), SoundSource.PLAYERS, 1f, 1f);
+        player.level().playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.RAILGUN_SHOOT.get(), SoundSource.PLAYERS, 1f, 1f);
 
         spawnMuzzleFlash(serverLevel, player, direction);
     }

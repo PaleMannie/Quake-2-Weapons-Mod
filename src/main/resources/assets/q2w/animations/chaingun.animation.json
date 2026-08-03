@@ -1,0 +1,73 @@
+{
+	"format_version": "1.8.0",
+	"animations": {
+		"chaingun.animation.idle": {
+			"loop": true,
+			"animation_length": 10,
+			"bones": {
+				"barrels": {
+					"rotation": {
+						"2.5": {
+							"vector": [0, 0, 0]
+						},
+						"2.6": {
+							"vector": [0, 0, -12.5]
+						},
+						"2.7": {
+							"vector": [0, 0, 0]
+						},
+						"7.04": {
+							"vector": [0, 0, 0]
+						},
+						"7.14": {
+							"vector": [0, 0, -12.5]
+						},
+						"7.24": {
+							"vector": [0, 0, 0]
+						},
+						"7.25": {
+							"vector": [0, 0, 0]
+						},
+						"7.35": {
+							"vector": [0, 0, -12.5]
+						},
+						"7.45": {
+							"vector": [0, 0, 0]
+						}
+					}
+				},
+				"fire": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
+				}
+			}
+		},
+		"chaingun.animation.shooting": {
+			"loop": true
+		},
+		"chaingun.animation.ammoempty": {
+			"animation_length": 0.15,
+			"bones": {
+				"barrels": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.06": {
+							"vector": [0, 0, -12.5]
+						},
+						"0.12": {
+							"vector": [0, 0, 0]
+						}
+					}
+				},
+				"fire": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
+				}
+			}
+		}
+	}
+}

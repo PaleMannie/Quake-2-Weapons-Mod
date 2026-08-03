@@ -56,4 +56,9 @@ public class MachinegunItem extends AbstractQ2Weapon{
     protected void fireWeapon(ServerLevel level, ServerPlayer player, ItemStack stack, int useTicks) {
         ServerPlayHandler.handleMachinegunShoot(player);
     }
+
+    @Override
+    protected void afterShooting(ItemStack stack, Level level, LivingEntity livingEntity, int timeCharged) {
+
+    }
 }

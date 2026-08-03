@@ -48,7 +48,7 @@ public class ModItems {
             () -> new MachinegunItem(new Item.Properties().stacksTo(1)));
 
     public static final RegistryObject<Item> CHAINGUN = ITEMS.register("chaingun",
-            () -> new Item(new Item.Properties().stacksTo(1)));
+            () -> new ChaingunItem(new Item.Properties().stacksTo(1)));
 
     public static final RegistryObject<Item> GRENADELAUNCHER = ITEMS.register("grenadelauncher",
             () -> new Item(new Item.Properties().stacksTo(1)));

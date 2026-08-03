@@ -5,7 +5,9 @@ import mett.palemannie.q2w.util.ServerPlayHandler;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 
 public class BlasterItem extends AbstractQ2Weapon {
 
@@ -26,5 +28,10 @@ public class BlasterItem extends AbstractQ2Weapon {
     @Override
     protected void fireWeapon(ServerLevel level, ServerPlayer player, ItemStack stack, int useTicks) {
         ServerPlayHandler.handleBlasterShoot(player);
+    }
+
+    @Override
+    protected void afterShooting(ItemStack stack, Level level, LivingEntity livingEntity, int timeCharged) {
+
     }
 }
