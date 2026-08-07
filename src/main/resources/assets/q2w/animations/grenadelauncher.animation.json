@@ -1,0 +1,151 @@
+{
+	"format_version": "1.8.0",
+	"animations": {
+		"grenadelauncher.animation.idle": {
+			"animation_length": 0.02,
+			"bones": {
+				"fire": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
+				}
+			}
+		},
+		"grenadelauncher.animation.shooting": {
+			"animation_length": 1.15,
+			"bones": {
+				"grenadelauncher": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.1": {
+							"vector": [5, 0, 0]
+						},
+						"0.25": {
+							"vector": [60, 0, 0]
+						},
+						"0.7": {
+							"vector": [0, 0, 0]
+						}
+					},
+					"position": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.1": {
+							"vector": [0, -1, -2]
+						},
+						"0.25": {
+							"vector": [0, 2, -2]
+						},
+						"0.7": {
+							"vector": [0, 0, 0]
+						}
+					}
+				},
+				"fire": {
+					"scale": {
+						"0.0": {
+							"vector": [1, 1, 1]
+						},
+						"0.1": {
+							"vector": [1, 1, 1]
+						},
+						"0.11": {
+							"vector": [0, 0, 0]
+						}
+					}
+				},
+				"drum": {
+					"rotation": {
+						"0.64": {
+							"vector": [0, 0, 0]
+						},
+						"0.85": {
+							"vector": [0, 0, 90]
+						},
+						"0.9": {
+							"vector": [0, 0, 90]
+						},
+						"1.11": {
+							"vector": [0, 0, 0]
+						}
+					}
+				},
+				"grenade": {
+					"rotation": {
+						"vector": [0, 0, 0]
+					},
+					"position": {
+						"0.44": {
+							"vector": [0, 0, 0]
+						},
+						"0.45": {
+							"vector": [0, 0, 0]
+						},
+						"0.65": {
+							"vector": [0, 0, 4.75]
+						},
+						"0.89": {
+							"vector": [0, 0, 4.75]
+						},
+						"0.9": {
+							"vector": [0, 0, 0]
+						}
+					}
+				},
+				"pusher": {
+					"rotation": {
+						"vector": [0, 0, 0]
+					},
+					"position": {
+						"0.44": {
+							"vector": [0, 0, 0]
+						},
+						"0.65": {
+							"vector": [0, 0, 4.75]
+						},
+						"0.86": {
+							"vector": [0, 0, 0]
+						}
+					}
+				}
+			}
+		},
+		"grenadelauncher.animation.ammoempty": {
+			"animation_length": 0.2,
+			"bones": {
+				"grenadelauncher": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.05": {
+							"vector": [0, 0, 30]
+						},
+						"0.1": {
+							"vector": [0, 0, -30]
+						},
+						"0.15": {
+							"vector": [0, 0, 0]
+						}
+					},
+					"position": {
+						"vector": [0, 0, 0]
+					}
+				},
+				"fire": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
+				},
+				"drum": {
+					"rotation": {
+						"vector": [0, 0, 0]
+					}
+				}
+			}
+		}
+	}
+}

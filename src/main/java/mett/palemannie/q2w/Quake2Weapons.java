@@ -4,6 +4,7 @@ import com.mojang.logging.LogUtils;
 import mett.palemannie.q2w.block.ModBlocks;
 import mett.palemannie.q2w.effect.ModEffects;
 import mett.palemannie.q2w.entity.ModEntities;
+import mett.palemannie.q2w.entity.client.GrenadelauncherProjectileRenderer;
 import mett.palemannie.q2w.entity.client.LaserProjectileRenderer;
 import mett.palemannie.q2w.entity.client.MuzzleflashRenderer;
 import mett.palemannie.q2w.entity.custom.LaserProjectileEntity;
@@ -65,6 +66,7 @@ public class Quake2Weapons {
 
             EntityRenderers.register(ModEntities.MUZZLE_FLASH.get(), MuzzleflashRenderer::new);
             EntityRenderers.register(ModEntities.LASER_PROJECTILE.get(), LaserProjectileRenderer::new);
+            EntityRenderers.register(ModEntities.GRENADELAUNCHER_PROJECTILE.get(), GrenadelauncherProjectileRenderer::new);
         }
     }
 

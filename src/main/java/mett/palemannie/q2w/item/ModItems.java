@@ -51,7 +51,7 @@ public class ModItems {
             () -> new ChaingunItem(new Item.Properties().stacksTo(1)));
 
     public static final RegistryObject<Item> GRENADELAUNCHER = ITEMS.register("grenadelauncher",
-            () -> new Item(new Item.Properties().stacksTo(1)));
+            () -> new GrenadelauncherItem(new Item.Properties().stacksTo(1)));
 
     public static final RegistryObject<Item> ROCKETLAUNCHER = ITEMS.register("rocketlauncher",
             () -> new Item(new Item.Properties().stacksTo(1)));
