@@ -16,5 +16,6 @@ public class ModelLayerRegistry {
         event.registerLayerDefinition(MuzzleflashModel.FLASH_LAYER, MuzzleflashModel::createBodyLayer);
         event.registerLayerDefinition(LaserProjectileModel.LASER_LAYER, LaserProjectileModel::createBodyLayer);
         event.registerLayerDefinition(GrenadelauncherProjectileModel.GRENADE_LAYER, GrenadelauncherProjectileModel::createBodyLayer);
+        event.registerLayerDefinition(RocketlauncherProjectileModel.ROCKET_LAYER, RocketlauncherProjectileModel::createBodyLayer);
     }
 }

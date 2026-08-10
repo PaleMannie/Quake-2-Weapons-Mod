@@ -39,7 +39,7 @@ public class GrenadelauncherProjectileRenderer extends EntityRenderer<Grenadelau
 
         poseStack.pushPose();
 
-        poseStack.scale(0.2F, 0.2F, 0.2F);
+        poseStack.scale(0.3F, 0.3F, 0.3F);
         poseStack.translate(0.0F, 0.1F, 0.0F);
 
         Vec3 motion = grenadeEntity.getDeltaMovement();

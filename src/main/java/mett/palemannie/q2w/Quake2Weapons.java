@@ -7,6 +7,7 @@ import mett.palemannie.q2w.entity.ModEntities;
 import mett.palemannie.q2w.entity.client.GrenadelauncherProjectileRenderer;
 import mett.palemannie.q2w.entity.client.LaserProjectileRenderer;
 import mett.palemannie.q2w.entity.client.MuzzleflashRenderer;
+import mett.palemannie.q2w.entity.client.RocketlauncherProjectileRenderer;
 import mett.palemannie.q2w.entity.custom.LaserProjectileEntity;
 import mett.palemannie.q2w.item.ModItems;
 import mett.palemannie.q2w.net.ModMessages;
@@ -67,6 +68,7 @@ public class Quake2Weapons {
             EntityRenderers.register(ModEntities.MUZZLE_FLASH.get(), MuzzleflashRenderer::new);
             EntityRenderers.register(ModEntities.LASER_PROJECTILE.get(), LaserProjectileRenderer::new);
             EntityRenderers.register(ModEntities.GRENADELAUNCHER_PROJECTILE.get(), GrenadelauncherProjectileRenderer::new);
+            EntityRenderers.register(ModEntities.ROCKETLAUNCHER_PROJECTILE.get(), RocketlauncherProjectileRenderer::new);
         }
     }
 

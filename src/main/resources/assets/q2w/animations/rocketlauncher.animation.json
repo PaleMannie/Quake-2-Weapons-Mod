@@ -1,0 +1,135 @@
+{
+	"format_version": "1.8.0",
+	"animations": {
+		"rocketlauncher.animation.idle": {
+			"animation_length": 0.02,
+			"bones": {
+				"fire": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
+				},
+				"loadingrocket": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
+				}
+			}
+		},
+		"rocketlauncher.animation.shooting": {
+			"animation_length": 0.85,
+			"bones": {
+				"rocketlauncher": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.15": {
+							"vector": [-10, 0, -10]
+						},
+						"0.4": {
+							"vector": [0, 0, 0]
+						},
+						"0.55": {
+							"vector": [2.5, 0, 2.5]
+						},
+						"0.8": {
+							"vector": [0, 0, 0]
+						}
+					},
+					"position": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.15": {
+							"vector": [0, 0, 3]
+						},
+						"0.4": {
+							"vector": [0, 0, 0]
+						}
+					}
+				},
+				"fire": {
+					"scale": {
+						"0.1": {
+							"vector": [1, 1, 1]
+						},
+						"0.11": {
+							"vector": [0, 0, 0]
+						}
+					}
+				},
+				"rocketgroup": {
+					"position": {
+						"0.0": {
+							"vector": [-2, 0, 0]
+						},
+						"0.29": {
+							"vector": [-1, 0, 0]
+						},
+						"0.4": {
+							"vector": [0, 0, 0]
+						}
+					}
+				},
+				"loadingrocket": {
+					"position": {
+						"0.0": {
+							"vector": [-2, 2, 0]
+						},
+						"0.29": {
+							"vector": [-1, 2, 0]
+						},
+						"0.4": {
+							"vector": [0, 2, 0]
+						},
+						"0.5": {
+							"vector": [0, 1, 0]
+						},
+						"0.7": {
+							"vector": [0, 1, -6]
+						},
+						"0.85": {
+							"vector": [0, 1, -6]
+						}
+					}
+				}
+			}
+		},
+		"rocketlauncher.animation.ammoempty": {
+			"animation_length": 0.4,
+			"bones": {
+				"rocketlauncher": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.05": {
+							"vector": [0, 0, 20]
+						},
+						"0.15": {
+							"vector": [0, 0, -20]
+						},
+						"0.25": {
+							"vector": [0, 0, 20]
+						},
+						"0.35": {
+							"vector": [0, 0, -20]
+						},
+						"0.4": {
+							"vector": [0, 0, 0]
+						}
+					},
+					"position": {
+						"vector": [0, 0, 0]
+					}
+				},
+				"fire": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
+				}
+			}
+		}
+	}
+}

@@ -15,7 +15,7 @@ import net.minecraft.world.level.Level;
 public class RocketlauncherItem extends AbstractQ2Weapon{
 
     public RocketlauncherItem(Properties pProperties) {
-        super(pProperties,18,18);
+        super(pProperties,18,16);
     }
 
     @Override

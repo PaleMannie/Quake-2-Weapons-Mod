@@ -417,24 +417,25 @@ public class ServerPlayHandler {
         Level lvl = player.level();
 
         ///Entity
-        double forwardOffset = 0.2;
 
-        Vec3 look = player.getLookAngle();
-        Vec3 right = look.cross(new Vec3(0, 0, 0)).normalize();
+        final double RIGHT_OFFSET = 0.25d;
+        final double DOWN_OFFSET = 0.10d;
+        final double FORWARD_OFFSET = 0.6d;
 
-        double spawnX = player.getX() + right.x + look.x * forwardOffset;
-        double spawnY = player.getEyeY() - 0.2f + right.y + look.y * forwardOffset;
-        double spawnZ = player.getZ() + right.z + look.z * forwardOffset;
+        Vec3 direction = player.getLookAngle().normalize();
+        Vec3 shotStart = getOffsetShotStart(player, direction, RIGHT_OFFSET, DOWN_OFFSET, FORWARD_OFFSET);
 
         RocketProjectileEntity rocket = new RocketProjectileEntity(ModEntities.ROCKETLAUNCHER_PROJECTILE.get(), sevel);
 
-        shootFromRotationNoMomentum(rocket, player, player.getXRot(), player.getYRot(), 1f, 0.0f);
+        shootFromRotationNoMomentum(rocket, player, player.getXRot(), player.getYRot(), 1.5f, 0.0f);
+        rocket.setPos(shotStart);
+
         sevel.addFreshEntity(rocket);
 
         if(isMuzzleFlashEnabled()){
 
             MuzzleflashEntity flash = new MuzzleflashEntity(sevel, player);
-            flash.setPos(spawnX, spawnY, spawnZ);
+            flash.setPos(shotStart);
 
             sevel.addFreshEntity(flash);
         }
@@ -472,7 +473,7 @@ public class ServerPlayHandler {
         ///Entity
         GrenadelauncherProjectileEntity grenade = new GrenadelauncherProjectileEntity(ModEntities.GRENADELAUNCHER_PROJECTILE.get(), sevel);
 
-        shootFromRotationNoMomentum(grenade, player, player.getXRot(), player.getYRot(), 0.8f, 0.0f);
+        shootFromRotationNoMomentum(grenade, player, player.getXRot(), player.getYRot(), 1.0f, 0.0f);
         sevel.addFreshEntity(grenade);
 
         ///Sound
