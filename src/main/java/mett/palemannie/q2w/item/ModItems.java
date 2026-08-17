@@ -57,7 +57,7 @@ public class ModItems {
             () -> new RocketlauncherItem(new Item.Properties().stacksTo(1)));
 
     public static final RegistryObject<Item> HYPERBLASTER = ITEMS.register("hyperblaster",
-            () -> new Item(new Item.Properties().stacksTo(1)));
+            () -> new HyperblasterItem(new Item.Properties().stacksTo(1)));
 
     public static final RegistryObject<Item> RAILGUN = ITEMS.register("railgun",
             () -> new RailgunItem(new Item.Properties().stacksTo(1)));

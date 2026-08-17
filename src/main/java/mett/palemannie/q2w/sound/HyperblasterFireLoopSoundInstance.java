@@ -1,7 +1,7 @@
 package mett.palemannie.q2w.sound;
 
 import mett.palemannie.q2w.item.ModItems;
-import mett.palemannie.q2w.item.custom.ChaingunItem;
+import mett.palemannie.q2w.item.custom.HyperblasterItem;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.resources.sounds.AbstractTickableSoundInstance;
 import net.minecraft.sounds.SoundEvent;
@@ -9,11 +9,11 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.ItemStack;
 
-public class ChaingunFireLoopSoundInstance extends AbstractTickableSoundInstance {
+public class HyperblasterFireLoopSoundInstance extends AbstractTickableSoundInstance {
 
     private final LocalPlayer player;
 
-    public ChaingunFireLoopSoundInstance(LocalPlayer player, SoundEvent soundEvent) {
+    public HyperblasterFireLoopSoundInstance(LocalPlayer player, SoundEvent soundEvent) {
         super(soundEvent, SoundSource.PLAYERS, RandomSource.create());
 
         this.player = player;
@@ -37,14 +37,14 @@ public class ChaingunFireLoopSoundInstance extends AbstractTickableSoundInstance
 
         ItemStack mainHand = player.getMainHandItem();
 
-        boolean usingChaingun =
-                mainHand.getItem() instanceof ChaingunItem
+        boolean usingHyperblaster =
+                mainHand.getItem() instanceof HyperblasterItem
                         && player.isUsingItem()
                         && player.getUseItem() == mainHand;
 
         boolean hasAmmo = hasBulletAmmo(player);
 
-        if (!usingChaingun || !hasAmmo) {
+        if (!usingHyperblaster || !hasAmmo) {
             stop();
             return;
         }
@@ -60,7 +60,7 @@ public class ChaingunFireLoopSoundInstance extends AbstractTickableSoundInstance
         }
 
         for (ItemStack stack : player.getInventory().items) {
-            if (stack.is(ModItems.BULLET.get())) {
+            if (stack.is(ModItems.CELL.get())) {
                 return true;
             }
         }

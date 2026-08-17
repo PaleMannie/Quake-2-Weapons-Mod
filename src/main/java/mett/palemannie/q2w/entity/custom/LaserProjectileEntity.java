@@ -4,8 +4,6 @@ import mett.palemannie.q2w.Q2WConfig;
 import mett.palemannie.q2w.effect.ModEffects;
 import mett.palemannie.q2w.sound.ModSounds;
 import mett.palemannie.q2w.util.ModDamageTypes;
-import mett.palemannie.q2w.util.Q2WConfigStats;
-import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
@@ -31,11 +29,13 @@ import javax.annotation.Nullable;
 
 public class LaserProjectileEntity extends Projectile {
 
-    public LaserProjectileEntity(EntityType<? extends Projectile> entityType, Level level, double damageValue) {
+    public LaserProjectileEntity(EntityType<? extends Projectile> entityType, Level level, double damageValue, boolean isBlaster) {
         super(entityType, level);
         this.damage = damageValue;
+        this.isBlasterKey = isBlaster;
     }
 
+    boolean isBlasterKey;
     double damage = 0;
 
     public LaserProjectileEntity(EntityType<LaserProjectileEntity> entityType, Level level) {
@@ -131,10 +131,10 @@ public class LaserProjectileEntity extends Projectile {
     protected void onHitEntity(EntityHitResult pResult) {
         super.onHitEntity(pResult);
 
-        var damageType = ModDamageTypes.BLASTER_DAMAGE;
+        //var damageType = ModDamageTypes.BLASTER_DAMAGE;
         var soundEvent = ModSounds.BLASTER_HIT.get();
 
-        handleDamage(pResult, level(), damageType, (Player) this.getOwner());
+        handleDamage(pResult, level(), isBlasterKey ? ModDamageTypes.BLASTER_DAMAGE : ModDamageTypes.HYPERBLASTER_DAMAGE, (Player) this.getOwner());
         handleHitSound(pResult, null, level(), soundEvent, 1f, 1f);
 
         if(Q2WConfig.COMMON.enableGore.get()){

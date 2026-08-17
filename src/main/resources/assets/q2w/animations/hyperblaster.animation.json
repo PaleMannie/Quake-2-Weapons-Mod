@@ -1,0 +1,28 @@
+{
+	"format_version": "1.8.0",
+	"animations": {
+		"hyperblaster.animation.idle": {
+			"animation_length": 0.125,
+			"bones": {
+				"fire": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
+				}
+			}
+		},
+		"hyperblaster.animation.shooting": {
+			"loop": true
+		},
+		"hyperblaster.animation.ammoempty": {
+			"loop": true,
+			"bones": {
+				"fire": {
+					"position": {
+						"vector": [0, 0, 0]
+					}
+				}
+			}
+		}
+	}
+}

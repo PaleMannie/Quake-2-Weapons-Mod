@@ -630,19 +630,22 @@ public class ServerPlayHandler {
         Level lvl = player.level();
 
         ///Entity
-        /*double forwardOffset = 0.2;
+        double forwardOffset = 0.5f;
+        double upOffset = 0.2f;
 
         Vec3 look = player.getLookAngle();
-        Vec3 right = look.cross(new Vec3(0, 0, 0)).normalize();
+        float rightOffset = 0.25f;
+        Vec3 right = look.cross(new Vec3(0, 1.5, 0)).normalize();
 
-        double spawnX = player.getX() + right.x+ look.x * forwardOffset;
-        double spawnY = player.getEyeY() - 0.25 + right.y + look.y * forwardOffset;
-        double spawnZ = player.getZ() + right.z + look.z * forwardOffset;
+        double spawnX = player.getX() + right.x * rightOffset + look.x * forwardOffset;
+        double spawnY = player.getEyeY() - upOffset + right.y * rightOffset + look.y * forwardOffset;
+        double spawnZ = player.getZ() + right.z * rightOffset + look.z * forwardOffset;
 
-        HyperblasterProjectileEntity supernail = new HyperblasterProjectileEntity(ModEntities.HYPERBLASTER_PROJECTILE.get(), sevel);
+        LaserProjectileEntity laser = new LaserProjectileEntity(ModEntities.LASER_PROJECTILE.get(), sevel, Q2WConfigStats.HyperBlasterDamage, false);
 
-        shootFromRotationNoMomentum(supernail, player, player.getXRot(), player.getYRot(), 1f, 0.0f);
-        sevel.addFreshEntity(supernail);
+        shootFromRotationNoMomentum(laser, player, player.getXRot(), player.getYRot(), 1f, 0f);
+        laser.setPos(spawnX, spawnY, spawnZ);
+        sevel.addFreshEntity(laser);
 
         if(isMuzzleFlashEnabled()){
 
@@ -650,7 +653,7 @@ public class ServerPlayHandler {
             flash.setPos(spawnX, spawnY, spawnZ);
 
             sevel.addFreshEntity(flash);
-        }*/
+        }
 
         ///Sound
         double posX = player.getX();
@@ -675,7 +678,7 @@ public class ServerPlayHandler {
         double spawnY = player.getEyeY() - 0.25 + right.y * rightOffset + look.y * forwardOffset;
         double spawnZ = player.getZ() + right.z * rightOffset + look.z * forwardOffset;
 
-        LaserProjectileEntity laser = new LaserProjectileEntity(ModEntities.LASER_PROJECTILE.get(), sevel, Q2WConfigStats.BlasterDamage);
+        LaserProjectileEntity laser = new LaserProjectileEntity(ModEntities.LASER_PROJECTILE.get(), sevel, Q2WConfigStats.BlasterDamage, true);
 
         shootFromRotationNoMomentum(laser, player, player.getXRot(), player.getYRot(), 1f, 0f);
         laser.setPos(spawnX, spawnY, spawnZ);

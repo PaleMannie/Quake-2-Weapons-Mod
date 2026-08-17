@@ -2,7 +2,7 @@ package mett.palemannie.q2w.sound;
 
 import mett.palemannie.q2w.Quake2Weapons;
 import mett.palemannie.q2w.item.ModItems;
-import mett.palemannie.q2w.item.custom.ChaingunItem;
+import mett.palemannie.q2w.item.custom.HyperblasterItem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.world.item.ItemStack;
@@ -12,14 +12,13 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
 @Mod.EventBusSubscriber(modid = Quake2Weapons.MODID, value = Dist.CLIENT)
-public class ChaingunSoundHandler {
+public class HyperblasterSoundHandler {
 
-    private static ChaingunFireLoopSoundInstance chaingunLoop;
+    private static HyperblasterFireLoopSoundInstance hyperblasterLoop;
 
     private static boolean wasFiring = false;
 
     private static int fireTicks = 0;
-    private static final int LOOP_START_DELAY_TICKS = 17;
 
     @SubscribeEvent
     public static void onClientTick(TickEvent.ClientTickEvent event) {
@@ -32,88 +31,70 @@ public class ChaingunSoundHandler {
         LocalPlayer player = minecraft.player;
 
         if (player == null) {
-            stopChaingunLoop();
+            stopHyperblasterLoop();
             wasFiring = false;
             return;
         }
 
-        boolean firing = isFiringChaingun(player);
-
-        if (firing && !wasFiring) {
-            playSpinup(player);
-        }
+        boolean firing = isFiringHyperblaster(player);
 
         if (!firing && wasFiring) {
+
             playSpindown(player);
         }
 
         if (firing) {
 
             fireTicks++;
-
-            if (fireTicks >= LOOP_START_DELAY_TICKS) {
-
-                startChaingunLoop(player);
-            }
+            startHyperblasterLoop(player);
         } else {
 
             fireTicks = 0;
-            stopChaingunLoop();
+            stopHyperblasterLoop();
         }
 
         wasFiring = firing;
     }
 
-    private static boolean isFiringChaingun(LocalPlayer player) {
+    private static boolean isFiringHyperblaster(LocalPlayer player) {
         ItemStack mainHand = player.getMainHandItem();
 
-        boolean usingChaingun =
-                mainHand.getItem() instanceof ChaingunItem
+        boolean usingHyperblaster =
+                mainHand.getItem() instanceof HyperblasterItem
                         && player.isUsingItem()
                         && player.getUseItem() == mainHand;
 
-        return usingChaingun && hasBulletAmmo(player);
-    }
-
-    private static void playSpinup(LocalPlayer player) {
-        Minecraft.getInstance().getSoundManager().play(
-                new FollowPlayerOneShotSoundInstance(
-                        player,
-                        ModSounds.CHAINGUN_SPINUP.get(),
-                        0.85f,
-                        1f
-                )
-        );
+        return usingHyperblaster && hasBulletAmmo(player);
     }
 
     private static void playSpindown(LocalPlayer player) {
         Minecraft.getInstance().getSoundManager().play(
                 new FollowPlayerOneShotSoundInstance(
                         player,
-                        ModSounds.CHAINGUN_SPINDOWN.get(),
+                        ModSounds.HYPERBLASTER_SPINDOWN.get(),
                         0.85f,
                         1f
                 )
         );
     }
 
-    private static void startChaingunLoop(LocalPlayer player) {
-        if (chaingunLoop != null && !chaingunLoop.isStopped()) {
+    private static void startHyperblasterLoop(LocalPlayer player) {
+        if (hyperblasterLoop != null && !hyperblasterLoop.isStopped()) {
             return;
         }
 
-        chaingunLoop = new ChaingunFireLoopSoundInstance(
+        hyperblasterLoop = new HyperblasterFireLoopSoundInstance(
                 player,
-                ModSounds.CHAINGUN_LOOP.get()
+                ModSounds.HYPERBLASTER_LOOP.get()
         );
 
-        Minecraft.getInstance().getSoundManager().play(chaingunLoop);
+        Minecraft.getInstance().getSoundManager().play(hyperblasterLoop);
     }
 
-    private static void stopChaingunLoop() {
-        if (chaingunLoop != null) {
-            chaingunLoop.stop();
-            chaingunLoop = null;
+    private static void stopHyperblasterLoop() {
+        if (hyperblasterLoop != null) {
+            hyperblasterLoop.stop();
+            hyperblasterLoop = null;
         }
     }
 
@@ -123,7 +104,7 @@ public class ChaingunSoundHandler {
         }
 
         for (ItemStack stack : player.getInventory().items) {
-            if (stack.is(ModItems.BULLET.get())) {
+            if (stack.is(ModItems.CELL.get())) {
                 return true;
             }
         }

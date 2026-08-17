@@ -8,7 +8,6 @@ import mett.palemannie.q2w.entity.client.GrenadelauncherProjectileRenderer;
 import mett.palemannie.q2w.entity.client.LaserProjectileRenderer;
 import mett.palemannie.q2w.entity.client.MuzzleflashRenderer;
 import mett.palemannie.q2w.entity.client.RocketlauncherProjectileRenderer;
-import mett.palemannie.q2w.entity.custom.LaserProjectileEntity;
 import mett.palemannie.q2w.item.ModItems;
 import mett.palemannie.q2w.net.ModMessages;
 import mett.palemannie.q2w.sound.ModSounds;
