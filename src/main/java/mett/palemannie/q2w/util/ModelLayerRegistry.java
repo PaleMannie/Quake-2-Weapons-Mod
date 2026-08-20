@@ -1,4 +1,4 @@
-package mett.palemannie.q2w.event;
+package mett.palemannie.q2w.util;
 
 import mett.palemannie.q2w.Quake2Weapons;
 import mett.palemannie.q2w.entity.client.*;
@@ -17,5 +17,6 @@ public class ModelLayerRegistry {
         event.registerLayerDefinition(LaserProjectileModel.LASER_LAYER, LaserProjectileModel::createBodyLayer);
         event.registerLayerDefinition(GrenadelauncherProjectileModel.GRENADE_LAYER, GrenadelauncherProjectileModel::createBodyLayer);
         event.registerLayerDefinition(RocketlauncherProjectileModel.ROCKET_LAYER, RocketlauncherProjectileModel::createBodyLayer);
+        event.registerLayerDefinition(HandgrenadeProjectileModel.HANDGRENADE_LAYER, HandgrenadeProjectileModel::createBodyLayer);
     }
 }

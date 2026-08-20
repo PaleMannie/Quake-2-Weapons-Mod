@@ -28,7 +28,7 @@ public class ModItems {
             () -> new Item(new Item.Properties().stacksTo(64)));
 
     public static final RegistryObject<Item> GRENADE = ITEMS.register("grenade",
-            () -> new Item(new Item.Properties().stacksTo(64)));
+            () -> new HandgrenadeItem(new Item.Properties().stacksTo(64)));
 
     public static final RegistryObject<Item> SLUG = ITEMS.register("slug",
             () -> new Item(new Item.Properties().stacksTo(64)));

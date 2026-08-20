@@ -79,9 +79,14 @@ public class HandgrenadeProjectileEntity extends Projectile {
     public float lastTumbleY = 0;
     public float lastTumbleZ = 0;
 
+    private int fuseTicks = 64;
+
+    public void setFuseTicks(int fuseTicks) {
+        this.fuseTicks = Math.max(1, fuseTicks);
+    }
+
     @Override
     public void tick() {
-
         super.tick();
 
         Vec3 motion = this.getDeltaMovement();
@@ -146,7 +151,9 @@ public class HandgrenadeProjectileEntity extends Projectile {
             this.setDeltaMovement(this.getDeltaMovement().add(0.0, -0.06, 0.0));
         }
 
-        if(this.tickCount > 50) quakeExplosion(level());
+        if (!this.level().isClientSide && this.tickCount >= this.fuseTicks) {
+            quakeExplosion(this.level());
+        }
     }
 
     public boolean hasStopped = false;

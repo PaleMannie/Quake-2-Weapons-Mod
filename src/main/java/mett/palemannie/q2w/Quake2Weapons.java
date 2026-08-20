@@ -4,10 +4,7 @@ import com.mojang.logging.LogUtils;
 import mett.palemannie.q2w.block.ModBlocks;
 import mett.palemannie.q2w.effect.ModEffects;
 import mett.palemannie.q2w.entity.ModEntities;
-import mett.palemannie.q2w.entity.client.GrenadelauncherProjectileRenderer;
-import mett.palemannie.q2w.entity.client.LaserProjectileRenderer;
-import mett.palemannie.q2w.entity.client.MuzzleflashRenderer;
-import mett.palemannie.q2w.entity.client.RocketlauncherProjectileRenderer;
+import mett.palemannie.q2w.entity.client.*;
 import mett.palemannie.q2w.item.ModItems;
 import mett.palemannie.q2w.net.ModMessages;
 import mett.palemannie.q2w.sound.ModSounds;
@@ -68,6 +65,7 @@ public class Quake2Weapons {
             EntityRenderers.register(ModEntities.LASER_PROJECTILE.get(), LaserProjectileRenderer::new);
             EntityRenderers.register(ModEntities.GRENADELAUNCHER_PROJECTILE.get(), GrenadelauncherProjectileRenderer::new);
             EntityRenderers.register(ModEntities.ROCKETLAUNCHER_PROJECTILE.get(), RocketlauncherProjectileRenderer::new);
+            EntityRenderers.register(ModEntities.HANDGRENADE_PROJECTILE.get(), HandgrenadeProjectileRenderer::new);
         }
     }
 

@@ -427,7 +427,7 @@ public class ServerPlayHandler {
 
         RocketProjectileEntity rocket = new RocketProjectileEntity(ModEntities.ROCKETLAUNCHER_PROJECTILE.get(), sevel);
 
-        shootFromRotationNoMomentum(rocket, player, player.getXRot(), player.getYRot(), 1.5f, 0.0f);
+        shootFromRotationNoMomentum(rocket, player, player.getXRot(), player.getYRot(), 1.5f, 0f);
         rocket.setPos(shotStart);
 
         sevel.addFreshEntity(rocket);
@@ -447,22 +447,50 @@ public class ServerPlayHandler {
         lvl.playSound(null, posX, posY, posZ, ModSounds.ROCKETLAUNCHER_SHOOT.get(), SoundSource.PLAYERS, 1f, 1f);
     }
 
-    public static void handleHandgrenadeShoot(ServerPlayer player){
+    public static void handleHandgrenadeThrow(ServerPlayer player, int remainingFuseTicks, float velocity) {
+        ServerLevel serverLevel = player.serverLevel();
+        Level level = player.level();
 
-        ServerLevel sevel = player.serverLevel();
-        Level lvl = player.level();
+        HandgrenadeProjectileEntity grenade =
+                new HandgrenadeProjectileEntity(ModEntities.HANDGRENADE_PROJECTILE.get(), serverLevel);
 
-        ///Entity
-        HandgrenadeProjectileEntity grenade = new HandgrenadeProjectileEntity(ModEntities.HANDGRENADE_PROJECTILE.get(), sevel);
+        grenade.setOwner(player);
+        grenade.setFuseTicks(remainingFuseTicks);
 
-        shootFromRotationNoMomentum(grenade, player, player.getXRot(), player.getYRot(), 0.8f, 0.0f);
-        sevel.addFreshEntity(grenade);
+        double forwardOffset = 0d;
+        double rightOffset = 0d;
+        double downOffset = 0d;
 
-        ///Sound
-        double posX = player.getX();
-        double posY = player.getY();
-        double posZ = player.getZ();
-        lvl.playSound(null, posX, posY, posZ, ModSounds.HANDGRENADE_TOSS.get(), SoundSource.PLAYERS, 1f, 1f);
+        Vec3 look = player.getLookAngle().normalize();
+        Vec3 worldUp = new Vec3(0d, 1d, 0d);
+        Vec3 right = look.cross(worldUp);
+
+        if (right.lengthSqr() < 1.0E-7D) {
+            right = new Vec3(1d, 0d, 0d);
+        } else {
+            right = right.normalize();
+        }
+
+        Vec3 spawnPos = player.getEyePosition()
+                .add(look.scale(forwardOffset))
+                .add(right.scale(rightOffset))
+                .add(0d, -downOffset, 0d);
+
+        shootFromRotationNoMomentum(grenade, player, player.getXRot(), player.getYRot(), velocity, 0f);
+        grenade.setPos(spawnPos.x, spawnPos.y, spawnPos.z);
+
+        serverLevel.addFreshEntity(grenade);
+
+        level.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.HANDGRENADE_TOSS.get(), SoundSource.PLAYERS, 1f, 1f);
+    }
+
+    public static void handleHandgrenadeOvercook(ServerPlayer player) {
+        ServerLevel level = player.serverLevel();
+
+        Vec3 center = player.position().add(0d, player.getBbHeight() * 0.5d, 0d);
+
+        level.explode(player, level.damageSources().source(ModDamageTypes.HANDGRENADE_DAMAGE, player, player), null, center.x, center.y, center.z, GrenadelauncherProjectileEntity.computeRadiusFromDamage(Q2WConfigStats.HandGrenadeDamage, player), false, Level.ExplosionInteraction.NONE);
+        level.playSound(null, center.x, center.y, center.z, ModSounds.EXPLOSION.get(), SoundSource.PLAYERS, 2f, 1f);
     }
 
     public static void handleGrenadeLauncherShoot(ServerPlayer player){
@@ -473,7 +501,7 @@ public class ServerPlayHandler {
         ///Entity
         GrenadelauncherProjectileEntity grenade = new GrenadelauncherProjectileEntity(ModEntities.GRENADELAUNCHER_PROJECTILE.get(), sevel);
 
-        shootFromRotationNoMomentum(grenade, player, player.getXRot(), player.getYRot(), 1.0f, 0.0f);
+        shootFromRotationNoMomentum(grenade, player, player.getXRot(), player.getYRot(), 1f, 0f);
         sevel.addFreshEntity(grenade);
 
         ///Sound

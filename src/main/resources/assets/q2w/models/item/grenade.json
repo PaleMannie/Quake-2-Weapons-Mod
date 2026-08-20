@@ -1,6 +1,18 @@
 {
   "parent": "minecraft:item/generated",
-  "textures": {
-    "layer0": "q2w:item/grenade"
+  "loader": "forge:separate_transforms",
+  "base": {
+    "parent": "q2w:item/grenade_3d"
+  },
+  "perspectives": {
+    "gui": {
+      "parent": "q2w:item/grenade_2d"
+    },
+    "ground": {
+      "parent": "q2w:item/grenade_2d"
+    },
+    "fixed": {
+      "parent": "q2w:item/grenade_2d"
+    }
   }
 }
