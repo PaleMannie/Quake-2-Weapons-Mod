@@ -19,6 +19,7 @@ public class ModelLayerRegistry {
         event.registerLayerDefinition(RocketlauncherProjectileModel.ROCKET_LAYER, RocketlauncherProjectileModel::createBodyLayer);
         event.registerLayerDefinition(HandgrenadeProjectileModel.HANDGRENADE_LAYER, HandgrenadeProjectileModel::createBodyLayer);
         event.registerLayerDefinition(Bfg10kProjectileModel.BALL_LAYER, Bfg10kProjectileModel::createBodyLayer);
-        event.registerLayerDefinition(QuadDamagePowerupModel.QUAD_LAYER, QuadDamagePowerupModel::createBodyLayer);
+        event.registerLayerDefinition(QuaddamagePowerupModel.QUAD_LAYER, QuaddamagePowerupModel::createBodyLayer);
+        event.registerLayerDefinition(InvulnerabilityPowerupModel.INVULN_LAYER, InvulnerabilityPowerupModel::createBodyLayer);
     }
 }

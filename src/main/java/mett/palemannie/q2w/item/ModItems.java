@@ -71,7 +71,7 @@ public class ModItems {
             () -> new QuadDamageItem(new Item.Properties().stacksTo(1)));
 
     public static final RegistryObject<Item> INVULN_ITEM = ITEMS.register("invuln_item",
-            () -> new Item(new Item.Properties().stacksTo(1)));
+            () -> new InvulnerabilityItem(new Item.Properties().stacksTo(1)));
 
     public static final RegistryObject<Item> ENVIROSUIT_ITEM = ITEMS.register("envirosuit_item",
             () -> new Item(new Item.Properties().stacksTo(1)));
