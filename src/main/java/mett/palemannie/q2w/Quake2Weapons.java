@@ -69,6 +69,7 @@ public class Quake2Weapons {
             EntityRenderers.register(ModEntities.ROCKETLAUNCHER_PROJECTILE.get(), RocketlauncherProjectileRenderer::new);
             EntityRenderers.register(ModEntities.HANDGRENADE_PROJECTILE.get(), HandgrenadeProjectileRenderer::new);
             EntityRenderers.register(ModEntities.BFG10K_PROJECTILE.get(), Bfg10kProjectileRenderer::new);
+            EntityRenderers.register(ModEntities.QUAD_DAMAGE_POWERUP.get(), QuaddamagePowerupRenderer::new);
         }
     }
 

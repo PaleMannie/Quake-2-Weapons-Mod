@@ -68,7 +68,7 @@ public class ModItems {
     /// Powerup Items
 
     public static final RegistryObject<Item> QUAD_DAMAGE_ITEM = ITEMS.register("quad_damage_item",
-            () -> new Item(new Item.Properties().stacksTo(1)));
+            () -> new QuadDamageItem(new Item.Properties().stacksTo(1)));
 
     public static final RegistryObject<Item> INVULN_ITEM = ITEMS.register("invuln_item",
             () -> new Item(new Item.Properties().stacksTo(1)));
