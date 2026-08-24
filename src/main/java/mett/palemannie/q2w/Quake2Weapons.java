@@ -7,6 +7,7 @@ import mett.palemannie.q2w.entity.ModEntities;
 import mett.palemannie.q2w.entity.client.*;
 import mett.palemannie.q2w.item.ModItems;
 import mett.palemannie.q2w.net.ModMessages;
+import mett.palemannie.q2w.particle.ModParticles;
 import mett.palemannie.q2w.sound.ModSounds;
 import mett.palemannie.q2w.util.ModCreativeModeTabs;
 import net.minecraft.client.renderer.entity.EntityRenderers;
@@ -44,6 +45,7 @@ public class Quake2Weapons {
         ModEntities.register(modEventBus);
         ModSounds.register(modEventBus);
         ModBlocks.register(modEventBus);
+        ModParticles.PARTICLES.register(modEventBus);
 
         Q2WConfig.registerConfigs();
     }
@@ -66,6 +68,7 @@ public class Quake2Weapons {
             EntityRenderers.register(ModEntities.GRENADELAUNCHER_PROJECTILE.get(), GrenadelauncherProjectileRenderer::new);
             EntityRenderers.register(ModEntities.ROCKETLAUNCHER_PROJECTILE.get(), RocketlauncherProjectileRenderer::new);
             EntityRenderers.register(ModEntities.HANDGRENADE_PROJECTILE.get(), HandgrenadeProjectileRenderer::new);
+            EntityRenderers.register(ModEntities.BFG10K_PROJECTILE.get(), Bfg10kProjectileRenderer::new);
         }
     }
 

@@ -18,7 +18,7 @@
 			}
 		},
 		"handgrenade.animation.prime": {
-			"animation_length": 4.0,
+			"animation_length": 6.0,
 			"bones": {
 				"grenade": {
 					"rotation": {

@@ -23,13 +23,28 @@ public class HandgrenadeEntityCookLoopSoundInstance extends AbstractTickableSoun
         this.x = grenade.getX();
         this.y = grenade.getY();
         this.z = grenade.getZ();
+        this.baseVolume = volume;
     }
+
+    private final float baseVolume;
 
     @Override
     public void tick() {
+
         if (grenade == null || grenade.isRemoved()) {
             stop();
             return;
+        }
+
+        var minecraft = net.minecraft.client.Minecraft.getInstance();
+
+        if (minecraft.player != null) {
+            double distance = minecraft.player.distanceTo(grenade);
+            double maxDistance = 24d;
+
+            float distanceScale = (float) Math.max(0d, 1d - distance / maxDistance);
+
+            this.volume = this.baseVolume * distanceScale;
         }
 
         this.x = grenade.getX();

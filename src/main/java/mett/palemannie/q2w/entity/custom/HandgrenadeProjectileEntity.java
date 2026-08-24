@@ -165,7 +165,7 @@ public class HandgrenadeProjectileEntity extends Projectile {
         double speed = motion.length();
 
         if (speed > 0.2 && !hasStopped) {
-            this.playSound(ModSounds.GRENADELAUNCHER_BOUNCE.get(), 2f, 1f);
+            this.playSound(ModSounds.HANDGRENADE_BOUNCE.get(), 1f, 1f);
         }
 
         if (speed < 0.2) {

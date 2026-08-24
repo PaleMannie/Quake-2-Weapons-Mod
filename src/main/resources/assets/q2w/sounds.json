@@ -65,7 +65,10 @@
   "chaingun_loop": {
     "subtitle": "sounds.q2w.chaingun_loop",
     "sounds": [
-      "q2w:chaingun_loop"
+      {
+        "name": "q2w:chaingun_loop",
+        "stream": false
+      }
     ]
   },
 
@@ -93,7 +96,10 @@
   "handgrenade_cook": {
     "subtitle": "sounds.q2w.handgrenade_cook",
     "sounds": [
-      "q2w:handgrenade_cook"
+      {
+        "name": "q2w:handgrenade_cook",
+        "stream": false
+      }
     ]
   },
 
@@ -136,7 +142,10 @@
   "rocket_loop": {
     "subtitle": "sounds.q2w.rocket_loop",
     "sounds": [
-      "q2w:rocket_loop"
+      {
+        "name": "q2w:rocket_loop",
+        "stream": false
+      }
     ]
   },
 
@@ -150,7 +159,10 @@
   "hyperblaster_loop": {
     "subtitle": "sounds.q2w.hyperblaster_loop",
     "sounds": [
-      "q2w:hyperblaster_loop"
+      {
+        "name": "q2w:hyperblaster_loop",
+        "stream": false
+      }
     ]
   },
 
@@ -178,7 +190,10 @@
   "railgun_hum": {
     "subtitle": "sounds.q2w.railgun_hum",
     "sounds": [
-      "q2w:railgun_hum"
+      {
+        "name": "q2w:railgun_hum",
+        "stream": false
+      }
     ]
   },
 
@@ -213,7 +228,10 @@
   "bfg10k_hum": {
     "subtitle": "sounds.q2w.bfg10k_hum",
     "sounds": [
-      "q2w:bfg10k_hum"
+      {
+        "name": "q2w:bfg10k_hum",
+        "stream": false
+      }
     ]
   },
 

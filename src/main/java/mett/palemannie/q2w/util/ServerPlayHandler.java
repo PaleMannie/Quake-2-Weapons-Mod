@@ -409,6 +409,38 @@ public class ServerPlayHandler {
 
     public static void handleBfg10kShoot(ServerPlayer player){
 
+        ServerLevel sevel = player.serverLevel();
+        Level lvl = player.level();
+
+        ///Entity
+
+        final double RIGHT_OFFSET = 0.25d;
+        final double DOWN_OFFSET = 0.10d;
+        final double FORWARD_OFFSET = 0.6d;
+
+        Vec3 direction = player.getLookAngle().normalize();
+        Vec3 shotStart = getOffsetShotStart(player, direction, RIGHT_OFFSET, DOWN_OFFSET, FORWARD_OFFSET);
+
+        Bfg10kProjectileEntity ball = new Bfg10kProjectileEntity(ModEntities.BFG10K_PROJECTILE.get(), sevel);
+
+        shootFromRotationNoMomentum(ball, player, player.getXRot(), player.getYRot(), Bfg10kProjectileEntity.SPEED_BLOCKS_PER_TICK, 0f);
+        ball.setPos(shotStart);
+
+        sevel.addFreshEntity(ball);
+
+        if(isMuzzleFlashEnabled()){
+
+            MuzzleflashEntity flash = new MuzzleflashEntity(sevel, player);
+            flash.setPos(shotStart);
+
+            sevel.addFreshEntity(flash);
+        }
+
+        ///Sound
+        double posX = player.getX();
+        double posY = player.getY();
+        double posZ = player.getZ();
+        lvl.playSound(null, posX, posY, posZ, ModSounds.BFG10K_SHOOT.get(), SoundSource.PLAYERS, 1f, 1f);
     }
 
     public static void handleRocketLauncherShoot(ServerPlayer player){
@@ -465,7 +497,7 @@ public class ServerPlayHandler {
         Vec3 worldUp = new Vec3(0d, 1d, 0d);
         Vec3 right = look.cross(worldUp);
 
-        if (right.lengthSqr() < 1.0E-7D) {
+        if (right.lengthSqr() < 1e-7f) {
             right = new Vec3(1d, 0d, 0d);
         } else {
             right = right.normalize();
@@ -489,7 +521,7 @@ public class ServerPlayHandler {
 
         Vec3 center = player.position().add(0d, player.getBbHeight() * 0.5d, 0d);
 
-        level.explode(player, level.damageSources().source(ModDamageTypes.HANDGRENADE_DAMAGE, player, player), null, center.x, center.y, center.z, GrenadelauncherProjectileEntity.computeRadiusFromDamage(Q2WConfigStats.HandGrenadeDamage, player), false, Level.ExplosionInteraction.NONE);
+        level.explode(player, level.damageSources().source(ModDamageTypes.HANDGRENADE_DAMAGE, player, player), null, center.x, center.y, center.z, GrenadelauncherProjectileEntity.computeRadiusFromDamage(Q2WConfigStats.HandGrenadeDamage, player), false, Level.ExplosionInteraction.NONE, false);
         level.playSound(null, center.x, center.y, center.z, ModSounds.EXPLOSION.get(), SoundSource.PLAYERS, 2f, 1f);
     }
 

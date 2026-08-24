@@ -63,7 +63,7 @@ public class ModItems {
             () -> new RailgunItem(new Item.Properties().stacksTo(1)));
 
     public static final RegistryObject<Item> BFG10K = ITEMS.register("bfg10k",
-            () -> new Item(new Item.Properties().stacksTo(1)));
+            () -> new Bfg10kItem(new Item.Properties().stacksTo(1)));
 
     /// Powerup Items
 

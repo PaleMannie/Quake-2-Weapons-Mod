@@ -39,6 +39,7 @@ public class ModCreativeModeTabs {
                         pOutput.accept(ModItems.ROCKETLAUNCHER.get());
                         pOutput.accept(ModItems.HYPERBLASTER.get());
                         pOutput.accept(ModItems.RAILGUN.get());
+                        pOutput.accept(ModItems.BFG10K.get());
 
                     })
                     .build());

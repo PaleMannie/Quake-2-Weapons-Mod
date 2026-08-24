@@ -28,7 +28,7 @@ import java.util.UUID;
 
 public class HandgrenadeItem extends AbstractWeapon {
 
-    public static final int FUSE_TICKS = 74;
+    public static final int FUSE_TICKS = 84;
 
     public static final int PIN_SOUND_TICK = 5;
     public static final int COOK_START_TICK = 11;

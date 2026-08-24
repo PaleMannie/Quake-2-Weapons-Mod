@@ -63,9 +63,9 @@ public class RocketProjectileEntity extends Projectile {
 
         ((ServerLevel) this.level()).sendParticles(ParticleTypes.FLAME,
                 center.x, center.y, center.z,
-                40, // Menge
+                40,
                 0.0, 0.0, 0.0,
-                0.2); // Geschwindigkeit
+                0.2);
 
         ((ServerLevel) this.level()).sendParticles(ParticleTypes.LARGE_SMOKE,
                 center.x, center.y, center.z,
@@ -75,7 +75,7 @@ public class RocketProjectileEntity extends Projectile {
 
         this.level().playSound(null, center.x, center.y, center.z,
                 ModSounds.EXPLOSION.get(), SoundSource.PLAYERS,
-                2.0F, 1.0F);
+                2f, 1f);
 
         this.cleanupLight();
         this.discard();
