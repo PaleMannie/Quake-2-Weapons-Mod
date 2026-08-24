@@ -10,20 +10,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
 
-/*
- * Base class for regular Quake 2-style weapons.
- *
- * Handles:
- * - automatic fire intervals
- * - release cooldowns
- * - ammo checks
- * - ammo consumption across multiple stacks
- * - ammoempty animation/sound
- * - hooks for special weapons like Chaingun and BFG10K
- *
- * Do NOT use this for Hand Grenade.
- * Hand Grenade should extend AbstractWeapon directly because it uses cook/release/fuse logic.
- */
+
 public abstract class AbstractQ2Weapon extends AbstractWeapon {
 
     private final int fireIntervalTicks;
