@@ -3,6 +3,7 @@ package mett.palemannie.q2w.entity.custom;
 import mett.palemannie.q2w.effect.ModEffects;
 import mett.palemannie.q2w.sound.ModSounds;
 import mett.palemannie.q2w.util.ModDamageTypes;
+import mett.palemannie.q2w.util.Q2ExplosionHelper;
 import mett.palemannie.q2w.util.Q2WConfigStats;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
@@ -32,29 +33,20 @@ public class HandgrenadeProjectileEntity extends Projectile {
         return false;
     }
 
-    public static float computeRadiusFromDamage(float configDamage, Player player) {
-
-        if(player == null){ return ((configDamage - 1) / 7.0F)/2; } else {
-            return player.hasEffect(ModEffects.QUAD_DAMAGE.get()) ? (((configDamage * 4) - 1) / 7.0F)/2 : ((configDamage - 1) / 7.0F)/2;
-        }
-    }
-
     /// Vanilla minecraft explosion with custom particle effects
     private void quakeExplosion(Level level) {
         if (this.level().isClientSide) return;
 
         Vec3 center = this.position();
 
-        DamageSource source = level.damageSources().source(ModDamageTypes.GRENADELAUNCHER_DAMAGE, null, null);
-
-        AABB area = new AABB(this.blockPosition()).inflate(computeRadiusFromDamage(Q2WConfigStats.GrenadelauncherDamage, (Player)this.getOwner()));
+        AABB area = new AABB(this.blockPosition()).inflate(Q2WConfigStats.HandGrenadeRadius);
         for (LivingEntity entity : this.level().getEntitiesOfClass(LivingEntity.class, area)) {
             if (entity != this.getOwner()) {
                 entity.hurt(this.damageSources().source(DamageTypes.PLAYER_ATTACK, this, this.getOwner()), Float.MIN_VALUE);
             }
         }
 
-        level().explode(null, source, null, center.x, center.y, center.z, computeRadiusFromDamage(Q2WConfigStats.GrenadelauncherDamage, (Player)this.getOwner()), false, Level.ExplosionInteraction.NONE, false);
+        Q2ExplosionHelper.handgrenadeExplosion((ServerLevel) level, null, null, center);
 
         ((ServerLevel) this.level()).sendParticles(ParticleTypes.FLAME,
                 center.x, center.y, center.z,

@@ -25,8 +25,11 @@ public class Q2WConfig {
         public final ForgeConfigSpec.DoubleValue machinegunDamage;
         public final ForgeConfigSpec.DoubleValue chaingunDamage;
         public final ForgeConfigSpec.DoubleValue handgrenadeDamage;
+        public final ForgeConfigSpec.DoubleValue handgrenadeRadius;
         public final ForgeConfigSpec.DoubleValue grenadelauncherDamage;
+        public final ForgeConfigSpec.DoubleValue grenadelauncherRadius;
         public final ForgeConfigSpec.DoubleValue rocketlauncherDamage;
+        public final ForgeConfigSpec.DoubleValue rocketlauncherRadius;
         public final ForgeConfigSpec.DoubleValue hyperblasterDamage;
         public final ForgeConfigSpec.DoubleValue railgunDamage;
         public final ForgeConfigSpec.DoubleValue bfg10kDamage;
@@ -70,16 +73,28 @@ public class Q2WConfig {
                     .defineInRange("chaingunDamage", 1.2, 0.0, Float.MAX_VALUE);
 
             handgrenadeDamage = builder
-                    .comment("\nHow much damage the Grenade deals. WARNING: Damage increases blast radius")
+                    .comment("\nMaximum damage the Grenade deals")
                     .defineInRange("handgrenadeDamage", 28.0, 0.0, Float.MAX_VALUE);
 
+            handgrenadeRadius = builder
+                    .comment("\nBlast radius of the Handgrenade")
+                    .defineInRange("handgrenadeRadius", 28.0, 0.0, Float.MAX_VALUE);
+
             grenadelauncherDamage = builder
-                    .comment("\nHow much damage the Grenade Launcher deals per shot. WARNING: Damage increases blast radius")
+                    .comment("\nMaximum the Grenade Launcher deals per shot")
                     .defineInRange("grenadelauncherDamage", 28.0, 0.0, Float.MAX_VALUE);
 
+            grenadelauncherRadius = builder
+                    .comment("\nBlast radius of the Grenade launcher")
+                    .defineInRange("grenadelauncherRadius", 5.0, 0.0, Float.MAX_VALUE);
+
             rocketlauncherDamage = builder
-                    .comment("\nHow much damage the Rocket Launcher deals per shot. WARNING: Damage increases blast radius")
+                    .comment("\nMaximum damage the Rocket Launcher deals per shot")
                     .defineInRange("rocketlauncherDamage", 28.0, 0.0, Float.MAX_VALUE);
+
+            rocketlauncherRadius = builder
+                    .comment("\nBlast radius of the Rocket launcher")
+                    .defineInRange("rocketlauncherRadius", 4.0, 0.0, Float.MAX_VALUE);
 
             hyperblasterDamage = builder
                     .comment("\nHow much damage the Hyperblaster deals per shot.")

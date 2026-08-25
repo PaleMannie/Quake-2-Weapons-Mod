@@ -13,6 +13,7 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.entity.projectile.ProjectileUtil;
 import net.minecraft.world.level.ClipContext;
@@ -519,9 +520,10 @@ public class ServerPlayHandler {
     public static void handleHandgrenadeOvercook(ServerPlayer player) {
         ServerLevel level = player.serverLevel();
 
-        Vec3 center = player.position().add(0d, player.getBbHeight() * 0.5d, 0d);
+        Vec3 center = player.getBoundingBox().getCenter();
 
-        level.explode(player, level.damageSources().source(ModDamageTypes.HANDGRENADE_DAMAGE, player, player), null, center.x, center.y, center.z, GrenadelauncherProjectileEntity.computeRadiusFromDamage(Q2WConfigStats.HandGrenadeDamage, player), false, Level.ExplosionInteraction.NONE, false);
+        Q2ExplosionHelper.handgrenadeExplosion((ServerLevel) level, null, player, center);
+        level.sendParticles(ParticleTypes.FLAME, center.x, center.y, center.z, 20, 0, 0, 0, 0.1);
         level.playSound(null, center.x, center.y, center.z, ModSounds.EXPLOSION.get(), SoundSource.PLAYERS, 2f, 1f);
     }
 
