@@ -481,6 +481,7 @@ public class ServerPlayHandler {
     }
 
     public static void handleHandgrenadeThrow(ServerPlayer player, int remainingFuseTicks, float velocity) {
+
         ServerLevel serverLevel = player.serverLevel();
         Level level = player.level();
 
@@ -518,6 +519,7 @@ public class ServerPlayHandler {
     }
 
     public static void handleHandgrenadeOvercook(ServerPlayer player) {
+
         ServerLevel level = player.serverLevel();
 
         Vec3 center = player.getBoundingBox().getCenter();

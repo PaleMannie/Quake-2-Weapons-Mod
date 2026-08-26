@@ -71,6 +71,7 @@ public class Quake2Weapons {
             EntityRenderers.register(ModEntities.BFG10K_PROJECTILE.get(), Bfg10kProjectileRenderer::new);
             EntityRenderers.register(ModEntities.QUAD_DAMAGE_POWERUP.get(), QuaddamagePowerupRenderer::new);
             EntityRenderers.register(ModEntities.INVULN_POWERUP.get(), InvulnerabilityPowerupRenderer::new);
+            EntityRenderers.register(ModEntities.ENVIROSUIT_POWERUP.get(), EnvirosuitPowerupRenderer::new);
         }
     }
 

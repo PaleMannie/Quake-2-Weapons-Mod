@@ -74,7 +74,7 @@ public class ModItems {
             () -> new InvulnerabilityItem(new Item.Properties().stacksTo(1)));
 
     public static final RegistryObject<Item> ENVIROSUIT_ITEM = ITEMS.register("envirosuit_item",
-            () -> new Item(new Item.Properties().stacksTo(1)));
+            () -> new EnvirosuitItem(new Item.Properties().stacksTo(1)));
 
     public static final RegistryObject<Item> REBREATHER_ITEM = ITEMS.register("rebreather_item",
             () -> new Item(new Item.Properties().stacksTo(1)));

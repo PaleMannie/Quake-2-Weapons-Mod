@@ -21,5 +21,6 @@ public class ModelLayerRegistry {
         event.registerLayerDefinition(Bfg10kProjectileModel.BALL_LAYER, Bfg10kProjectileModel::createBodyLayer);
         event.registerLayerDefinition(QuaddamagePowerupModel.QUAD_LAYER, QuaddamagePowerupModel::createBodyLayer);
         event.registerLayerDefinition(InvulnerabilityPowerupModel.INVULN_LAYER, InvulnerabilityPowerupModel::createBodyLayer);
+        event.registerLayerDefinition(EnvirosuitPowerupModel.ENVIROSUIT_LAYER, EnvirosuitPowerupModel::createBodyLayer);
     }
 }

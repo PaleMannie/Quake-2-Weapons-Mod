@@ -4,7 +4,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Axis;
 import mett.palemannie.q2w.Quake2Weapons;
-import mett.palemannie.q2w.entity.custom.InvulnerabilityPowerupEntity;
+import mett.palemannie.q2w.entity.custom.EnvirosuitPowerupEntity;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.culling.Frustum;
@@ -14,26 +14,26 @@ import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.ResourceLocation;
 import org.jetbrains.annotations.NotNull;
 
-public class InvulnerabilityPowerupRenderer extends EntityRenderer<InvulnerabilityPowerupEntity> {
+public class EnvirosuitPowerupRenderer extends EntityRenderer<EnvirosuitPowerupEntity> {
 
-    private static final ResourceLocation INVULN_LOCATION = ResourceLocation.fromNamespaceAndPath(Quake2Weapons.MODID,"textures/entity/powerups/invuln_powerup.png");
-    private final InvulnerabilityPowerupModel<InvulnerabilityPowerupEntity> model;
+    private static final ResourceLocation ENVIROSUIT_LOCATION = ResourceLocation.fromNamespaceAndPath(Quake2Weapons.MODID,"textures/entity/powerups/envirosuit_powerup.png");
+    private final EnvirosuitPowerupModel<EnvirosuitPowerupEntity> model;
 
-    public InvulnerabilityPowerupRenderer(EntityRendererProvider.Context context) {
+    public EnvirosuitPowerupRenderer(EntityRendererProvider.Context context) {
         super(context);
-        this.model = new InvulnerabilityPowerupModel<>(context.bakeLayer(InvulnerabilityPowerupModel.INVULN_LAYER));
+        this.model = new EnvirosuitPowerupModel<>(context.bakeLayer(EnvirosuitPowerupModel.ENVIROSUIT_LAYER));
     }
 
     float bobbingSpeed = 0.05f;
     float bobbingHeight = 0.1f;
     float rotationSpeed = 4.375f;
 
-    public void render(InvulnerabilityPowerupEntity rocketEntity, float v1, float partialTicks, PoseStack poseStack, MultiBufferSource bufferSource, int packedLight) {
+    public void render(EnvirosuitPowerupEntity rocketEntity, float v1, float partialTicks, PoseStack poseStack, MultiBufferSource bufferSource, int packedLight) {
 
         poseStack.pushPose();
 
-        poseStack.translate(0f, 2.25f, 0f);
-        poseStack.scale(0.75f, 0.75f, 0.75f);
+        poseStack.translate(0f, 2.5f, 0f);
+        poseStack.scale(1.25f, 1.25f, 1.25f);
         poseStack.mulPose(Axis.XP.rotationDegrees(180f));
 
 
@@ -45,10 +45,10 @@ public class InvulnerabilityPowerupRenderer extends EntityRenderer<Invulnerabili
         float rotation = (ageInTicks * rotationSpeed) % 360;
         poseStack.mulPose(Axis.YP.rotationDegrees(-rotation));
 
-        VertexConsumer $$6 = bufferSource.getBuffer(this.model.renderType(INVULN_LOCATION));
+        VertexConsumer $$6 = bufferSource.getBuffer(this.model.renderType(ENVIROSUIT_LOCATION));
         this.model.renderToBuffer(poseStack, $$6, packedLight, OverlayTexture.NO_OVERLAY, 1f, 1f, 1f, 1f);
 
-        VertexConsumer $$7 = bufferSource.getBuffer(RenderType.eyes(INVULN_LOCATION));
+        VertexConsumer $$7 = bufferSource.getBuffer(RenderType.eyes(ENVIROSUIT_LOCATION));
         this.model.renderToBuffer(poseStack, $$7, packedLight, OverlayTexture.NO_OVERLAY, 1f, 1f, 1f, 1f);
 
         poseStack.popPose();
@@ -57,11 +57,11 @@ public class InvulnerabilityPowerupRenderer extends EntityRenderer<Invulnerabili
     }
 
     @Override
-    public boolean shouldRender(InvulnerabilityPowerupEntity pLivingEntity, Frustum pCamera, double pCamX, double pCamY, double pCamZ) {
+    public boolean shouldRender(EnvirosuitPowerupEntity pLivingEntity, Frustum pCamera, double pCamX, double pCamY, double pCamZ) {
         return true;
     }
 
     @Override
-    public @NotNull ResourceLocation getTextureLocation(@NotNull InvulnerabilityPowerupEntity spit) { return INVULN_LOCATION; }
+    public @NotNull ResourceLocation getTextureLocation(@NotNull EnvirosuitPowerupEntity spit) { return ENVIROSUIT_LOCATION; }
 
 }
