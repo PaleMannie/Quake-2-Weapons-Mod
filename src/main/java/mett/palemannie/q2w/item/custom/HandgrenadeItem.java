@@ -90,9 +90,9 @@ public class HandgrenadeItem extends AbstractWeapon {
     }
 
     private static final String OLD_STACK_ID_TAG = "Q2WHandgrenadeStackId";
+    private static final String GECKOLIB_ID_TAG = "GeckoLibID";
 
-    private static void cleanOldStackId(ItemStack stack) {
-
+    private static void cleanStackingTags(ItemStack stack) {
         if (stack.isEmpty()) {
             return;
         }
@@ -101,9 +101,8 @@ public class HandgrenadeItem extends AbstractWeapon {
             return;
         }
 
-        if (stack.getTag().contains(OLD_STACK_ID_TAG)) {
-            stack.getTag().remove(OLD_STACK_ID_TAG);
-        }
+        stack.getTag().remove(OLD_STACK_ID_TAG);
+        stack.getTag().remove(GECKOLIB_ID_TAG);
 
         if (stack.hasTag() && stack.getTag().isEmpty()) {
             stack.setTag(null);
@@ -115,7 +114,7 @@ public class HandgrenadeItem extends AbstractWeapon {
 
         ItemStack stack = player.getItemInHand(usedHand);
 
-        cleanOldStackId(stack);
+        cleanStackingTags(stack);
 
         if (usedHand != InteractionHand.MAIN_HAND) {
             return InteractionResultHolder.fail(stack);
@@ -158,15 +157,21 @@ public class HandgrenadeItem extends AbstractWeapon {
 
     @Override
     public void releaseUsing(ItemStack stack, Level level, LivingEntity livingEntity, int timeCharged) {
-        cleanOldStackId(stack);
         super.releaseUsing(stack, level, livingEntity, timeCharged);
 
-        if (level.isClientSide) return;
-        if (!(livingEntity instanceof ServerPlayer player)) return;
+        if (level.isClientSide) {
+            return;
+        }
+
+        if (!(livingEntity instanceof ServerPlayer player)) {
+            cleanStackingTags(stack);
+            return;
+        }
 
         GrenadeState state = states.get(player.getUUID());
 
         if (state == null) {
+            cleanStackingTags(stack);
             return;
         }
 
@@ -177,37 +182,53 @@ public class HandgrenadeItem extends AbstractWeapon {
     public void inventoryTick(ItemStack stack, Level level, Entity entity, int slot, boolean selected) {
         super.inventoryTick(stack, level, entity, slot, selected);
 
-        cleanOldStackId(stack);
 
-        if (!(level instanceof ServerLevel serverLevel)) return;
-        if (!(entity instanceof ServerPlayer player)) return;
+        if (level instanceof ServerLevel serverLevel && entity instanceof ServerPlayer player) {
 
-        GrenadeState state = states.get(player.getUUID());
+            GrenadeState state = states.get(player.getUUID());
 
-        if (state == null) {
+            boolean isActiveCookingSlot =
+                    state != null
+                            && slot == state.slot
+                            && selected
+                            && state.hand == InteractionHand.MAIN_HAND
+                            && player.getInventory().selected == state.slot
+                            && player.getMainHandItem() == stack;
+
+            if (!isActiveCookingSlot) {
+                cleanStackingTags(stack);
+            }
+
+            if (state == null) {
+                return;
+            }
+
+            if (slot != state.slot) {
+                return;
+            }
+
+            boolean stillSelected =
+                    selected
+                            && state.hand == InteractionHand.MAIN_HAND
+                            && player.getInventory().selected == state.slot
+                            && player.getMainHandItem() == stack;
+
+            boolean stillUsing =
+                    stillSelected
+                            && player.isUsingItem()
+                            && player.getUseItem() == stack;
+
+            if (!stillUsing) {
+                state.releaseRequested = true;
+            }
+
+            tickGrenadeState(serverLevel, player, stack, state);
             return;
         }
 
-        if (slot != state.slot) {
-            return;
+        if (!level.isClientSide) {
+            cleanStackingTags(stack);
         }
-
-        boolean stillSelected =
-                selected
-                        && state.hand == InteractionHand.MAIN_HAND
-                        && player.getInventory().selected == state.slot
-                        && player.getMainHandItem() == stack;
-
-        boolean stillUsing =
-                stillSelected
-                        && player.isUsingItem()
-                        && player.getUseItem() == stack;
-
-        if (!stillUsing) {
-            state.releaseRequested = true;
-        }
-
-        tickGrenadeState(serverLevel, player, stack, state);
     }
 
     private void tickGrenadeState(ServerLevel level, ServerPlayer player, ItemStack stack, GrenadeState state) {
@@ -274,6 +295,7 @@ public class HandgrenadeItem extends AbstractWeapon {
         player.stopUsingItem();
 
         states.remove(player.getUUID());
+        cleanStackingTags(stack);
     }
 
     private void overcookInHand(ServerLevel level, ServerPlayer player, ItemStack stack) {
@@ -288,6 +310,7 @@ public class HandgrenadeItem extends AbstractWeapon {
         player.stopUsingItem();
 
         states.remove(player.getUUID());
+        cleanStackingTags(stack);
     }
 
     private boolean consumeOneGrenade(Player player, ItemStack stack) {
