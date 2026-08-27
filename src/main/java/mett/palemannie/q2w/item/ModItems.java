@@ -77,10 +77,10 @@ public class ModItems {
             () -> new EnvirosuitItem(new Item.Properties().stacksTo(1)));
 
     public static final RegistryObject<Item> REBREATHER_ITEM = ITEMS.register("rebreather_item",
-            () -> new Item(new Item.Properties().stacksTo(1)));
+            () -> new RebreatherItem(new Item.Properties().stacksTo(1)));
 
     public static final RegistryObject<Item> SILENCER_ITEM = ITEMS.register("silencer_item",
-            () -> new Item(new Item.Properties().stacksTo(1)));
+            () -> new SilencerItem(new Item.Properties().stacksTo(1)));
 
     public static final RegistryObject<Item> ADRENALINE_ITEM = ITEMS.register("adrenaline_item",
             () -> new Item(new Item.Properties().stacksTo(1)));

@@ -78,7 +78,7 @@ public class Q2WConfig {
 
             handgrenadeRadius = builder
                     .comment("\nBlast radius of the Handgrenade")
-                    .defineInRange("handgrenadeRadius", 28.0, 0.0, Float.MAX_VALUE);
+                    .defineInRange("handgrenadeRadius", 5.0, 0.0, Float.MAX_VALUE);
 
             grenadelauncherDamage = builder
                     .comment("\nMaximum the Grenade Launcher deals per shot")

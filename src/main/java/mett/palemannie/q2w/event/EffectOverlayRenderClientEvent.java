@@ -86,7 +86,7 @@ public class EffectOverlayRenderClientEvent {
             event.getGuiGraphics().fill(0, 0, screenW, screenH, color);
         }
 
-        ///Rebreather
+        /*///Rebreather
         if (player != null && player.hasEffect(ModEffects.REBREATHER.get())) {
 
             //TODO: Farbe einstellen
@@ -119,7 +119,7 @@ public class EffectOverlayRenderClientEvent {
                     (int)(b * 255);
 
             event.getGuiGraphics().fill(0, 0, screenW, screenH, color);
-        }
+        }*/
 
         ///Envirosuit
         if (player != null && player.hasEffect(ModEffects.ENVIROSUIT.get())) {

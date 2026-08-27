@@ -89,10 +89,33 @@ public class HandgrenadeItem extends AbstractWeapon {
                 .triggerableAnim(OVERCOOK_TRIGGER, OVERCOOK_ANIM));
     }
 
+    private static final String OLD_STACK_ID_TAG = "Q2WHandgrenadeStackId";
+
+    private static void cleanOldStackId(ItemStack stack) {
+
+        if (stack.isEmpty()) {
+            return;
+        }
+
+        if (!stack.hasTag()) {
+            return;
+        }
+
+        if (stack.getTag().contains(OLD_STACK_ID_TAG)) {
+            stack.getTag().remove(OLD_STACK_ID_TAG);
+        }
+
+        if (stack.hasTag() && stack.getTag().isEmpty()) {
+            stack.setTag(null);
+        }
+    }
+
     @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand usedHand) {
 
         ItemStack stack = player.getItemInHand(usedHand);
+
+        cleanOldStackId(stack);
 
         if (usedHand != InteractionHand.MAIN_HAND) {
             return InteractionResultHolder.fail(stack);
@@ -109,17 +132,17 @@ public class HandgrenadeItem extends AbstractWeapon {
         setCurrentHand(usedHand, player);
 
         if (level instanceof ServerLevel serverLevel && player instanceof ServerPlayer serverPlayer) {
-            startGrenadeUse(serverLevel, serverPlayer, stack);
+            startGrenadeUse(serverLevel, serverPlayer, stack, usedHand);
         }
 
         return InteractionResultHolder.consume(stack);
     }
 
-    private void startGrenadeUse(ServerLevel level, ServerPlayer player, ItemStack stack) {
+    private void startGrenadeUse(ServerLevel level, ServerPlayer player, ItemStack stack, InteractionHand hand) {
+        int slot = player.getInventory().selected;
 
-        long now = level.getGameTime();
+        GrenadeState state = new GrenadeState(slot, hand, level.getGameTime());
 
-        GrenadeState state = new GrenadeState(now);
         states.put(player.getUUID(), state);
 
         triggerPrimeAnimation(player, level, stack);
@@ -135,22 +158,26 @@ public class HandgrenadeItem extends AbstractWeapon {
 
     @Override
     public void releaseUsing(ItemStack stack, Level level, LivingEntity livingEntity, int timeCharged) {
+        cleanOldStackId(stack);
         super.releaseUsing(stack, level, livingEntity, timeCharged);
 
-        if (!(livingEntity instanceof ServerPlayer player)) {
-            return;
-        }
+        if (level.isClientSide) return;
+        if (!(livingEntity instanceof ServerPlayer player)) return;
 
         GrenadeState state = states.get(player.getUUID());
 
-        if (state != null) {
-            state.releaseRequested = true;
+        if (state == null) {
+            return;
         }
+
+        state.releaseRequested = true;
     }
 
     @Override
     public void inventoryTick(ItemStack stack, Level level, Entity entity, int slot, boolean selected) {
         super.inventoryTick(stack, level, entity, slot, selected);
+
+        cleanOldStackId(stack);
 
         if (!(level instanceof ServerLevel serverLevel)) return;
         if (!(entity instanceof ServerPlayer player)) return;
@@ -161,7 +188,22 @@ public class HandgrenadeItem extends AbstractWeapon {
             return;
         }
 
-        if (!selected) {
+        if (slot != state.slot) {
+            return;
+        }
+
+        boolean stillSelected =
+                selected
+                        && state.hand == InteractionHand.MAIN_HAND
+                        && player.getInventory().selected == state.slot
+                        && player.getMainHandItem() == stack;
+
+        boolean stillUsing =
+                stillSelected
+                        && player.isUsingItem()
+                        && player.getUseItem() == stack;
+
+        if (!stillUsing) {
             state.releaseRequested = true;
         }
 
@@ -173,32 +215,26 @@ public class HandgrenadeItem extends AbstractWeapon {
         long now = level.getGameTime();
         int age = (int) (now - state.startTick);
 
-        if (!state.pinSoundPlayed && age >= PIN_SOUND_TICK) {
-            state.pinSoundPlayed = true;
+        if (!state.primeSoundPlayed && age >= PIN_SOUND_TICK) {
 
-            level.playSound(
-                    null,
-                    player.getX(),
-                    player.getY(),
-                    player.getZ(),
-                    ModSounds.HANDGRENADE_START.get(),
-                    SoundSource.PLAYERS,
-                    1f,
-                    1f
-            );
+            state.primeSoundPlayed = true;
+            level.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.HANDGRENADE_START.get(), SoundSource.PLAYERS, 1f, 1f);
         }
 
         if (!state.fuseStarted && age >= COOK_START_TICK) {
+
             state.fuseStarted = true;
             state.fuseStartTick = now;
         }
 
         if (state.fuseStarted && now - state.fuseStartTick >= FUSE_TICKS) {
+
             overcookInHand(level, player, stack);
             return;
         }
 
         if (state.releaseRequested && !state.throwStarted && age >= COOK_START_TICK) {
+
             state.throwStarted = true;
             state.throwStartTick = now;
 
@@ -213,6 +249,7 @@ public class HandgrenadeItem extends AbstractWeapon {
     private void throwGrenade(ServerLevel level, ServerPlayer player, ItemStack stack, GrenadeState state) {
 
         if (!consumeOneGrenade(player, stack)) {
+
             ServerPlayHandler.playAmmoEmptySound(player);
             states.remove(player.getUUID());
             return;
@@ -279,19 +316,22 @@ public class HandgrenadeItem extends AbstractWeapon {
     }
 
     private static class GrenadeState {
+        private final int slot;
+        private final InteractionHand hand;
         private final long startTick;
 
         private boolean releaseRequested = false;
-
-        private boolean pinSoundPlayed = false;
+        private boolean throwStarted = false;
+        private long throwStartTick = 0L;
 
         private boolean fuseStarted = false;
-        private long fuseStartTick = 0;
+        private long fuseStartTick = 0L;
 
-        private boolean throwStarted = false;
-        private long throwStartTick = 0;
+        private boolean primeSoundPlayed = false;
 
-        private GrenadeState(long startTick) {
+        private GrenadeState(int slot, InteractionHand hand, long startTick) {
+            this.slot = slot;
+            this.hand = hand;
             this.startTick = startTick;
         }
     }

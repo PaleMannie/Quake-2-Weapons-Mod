@@ -15,11 +15,11 @@ public class SilencerItem extends AbstractPowerupItem{
 
     @Override
     public MobEffect getPowerupEffect() {
-        return ModEffects.ENVIROSUIT.get();
+        return ModEffects.SILENCER.get();
     }
 
     @Override
     protected void onPowerupUse(Level level, Player player, ItemStack stack, int duration) {
-        player.addEffect(new MobEffectInstance(ModEffects.ENVIROSUIT.get(), getPowerupDuration()));
+        player.addEffect(new MobEffectInstance(ModEffects.SILENCER.get(), getPowerupDuration()));
     }
 }

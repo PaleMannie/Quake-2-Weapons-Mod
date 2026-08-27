@@ -22,5 +22,6 @@ public class ModelLayerRegistry {
         event.registerLayerDefinition(QuaddamagePowerupModel.QUAD_LAYER, QuaddamagePowerupModel::createBodyLayer);
         event.registerLayerDefinition(InvulnerabilityPowerupModel.INVULN_LAYER, InvulnerabilityPowerupModel::createBodyLayer);
         event.registerLayerDefinition(EnvirosuitPowerupModel.ENVIROSUIT_LAYER, EnvirosuitPowerupModel::createBodyLayer);
+        event.registerLayerDefinition(SilencerPowerupModel.SILENCER_LAYER, SilencerPowerupModel::createBodyLayer);
     }
 }
