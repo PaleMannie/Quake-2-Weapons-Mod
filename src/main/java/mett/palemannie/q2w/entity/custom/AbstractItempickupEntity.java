@@ -3,7 +3,6 @@ package mett.palemannie.q2w.entity.custom;
 import mett.palemannie.q2w.Q2WConfig;
 import mett.palemannie.q2w.sound.ModSounds;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -13,9 +12,9 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 
-public abstract class AbstractAmmopickupEntity extends Entity {
+public abstract class AbstractItempickupEntity extends Entity {
 
-    protected AbstractAmmopickupEntity(EntityType<?> type, Level level) {
+    protected AbstractItempickupEntity(EntityType<?> type, Level level) {
         super(type, level);
         this.noPhysics = true;
     }

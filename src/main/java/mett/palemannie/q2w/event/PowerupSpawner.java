@@ -12,16 +12,21 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.config.ModConfigEvent;
+import com.mojang.logging.LogUtils;
+import org.slf4j.Logger;
 
 import java.util.function.Consumer;
 
 @Mod.EventBusSubscriber(modid = Quake2Weapons.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class PowerupSpawner {
+
+    private static final Logger LOGGER = LogUtils.getLogger();
 
     private static int spawnInterval = 600;
     private static int spawnAttempts = 3;
@@ -48,12 +53,12 @@ public class PowerupSpawner {
             debugEnabled = Q2WConfig.SERVER.powerupDebug.get();
             powerupSpawningEnabled = Q2WConfig.SERVER.enablePowerups.get();
 
-            System.out.println("[QuakeWeapons] PowerupSpawner config reloaded:");
-            System.out.println(" interval=" + spawnInterval + " | attempts=" + spawnAttempts + " | radius=" + searchRadius + " | debug=" + debugEnabled
-            + " | enablePowerups=" + powerupSpawningEnabled);
+            LOGGER.info("[Quake2Weapons] PowerupSpawner config reloaded:");
+            LOGGER.info("interval={} | attempts={} | radius={} | debug={} | enablePowerups={}",
+                    spawnInterval, spawnAttempts, searchRadius, debugEnabled, powerupSpawningEnabled);
 
         } catch (Exception e) {
-            System.err.println("[QuakeWeapons] Failed to load config values, using defaults!");
+            LOGGER.error("[Quake2Weapons] Failed to load config values, using defaults!", e);
             spawnInterval = 600;
             spawnAttempts = 3;
             searchRadius = 5;
@@ -61,12 +66,12 @@ public class PowerupSpawner {
             powerupSpawningEnabled = true;
         }
 
-        System.out.println("[QuakeWeapons] Config values after load: powerupSpawnInterval:"
-                + Q2WConfig.SERVER.powerupSpawnInterval.get() + ", powerupSpawnAttempts:"
-                + Q2WConfig.SERVER.powerupSpawnAttempts.get() + ", powerupSpawnSearchRadius:"
-                + Q2WConfig.SERVER.powerupSpawnSearchRadius.get() + ", enablePowerups:"
-                + Q2WConfig.SERVER.enablePowerups.get() + ", powerupDebug;"
-                + Q2WConfig.SERVER.powerupDebug.get());
+        LOGGER.info("[Quake2Weapons] Config values after load: powerupSpawnInterval={}, powerupSpawnAttempts={}, powerupSpawnSearchRadius={}, enablePowerups={}, powerupDebug={}",
+                Q2WConfig.SERVER.powerupSpawnInterval.get(),
+                Q2WConfig.SERVER.powerupSpawnAttempts.get(),
+                Q2WConfig.SERVER.powerupSpawnSearchRadius.get(),
+                Q2WConfig.SERVER.enablePowerups.get(),
+                Q2WConfig.SERVER.powerupDebug.get());
     }
 
     @SubscribeEvent
@@ -74,7 +79,9 @@ public class PowerupSpawner {
 
         if (!powerupSpawningEnabled) {
             if (debugEnabled) {
-                System.err.println("POWERUP SPAWNING DISABLED. DISABLE DEBUG MODE IN SERVER CONFIG OR ENABLE POWERUP SPAWNING");
+
+                LOGGER.warn("POWERUP SPAWNING DISABLED. DISABLE DEBUG MODE IN SERVER CONFIG OR ENABLE POWERUP SPAWNING");
+                debug(event.level.getServer().overworld(), "POWERUP SPAWNING DISABLED. DISABLE DEBUG MODE IN SERVER CONFIG OR ENABLE POWERUP SPAWNING");
             }
             return;
         }
@@ -107,7 +114,8 @@ public class PowerupSpawner {
         BlockPos candidate = new BlockPos(x, y, z);
 
         if (tryFindSpawnPos(level, candidate, searchRadius, searchRadius, pos -> {
-            AbstractPowerupEntity entity = randomPowerup(level);
+
+            Entity entity = randomPowerup(level);
             entity.moveTo(pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5, 0, 0);
             level.addFreshEntity(entity);
             debug(level, "§aSpawned " + entity.getType().toShortString() + " at " + pos);
@@ -134,18 +142,21 @@ public class PowerupSpawner {
         return false;
     }
 
-    //TODO: Ammo pickups hinzufügen
-    //TODO: Systen.out zu LOGGER wechseln
+    private static Entity randomPowerup(ServerLevel level) {
 
-    private static AbstractPowerupEntity randomPowerup(ServerLevel level) {
-
-        return switch (level.random.nextInt(6)) {
+        return switch (level.random.nextInt(12)) {
             case 0 -> new QuadDamagePowerupEntity(ModEntities.QUAD_DAMAGE_POWERUP.get(), level);
             case 1 -> new InvulnerabilityPowerupEntity(ModEntities.INVULN_POWERUP.get(), level);
             case 2 -> new EnvirosuitPowerupEntity(ModEntities.ENVIROSUIT_POWERUP.get(), level);
-            case 3 -> new AdrenalinePowerupEntity(ModEntities.ADRENALINE_POWERUP.get(), level);
+            case 3 -> new AdrenalinePowerupEntity(ModEntities.ADRENALINE_PICKUP.get(), level);
             case 4 -> new SilencerPowerupEntity(ModEntities.SILENCER_POWERUP.get(), level);
-            default -> new RebreatherPowerupEntity(ModEntities.REBREATHER_POWERUP.get(), level);
+            case 5 -> new BulletsItempickupEntity(ModEntities.BULLETS_AMMOPICKUP.get(), level);
+            case 6 -> new ShellsItempickupEntity(ModEntities.SHELLS_AMMOPICKUP.get(), level);
+            case 7 -> new GrenadeItempickupEntity(ModEntities.GRENADES_AMMOPICKUP.get(), level);
+            case 8 -> new RocketItempickupEntity(ModEntities.ROCKETS_AMMOPICKUP.get(), level);
+            case 9 -> new CellItempickupEntity(ModEntities.CELLS_AMMOPICKUP.get(), level);
+            case 10 -> new MegahealthItempickupEntity(ModEntities.MEGAHEALTH_PICKUP.get(), level);
+            default -> new SlugItempickupEntity(ModEntities.SLUGS_AMMOPICKUP.get(), level);
         };
     }
 

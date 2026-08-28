@@ -16,7 +16,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class SilencerPowerupRenderer extends EntityRenderer<SilencerPowerupEntity> {
 
-    private static final ResourceLocation ENVIROSUIT_LOCATION = ResourceLocation.fromNamespaceAndPath(Quake2Weapons.MODID,"textures/entity/powerups/silencer_powerup.png");
+    private static final ResourceLocation SILENCER_LOCATION = ResourceLocation.fromNamespaceAndPath(Quake2Weapons.MODID,"textures/entity/itempickups/silencer_powerup.png");
     private final SilencerPowerupModel<SilencerPowerupEntity> model;
 
     public SilencerPowerupRenderer(EntityRendererProvider.Context context) {
@@ -45,10 +45,10 @@ public class SilencerPowerupRenderer extends EntityRenderer<SilencerPowerupEntit
         float rotation = (ageInTicks * rotationSpeed) % 360;
         poseStack.mulPose(Axis.YP.rotationDegrees(-rotation));
 
-        VertexConsumer $$6 = bufferSource.getBuffer(this.model.renderType(ENVIROSUIT_LOCATION));
+        VertexConsumer $$6 = bufferSource.getBuffer(this.model.renderType(SILENCER_LOCATION));
         this.model.renderToBuffer(poseStack, $$6, packedLight, OverlayTexture.NO_OVERLAY, 1f, 1f, 1f, 1f);
 
-        VertexConsumer $$7 = bufferSource.getBuffer(RenderType.eyes(ENVIROSUIT_LOCATION));
+        VertexConsumer $$7 = bufferSource.getBuffer(RenderType.eyes(SILENCER_LOCATION));
         this.model.renderToBuffer(poseStack, $$7, packedLight, OverlayTexture.NO_OVERLAY, 1f, 1f, 1f, 1f);
 
         poseStack.popPose();
@@ -62,6 +62,6 @@ public class SilencerPowerupRenderer extends EntityRenderer<SilencerPowerupEntit
     }
 
     @Override
-    public @NotNull ResourceLocation getTextureLocation(@NotNull SilencerPowerupEntity spit) { return ENVIROSUIT_LOCATION; }
+    public @NotNull ResourceLocation getTextureLocation(@NotNull SilencerPowerupEntity spit) { return SILENCER_LOCATION; }
 
 }

@@ -4,7 +4,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Axis;
 import mett.palemannie.q2w.Quake2Weapons;
-import mett.palemannie.q2w.entity.custom.BulletsAmmopickupEntity;
+import mett.palemannie.q2w.entity.custom.BulletsItempickupEntity;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.culling.Frustum;
@@ -14,10 +14,10 @@ import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.ResourceLocation;
 import org.jetbrains.annotations.NotNull;
 
-public class BulletsAmmopickupRenderer extends EntityRenderer<BulletsAmmopickupEntity> {
+public class BulletsAmmopickupRenderer extends EntityRenderer<BulletsItempickupEntity> {
 
-    private static final ResourceLocation BULLETPICKUP_LOCATION = ResourceLocation.fromNamespaceAndPath(Quake2Weapons.MODID,"textures/entity/ammopickups/bullets_ammopickup.png");
-    private final BulletsAmmopickupModel<BulletsAmmopickupEntity> model;
+    private static final ResourceLocation BULLETPICKUP_LOCATION = ResourceLocation.fromNamespaceAndPath(Quake2Weapons.MODID,"textures/entity/itempickups/bullets_ammopickup.png");
+    private final BulletsAmmopickupModel<BulletsItempickupEntity> model;
 
     public BulletsAmmopickupRenderer(EntityRendererProvider.Context context) {
         super(context);
@@ -28,7 +28,7 @@ public class BulletsAmmopickupRenderer extends EntityRenderer<BulletsAmmopickupE
     float bobbingHeight = 0.1f;
     float rotationSpeed = 4.375f;
 
-    public void render(BulletsAmmopickupEntity rocketEntity, float v1, float partialTicks, PoseStack poseStack, MultiBufferSource bufferSource, int packedLight) {
+    public void render(BulletsItempickupEntity rocketEntity, float v1, float partialTicks, PoseStack poseStack, MultiBufferSource bufferSource, int packedLight) {
 
         poseStack.pushPose();
 
@@ -57,11 +57,11 @@ public class BulletsAmmopickupRenderer extends EntityRenderer<BulletsAmmopickupE
     }
 
     @Override
-    public boolean shouldRender(BulletsAmmopickupEntity pLivingEntity, Frustum pCamera, double pCamX, double pCamY, double pCamZ) {
+    public boolean shouldRender(BulletsItempickupEntity pLivingEntity, Frustum pCamera, double pCamX, double pCamY, double pCamZ) {
         return true;
     }
 
     @Override
-    public @NotNull ResourceLocation getTextureLocation(@NotNull BulletsAmmopickupEntity spit) { return BULLETPICKUP_LOCATION; }
+    public @NotNull ResourceLocation getTextureLocation(@NotNull BulletsItempickupEntity spit) { return BULLETPICKUP_LOCATION; }
 
 }
