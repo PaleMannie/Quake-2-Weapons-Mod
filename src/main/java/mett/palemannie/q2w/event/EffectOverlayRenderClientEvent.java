@@ -86,41 +86,6 @@ public class EffectOverlayRenderClientEvent {
             event.getGuiGraphics().fill(0, 0, screenW, screenH, color);
         }
 
-        /*///Rebreather
-        if (player != null && player.hasEffect(ModEffects.REBREATHER.get())) {
-
-            //TODO: Farbe einstellen
-
-            MobEffectInstance inst = player.getEffect(ModEffects.REBREATHER.get());
-            if (inst == null) return;
-
-            int remaining = inst.getDuration();
-            long gameTime = mc.level.getGameTime();
-
-            float r, g, b, alpha;
-            r = 0.3f;
-            g = 0.1f;
-            b = 0.3f;
-
-            if (remaining > 60) {
-
-                alpha = 0.01F;
-            } else {
-
-                alpha = 0.01F + 0.025F * (0.25F * (1.0F + Mth.sin((gameTime % 20) / 20.0F * Mth.TWO_PI)));
-            }
-
-            int screenW = mc.getWindow().getGuiScaledWidth();
-            int screenH = mc.getWindow().getGuiScaledHeight();
-
-            int color = ((int)(alpha * 255) << 24) |
-                    ((int)(r * 255) << 16) |
-                    ((int)(g * 255) << 8) |
-                    (int)(b * 255);
-
-            event.getGuiGraphics().fill(0, 0, screenW, screenH, color);
-        }*/
-
         ///Envirosuit
         if (player != null && player.hasEffect(ModEffects.ENVIROSUIT.get())) {
 

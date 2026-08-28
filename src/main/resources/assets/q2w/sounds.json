@@ -6,6 +6,13 @@
     ]
   },
 
+  "ammo_pickup": {
+    "subtitle": "sounds.q2w.ammo_pickup",
+    "sounds": [
+      "q2w:ammo_pickup"
+    ]
+  },
+
   "shotgun_shoot": {
     "subtitle": "sounds.q2w.shotgun_shoot",
     "sounds": [
