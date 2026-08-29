@@ -74,6 +74,7 @@ public class Quake2Weapons {
             EntityRenderers.register(ModEntities.ENVIROSUIT_POWERUP.get(), EnvirosuitPowerupRenderer::new);
             EntityRenderers.register(ModEntities.SILENCER_POWERUP.get(), SilencerPowerupRenderer::new);
             EntityRenderers.register(ModEntities.BULLETS_AMMOPICKUP.get(), BulletsAmmopickupRenderer::new);
+            EntityRenderers.register(ModEntities.SHELLS_AMMOPICKUP.get(), ShellsAmmopickupRenderer::new);
         }
     }
 

@@ -56,28 +56,28 @@ public class ModEntities {
 
     /// Ammo pickups
 
-    public static final RegistryObject<EntityType<BulletsItempickupEntity>> BULLETS_AMMOPICKUP =
-            ENTITY_TYPES.register("bullets_ammopickup", () -> EntityType.Builder.<BulletsItempickupEntity>of(BulletsItempickupEntity::new, MobCategory.MISC)
+    public static final RegistryObject<EntityType<BulletsAmmopickupEntity>> BULLETS_AMMOPICKUP =
+            ENTITY_TYPES.register("bullets_ammopickup", () -> EntityType.Builder.<BulletsAmmopickupEntity>of(BulletsAmmopickupEntity::new, MobCategory.MISC)
                     .sized(1.0f, 1.0f).fireImmune().clientTrackingRange(256).updateInterval(1).build("bullets_ammopickup"));
 
-    public static final RegistryObject<EntityType<ShellsItempickupEntity>> SHELLS_AMMOPICKUP =
-            ENTITY_TYPES.register("shells_ammopickup", () -> EntityType.Builder.<ShellsItempickupEntity>of(ShellsItempickupEntity::new, MobCategory.MISC)
+    public static final RegistryObject<EntityType<ShellsAmmopickupEntity>> SHELLS_AMMOPICKUP =
+            ENTITY_TYPES.register("shells_ammopickup", () -> EntityType.Builder.<ShellsAmmopickupEntity>of(ShellsAmmopickupEntity::new, MobCategory.MISC)
                     .sized(1.0f, 1.0f).fireImmune().clientTrackingRange(256).updateInterval(1).build("shells_ammopickup"));
 
-    public static final RegistryObject<EntityType<GrenadeItempickupEntity>> GRENADES_AMMOPICKUP =
-            ENTITY_TYPES.register("grenades_ammopickup", () -> EntityType.Builder.<GrenadeItempickupEntity>of(GrenadeItempickupEntity::new, MobCategory.MISC)
+    public static final RegistryObject<EntityType<GrenadeAmmopickupEntity>> GRENADES_AMMOPICKUP =
+            ENTITY_TYPES.register("grenades_ammopickup", () -> EntityType.Builder.<GrenadeAmmopickupEntity>of(GrenadeAmmopickupEntity::new, MobCategory.MISC)
                     .sized(1.0f, 1.0f).fireImmune().clientTrackingRange(256).updateInterval(1).build("grenades_ammopickup"));
 
-    public static final RegistryObject<EntityType<RocketItempickupEntity>> ROCKETS_AMMOPICKUP =
-            ENTITY_TYPES.register("rockets_ammopickup", () -> EntityType.Builder.<RocketItempickupEntity>of(RocketItempickupEntity::new, MobCategory.MISC)
+    public static final RegistryObject<EntityType<RocketAmmopickupEntity>> ROCKETS_AMMOPICKUP =
+            ENTITY_TYPES.register("rockets_ammopickup", () -> EntityType.Builder.<RocketAmmopickupEntity>of(RocketAmmopickupEntity::new, MobCategory.MISC)
                     .sized(1.0f, 1.0f).fireImmune().clientTrackingRange(256).updateInterval(1).build("rockets_ammopickup"));
 
-    public static final RegistryObject<EntityType<CellItempickupEntity>> CELLS_AMMOPICKUP =
-            ENTITY_TYPES.register("cells_ammopickup", () -> EntityType.Builder.<CellItempickupEntity>of(CellItempickupEntity::new, MobCategory.MISC)
+    public static final RegistryObject<EntityType<CellAmmopickupEntity>> CELLS_AMMOPICKUP =
+            ENTITY_TYPES.register("cells_ammopickup", () -> EntityType.Builder.<CellAmmopickupEntity>of(CellAmmopickupEntity::new, MobCategory.MISC)
                     .sized(1.0f, 1.0f).fireImmune().clientTrackingRange(256).updateInterval(1).build("cells_ammopickup"));
 
-    public static final RegistryObject<EntityType<SlugItempickupEntity>> SLUGS_AMMOPICKUP =
-            ENTITY_TYPES.register("slugs_ammopickup", () -> EntityType.Builder.<SlugItempickupEntity>of(SlugItempickupEntity::new, MobCategory.MISC)
+    public static final RegistryObject<EntityType<SlugAmmopickupEntity>> SLUGS_AMMOPICKUP =
+            ENTITY_TYPES.register("slugs_ammopickup", () -> EntityType.Builder.<SlugAmmopickupEntity>of(SlugAmmopickupEntity::new, MobCategory.MISC)
                     .sized(1.0f, 1.0f).fireImmune().clientTrackingRange(256).updateInterval(1).build("slugs_ammopickup"));
 
     /// Item pickups

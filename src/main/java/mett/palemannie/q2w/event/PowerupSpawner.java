@@ -150,13 +150,13 @@ public class PowerupSpawner {
             case 2 -> new EnvirosuitPowerupEntity(ModEntities.ENVIROSUIT_POWERUP.get(), level);
             case 3 -> new AdrenalinePowerupEntity(ModEntities.ADRENALINE_PICKUP.get(), level);
             case 4 -> new SilencerPowerupEntity(ModEntities.SILENCER_POWERUP.get(), level);
-            case 5 -> new BulletsItempickupEntity(ModEntities.BULLETS_AMMOPICKUP.get(), level);
-            case 6 -> new ShellsItempickupEntity(ModEntities.SHELLS_AMMOPICKUP.get(), level);
-            case 7 -> new GrenadeItempickupEntity(ModEntities.GRENADES_AMMOPICKUP.get(), level);
-            case 8 -> new RocketItempickupEntity(ModEntities.ROCKETS_AMMOPICKUP.get(), level);
-            case 9 -> new CellItempickupEntity(ModEntities.CELLS_AMMOPICKUP.get(), level);
+            case 5 -> new BulletsAmmopickupEntity(ModEntities.BULLETS_AMMOPICKUP.get(), level);
+            case 6 -> new ShellsAmmopickupEntity(ModEntities.SHELLS_AMMOPICKUP.get(), level);
+            case 7 -> new GrenadeAmmopickupEntity(ModEntities.GRENADES_AMMOPICKUP.get(), level);
+            case 8 -> new RocketAmmopickupEntity(ModEntities.ROCKETS_AMMOPICKUP.get(), level);
+            case 9 -> new CellAmmopickupEntity(ModEntities.CELLS_AMMOPICKUP.get(), level);
             case 10 -> new MegahealthItempickupEntity(ModEntities.MEGAHEALTH_PICKUP.get(), level);
-            default -> new SlugItempickupEntity(ModEntities.SLUGS_AMMOPICKUP.get(), level);
+            default -> new SlugAmmopickupEntity(ModEntities.SLUGS_AMMOPICKUP.get(), level);
         };
     }
 

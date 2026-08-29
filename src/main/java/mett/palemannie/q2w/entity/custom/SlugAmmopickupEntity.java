@@ -5,16 +5,16 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 
-public class BulletsItempickupEntity extends AbstractItempickupEntity {
+public class SlugAmmopickupEntity extends AbstractItempickupEntity {
 
-    private static final int AMOUNT = 50;
+    private static final int AMOUNT = 10;
 
-    public BulletsItempickupEntity(EntityType<?> type, Level level) {
+    public SlugAmmopickupEntity(EntityType<?> type, Level level) {
         super(type, level);
     }
 
     @Override
     protected void onPickup(Player player) {
-        giveAmmoOrDrop(player, ModItems.BULLET.get(), AMOUNT);
+        giveAmmoOrDrop(player, ModItems.SLUG.get(), AMOUNT);
     }
 }
