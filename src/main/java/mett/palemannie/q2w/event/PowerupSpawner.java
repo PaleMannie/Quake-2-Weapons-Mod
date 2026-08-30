@@ -152,7 +152,7 @@ public class PowerupSpawner {
             case 4 -> new SilencerPowerupEntity(ModEntities.SILENCER_POWERUP.get(), level);
             case 5 -> new BulletsAmmopickupEntity(ModEntities.BULLETS_AMMOPICKUP.get(), level);
             case 6 -> new ShellsAmmopickupEntity(ModEntities.SHELLS_AMMOPICKUP.get(), level);
-            case 7 -> new GrenadeAmmopickupEntity(ModEntities.GRENADES_AMMOPICKUP.get(), level);
+            case 7 -> new GrenadesAmmopickupEntity(ModEntities.GRENADES_AMMOPICKUP.get(), level);
             case 8 -> new RocketAmmopickupEntity(ModEntities.ROCKETS_AMMOPICKUP.get(), level);
             case 9 -> new CellAmmopickupEntity(ModEntities.CELLS_AMMOPICKUP.get(), level);
             case 10 -> new MegahealthItempickupEntity(ModEntities.MEGAHEALTH_PICKUP.get(), level);

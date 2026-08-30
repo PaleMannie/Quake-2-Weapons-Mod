@@ -25,5 +25,6 @@ public class ModelLayerRegistry {
         event.registerLayerDefinition(SilencerPowerupModel.SILENCER_LAYER, SilencerPowerupModel::createBodyLayer);
         event.registerLayerDefinition(BulletsAmmopickupModel.BULLETPICKUP_LAYER, BulletsAmmopickupModel::createBodyLayer);
         event.registerLayerDefinition(ShellsAmmopickupModel.SHELLSPICKUP_LAYER, ShellsAmmopickupModel::createBodyLayer);
+        event.registerLayerDefinition(GrenadesAmmopickupModel.GRENADESPICKUP_LAYER, GrenadesAmmopickupModel::createBodyLayer);
     }
 }

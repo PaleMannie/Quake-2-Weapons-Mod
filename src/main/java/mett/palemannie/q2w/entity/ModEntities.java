@@ -64,8 +64,8 @@ public class ModEntities {
             ENTITY_TYPES.register("shells_ammopickup", () -> EntityType.Builder.<ShellsAmmopickupEntity>of(ShellsAmmopickupEntity::new, MobCategory.MISC)
                     .sized(1.0f, 1.0f).fireImmune().clientTrackingRange(256).updateInterval(1).build("shells_ammopickup"));
 
-    public static final RegistryObject<EntityType<GrenadeAmmopickupEntity>> GRENADES_AMMOPICKUP =
-            ENTITY_TYPES.register("grenades_ammopickup", () -> EntityType.Builder.<GrenadeAmmopickupEntity>of(GrenadeAmmopickupEntity::new, MobCategory.MISC)
+    public static final RegistryObject<EntityType<GrenadesAmmopickupEntity>> GRENADES_AMMOPICKUP =
+            ENTITY_TYPES.register("grenades_ammopickup", () -> EntityType.Builder.<GrenadesAmmopickupEntity>of(GrenadesAmmopickupEntity::new, MobCategory.MISC)
                     .sized(1.0f, 1.0f).fireImmune().clientTrackingRange(256).updateInterval(1).build("grenades_ammopickup"));
 
     public static final RegistryObject<EntityType<RocketAmmopickupEntity>> ROCKETS_AMMOPICKUP =

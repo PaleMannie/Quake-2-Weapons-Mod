@@ -5,11 +5,11 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 
-public class GrenadeAmmopickupEntity extends AbstractItempickupEntity {
+public class GrenadesAmmopickupEntity extends AbstractItempickupEntity {
 
     private static final int AMOUNT = 5;
 
-    public GrenadeAmmopickupEntity(EntityType<?> type, Level level) {
+    public GrenadesAmmopickupEntity(EntityType<?> type, Level level) {
         super(type, level);
     }
 
