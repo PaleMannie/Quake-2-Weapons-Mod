@@ -32,7 +32,7 @@ public class RocketsAmmopickupRenderer extends EntityRenderer<RocketsAmmopickupE
 
         poseStack.pushPose();
 
-        poseStack.translate(0f, 2.25f, 0f);
+        poseStack.translate(0f, 2.1f, 0f);
         poseStack.scale(1.25f, 1.25f, 1.25f);
         poseStack.mulPose(Axis.XP.rotationDegrees(180f));
 
@@ -47,9 +47,6 @@ public class RocketsAmmopickupRenderer extends EntityRenderer<RocketsAmmopickupE
 
         VertexConsumer $$6 = bufferSource.getBuffer(this.model.renderType(BULLETPICKUP_LOCATION));
         this.model.renderToBuffer(poseStack, $$6, packedLight, OverlayTexture.NO_OVERLAY, 1f, 1f, 1f, 1f);
-
-        VertexConsumer $$7 = bufferSource.getBuffer(RenderType.eyes(BULLETPICKUP_LOCATION));
-        this.model.renderToBuffer(poseStack, $$7, packedLight, OverlayTexture.NO_OVERLAY, 1f, 1f, 1f, 1f);
 
         poseStack.popPose();
 

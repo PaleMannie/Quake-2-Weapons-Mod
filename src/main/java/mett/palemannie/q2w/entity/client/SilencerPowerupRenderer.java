@@ -48,9 +48,6 @@ public class SilencerPowerupRenderer extends EntityRenderer<SilencerPowerupEntit
         VertexConsumer $$6 = bufferSource.getBuffer(this.model.renderType(SILENCER_LOCATION));
         this.model.renderToBuffer(poseStack, $$6, packedLight, OverlayTexture.NO_OVERLAY, 1f, 1f, 1f, 1f);
 
-        VertexConsumer $$7 = bufferSource.getBuffer(RenderType.eyes(SILENCER_LOCATION));
-        this.model.renderToBuffer(poseStack, $$7, packedLight, OverlayTexture.NO_OVERLAY, 1f, 1f, 1f, 1f);
-
         poseStack.popPose();
 
         super.render(rocketEntity, v1, partialTicks, poseStack, bufferSource, packedLight);

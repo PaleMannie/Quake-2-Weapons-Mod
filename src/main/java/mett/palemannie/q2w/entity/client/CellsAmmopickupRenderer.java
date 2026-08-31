@@ -32,8 +32,8 @@ public class CellsAmmopickupRenderer extends EntityRenderer<CellsAmmopickupEntit
 
         poseStack.pushPose();
 
-        poseStack.translate(0f, 2.25f, 0f);
-        poseStack.scale(1.25f, 1.25f, 1.25f);
+        poseStack.translate(0f, 1.75f, 0f);
+        poseStack.scale(1f, 1f, 1f);
         poseStack.mulPose(Axis.XP.rotationDegrees(180f));
 
 
@@ -47,9 +47,6 @@ public class CellsAmmopickupRenderer extends EntityRenderer<CellsAmmopickupEntit
 
         VertexConsumer $$6 = bufferSource.getBuffer(this.model.renderType(CELLSPICKUP_LOCATION));
         this.model.renderToBuffer(poseStack, $$6, packedLight, OverlayTexture.NO_OVERLAY, 1f, 1f, 1f, 1f);
-
-        VertexConsumer $$7 = bufferSource.getBuffer(RenderType.eyes(CELLSPICKUP_LOCATION));
-        this.model.renderToBuffer(poseStack, $$7, packedLight, OverlayTexture.NO_OVERLAY, 1f, 1f, 1f, 1f);
 
         poseStack.popPose();
 

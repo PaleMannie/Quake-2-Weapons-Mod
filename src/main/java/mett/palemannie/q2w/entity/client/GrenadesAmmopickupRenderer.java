@@ -32,7 +32,7 @@ public class GrenadesAmmopickupRenderer extends EntityRenderer<GrenadesAmmopicku
 
         poseStack.pushPose();
 
-        poseStack.translate(0f, 2.25f, 0f);
+        poseStack.translate(0f, 2.1f, 0f);
         poseStack.scale(1.25f, 1.25f, 1.25f);
         poseStack.mulPose(Axis.XP.rotationDegrees(180f));
 
@@ -47,9 +47,6 @@ public class GrenadesAmmopickupRenderer extends EntityRenderer<GrenadesAmmopicku
 
         VertexConsumer $$6 = bufferSource.getBuffer(this.model.renderType(GRENADESPICKUP_LOCATION));
         this.model.renderToBuffer(poseStack, $$6, packedLight, OverlayTexture.NO_OVERLAY, 1f, 1f, 1f, 1f);
-
-        VertexConsumer $$7 = bufferSource.getBuffer(RenderType.eyes(GRENADESPICKUP_LOCATION));
-        this.model.renderToBuffer(poseStack, $$7, packedLight, OverlayTexture.NO_OVERLAY, 1f, 1f, 1f, 1f);
 
         poseStack.popPose();
 

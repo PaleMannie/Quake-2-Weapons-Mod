@@ -48,9 +48,6 @@ public class SlugsAmmopickupRenderer extends EntityRenderer<SlugsAmmopickupEntit
         VertexConsumer $$6 = bufferSource.getBuffer(this.model.renderType(SLUGSPICKUP_LOCATION));
         this.model.renderToBuffer(poseStack, $$6, packedLight, OverlayTexture.NO_OVERLAY, 1f, 1f, 1f, 1f);
 
-        VertexConsumer $$7 = bufferSource.getBuffer(RenderType.eyes(SLUGSPICKUP_LOCATION));
-        this.model.renderToBuffer(poseStack, $$7, packedLight, OverlayTexture.NO_OVERLAY, 1f, 1f, 1f, 1f);
-
         poseStack.popPose();
 
         super.render(rocketEntity, v1, partialTicks, poseStack, bufferSource, packedLight);
