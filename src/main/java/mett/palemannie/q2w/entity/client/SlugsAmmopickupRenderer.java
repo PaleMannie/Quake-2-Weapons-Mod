@@ -4,7 +4,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Axis;
 import mett.palemannie.q2w.Quake2Weapons;
-import mett.palemannie.q2w.entity.custom.BulletsAmmopickupEntity;
+import mett.palemannie.q2w.entity.custom.SlugsAmmopickupEntity;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.culling.Frustum;
@@ -14,21 +14,21 @@ import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.ResourceLocation;
 import org.jetbrains.annotations.NotNull;
 
-public class BulletsAmmopickupRenderer extends EntityRenderer<BulletsAmmopickupEntity> {
+public class SlugsAmmopickupRenderer extends EntityRenderer<SlugsAmmopickupEntity> {
 
-    private static final ResourceLocation BULLETSPICKUP_LOCATION = ResourceLocation.fromNamespaceAndPath(Quake2Weapons.MODID,"textures/entity/itempickups/bullets_ammopickup.png");
-    private final BulletsAmmopickupModel<BulletsAmmopickupEntity> model;
+    private static final ResourceLocation SLUGSPICKUP_LOCATION = ResourceLocation.fromNamespaceAndPath(Quake2Weapons.MODID,"textures/entity/itempickups/slugs_ammopickup.png");
+    private final SlugsAmmopickupModel<SlugsAmmopickupEntity> model;
 
-    public BulletsAmmopickupRenderer(EntityRendererProvider.Context context) {
+    public SlugsAmmopickupRenderer(EntityRendererProvider.Context context) {
         super(context);
-        this.model = new BulletsAmmopickupModel<>(context.bakeLayer(BulletsAmmopickupModel.BULLETSPICKUP_LAYER));
+        this.model = new SlugsAmmopickupModel<>(context.bakeLayer(SlugsAmmopickupModel.SLUGSPICKUP_LAYER));
     }
 
     float bobbingSpeed = 0.05f;
     float bobbingHeight = 0.1f;
     float rotationSpeed = 4.375f;
 
-    public void render(BulletsAmmopickupEntity rocketEntity, float v1, float partialTicks, PoseStack poseStack, MultiBufferSource bufferSource, int packedLight) {
+    public void render(SlugsAmmopickupEntity rocketEntity, float v1, float partialTicks, PoseStack poseStack, MultiBufferSource bufferSource, int packedLight) {
 
         poseStack.pushPose();
 
@@ -45,10 +45,10 @@ public class BulletsAmmopickupRenderer extends EntityRenderer<BulletsAmmopickupE
         float rotation = (ageInTicks * rotationSpeed) % 360;
         poseStack.mulPose(Axis.YP.rotationDegrees(-rotation));
 
-        VertexConsumer $$6 = bufferSource.getBuffer(this.model.renderType(BULLETSPICKUP_LOCATION));
+        VertexConsumer $$6 = bufferSource.getBuffer(this.model.renderType(SLUGSPICKUP_LOCATION));
         this.model.renderToBuffer(poseStack, $$6, packedLight, OverlayTexture.NO_OVERLAY, 1f, 1f, 1f, 1f);
 
-        VertexConsumer $$7 = bufferSource.getBuffer(RenderType.eyes(BULLETSPICKUP_LOCATION));
+        VertexConsumer $$7 = bufferSource.getBuffer(RenderType.eyes(SLUGSPICKUP_LOCATION));
         this.model.renderToBuffer(poseStack, $$7, packedLight, OverlayTexture.NO_OVERLAY, 1f, 1f, 1f, 1f);
 
         poseStack.popPose();
@@ -57,11 +57,11 @@ public class BulletsAmmopickupRenderer extends EntityRenderer<BulletsAmmopickupE
     }
 
     @Override
-    public boolean shouldRender(BulletsAmmopickupEntity pLivingEntity, Frustum pCamera, double pCamX, double pCamY, double pCamZ) {
+    public boolean shouldRender(SlugsAmmopickupEntity pLivingEntity, Frustum pCamera, double pCamX, double pCamY, double pCamZ) {
         return true;
     }
 
     @Override
-    public @NotNull ResourceLocation getTextureLocation(@NotNull BulletsAmmopickupEntity spit) { return BULLETSPICKUP_LOCATION; }
+    public @NotNull ResourceLocation getTextureLocation(@NotNull SlugsAmmopickupEntity spit) { return SLUGSPICKUP_LOCATION; }
 
 }

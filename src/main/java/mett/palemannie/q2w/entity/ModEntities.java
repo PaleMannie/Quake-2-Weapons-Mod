@@ -68,16 +68,16 @@ public class ModEntities {
             ENTITY_TYPES.register("grenades_ammopickup", () -> EntityType.Builder.<GrenadesAmmopickupEntity>of(GrenadesAmmopickupEntity::new, MobCategory.MISC)
                     .sized(1.0f, 1.0f).fireImmune().clientTrackingRange(256).updateInterval(1).build("grenades_ammopickup"));
 
-    public static final RegistryObject<EntityType<RocketAmmopickupEntity>> ROCKETS_AMMOPICKUP =
-            ENTITY_TYPES.register("rockets_ammopickup", () -> EntityType.Builder.<RocketAmmopickupEntity>of(RocketAmmopickupEntity::new, MobCategory.MISC)
+    public static final RegistryObject<EntityType<RocketsAmmopickupEntity>> ROCKETS_AMMOPICKUP =
+            ENTITY_TYPES.register("rockets_ammopickup", () -> EntityType.Builder.<RocketsAmmopickupEntity>of(RocketsAmmopickupEntity::new, MobCategory.MISC)
                     .sized(1.0f, 1.0f).fireImmune().clientTrackingRange(256).updateInterval(1).build("rockets_ammopickup"));
 
-    public static final RegistryObject<EntityType<CellAmmopickupEntity>> CELLS_AMMOPICKUP =
-            ENTITY_TYPES.register("cells_ammopickup", () -> EntityType.Builder.<CellAmmopickupEntity>of(CellAmmopickupEntity::new, MobCategory.MISC)
+    public static final RegistryObject<EntityType<CellsAmmopickupEntity>> CELLS_AMMOPICKUP =
+            ENTITY_TYPES.register("cells_ammopickup", () -> EntityType.Builder.<CellsAmmopickupEntity>of(CellsAmmopickupEntity::new, MobCategory.MISC)
                     .sized(1.0f, 1.0f).fireImmune().clientTrackingRange(256).updateInterval(1).build("cells_ammopickup"));
 
-    public static final RegistryObject<EntityType<SlugAmmopickupEntity>> SLUGS_AMMOPICKUP =
-            ENTITY_TYPES.register("slugs_ammopickup", () -> EntityType.Builder.<SlugAmmopickupEntity>of(SlugAmmopickupEntity::new, MobCategory.MISC)
+    public static final RegistryObject<EntityType<SlugsAmmopickupEntity>> SLUGS_AMMOPICKUP =
+            ENTITY_TYPES.register("slugs_ammopickup", () -> EntityType.Builder.<SlugsAmmopickupEntity>of(SlugsAmmopickupEntity::new, MobCategory.MISC)
                     .sized(1.0f, 1.0f).fireImmune().clientTrackingRange(256).updateInterval(1).build("slugs_ammopickup"));
 
     /// Item pickups

@@ -25,7 +25,7 @@ public class GrenadesAmmopickupModel<T extends Entity> extends HierarchicalModel
 		MeshDefinition meshdefinition = new MeshDefinition();
 		PartDefinition partdefinition = meshdefinition.getRoot();
 
-		PartDefinition bb_main = partdefinition.addOrReplaceChild("bb_main", CubeListBuilder.create().texOffs(0, 16).addBox(-2.0F, -7.9342F, -3.4024F, 4.0F, 1.0F, 7.0F, new CubeDeformation(0.0F))
+		PartDefinition bb_main = partdefinition.addOrReplaceChild("bb_main", CubeListBuilder.create().texOffs(0, 16).addBox(-2.0F, -7.9392F, -3.4024F, 4.0F, 1.0F, 7.0F, new CubeDeformation(0.0F))
 				.texOffs(22, 0).addBox(-2.0F, -1.9048F, -3.4648F, 4.0F, 0.0F, 7.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 24.0F, 0.0F));
 
 		PartDefinition cube_r1 = bb_main.addOrReplaceChild("cube_r1", CubeListBuilder.create().texOffs(22, 21).addBox(-2.0F, -1.0F, -2.0F, 4.0F, 1.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, -7.5F, 0.0F, 0.0F, -0.7854F, 0.0F));
@@ -34,9 +34,9 @@ public class GrenadesAmmopickupModel<T extends Entity> extends HierarchicalModel
 
 		PartDefinition cube_r3 = bb_main.addOrReplaceChild("cube_r3", CubeListBuilder.create().texOffs(22, 7).addBox(-4.0F, 1.0005F, 0.5F, 4.0F, 0.0F, 7.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(4.4952F, -2.9049F, -0.2866F, 0.0F, -1.0472F, 0.0F));
 
-		PartDefinition cube_r4 = bb_main.addOrReplaceChild("cube_r4", CubeListBuilder.create().texOffs(0, 8).addBox(-4.0F, 0.0008F, -0.5F, 4.0F, 1.0F, 7.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(-1.5912F, -7.9351F, -3.3319F, 0.0F, 1.0472F, 0.0F));
+		PartDefinition cube_r4 = bb_main.addOrReplaceChild("cube_r4", CubeListBuilder.create().texOffs(0, 8).addBox(-4.0F, 0.0006F, -0.5F, 4.0F, 1.0F, 7.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(-1.5912F, -7.9351F, -3.3319F, 0.0F, 1.0472F, 0.0F));
 
-		PartDefinition cube_r5 = bb_main.addOrReplaceChild("cube_r5", CubeListBuilder.create().texOffs(0, 0).addBox(-4.0F, 0.0002F, 0.5F, 4.0F, 1.0F, 7.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(4.5323F, -7.9343F, -0.3178F, 0.0F, -1.0472F, 0.0F));
+		PartDefinition cube_r5 = bb_main.addOrReplaceChild("cube_r5", CubeListBuilder.create().texOffs(0, 0).addBox(-4.0F, 0.0034F, 0.5F, 4.0F, 1.0F, 7.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(4.5323F, -7.9343F, -0.3178F, 0.0F, -1.0472F, 0.0F));
 
 		PartDefinition cube_r6 = bb_main.addOrReplaceChild("cube_r6", CubeListBuilder.create().texOffs(10, 40).addBox(0.0F, -3.0F, 0.0F, 2.0F, 2.0F, 1.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(3.0504F, -4.9798F, -2.9264F, -0.1745F, -1.0472F, 0.0F));
 

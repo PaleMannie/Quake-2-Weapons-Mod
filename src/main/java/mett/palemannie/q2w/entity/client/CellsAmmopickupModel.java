@@ -11,12 +11,12 @@ import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 
-public class BulletsAmmopickupModel<T extends Entity> extends HierarchicalModel<T> {
+public class CellsAmmopickupModel<T extends Entity> extends HierarchicalModel<T> {
 
-	public static final ModelLayerLocation BULLETSPICKUP_LAYER = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(Quake2Weapons.MODID, "bullets_ammopickup"), "main");
+	public static final ModelLayerLocation CELLSPICKUP_LAYER = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(Quake2Weapons.MODID, "cells_ammopickup"), "main");
 	private final ModelPart root;
 
-	public BulletsAmmopickupModel(ModelPart root) {
+	public CellsAmmopickupModel(ModelPart root) {
 		this.root = root;
 	}
 

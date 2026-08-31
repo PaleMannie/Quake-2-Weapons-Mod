@@ -23,8 +23,11 @@ public class ModelLayerRegistry {
         event.registerLayerDefinition(InvulnerabilityPowerupModel.INVULN_LAYER, InvulnerabilityPowerupModel::createBodyLayer);
         event.registerLayerDefinition(EnvirosuitPowerupModel.ENVIROSUIT_LAYER, EnvirosuitPowerupModel::createBodyLayer);
         event.registerLayerDefinition(SilencerPowerupModel.SILENCER_LAYER, SilencerPowerupModel::createBodyLayer);
-        event.registerLayerDefinition(BulletsAmmopickupModel.BULLETPICKUP_LAYER, BulletsAmmopickupModel::createBodyLayer);
+        event.registerLayerDefinition(BulletsAmmopickupModel.BULLETSPICKUP_LAYER, BulletsAmmopickupModel::createBodyLayer);
         event.registerLayerDefinition(ShellsAmmopickupModel.SHELLSPICKUP_LAYER, ShellsAmmopickupModel::createBodyLayer);
         event.registerLayerDefinition(GrenadesAmmopickupModel.GRENADESPICKUP_LAYER, GrenadesAmmopickupModel::createBodyLayer);
+        event.registerLayerDefinition(RocketsAmmopickupModel.ROCKETSPICKUP_LAYER, RocketsAmmopickupModel::createBodyLayer);
+        event.registerLayerDefinition(CellsAmmopickupModel.CELLSPICKUP_LAYER, CellsAmmopickupModel::createBodyLayer);
+        event.registerLayerDefinition(SlugsAmmopickupModel.SLUGSPICKUP_LAYER, SlugsAmmopickupModel::createBodyLayer);
     }
 }
