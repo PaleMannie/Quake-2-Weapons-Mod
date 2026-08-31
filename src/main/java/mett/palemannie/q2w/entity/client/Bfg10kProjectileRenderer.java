@@ -20,10 +20,10 @@ import org.joml.Matrix4f;
 public class Bfg10kProjectileRenderer extends EntityRenderer<Bfg10kProjectileEntity> {
 
     private static final ResourceLocation FRAME_0 =
-            ResourceLocation.fromNamespaceAndPath(Quake2Weapons.MODID, "textures/entity/bfg_ball/bfg_ball1.png");
+            ResourceLocation.fromNamespaceAndPath(Quake2Weapons.MODID, "textures/entity/projectiles/bfg_ball1.png");
 
     private static final ResourceLocation FRAME_1 =
-            ResourceLocation.fromNamespaceAndPath(Quake2Weapons.MODID, "textures/entity/bfg_ball/bfg_ball2.png");
+            ResourceLocation.fromNamespaceAndPath(Quake2Weapons.MODID, "textures/entity/projectiles/bfg_ball2.png");
 
     public Bfg10kProjectileRenderer(EntityRendererProvider.Context context) {
         super(context);

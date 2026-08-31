@@ -18,7 +18,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class GrenadelauncherProjectileRenderer extends EntityRenderer<GrenadelauncherProjectileEntity> {
 
-    private static final ResourceLocation GRENADE_LOCATION = ResourceLocation.fromNamespaceAndPath(Quake2Weapons.MODID,"textures/entity/grenadelauncher_projectile/grenadelauncher_projectile.png");
+    private static final ResourceLocation GRENADE_LOCATION = ResourceLocation.fromNamespaceAndPath(Quake2Weapons.MODID,"textures/entity/projectiles/grenadelauncher_projectile.png");
 
     private final GrenadelauncherProjectileModel<GrenadelauncherProjectileEntity> model;
 

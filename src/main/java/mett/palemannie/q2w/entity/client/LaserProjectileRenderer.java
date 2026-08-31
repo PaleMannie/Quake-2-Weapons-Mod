@@ -16,7 +16,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class LaserProjectileRenderer extends EntityRenderer<LaserProjectileEntity> {
 
-    private static final ResourceLocation LASER_LOCATION = ResourceLocation.fromNamespaceAndPath(Quake2Weapons.MODID,"textures/entity/laser_projectile/laser_projectile.png");
+    private static final ResourceLocation LASER_LOCATION = ResourceLocation.fromNamespaceAndPath(Quake2Weapons.MODID,"textures/entity/projectiles/laser_projectile.png");
     private final LaserProjectileModel<LaserProjectileEntity> model;
 
     public LaserProjectileRenderer(EntityRendererProvider.Context context) {

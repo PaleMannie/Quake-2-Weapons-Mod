@@ -18,7 +18,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class HandgrenadeProjectileRenderer extends EntityRenderer<HandgrenadeProjectileEntity> {
 
-    private static final ResourceLocation GRENADE_LOCATION = ResourceLocation.fromNamespaceAndPath(Quake2Weapons.MODID,"textures/entity/handgrenade_projectile/handgrenade_projectile.png");
+    private static final ResourceLocation GRENADE_LOCATION = ResourceLocation.fromNamespaceAndPath(Quake2Weapons.MODID,"textures/entity/projectiles/handgrenade_projectile.png");
 
     private final HandgrenadeProjectileModel<HandgrenadeProjectileEntity> model;
 

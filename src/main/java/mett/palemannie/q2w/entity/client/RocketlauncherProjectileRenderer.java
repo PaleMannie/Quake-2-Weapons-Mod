@@ -16,7 +16,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class RocketlauncherProjectileRenderer extends EntityRenderer<RocketProjectileEntity> {
 
-    private static final ResourceLocation ROCKET_LOCATION = ResourceLocation.fromNamespaceAndPath(Quake2Weapons.MODID,"textures/entity/rocketlauncher_projectile/rocketlauncher_projectile.png");
+    private static final ResourceLocation ROCKET_LOCATION = ResourceLocation.fromNamespaceAndPath(Quake2Weapons.MODID,"textures/entity/projectiles/rocketlauncher_projectile.png");
     private final RocketlauncherProjectileModel<RocketProjectileEntity> model;
 
     public RocketlauncherProjectileRenderer(EntityRendererProvider.Context context) {
