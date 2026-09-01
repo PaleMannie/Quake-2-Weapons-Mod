@@ -86,13 +86,21 @@ public class ModEntities {
             ENTITY_TYPES.register("adrenaline_pickup", () -> EntityType.Builder.<AdrenalinePickupEntity>of(AdrenalinePickupEntity::new, MobCategory.MISC)
                     .sized(1.0f, 1.0f).fireImmune().clientTrackingRange(256).updateInterval(1).build("adrenaline_pickup"));
 
-    public static final RegistryObject<EntityType<MegahealthItempickupEntity>> MEGAHEALTH_PICKUP =
-            ENTITY_TYPES.register("megahealth_pickup", () -> EntityType.Builder.<MegahealthItempickupEntity>of(MegahealthItempickupEntity::new, MobCategory.MISC)
-                    .sized(1.5f, 2.0f).fireImmune().clientTrackingRange(256).updateInterval(1).build("megahealth_pickup"));
+    public static final RegistryObject<EntityType<MegahealthPickupEntity>> MEGAHEALTH_PICKUP =
+            ENTITY_TYPES.register("megahealth_pickup", () -> EntityType.Builder.<MegahealthPickupEntity>of(MegahealthPickupEntity::new, MobCategory.MISC)
+                    .sized(1.0f, 1.0f).fireImmune().clientTrackingRange(256).updateInterval(1).build("megahealth_pickup"));
 
     public static final RegistryObject<EntityType<SilencerPowerupEntity>> SILENCER_POWERUP =
             ENTITY_TYPES.register("silencer_powerup", () -> EntityType.Builder.<SilencerPowerupEntity>of(SilencerPowerupEntity::new, MobCategory.MISC)
-                    .sized(1.5f, 2.0f).fireImmune().clientTrackingRange(256).updateInterval(1).build("silencer_powerup"));
+                    .sized(1.0f, 1.0f).fireImmune().clientTrackingRange(256).updateInterval(1).build("silencer_powerup"));
+
+    public static final RegistryObject<EntityType<RebreatherPickupEntity>> REBREATHER_PICKUP =
+            ENTITY_TYPES.register("rebreather_pickup", () -> EntityType.Builder.<RebreatherPickupEntity>of(RebreatherPickupEntity::new, MobCategory.MISC)
+                    .sized(1.0f, 1.0f).fireImmune().clientTrackingRange(256).updateInterval(1).build("rebreather_pickup"));
+
+    public static final RegistryObject<EntityType<PowershieldPickupEntity>> POWERSHIELD_PICKUP =
+            ENTITY_TYPES.register("powershield_pickup", () -> EntityType.Builder.<PowershieldPickupEntity>of(PowershieldPickupEntity::new, MobCategory.MISC)
+                    .sized(1.0f, 1.0f).fireImmune().clientTrackingRange(256).updateInterval(1).build("powershield_pickup"));
 
     public static void register(IEventBus eventBus) {
         ENTITY_TYPES.register(eventBus);

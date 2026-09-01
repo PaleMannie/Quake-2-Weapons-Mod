@@ -85,8 +85,8 @@ public class ModItems {
     public static final RegistryObject<Item> ADRENALINE_ITEM = ITEMS.register("adrenaline_item",
             () -> new AdrenalineItem(new Item.Properties().stacksTo(1)));
 
-    public static final RegistryObject<Item> POWER_SHIELD = ITEMS.register("power_shield",
-            () -> new Item(new Item.Properties().stacksTo(1)));
+    public static final RegistryObject<Item> POWERSHIELD_ITEM = ITEMS.register("powershield_item",
+            () -> new PowershieldItem(new Item.Properties().stacksTo(1)));
 
 
     public static void register(IEventBus eventBus) {

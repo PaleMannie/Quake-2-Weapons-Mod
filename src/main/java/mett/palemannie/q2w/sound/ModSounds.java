@@ -16,6 +16,7 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> WEAPON_SWITCH = registerSoundEvents("weapon_switch");
 
     public static final RegistryObject<SoundEvent> AMMO_PICKUP = registerSoundEvents("ammo_pickup");
+    public static final RegistryObject<SoundEvent> ITEM_PICKUP = registerSoundEvents("item_pickup");
 
     public static final RegistryObject<SoundEvent> BLASTER_SHOOT = registerSoundEvents("blaster_shoot");
 

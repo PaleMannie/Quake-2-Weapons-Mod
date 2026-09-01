@@ -3,6 +3,7 @@ package mett.palemannie.q2w.entity.custom;
 import mett.palemannie.q2w.Q2WConfig;
 import mett.palemannie.q2w.sound.ModSounds;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -57,6 +58,8 @@ public abstract class AbstractItempickupEntity extends Entity {
 
     protected abstract void onPickup(Player player);
 
+    protected abstract SoundEvent getPickupSound();
+
     @Override
     public boolean isPickable() {
         return true;
@@ -74,12 +77,12 @@ public abstract class AbstractItempickupEntity extends Entity {
 
         if (!remainingStack.isEmpty()) {
 
-            ItemEntity droppedAmmo = new ItemEntity(level(), this.getX(), this.getY() + 0.25d, this.getZ(), remainingStack.copy());
+            ItemEntity droppedAmmo = new ItemEntity(level(), this.getX(), this.getY() + 1d, this.getZ(), remainingStack.copy());
 
             droppedAmmo.setDefaultPickUpDelay();
             level().addFreshEntity(droppedAmmo);
         }
 
-        level().playSound(null, this.getX(), this.getY(), this.getZ(), ModSounds.AMMO_PICKUP.get(), SoundSource.PLAYERS, 1f, 1f);
+        level().playSound(null, this.getX(), this.getY(), this.getZ(), getPickupSound(), SoundSource.PLAYERS, 1f, 1f);
     }
 }

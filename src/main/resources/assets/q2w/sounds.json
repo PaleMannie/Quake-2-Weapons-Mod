@@ -13,6 +13,13 @@
     ]
   },
 
+  "item_pickup": {
+    "subtitle": "sounds.q2w.item_pickup",
+    "sounds": [
+      "q2w:item_pickup"
+    ]
+  },
+
   "shotgun_shoot": {
     "subtitle": "sounds.q2w.shotgun_shoot",
     "sounds": [

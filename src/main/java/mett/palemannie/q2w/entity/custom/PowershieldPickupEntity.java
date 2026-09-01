@@ -7,21 +7,19 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 
-public class CellsAmmopickupEntity extends AbstractItempickupEntity {
+public class PowershieldPickupEntity extends AbstractItempickupEntity {
 
-    private static final int AMOUNT = 50;
-
-    public CellsAmmopickupEntity(EntityType<?> type, Level level) {
+    public PowershieldPickupEntity(EntityType<? extends PowershieldPickupEntity> type, Level level) {
         super(type, level);
     }
 
     @Override
     protected void onPickup(Player player) {
-        giveAmmoOrDrop(player, ModItems.CELL.get(), AMOUNT);
+        giveAmmoOrDrop(player, ModItems.ADRENALINE_ITEM.get(), 1);
     }
 
     @Override
     protected SoundEvent getPickupSound() {
-        return ModSounds.AMMO_PICKUP.get();
+        return ModSounds.ITEM_PICKUP.get();
     }
 }

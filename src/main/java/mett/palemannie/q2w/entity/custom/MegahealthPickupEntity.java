@@ -1,14 +1,17 @@
 package mett.palemannie.q2w.entity.custom;
 
+import mett.palemannie.q2w.sound.ModSounds;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 
-public class MegahealthItempickupEntity extends AbstractItempickupEntity {
+public class MegahealthPickupEntity extends AbstractItempickupEntity {
 
-    public MegahealthItempickupEntity(EntityType<? extends MegahealthItempickupEntity> type, Level level) {
+    public MegahealthPickupEntity(EntityType<? extends MegahealthPickupEntity> type, Level level) {
         super(type, level);
     }
 
@@ -17,5 +20,10 @@ public class MegahealthItempickupEntity extends AbstractItempickupEntity {
 
         player.addEffect(new MobEffectInstance(MobEffects.HEAL, 1, 10, false, false));
         player.addEffect(new MobEffectInstance(MobEffects.ABSORPTION, 600, 5, false, false));
+
+        level().playSound(null, this.getX(), this.getY(), this.getZ(), ModSounds.ADRENALINE_USE.get(), SoundSource.PLAYERS, 1f, 1f);
     }
+
+    @Override
+    protected SoundEvent getPickupSound() { return null; }
 }

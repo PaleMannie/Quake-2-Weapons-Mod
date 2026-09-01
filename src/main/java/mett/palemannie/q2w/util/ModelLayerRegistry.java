@@ -30,5 +30,6 @@ public class ModelLayerRegistry {
         event.registerLayerDefinition(CellsAmmopickupModel.CELLSPICKUP_LAYER, CellsAmmopickupModel::createBodyLayer);
         event.registerLayerDefinition(SlugsAmmopickupModel.SLUGSPICKUP_LAYER, SlugsAmmopickupModel::createBodyLayer);
         event.registerLayerDefinition(AdrenalinePickupModel.ADRENALINEPICKUP_LAYER, AdrenalinePickupModel::createBodyLayer);
+        event.registerLayerDefinition(MegahealthPickupModel.MEGAHEALTHPICKUP_LAYER, MegahealthPickupModel::createBodyLayer);
     }
 }

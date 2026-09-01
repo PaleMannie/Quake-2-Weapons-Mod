@@ -144,7 +144,7 @@ public class PowerupSpawner {
 
     private static Entity randomPowerup(ServerLevel level) {
 
-        return switch (level.random.nextInt(12)) {
+        return switch (level.random.nextInt(14)) {
             case 0 -> new QuadDamagePowerupEntity(ModEntities.QUAD_DAMAGE_POWERUP.get(), level);
             case 1 -> new InvulnerabilityPowerupEntity(ModEntities.INVULN_POWERUP.get(), level);
             case 2 -> new EnvirosuitPowerupEntity(ModEntities.ENVIROSUIT_POWERUP.get(), level);
@@ -155,7 +155,9 @@ public class PowerupSpawner {
             case 7 -> new GrenadesAmmopickupEntity(ModEntities.GRENADES_AMMOPICKUP.get(), level);
             case 8 -> new RocketsAmmopickupEntity(ModEntities.ROCKETS_AMMOPICKUP.get(), level);
             case 9 -> new CellsAmmopickupEntity(ModEntities.CELLS_AMMOPICKUP.get(), level);
-            case 10 -> new MegahealthItempickupEntity(ModEntities.MEGAHEALTH_PICKUP.get(), level);
+            case 10 -> new MegahealthPickupEntity(ModEntities.MEGAHEALTH_PICKUP.get(), level);
+            case 11 -> new PowershieldPickupEntity(ModEntities.POWERSHIELD_PICKUP.get(), level);
+            case 12 -> new RebreatherPickupEntity(ModEntities.REBREATHER_PICKUP.get(), level);
             default -> new SlugsAmmopickupEntity(ModEntities.SLUGS_AMMOPICKUP.get(), level);
         };
     }

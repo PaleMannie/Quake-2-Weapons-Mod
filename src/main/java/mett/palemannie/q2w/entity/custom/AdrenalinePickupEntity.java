@@ -1,6 +1,8 @@
 package mett.palemannie.q2w.entity.custom;
 
 import mett.palemannie.q2w.item.ModItems;
+import mett.palemannie.q2w.sound.ModSounds;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
@@ -16,4 +18,8 @@ public class AdrenalinePickupEntity extends AbstractItempickupEntity {
         giveAmmoOrDrop(player, ModItems.ADRENALINE_ITEM.get(), 1);
     }
 
+    @Override
+    protected SoundEvent getPickupSound() {
+        return ModSounds.ITEM_PICKUP.get();
+    }
 }
