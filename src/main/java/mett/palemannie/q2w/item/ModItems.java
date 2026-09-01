@@ -83,7 +83,7 @@ public class ModItems {
             () -> new SilencerItem(new Item.Properties().stacksTo(1)));
 
     public static final RegistryObject<Item> ADRENALINE_ITEM = ITEMS.register("adrenaline_item",
-            () -> new Item(new Item.Properties().stacksTo(1)));
+            () -> new AdrenalineItem(new Item.Properties().stacksTo(1)));
 
     public static final RegistryObject<Item> POWER_SHIELD = ITEMS.register("power_shield",
             () -> new Item(new Item.Properties().stacksTo(1)));

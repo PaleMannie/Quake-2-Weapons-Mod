@@ -5,9 +5,9 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 
-public class AdrenalinePowerupEntity extends AbstractItempickupEntity {
+public class AdrenalinePickupEntity extends AbstractItempickupEntity {
 
-    public AdrenalinePowerupEntity(EntityType<? extends AdrenalinePowerupEntity> type, Level level) {
+    public AdrenalinePickupEntity(EntityType<? extends AdrenalinePickupEntity> type, Level level) {
         super(type, level);
     }
 

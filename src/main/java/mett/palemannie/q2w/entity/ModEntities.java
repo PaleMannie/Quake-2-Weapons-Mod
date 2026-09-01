@@ -82,13 +82,13 @@ public class ModEntities {
 
     /// Item pickups
 
-    public static final RegistryObject<EntityType<AdrenalinePowerupEntity>> ADRENALINE_PICKUP =
-            ENTITY_TYPES.register("adrenaline_powerup", () -> EntityType.Builder.<AdrenalinePowerupEntity>of(AdrenalinePowerupEntity::new, MobCategory.MISC)
-                    .sized(1.5f, 2.0f).fireImmune().clientTrackingRange(256).updateInterval(1).build("adrenaline_powerup"));
+    public static final RegistryObject<EntityType<AdrenalinePickupEntity>> ADRENALINE_PICKUP =
+            ENTITY_TYPES.register("adrenaline_pickup", () -> EntityType.Builder.<AdrenalinePickupEntity>of(AdrenalinePickupEntity::new, MobCategory.MISC)
+                    .sized(1.0f, 1.0f).fireImmune().clientTrackingRange(256).updateInterval(1).build("adrenaline_pickup"));
 
     public static final RegistryObject<EntityType<MegahealthItempickupEntity>> MEGAHEALTH_PICKUP =
-            ENTITY_TYPES.register("megahealth_itempickup", () -> EntityType.Builder.<MegahealthItempickupEntity>of(MegahealthItempickupEntity::new, MobCategory.MISC)
-                    .sized(1.5f, 2.0f).fireImmune().clientTrackingRange(256).updateInterval(1).build("megahealth_itempickup"));
+            ENTITY_TYPES.register("megahealth_pickup", () -> EntityType.Builder.<MegahealthItempickupEntity>of(MegahealthItempickupEntity::new, MobCategory.MISC)
+                    .sized(1.5f, 2.0f).fireImmune().clientTrackingRange(256).updateInterval(1).build("megahealth_pickup"));
 
     public static final RegistryObject<EntityType<SilencerPowerupEntity>> SILENCER_POWERUP =
             ENTITY_TYPES.register("silencer_powerup", () -> EntityType.Builder.<SilencerPowerupEntity>of(SilencerPowerupEntity::new, MobCategory.MISC)
