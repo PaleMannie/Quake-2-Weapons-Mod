@@ -1,6 +1,8 @@
 package mett.palemannie.q2w.item.custom;
 
 import mett.palemannie.q2w.effect.ModEffects;
+import mett.palemannie.q2w.sound.ModSounds;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -21,6 +23,8 @@ public class RebreatherItem extends AbstractPowerupItem{
 
     @Override
     protected void onPowerupUse(Level level, Player player, ItemStack stack, int duration) {
+
+        level.playSound(null, player.blockPosition(), ModSounds.REBREATHER_USE.get(), SoundSource.PLAYERS, 1f, 1f);
         player.addEffect(new MobEffectInstance(MobEffects.WATER_BREATHING, getPowerupDuration(), 0, true, true));
     }
 }

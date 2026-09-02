@@ -4,9 +4,8 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Axis;
 import mett.palemannie.q2w.Quake2Weapons;
-import mett.palemannie.q2w.entity.custom.SilencerPowerupEntity;
+import mett.palemannie.q2w.entity.custom.RebreatherPickupEntity;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.culling.Frustum;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
@@ -14,26 +13,26 @@ import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.ResourceLocation;
 import org.jetbrains.annotations.NotNull;
 
-public class SilencerPowerupRenderer extends EntityRenderer<SilencerPowerupEntity> {
+public class RebreatherPickupRenderer extends EntityRenderer<RebreatherPickupEntity> {
 
-    private static final ResourceLocation SILENCER_LOCATION = ResourceLocation.fromNamespaceAndPath(Quake2Weapons.MODID,"textures/entity/itempickups/silencer_powerup.png");
-    private final SilencerPowerupModel<SilencerPowerupEntity> model;
+    private static final ResourceLocation REBREATHERPICKUP_LOCATION = ResourceLocation.fromNamespaceAndPath(Quake2Weapons.MODID,"textures/entity/itempickups/rebreather_pickup.png");
+    private final RebreatherPickupModel<RebreatherPickupEntity> model;
 
-    public SilencerPowerupRenderer(EntityRendererProvider.Context context) {
+    public RebreatherPickupRenderer(EntityRendererProvider.Context context) {
         super(context);
-        this.model = new SilencerPowerupModel<>(context.bakeLayer(SilencerPowerupModel.SILENCER_LAYER));
+        this.model = new RebreatherPickupModel<>(context.bakeLayer(RebreatherPickupModel.REBREATHERPICKUP_LAYER));
     }
 
     float bobbingSpeed = 0.05f;
     float bobbingHeight = 0.1f;
     float rotationSpeed = 4.375f;
 
-    public void render(SilencerPowerupEntity rocketEntity, float v1, float partialTicks, PoseStack poseStack, MultiBufferSource bufferSource, int packedLight) {
+    public void render(RebreatherPickupEntity rocketEntity, float v1, float partialTicks, PoseStack poseStack, MultiBufferSource bufferSource, int packedLight) {
 
         poseStack.pushPose();
 
-        poseStack.translate(0f, 2f, 0f);
-        poseStack.scale(1f, 1f, 1f);
+        poseStack.translate(0f, 1.75f, 0f);
+        poseStack.scale(1.0f, 1.0f, 1.0f);
         poseStack.mulPose(Axis.XP.rotationDegrees(180f));
 
 
@@ -45,7 +44,7 @@ public class SilencerPowerupRenderer extends EntityRenderer<SilencerPowerupEntit
         float rotation = (ageInTicks * rotationSpeed) % 360;
         poseStack.mulPose(Axis.YP.rotationDegrees(-rotation));
 
-        VertexConsumer $$6 = bufferSource.getBuffer(this.model.renderType(SILENCER_LOCATION));
+        VertexConsumer $$6 = bufferSource.getBuffer(this.model.renderType(REBREATHERPICKUP_LOCATION));
         this.model.renderToBuffer(poseStack, $$6, packedLight, OverlayTexture.NO_OVERLAY, 1f, 1f, 1f, 1f);
 
         poseStack.popPose();
@@ -54,11 +53,11 @@ public class SilencerPowerupRenderer extends EntityRenderer<SilencerPowerupEntit
     }
 
     @Override
-    public boolean shouldRender(SilencerPowerupEntity pLivingEntity, Frustum pCamera, double pCamX, double pCamY, double pCamZ) {
+    public boolean shouldRender(RebreatherPickupEntity pLivingEntity, Frustum pCamera, double pCamX, double pCamY, double pCamZ) {
         return true;
     }
 
     @Override
-    public @NotNull ResourceLocation getTextureLocation(@NotNull SilencerPowerupEntity spit) { return SILENCER_LOCATION; }
+    public @NotNull ResourceLocation getTextureLocation(@NotNull RebreatherPickupEntity spit) { return REBREATHERPICKUP_LOCATION; }
 
 }
