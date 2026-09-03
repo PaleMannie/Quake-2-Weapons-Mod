@@ -32,5 +32,6 @@ public class ModelLayerRegistry {
         event.registerLayerDefinition(AdrenalinePickupModel.ADRENALINEPICKUP_LAYER, AdrenalinePickupModel::createBodyLayer);
         event.registerLayerDefinition(MegahealthPickupModel.MEGAHEALTHPICKUP_LAYER, MegahealthPickupModel::createBodyLayer);
         event.registerLayerDefinition(RebreatherPickupModel.REBREATHERPICKUP_LAYER, RebreatherPickupModel::createBodyLayer);
+        event.registerLayerDefinition(PowershieldPickupModel.POWERSHIELDPICKUP_LAYER, PowershieldPickupModel::createBodyLayer);
     }
 }

@@ -82,6 +82,7 @@ public class Quake2Weapons {
             EntityRenderers.register(ModEntities.ADRENALINE_PICKUP.get(), AdrenalinePickupRenderer::new);
             EntityRenderers.register(ModEntities.MEGAHEALTH_PICKUP.get(), MegahealthPickupRenderer::new);
             EntityRenderers.register(ModEntities.REBREATHER_PICKUP.get(), RebreatherPickupRenderer::new);
+            EntityRenderers.register(ModEntities.POWERSHIELD_PICKUP.get(), PowershieldPickupRenderer::new);
         }
     }
 

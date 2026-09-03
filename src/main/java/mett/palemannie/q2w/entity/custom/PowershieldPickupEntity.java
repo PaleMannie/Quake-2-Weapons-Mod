@@ -15,7 +15,7 @@ public class PowershieldPickupEntity extends AbstractItempickupEntity {
 
     @Override
     protected void onPickup(Player player) {
-        giveAmmoOrDrop(player, ModItems.ADRENALINE_ITEM.get(), 1);
+        giveAmmoOrDrop(player, ModItems.POWERSHIELD_ITEM.get(), 1);
     }
 
     @Override

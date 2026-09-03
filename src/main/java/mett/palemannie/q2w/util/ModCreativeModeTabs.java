@@ -47,6 +47,7 @@ public class ModCreativeModeTabs {
                         pOutput.accept(ModItems.SILENCER_ITEM.get());
                         pOutput.accept(ModItems.ADRENALINE_ITEM.get());
                         pOutput.accept(ModItems.REBREATHER_ITEM.get());
+                        pOutput.accept(ModItems.POWERSHIELD_ITEM.get());
 
                     })
                     .build());
