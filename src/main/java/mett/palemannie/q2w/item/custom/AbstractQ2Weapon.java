@@ -1,6 +1,7 @@
 package mett.palemannie.q2w.item.custom;
 
 import mett.palemannie.q2w.util.ServerPlayHandler;
+import mett.palemannie.q2w.util.WeaponAggroHandler;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.LivingEntity;
@@ -77,6 +78,7 @@ public abstract class AbstractQ2Weapon extends AbstractWeapon {
         onSuccessfulFire(serverLevel, serverPlayer, stack);
 
         for (int i = 0; i < shots; i++) {
+            WeaponAggroHandler.onWeaponShot(serverPlayer);
             fireWeapon(serverLevel, serverPlayer, stack, useTicks);
         }
     }

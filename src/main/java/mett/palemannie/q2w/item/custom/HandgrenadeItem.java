@@ -3,6 +3,7 @@ package mett.palemannie.q2w.item.custom;
 import mett.palemannie.q2w.item.client.HandgrenadeRenderer;
 import mett.palemannie.q2w.sound.ModSounds;
 import mett.palemannie.q2w.util.ServerPlayHandler;
+import mett.palemannie.q2w.util.WeaponAggroHandler;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -289,6 +290,7 @@ public class HandgrenadeItem extends AbstractWeapon {
         float cookProgress = Mth.clamp(cookedTicks / (float) FUSE_TICKS, 0f, 1f);
         float velocity = Mth.lerp(cookProgress, MIN_THROW_VELOCITY, MAX_THROW_VELOCITY);
 
+        WeaponAggroHandler.onWeaponShot(player);
         ServerPlayHandler.handleHandgrenadeThrow(player, remainingFuseTicks, velocity);
 
         player.getCooldowns().addCooldown(this, RELEASE_COOLDOWN_TICKS);
@@ -304,6 +306,7 @@ public class HandgrenadeItem extends AbstractWeapon {
 
         triggerOvercookAnimation(player, level, stack);
 
+        WeaponAggroHandler.onWeaponShot(player);
         ServerPlayHandler.handleHandgrenadeOvercook(player);
 
         player.getCooldowns().addCooldown(this, RELEASE_COOLDOWN_TICKS);

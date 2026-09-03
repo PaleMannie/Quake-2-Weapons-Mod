@@ -4,6 +4,7 @@ import mett.palemannie.q2w.item.ModItems;
 import mett.palemannie.q2w.item.client.Bfg10kRenderer;
 import mett.palemannie.q2w.sound.ModSounds;
 import mett.palemannie.q2w.util.ServerPlayHandler;
+import mett.palemannie.q2w.util.WeaponAggroHandler;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -226,6 +227,7 @@ public class Bfg10kItem extends AbstractWeapon {
 
         triggerShootAnimation(player, level, stack);
 
+        WeaponAggroHandler.onWeaponShot(player);
         ServerPlayHandler.handleBfg10kShoot(player);
 
         player.getCooldowns().addCooldown(this, FIRE_SEQUENCE_INTERVAL_TICKS - WINDUP_TICKS);

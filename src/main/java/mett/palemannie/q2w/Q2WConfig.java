@@ -140,6 +140,7 @@ public class Q2WConfig {
         public final ForgeConfigSpec.IntValue powerupLifetime;
         public final ForgeConfigSpec.BooleanValue powerupDebug;
         public final ForgeConfigSpec.BooleanValue enablePowerups;
+        public final ForgeConfigSpec.IntValue weaponAggroRange;
 
         public Server(ForgeConfigSpec.Builder builder) {
 
@@ -186,6 +187,13 @@ public class Q2WConfig {
                     .defineInRange("animationDroppedFixerSearchInterval", 5, 1, Integer.MAX_VALUE-1);
 
             builder.pop();
+
+            builder.push("Weapon aggro values");
+
+            weaponAggroRange = builder
+                    .comment("Range in blocks where monsters aggro when weapons are fired or loud weapons are held.")
+                    .defineInRange("weaponAggroRange", 32, 0, 256);
+
         }
     }
 

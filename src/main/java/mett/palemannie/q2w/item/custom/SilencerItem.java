@@ -1,25 +1,38 @@
 package mett.palemannie.q2w.item.custom;
 
-import mett.palemannie.q2w.effect.ModEffects;
+import mett.palemannie.q2w.sound.ModSounds;
+import mett.palemannie.q2w.util.WeaponAggroHandler;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.effect.MobEffect;
-import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 
-public class SilencerItem extends AbstractPowerupItem{
+public class SilencerItem extends AbstractPowerupItem {
 
-    public SilencerItem(Properties pProperties) {
-        super(pProperties);
+    public SilencerItem(Properties properties) {
+        super(properties);
     }
 
     @Override
     public MobEffect getPowerupEffect() {
-        return ModEffects.SILENCER.get();
+        return null;
     }
 
     @Override
     protected void onPowerupUse(Level level, Player player, ItemStack stack, int duration) {
-        player.addEffect(new MobEffectInstance(ModEffects.SILENCER.get(), getPowerupDuration()));
+        if (level.isClientSide) {
+            return;
+        }
+
+        if (player instanceof net.minecraft.server.level.ServerPlayer serverPlayer) {
+            WeaponAggroHandler.addSilencedShots(
+                    serverPlayer,
+                    WeaponAggroHandler.DEFAULT_SILENCER_SHOTS
+            );
+        }
+
+        level.playSound(null, player.blockPosition(), ModSounds.ITEM_PICKUP.get(), SoundSource.PLAYERS, 1f, 1f);
     }
 }
