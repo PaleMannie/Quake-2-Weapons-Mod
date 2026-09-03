@@ -1,6 +1,7 @@
 package mett.palemannie.q2w.net;
 
 import mett.palemannie.q2w.Quake2Weapons;
+import mett.palemannie.q2w.net.custom.SilencedShotsSyncS2CPacket;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraftforge.network.NetworkDirection;
@@ -23,6 +24,11 @@ public class ModMessages {
 
         INSTANCE = net;
 
+        INSTANCE.messageBuilder(SilencedShotsSyncS2CPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
+                .encoder(SilencedShotsSyncS2CPacket::toBytes)
+                .decoder(SilencedShotsSyncS2CPacket::new)
+                .consumerMainThread(SilencedShotsSyncS2CPacket::handle)
+                .add();
 
     }
 

@@ -9,6 +9,7 @@ import net.minecraft.util.RandomSource;
 public class HandgrenadeEntityCookLoopSoundInstance extends AbstractTickableSoundInstance {
 
     private final HandgrenadeProjectileEntity grenade;
+    private final float baseVolume;
 
     public HandgrenadeEntityCookLoopSoundInstance(HandgrenadeProjectileEntity grenade, SoundEvent soundEvent) {
         super(soundEvent, SoundSource.PLAYERS, RandomSource.create());
@@ -26,8 +27,6 @@ public class HandgrenadeEntityCookLoopSoundInstance extends AbstractTickableSoun
         this.baseVolume = volume;
     }
 
-    private final float baseVolume;
-
     @Override
     public void tick() {
 
@@ -39,6 +38,7 @@ public class HandgrenadeEntityCookLoopSoundInstance extends AbstractTickableSoun
         var minecraft = net.minecraft.client.Minecraft.getInstance();
 
         if (minecraft.player != null) {
+
             double distance = minecraft.player.distanceTo(grenade);
             double maxDistance = 24d;
 

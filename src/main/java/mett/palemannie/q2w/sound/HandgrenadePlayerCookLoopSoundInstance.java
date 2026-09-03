@@ -1,6 +1,8 @@
 package mett.palemannie.q2w.sound;
 
+import mett.palemannie.q2w.gui.ClientSilencerData;
 import mett.palemannie.q2w.item.custom.HandgrenadeItem;
+import mett.palemannie.q2w.util.WeaponAggroHandler;
 import net.minecraft.client.resources.sounds.AbstractTickableSoundInstance;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
@@ -11,6 +13,7 @@ import net.minecraft.world.item.ItemStack;
 public class HandgrenadePlayerCookLoopSoundInstance extends AbstractTickableSoundInstance {
 
     private final Player player;
+    private final float baseVolume;
 
     private int releaseGraceTicks = HandgrenadeItem.THROW_PROJECTILE_DELAY_TICKS + 2;
 
@@ -27,6 +30,17 @@ public class HandgrenadePlayerCookLoopSoundInstance extends AbstractTickableSoun
         this.x = player.getX();
         this.y = player.getY();
         this.z = player.getZ();
+
+        this.baseVolume = volume;
+        this.volume = getCurrentVolume();
+    }
+
+    private float getCurrentVolume() {
+        if (ClientSilencerData.hasSilencerActive()) {
+            return this.baseVolume * WeaponAggroHandler.SILENCED_WEAPON_VOLUME_MULTIPLIER;
+        }
+
+        return this.baseVolume;
     }
 
     @Override
@@ -39,6 +53,7 @@ public class HandgrenadePlayerCookLoopSoundInstance extends AbstractTickableSoun
         this.x = player.getX();
         this.y = player.getY() + player.getBbHeight() * 0.5d;
         this.z = player.getZ();
+        this.volume = getCurrentVolume();
 
         if (isCookingHandgrenade(player)) {
             releaseGraceTicks = HandgrenadeItem.THROW_PROJECTILE_DELAY_TICKS + 2;

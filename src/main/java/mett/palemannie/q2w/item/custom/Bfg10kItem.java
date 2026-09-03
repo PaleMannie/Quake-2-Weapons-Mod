@@ -165,7 +165,7 @@ public class Bfg10kItem extends AbstractWeapon {
 
         triggerWindupAnimation(player, level, stack);
 
-        level.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.BFG10K_WINDUP.get(), SoundSource.PLAYERS, 1f, 1f);
+        level.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.BFG10K_WINDUP.get(), SoundSource.PLAYERS, ServerPlayHandler.weaponSoundVolume(player, 1f), 1f);
     }
 
     private void restartSequence(ServerLevel level, ServerPlayer player, ItemStack stack, BfgState state) {
@@ -178,7 +178,7 @@ public class Bfg10kItem extends AbstractWeapon {
 
         triggerWindupAnimation(player, level, stack);
 
-        level.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.BFG10K_WINDUP.get(), SoundSource.PLAYERS, 1f, 1f);
+        level.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.BFG10K_WINDUP.get(), SoundSource.PLAYERS, ServerPlayHandler.weaponSoundVolume(player, 1f), 1f);
     }
 
     private void tickSequence(ServerLevel level, ServerPlayer player, ItemStack stack, BfgState state) {
@@ -227,8 +227,8 @@ public class Bfg10kItem extends AbstractWeapon {
 
         triggerShootAnimation(player, level, stack);
 
-        WeaponAggroHandler.onWeaponShot(player);
         ServerPlayHandler.handleBfg10kShoot(player);
+        WeaponAggroHandler.onWeaponShot(player);
 
         player.getCooldowns().addCooldown(this, FIRE_SEQUENCE_INTERVAL_TICKS - WINDUP_TICKS);
     }

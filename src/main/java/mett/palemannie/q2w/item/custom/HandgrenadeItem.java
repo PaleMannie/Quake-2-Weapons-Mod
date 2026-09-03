@@ -240,7 +240,7 @@ public class HandgrenadeItem extends AbstractWeapon {
         if (!state.primeSoundPlayed && age >= PIN_SOUND_TICK) {
 
             state.primeSoundPlayed = true;
-            level.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.HANDGRENADE_START.get(), SoundSource.PLAYERS, 1f, 1f);
+            level.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.HANDGRENADE_START.get(), SoundSource.PLAYERS, ServerPlayHandler.weaponSoundVolume(player, 1f), 1f);
         }
 
         if (!state.fuseStarted && age >= COOK_START_TICK) {
@@ -290,8 +290,8 @@ public class HandgrenadeItem extends AbstractWeapon {
         float cookProgress = Mth.clamp(cookedTicks / (float) FUSE_TICKS, 0f, 1f);
         float velocity = Mth.lerp(cookProgress, MIN_THROW_VELOCITY, MAX_THROW_VELOCITY);
 
-        WeaponAggroHandler.onWeaponShot(player);
         ServerPlayHandler.handleHandgrenadeThrow(player, remainingFuseTicks, velocity);
+        WeaponAggroHandler.onWeaponShot(player);
 
         player.getCooldowns().addCooldown(this, RELEASE_COOLDOWN_TICKS);
         player.stopUsingItem();
@@ -306,8 +306,8 @@ public class HandgrenadeItem extends AbstractWeapon {
 
         triggerOvercookAnimation(player, level, stack);
 
-        WeaponAggroHandler.onWeaponShot(player);
         ServerPlayHandler.handleHandgrenadeOvercook(player);
+        WeaponAggroHandler.onWeaponShot(player);
 
         player.getCooldowns().addCooldown(this, RELEASE_COOLDOWN_TICKS);
         player.stopUsingItem();

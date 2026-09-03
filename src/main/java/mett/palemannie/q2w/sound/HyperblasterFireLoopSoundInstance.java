@@ -1,7 +1,9 @@
 package mett.palemannie.q2w.sound;
 
+import mett.palemannie.q2w.gui.ClientSilencerData;
 import mett.palemannie.q2w.item.ModItems;
 import mett.palemannie.q2w.item.custom.HyperblasterItem;
+import mett.palemannie.q2w.util.WeaponAggroHandler;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.resources.sounds.AbstractTickableSoundInstance;
 import net.minecraft.sounds.SoundEvent;
@@ -12,6 +14,7 @@ import net.minecraft.world.item.ItemStack;
 public class HyperblasterFireLoopSoundInstance extends AbstractTickableSoundInstance {
 
     private final LocalPlayer player;
+    private final float baseVolume;
 
     public HyperblasterFireLoopSoundInstance(LocalPlayer player, SoundEvent soundEvent) {
         super(soundEvent, SoundSource.PLAYERS, RandomSource.create());
@@ -26,6 +29,17 @@ public class HyperblasterFireLoopSoundInstance extends AbstractTickableSoundInst
         this.x = player.getX();
         this.y = player.getY();
         this.z = player.getZ();
+
+        this.baseVolume = volume;
+        this.volume = getCurrentVolume();
+    }
+
+    private float getCurrentVolume() {
+        if (ClientSilencerData.hasSilencerActive()) {
+            return this.baseVolume * WeaponAggroHandler.SILENCED_WEAPON_VOLUME_MULTIPLIER;
+        }
+
+        return this.baseVolume;
     }
 
     @Override
@@ -52,6 +66,8 @@ public class HyperblasterFireLoopSoundInstance extends AbstractTickableSoundInst
         this.x = player.getX();
         this.y = player.getY();
         this.z = player.getZ();
+
+        this.volume = getCurrentVolume();
     }
 
     private boolean hasBulletAmmo(LocalPlayer player) {

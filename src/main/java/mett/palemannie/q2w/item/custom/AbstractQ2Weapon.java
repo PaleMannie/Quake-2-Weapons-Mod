@@ -78,8 +78,8 @@ public abstract class AbstractQ2Weapon extends AbstractWeapon {
         onSuccessfulFire(serverLevel, serverPlayer, stack);
 
         for (int i = 0; i < shots; i++) {
-            WeaponAggroHandler.onWeaponShot(serverPlayer);
             fireWeapon(serverLevel, serverPlayer, stack, useTicks);
+            WeaponAggroHandler.onWeaponShot(serverPlayer);
         }
     }
 

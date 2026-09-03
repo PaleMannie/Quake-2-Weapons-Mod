@@ -1,6 +1,8 @@
 package mett.palemannie.q2w.util;
 
 import mett.palemannie.q2w.Q2WConfig;
+import mett.palemannie.q2w.net.ModMessages;
+import mett.palemannie.q2w.net.custom.SilencedShotsSyncS2CPacket;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -15,18 +17,32 @@ public final class WeaponAggroHandler {
 
     public static final int DEFAULT_SILENCER_SHOTS = 30;
 
-    /**
-     * Wird vom Silencer-Item aufgerufen.
-     */
+    public static final float SILENCED_WEAPON_VOLUME_MULTIPLIER = 0.33F;
+
+    public static boolean shouldQuietWeaponSounds(ServerPlayer player) {
+        return hasSilencerActive(player);
+    }
+
+    public static float getWeaponSoundVolume(ServerPlayer player, float normalVolume) {
+        if (shouldQuietWeaponSounds(player)) {
+            return normalVolume * SILENCED_WEAPON_VOLUME_MULTIPLIER;
+        }
+
+        return normalVolume;
+    }
+
     public static void addSilencedShots(ServerPlayer player, int amount) {
+
         if (amount <= 0) {
             return;
         }
 
         CompoundTag data = player.getPersistentData();
         int current = data.getInt(SILENCED_SHOTS_TAG);
+        int next = current + amount;
 
-        data.putInt(SILENCED_SHOTS_TAG, current + amount);
+        data.putInt(SILENCED_SHOTS_TAG, next);
+        syncSilencerShots(player);
     }
 
     public static int getSilencedShots(ServerPlayer player) {
@@ -37,17 +53,8 @@ public final class WeaponAggroHandler {
         return getSilencedShots(player) > 0;
     }
 
-    /**
-     * Wird pro tatsächlichem Schuss aufgerufen.
-     *
-     * Wenn Silencer aktiv:
-     * - 1 Ladung verbrauchen
-     * - keine Monster aggro machen
-     *
-     * Wenn kein Silencer aktiv:
-     * - Monster im Config-Radius auf Spieler targeten
-     */
     public static void onWeaponShot(ServerPlayer player) {
+
         if (player.level().isClientSide) {
             return;
         }
@@ -65,13 +72,8 @@ public final class WeaponAggroHandler {
         aggroMonsters(player, range);
     }
 
-    /**
-     * Für Railgun/BFG10K beim bloßen Halten.
-     * Verbraucht KEINE Silencer-Schüsse.
-     *
-     * Solange Silencer-Schüsse übrig sind, bleibt auch das Halten still.
-     */
     public static void onLoudWeaponHeld(ServerPlayer player) {
+
         if (player.level().isClientSide) {
             return;
         }
@@ -90,10 +92,12 @@ public final class WeaponAggroHandler {
     }
 
     private static boolean consumeSilencerShot(ServerPlayer player) {
+
         CompoundTag data = player.getPersistentData();
         int shots = data.getInt(SILENCED_SHOTS_TAG);
 
         if (shots <= 0) {
+            syncSilencerShots(player);
             return false;
         }
 
@@ -105,10 +109,12 @@ public final class WeaponAggroHandler {
             data.putInt(SILENCED_SHOTS_TAG, shots);
         }
 
+        syncSilencerShots(player);
         return true;
     }
 
     private static void aggroMonsters(ServerPlayer player, int range) {
+
         if (!(player.level() instanceof ServerLevel level)) {
             return;
         }
@@ -123,12 +129,13 @@ public final class WeaponAggroHandler {
                         && !monster.isSpectator()
                         && monster.distanceToSqr(player) <= radiusSqr
         )) {
-            /*
-             * Noise-Aggro.
-             * Keine Sichtlinie nötig: Schüsse hört man auch durch Wände.
-             */
+
             monster.setTarget(player);
             monster.setAggressive(true);
         }
+    }
+
+    public static void syncSilencerShots(ServerPlayer player) {
+        ModMessages.sendToPlayer(new SilencedShotsSyncS2CPacket(getSilencedShots(player)), player);
     }
 }

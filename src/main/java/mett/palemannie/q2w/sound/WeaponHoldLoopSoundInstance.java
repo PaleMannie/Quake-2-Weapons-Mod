@@ -1,5 +1,7 @@
 package mett.palemannie.q2w.sound;
 
+import mett.palemannie.q2w.gui.ClientSilencerData;
+import mett.palemannie.q2w.util.WeaponAggroHandler;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.resources.sounds.AbstractTickableSoundInstance;
 import net.minecraft.sounds.SoundEvent;
@@ -12,6 +14,7 @@ public class WeaponHoldLoopSoundInstance extends AbstractTickableSoundInstance {
 
     private final LocalPlayer player;
     private final Item weaponItem;
+    private final float baseVolume;
 
     public WeaponHoldLoopSoundInstance(LocalPlayer player, Item weaponItem, SoundEvent soundEvent, float volume, float pitch) {
 
@@ -28,6 +31,17 @@ public class WeaponHoldLoopSoundInstance extends AbstractTickableSoundInstance {
         this.x = player.getX();
         this.y = player.getY();
         this.z = player.getZ();
+
+        this.baseVolume = volume;
+        this.volume = getCurrentVolume();
+    }
+
+    private float getCurrentVolume() {
+        if (ClientSilencerData.hasSilencerActive()) {
+            return this.baseVolume * WeaponAggroHandler.SILENCED_WEAPON_VOLUME_MULTIPLIER;
+        }
+
+        return this.baseVolume;
     }
 
     @Override
@@ -50,5 +64,7 @@ public class WeaponHoldLoopSoundInstance extends AbstractTickableSoundInstance {
         this.x = player.getX();
         this.y = player.getY();
         this.z = player.getZ();
+
+        this.volume = getCurrentVolume();
     }
 }

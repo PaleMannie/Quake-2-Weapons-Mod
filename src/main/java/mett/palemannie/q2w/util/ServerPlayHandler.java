@@ -31,6 +31,14 @@ public class ServerPlayHandler {
 
     /// helper functions
 
+    public static float weaponSoundVolume(Player player, float normalVolume) {
+        if (player instanceof ServerPlayer serverPlayer) {
+            return WeaponAggroHandler.getWeaponSoundVolume(serverPlayer, normalVolume);
+        }
+
+        return normalVolume;
+    }
+
     private static boolean isMuzzleFlashEnabled(){
         return Q2WConfig.COMMON.enableMuzzleFlash.get();
     }
@@ -273,7 +281,7 @@ public class ServerPlayHandler {
 
         spawnMuzzleFlash(serverLevel, player, shotDir);
 
-        player.level().playSound(null,player.getX(),player.getY(),player.getZ(),ModSounds.CHAINGUN_SHOOT.get(),SoundSource.PLAYERS,1.0f, 1.0f);
+        player.level().playSound(null,player.getX(),player.getY(),player.getZ(),ModSounds.CHAINGUN_SHOOT.get(),SoundSource.PLAYERS, weaponSoundVolume(player, 1f), 1f);
     }
 
     public static void handleChaingunShoot(ServerPlayer player){
@@ -324,7 +332,7 @@ public class ServerPlayHandler {
 
         spawnMuzzleFlash(serverLevel, player, shotDir);
 
-        player.level().playSound(null,player.getX(),player.getY(),player.getZ(),ModSounds.CHAINGUN_SHOOT.get(),SoundSource.PLAYERS,0.25f, 1.0f);
+        player.level().playSound(null,player.getX(),player.getY(),player.getZ(),ModSounds.CHAINGUN_SHOOT.get(),SoundSource.PLAYERS,weaponSoundVolume(player, 0.25f), 1f);
     }
 
     public static void handleRailgunShoot(ServerPlayer player){
@@ -403,7 +411,7 @@ public class ServerPlayHandler {
 
         //TODO: ganzen Railgunsound finden
 
-        player.level().playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.RAILGUN_SHOOT.get(), SoundSource.PLAYERS, 1f, 1f);
+        player.level().playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.RAILGUN_SHOOT.get(), SoundSource.PLAYERS, weaponSoundVolume(player, 1f), 1f);
 
         spawnMuzzleFlash(serverLevel, player, direction);
     }
@@ -441,7 +449,7 @@ public class ServerPlayHandler {
         double posX = player.getX();
         double posY = player.getY();
         double posZ = player.getZ();
-        lvl.playSound(null, posX, posY, posZ, ModSounds.BFG10K_SHOOT.get(), SoundSource.PLAYERS, 1f, 1f);
+        lvl.playSound(null, posX, posY, posZ, ModSounds.BFG10K_SHOOT.get(), SoundSource.PLAYERS, weaponSoundVolume(player, 1f), 1f);
     }
 
     public static void handleRocketLauncherShoot(ServerPlayer player){
@@ -477,7 +485,7 @@ public class ServerPlayHandler {
         double posX = player.getX();
         double posY = player.getY();
         double posZ = player.getZ();
-        lvl.playSound(null, posX, posY, posZ, ModSounds.ROCKETLAUNCHER_SHOOT.get(), SoundSource.PLAYERS, 1f, 1f);
+        lvl.playSound(null, posX, posY, posZ, ModSounds.ROCKETLAUNCHER_SHOOT.get(), SoundSource.PLAYERS, weaponSoundVolume(player, 1f), 1f);
     }
 
     public static void handleHandgrenadeThrow(ServerPlayer player, int remainingFuseTicks, float velocity) {
@@ -515,7 +523,7 @@ public class ServerPlayHandler {
 
         serverLevel.addFreshEntity(grenade);
 
-        level.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.HANDGRENADE_TOSS.get(), SoundSource.PLAYERS, 1f, 1f);
+        level.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.HANDGRENADE_TOSS.get(), SoundSource.PLAYERS, weaponSoundVolume(player, 1f), 1f);
     }
 
     public static void handleHandgrenadeOvercook(ServerPlayer player) {
@@ -526,7 +534,7 @@ public class ServerPlayHandler {
 
         Q2ExplosionHelper.handgrenadeExplosion((ServerLevel) level, null, player, center);
         level.sendParticles(ParticleTypes.FLAME, center.x, center.y, center.z, 20, 0, 0, 0, 0.1);
-        level.playSound(null, center.x, center.y, center.z, ModSounds.EXPLOSION.get(), SoundSource.PLAYERS, 2f, 1f);
+        level.playSound(null, center.x, center.y, center.z, ModSounds.EXPLOSION.get(), SoundSource.PLAYERS, weaponSoundVolume(player, 2f), 1f);
     }
 
     public static void handleGrenadeLauncherShoot(ServerPlayer player){
@@ -544,7 +552,7 @@ public class ServerPlayHandler {
         double posX = player.getX();
         double posY = player.getY();
         double posZ = player.getZ();
-        lvl.playSound(null, posX, posY, posZ, ModSounds.GRENADELAUNCHER_SHOOT.get(), SoundSource.PLAYERS, 1f, 1f);
+        lvl.playSound(null, posX, posY, posZ, ModSounds.GRENADELAUNCHER_SHOOT.get(), SoundSource.PLAYERS, weaponSoundVolume(player, 1f), 1f);
     }
 
     public static void handleSuperShotgunShoot(ServerPlayer player) {
@@ -590,7 +598,7 @@ public class ServerPlayHandler {
         double posX = player.getX();
         double posY = player.getY();
         double posZ = player.getZ();
-        sevel.playSound(null, posX, posY, posZ, ModSounds.SUPER_SHOTGUN_SHOOT.get(), SoundSource.PLAYERS, 1f, 1f);
+        sevel.playSound(null, posX, posY, posZ, ModSounds.SUPER_SHOTGUN_SHOOT.get(), SoundSource.PLAYERS, weaponSoundVolume(player, 1f), 1f);
 
         ///Entity
         double forwardOffset = 0.2;
@@ -667,7 +675,7 @@ public class ServerPlayHandler {
         double posX = player.getX();
         double posY = player.getY();
         double posZ = player.getZ();
-        level.playSound(null, posX, posY, posZ, ModSounds.SHOTGUN_SHOOT.get(), SoundSource.PLAYERS, 1f, 1f);
+        level.playSound(null, posX, posY, posZ, ModSounds.SHOTGUN_SHOOT.get(), SoundSource.PLAYERS, weaponSoundVolume(player, 1f), 1f);
 
         ///Entity
         double forwardOffset = 0.2;
@@ -723,7 +731,7 @@ public class ServerPlayHandler {
         double posX = player.getX();
         double posY = player.getY();
         double posZ = player.getZ();
-        lvl.playSound(null, posX, posY, posZ, ModSounds.HYPERBLASTER_SHOOT.get(), SoundSource.PLAYERS, 1f, 1f);
+        lvl.playSound(null, posX, posY, posZ, ModSounds.HYPERBLASTER_SHOOT.get(), SoundSource.PLAYERS, weaponSoundVolume(player, 1f), 1f);
     }
 
     public static void handleBlasterShoot(ServerPlayer player){
@@ -760,7 +768,7 @@ public class ServerPlayHandler {
         double posX = player.getX();
         double posY = player.getY();
         double posZ = player.getZ();
-        lvl.playSound(null, posX, posY, posZ, ModSounds.BLASTER_SHOOT.get(), SoundSource.PLAYERS, 1f, 1f);
+        lvl.playSound(null, posX, posY, posZ, ModSounds.BLASTER_SHOOT.get(), SoundSource.PLAYERS, weaponSoundVolume(player, 1f), 1f);
     }
 
     public static void playAmmoEmptySound(ServerPlayer player){
