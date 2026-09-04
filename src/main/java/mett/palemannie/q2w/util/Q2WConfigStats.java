@@ -20,4 +20,6 @@ public class Q2WConfigStats {
     public static float Bfg10kDamage = Q2WConfig.COMMON.bfg10kDamage.get().floatValue();
     public static float Bfg10kLaserDamage = Q2WConfig.COMMON.bfg10kLaserDamage.get().floatValue();
     public static float Bfg10kFlashDamage = Q2WConfig.COMMON.bfg10kFlashDamage.get().floatValue();
+    public static float PowershieldAbsorbRatio = Q2WConfig.SERVER.powershieldAbsorbRatio.get().floatValue();
+    public static float PowershieldDamagePreCellConsumed = Q2WConfig.SERVER.powershieldDamagePreCellConsumed.get().floatValue();
 }

@@ -131,8 +131,6 @@ public class Q2WConfig {
 
     public static class Server {
 
-        public final ForgeConfigSpec.DoubleValue animationDroppedFixerSearchRadius;
-        public final ForgeConfigSpec.IntValue animationDroppedFixerSearchInterval;
         public final ForgeConfigSpec.IntValue powerupSpawnInterval;
         public final ForgeConfigSpec.IntValue powerupSpawnAttempts;
         public final ForgeConfigSpec.IntValue powerupSpawnSearchRadius;
@@ -141,6 +139,8 @@ public class Q2WConfig {
         public final ForgeConfigSpec.BooleanValue powerupDebug;
         public final ForgeConfigSpec.BooleanValue enablePowerups;
         public final ForgeConfigSpec.IntValue weaponAggroRange;
+        public final ForgeConfigSpec.DoubleValue powershieldAbsorbRatio;
+        public final ForgeConfigSpec.DoubleValue powershieldDamagePreCellConsumed;
 
         public Server(ForgeConfigSpec.Builder builder) {
 
@@ -176,23 +176,24 @@ public class Q2WConfig {
 
             builder.pop();
 
-            builder.push("Dropped Weapon animation fixer values");
-
-            animationDroppedFixerSearchRadius = builder
-                    .comment("\nRadius around players where dropped Quake weapons are checked for active animations to stop them")
-                    .defineInRange("animationDroppedFixerSearchRadius", 20d, 1d, 32d);
-
-            animationDroppedFixerSearchInterval = builder
-                    .comment("\nTick interval between nearby dropped weapon animation checks")
-                    .defineInRange("animationDroppedFixerSearchInterval", 5, 1, Integer.MAX_VALUE-1);
-
-            builder.pop();
-
             builder.push("Weapon aggro values");
 
             weaponAggroRange = builder
-                    .comment("Range in blocks where monsters aggro when weapons are fired or loud weapons are held.")
+                    .comment("\nRange in blocks where monsters aggro when weapons are fired or loud weapons are held")
                     .defineInRange("weaponAggroRange", 32, 0, 256);
+
+            builder.pop();
+
+            builder.push("Power Shield values");
+
+            powershieldAbsorbRatio = builder
+                    .comment("\nHow much damage will be absorbed by the Power Shield")
+                    .defineInRange("powershieldAbsorbRatio", 0.66d, 0d, 1d);
+
+            powershieldDamagePreCellConsumed = builder
+                    .comment("\nHow much damage each cell will absorb")
+                    .defineInRange("powershieldDamagePreCellConsumed", 2d, 0d, Double.MAX_VALUE-1d);
+
 
             builder.pop();
 
