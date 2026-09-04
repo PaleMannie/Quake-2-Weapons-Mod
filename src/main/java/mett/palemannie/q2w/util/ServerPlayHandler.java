@@ -29,7 +29,7 @@ public class ServerPlayHandler {
 
     /// All in one class handling all the weapons shooting which should happen on server side
 
-    /// helper functions
+    /// helper methods
 
     public static float weaponSoundVolume(Player player, float normalVolume) {
         if (player instanceof ServerPlayer serverPlayer) {
@@ -412,8 +412,6 @@ public class ServerPlayHandler {
         //TODO: ganzen Railgunsound finden
 
         player.level().playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.RAILGUN_SHOOT.get(), SoundSource.PLAYERS, weaponSoundVolume(player, 1f), 1f);
-
-        spawnMuzzleFlash(serverLevel, player, direction);
     }
 
     public static void handleBfg10kShoot(ServerPlayer player){
@@ -434,16 +432,10 @@ public class ServerPlayHandler {
 
         shootFromRotationNoMomentum(ball, player, player.getXRot(), player.getYRot(), Bfg10kProjectileEntity.SPEED_BLOCKS_PER_TICK, 0f);
         ball.setPos(shotStart);
-
         sevel.addFreshEntity(ball);
 
-        if(isMuzzleFlashEnabled()){
-
-            MuzzleflashEntity flash = new MuzzleflashEntity(sevel, player);
-            flash.setPos(shotStart);
-
-            sevel.addFreshEntity(flash);
-        }
+        Vec3 shootDir = player.getLookAngle();
+        spawnMuzzleFlash(sevel, player, shootDir);
 
         ///Sound
         double posX = player.getX();
@@ -473,13 +465,8 @@ public class ServerPlayHandler {
 
         sevel.addFreshEntity(rocket);
 
-        if(isMuzzleFlashEnabled()){
-
-            MuzzleflashEntity flash = new MuzzleflashEntity(sevel, player);
-            flash.setPos(shotStart);
-
-            sevel.addFreshEntity(flash);
-        }
+        Vec3 shootDir = player.getLookAngle();
+        spawnMuzzleFlash(sevel, player, shootDir);
 
         ///Sound
         double posX = player.getX();
@@ -553,6 +540,9 @@ public class ServerPlayHandler {
         double posY = player.getY();
         double posZ = player.getZ();
         lvl.playSound(null, posX, posY, posZ, ModSounds.GRENADELAUNCHER_SHOOT.get(), SoundSource.PLAYERS, weaponSoundVolume(player, 1f), 1f);
+
+        Vec3 shootDir = player.getLookAngle();
+        spawnMuzzleFlash(sevel, player, shootDir);
     }
 
     public static void handleSuperShotgunShoot(ServerPlayer player) {
@@ -601,22 +591,8 @@ public class ServerPlayHandler {
         sevel.playSound(null, posX, posY, posZ, ModSounds.SUPER_SHOTGUN_SHOOT.get(), SoundSource.PLAYERS, weaponSoundVolume(player, 1f), 1f);
 
         ///Entity
-        double forwardOffset = 0.2;
-
-        Vec3 look1 = player.getLookAngle();
-        Vec3 right = look1.cross(new Vec3(0, 1.5f, 0)).normalize();
-
-        double spawnX = player.getX() + right.x+ look1.x * forwardOffset;
-        double spawnY = player.getEyeY() - 0.25 + right.y + look1.y * forwardOffset;
-        double spawnZ = player.getZ() + right.z + look1.z * forwardOffset;
-
-        if(isMuzzleFlashEnabled()){
-
-            MuzzleflashEntity flash = new MuzzleflashEntity(sevel, player);
-            flash.setPos(spawnX, spawnY, spawnZ);
-
-            sevel.addFreshEntity(flash);
-        }
+        Vec3 shootDir = player.getLookAngle();
+        spawnMuzzleFlash(sevel, player, shootDir);
     }
 
     public static void handleShotgunShoot(ServerPlayer player){
@@ -678,22 +654,8 @@ public class ServerPlayHandler {
         level.playSound(null, posX, posY, posZ, ModSounds.SHOTGUN_SHOOT.get(), SoundSource.PLAYERS, weaponSoundVolume(player, 1f), 1f);
 
         ///Entity
-        double forwardOffset = 0.2;
-
-        Vec3 look1 = player.getLookAngle();
-        Vec3 right = look1.cross(new Vec3(0, 0, 0)).normalize();
-
-        double spawnX = player.getX() + right.x+ look1.x * forwardOffset;
-        double spawnY = player.getEyeY() - 0.25 + right.y + look1.y * forwardOffset;
-        double spawnZ = player.getZ() + right.z + look1.z * forwardOffset;
-
-        if(isMuzzleFlashEnabled()){
-
-            MuzzleflashEntity flash = new MuzzleflashEntity(sevel, player);
-            flash.setPos(spawnX, spawnY, spawnZ);
-
-            sevel.addFreshEntity(flash);
-        }
+        Vec3 shootDir = player.getLookAngle();
+        spawnMuzzleFlash(sevel, player, shootDir);
     }
 
     public static void handleHyperblasterShoot(ServerPlayer player){
@@ -719,13 +681,8 @@ public class ServerPlayHandler {
         laser.setPos(spawnX, spawnY, spawnZ);
         sevel.addFreshEntity(laser);
 
-        if(isMuzzleFlashEnabled()){
-
-            MuzzleflashEntity flash = new MuzzleflashEntity(sevel, player);
-            flash.setPos(spawnX, spawnY, spawnZ);
-
-            sevel.addFreshEntity(flash);
-        }
+        Vec3 shootDir = player.getLookAngle();
+        spawnMuzzleFlash(sevel, player, shootDir);
 
         ///Sound
         double posX = player.getX();
@@ -756,13 +713,8 @@ public class ServerPlayHandler {
         laser.setPos(spawnX, spawnY, spawnZ);
         sevel.addFreshEntity(laser);
 
-        if(isMuzzleFlashEnabled()){
-
-            MuzzleflashEntity flash = new MuzzleflashEntity(sevel, player);
-            flash.setPos(spawnX, spawnY, spawnZ);
-
-            sevel.addFreshEntity(flash);
-        }
+        Vec3 shootDir = player.getLookAngle();
+        spawnMuzzleFlash(sevel, player, shootDir);
 
         ///Sound
         double posX = player.getX();

@@ -1,9 +1,11 @@
 package mett.palemannie.q2w.entity.custom;
 
 import mett.palemannie.q2w.Q2WConfig;
+import mett.palemannie.q2w.block.ModBlocks;
 import mett.palemannie.q2w.effect.ModEffects;
 import mett.palemannie.q2w.sound.ModSounds;
 import mett.palemannie.q2w.util.ModDamageTypes;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
@@ -19,6 +21,8 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.entity.projectile.ProjectileUtil;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
@@ -101,6 +105,71 @@ public class LaserProjectileEntity extends Projectile {
         if(blockHitResult != null && entityHitResult == null) level.playSound(null, blockHitResult.getBlockPos(), soundEvent, SoundSource.NEUTRAL, volume, pitch);
     }
 
+    private BlockPos lightPos;
+
+    private void tryPlaceLight() {
+
+        BlockPos origin = this.blockPosition();
+        Level level = this.level();
+
+        int[] dyOrder = {0, -1, 1};
+        for (int dy : dyOrder) {
+            for (int dx = -1; dx <= 1; dx++) {
+                for (int dz = -1; dz <= 1; dz++) {
+                    BlockPos candidate = origin.offset(dx, dy, dz);
+                    BlockState state = level.getBlockState(candidate);
+
+                    if (state.isAir()) {
+                        level.setBlock(candidate, ModBlocks.QUAKE_LIGHT_AIR.get().defaultBlockState(), 3);
+                        this.lightPos = candidate;
+                        return;
+                    } else if (state.getBlock() == Blocks.WATER) {
+                        level.setBlock(candidate, ModBlocks.QUAKE_LIGHT_WATER.get().defaultBlockState(), 3);
+                        this.lightPos = candidate;
+                        return;
+                    }
+                }
+            }
+        }
+    }
+
+    private void cleanupLight() {
+
+        if (this.level().isClientSide) {
+            return;
+        }
+
+        if (this.lightPos != null) {
+            cleanupLightAround(this.lightPos);
+        }
+
+        cleanupLightAround(this.blockPosition());
+
+        this.lightPos = null;
+    }
+
+    private void cleanupLightAround(BlockPos center) {
+
+        for (int dy = -1; dy <= 1; dy++) {
+            for (int dx = -1; dx <= 1; dx++) {
+                for (int dz = -1; dz <= 1; dz++) {
+                    cleanupLightBlock(center.offset(dx, dy, dz));
+                }
+            }
+        }
+    }
+
+    private void cleanupLightBlock(BlockPos pos) {
+
+        BlockState state = this.level().getBlockState(pos);
+
+        if (state.getBlock() == ModBlocks.QUAKE_LIGHT_AIR.get()) {
+            this.level().setBlock(pos, Blocks.AIR.defaultBlockState(), 3);
+        } else if (state.getBlock() == ModBlocks.QUAKE_LIGHT_WATER.get()) {
+            this.level().setBlock(pos, Blocks.WATER.defaultBlockState(), 3);
+        }
+    }
+
     @Override
     public void tick() {
         super.tick();
@@ -108,7 +177,16 @@ public class LaserProjectileEntity extends Projectile {
         hitResultHandler();
         projectileFlyStraight();
 
-        if(this.tickCount > 100) this.discard();
+        if (!this.level().isClientSide && Q2WConfig.COMMON.enableProjectileTrailLight.get()) {
+            if (this.tickCount % 2 == 0) {
+                cleanupLight();
+                tryPlaceLight();
+            }
+        }
+
+        if(this.tickCount > 100) {
+            cleanupLight();
+            this.discard();}
     }
 
     @Override
@@ -124,6 +202,8 @@ public class LaserProjectileEntity extends Projectile {
         handleHitSound(null, pResult, level(), soundEvent, 1f, 1f);
         handleProjectileBlockHitEffects();
 
+        cleanupLight();
+
         super.onHitBlock(pResult);
     }
 
@@ -131,7 +211,6 @@ public class LaserProjectileEntity extends Projectile {
     protected void onHitEntity(EntityHitResult pResult) {
         super.onHitEntity(pResult);
 
-        //var damageType = ModDamageTypes.BLASTER_DAMAGE;
         var soundEvent = ModSounds.BLASTER_HIT.get();
 
         handleDamage(pResult, level(), isBlasterKey ? ModDamageTypes.BLASTER_DAMAGE : ModDamageTypes.HYPERBLASTER_DAMAGE, (Player) this.getOwner());
@@ -139,6 +218,8 @@ public class LaserProjectileEntity extends Projectile {
 
         if(Q2WConfig.COMMON.enableGore.get()){
             handleGore(level()); }
+
+        cleanupLight();
 
         this.discard();
     }

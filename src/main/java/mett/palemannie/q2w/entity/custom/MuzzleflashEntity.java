@@ -34,8 +34,7 @@ public class MuzzleflashEntity extends Projectile {
 
     private BlockPos lightPos;
 
-    void tryPlaceLight() {
-
+    private void tryPlaceLight() {
         BlockPos origin = this.blockPosition();
         Level level = this.level();
 
@@ -47,11 +46,11 @@ public class MuzzleflashEntity extends Projectile {
                     BlockState state = level.getBlockState(candidate);
 
                     if (state.isAir()) {
-                        level.setBlock(candidate, Blocks.LIGHT.defaultBlockState().setValue(LightBlock.LEVEL, 15), 3);
+                        level.setBlock(candidate, ModBlocks.QUAKE_LIGHT_AIR.get().defaultBlockState(), 3);
                         this.lightPos = candidate;
                         return;
                     } else if (state.getBlock() == Blocks.WATER) {
-                        level.setBlock(candidate, ModBlocks.LIGHT_WATER.get().defaultBlockState(), 3);
+                        level.setBlock(candidate, ModBlocks.QUAKE_LIGHT_WATER.get().defaultBlockState(), 3);
                         this.lightPos = candidate;
                         return;
                     }
@@ -60,15 +59,40 @@ public class MuzzleflashEntity extends Projectile {
         }
     }
 
-    void cleanupLight() {
+    private void cleanupLight() {
+
+        if (this.level().isClientSide) {
+            return;
+        }
 
         if (this.lightPos != null) {
-            BlockState state = this.level().getBlockState(this.lightPos);
-            if (state.getBlock() == Blocks.LIGHT) {
-                this.level().removeBlock(this.lightPos, false);
-            } else if (state.getBlock() == ModBlocks.LIGHT_WATER.get()) {
-                this.level().setBlock(this.lightPos, Blocks.WATER.defaultBlockState(), 3);
+            cleanupLightAround(this.lightPos);
+        }
+
+        cleanupLightAround(this.blockPosition());
+
+        this.lightPos = null;
+    }
+
+    private void cleanupLightAround(BlockPos center) {
+
+        for (int dy = -1; dy <= 1; dy++) {
+            for (int dx = -1; dx <= 1; dx++) {
+                for (int dz = -1; dz <= 1; dz++) {
+                    cleanupLightBlock(center.offset(dx, dy, dz));
+                }
             }
+        }
+    }
+
+    private void cleanupLightBlock(BlockPos pos) {
+
+        BlockState state = this.level().getBlockState(pos);
+
+        if (state.getBlock() == ModBlocks.QUAKE_LIGHT_AIR.get()) {
+            this.level().setBlock(pos, Blocks.AIR.defaultBlockState(), 3);
+        } else if (state.getBlock() == ModBlocks.QUAKE_LIGHT_WATER.get()) {
+            this.level().setBlock(pos, Blocks.WATER.defaultBlockState(), 3);
         }
     }
 

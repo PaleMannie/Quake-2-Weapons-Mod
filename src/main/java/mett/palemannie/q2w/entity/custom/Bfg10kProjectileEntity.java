@@ -1,11 +1,12 @@
 package mett.palemannie.q2w.entity.custom;
 
+import mett.palemannie.q2w.Q2WConfig;
+import mett.palemannie.q2w.block.ModBlocks;
 import mett.palemannie.q2w.particle.ModParticles;
 import mett.palemannie.q2w.sound.ModSounds;
 import mett.palemannie.q2w.util.ModDamageTypes;
 import mett.palemannie.q2w.util.Q2WConfigStats;
-import net.minecraft.core.particles.DustParticleOptions;
-import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.core.BlockPos;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -21,8 +22,9 @@ import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.entity.projectile.ProjectileUtil;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.*;
-import org.joml.Vector3f;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -39,12 +41,12 @@ public class Bfg10kProjectileEntity extends Projectile {
     private static final double LASER_SEARCH_RADIUS = 8d;
     private static final double LASER_TRACE_RANGE = 64d;
     private static final double BLAST_RADIUS = 3.125d;
-    private static final double EFFECT_RADIUS = 31.25d;
+    private static final double FLASH_RADIUS = 31.25d;
 
     private static final float DIRECT_BLAST_DAMAGE = Q2WConfigStats.Bfg10kDamage;
     private static final float RADIUS_BLAST_DAMAGE = 4f;
     private static final float LASER_DAMAGE = Q2WConfigStats.Bfg10kLaserDamage;
-    private static final float EFFECT_DAMAGE_MAX = Q2WConfigStats.Bfg10kFlashDamage;
+    private static final float MAX_FLASH_DAMAGE = Q2WConfigStats.Bfg10kFlashDamage;
 
     private static final int BFG_THINK_INTERVAL_TICKS = 2;
 
@@ -80,6 +82,70 @@ public class Bfg10kProjectileEntity extends Projectile {
         return true;
     }
 
+    private BlockPos lightPos;
+
+    private void tryPlaceLight() {
+        BlockPos origin = this.blockPosition();
+        Level level = this.level();
+
+        int[] dyOrder = {0, -1, 1};
+        for (int dy : dyOrder) {
+            for (int dx = -1; dx <= 1; dx++) {
+                for (int dz = -1; dz <= 1; dz++) {
+                    BlockPos candidate = origin.offset(dx, dy, dz);
+                    BlockState state = level.getBlockState(candidate);
+
+                    if (state.isAir()) {
+                        level.setBlock(candidate, ModBlocks.QUAKE_LIGHT_AIR.get().defaultBlockState(), 3);
+                        this.lightPos = candidate;
+                        return;
+                    } else if (state.getBlock() == Blocks.WATER) {
+                        level.setBlock(candidate, ModBlocks.QUAKE_LIGHT_WATER.get().defaultBlockState(), 3);
+                        this.lightPos = candidate;
+                        return;
+                    }
+                }
+            }
+        }
+    }
+
+    private void cleanupLight() {
+
+        if (this.level().isClientSide) {
+            return;
+        }
+
+        if (this.lightPos != null) {
+            cleanupLightAround(this.lightPos);
+        }
+
+        cleanupLightAround(this.blockPosition());
+
+        this.lightPos = null;
+    }
+
+    private void cleanupLightAround(BlockPos center) {
+
+        for (int dy = -1; dy <= 1; dy++) {
+            for (int dx = -1; dx <= 1; dx++) {
+                for (int dz = -1; dz <= 1; dz++) {
+                    cleanupLightBlock(center.offset(dx, dy, dz));
+                }
+            }
+        }
+    }
+
+    private void cleanupLightBlock(BlockPos pos) {
+
+        BlockState state = this.level().getBlockState(pos);
+
+        if (state.getBlock() == ModBlocks.QUAKE_LIGHT_AIR.get()) {
+            this.level().setBlock(pos, Blocks.AIR.defaultBlockState(), 3);
+        } else if (state.getBlock() == ModBlocks.QUAKE_LIGHT_WATER.get()) {
+            this.level().setBlock(pos, Blocks.WATER.defaultBlockState(), 3);
+        }
+    }
+
     @Override
     public void tick() {
         super.tick();
@@ -98,6 +164,7 @@ public class Bfg10kProjectileEntity extends Projectile {
         }
 
         if (this.tickCount > MAX_LIFETIME_TICKS) {
+            cleanupLight();
             this.discard();
             return;
         }
@@ -138,6 +205,13 @@ public class Bfg10kProjectileEntity extends Projectile {
             this.setPos(blockHit.getLocation());
             impact(serverLevel, null);
             return;
+        }
+
+        if (!this.level().isClientSide && Q2WConfig.COMMON.enableProjectileTrailLight.get()) {
+            if (this.tickCount % 2 == 0) {
+                cleanupLight();
+                tryPlaceLight();
+            }
         }
 
         this.setPos(end.x, end.y, end.z);
@@ -191,6 +265,7 @@ public class Bfg10kProjectileEntity extends Projectile {
     }
 
     private boolean isValidLaserTarget(LivingEntity entity) {
+
         Entity owner = this.getOwner();
 
         return entity.isAlive()
@@ -273,6 +348,8 @@ public class Bfg10kProjectileEntity extends Projectile {
         this.explosionFrame = 0;
         this.explosionFrameTimer = 0;
         this.effectApplied = false;
+
+        cleanupLight();
     }
 
     private void doBlastRadiusDamage(ServerLevel level, Entity directTarget) {
@@ -340,12 +417,12 @@ public class Bfg10kProjectileEntity extends Projectile {
         Vec3 center = this.position();
 
         AABB area = new AABB(
-                center.x - EFFECT_RADIUS,
-                center.y - EFFECT_RADIUS,
-                center.z - EFFECT_RADIUS,
-                center.x + EFFECT_RADIUS,
-                center.y + EFFECT_RADIUS,
-                center.z + EFFECT_RADIUS
+                center.x - FLASH_RADIUS,
+                center.y - FLASH_RADIUS,
+                center.z - FLASH_RADIUS,
+                center.x + FLASH_RADIUS,
+                center.y + FLASH_RADIUS,
+                center.z + FLASH_RADIUS
         );
 
         DamageSource source = level.damageSources().source(ModDamageTypes.BFG10K_FLASH_DAMAGE, this, this.getOwner());
@@ -359,7 +436,7 @@ public class Bfg10kProjectileEntity extends Projectile {
             Vec3 targetPoint = entity.getBoundingBox().getCenter();
             double distance = targetPoint.distanceTo(center);
 
-            if (distance > EFFECT_RADIUS) {
+            if (distance > FLASH_RADIUS) {
                 continue;
             }
 
@@ -373,7 +450,7 @@ public class Bfg10kProjectileEntity extends Projectile {
                 continue;
             }
 
-            float damage = (float) (EFFECT_DAMAGE_MAX * (1d - Math.sqrt(distance / EFFECT_RADIUS)));
+            float damage = (float) (MAX_FLASH_DAMAGE * (1d - Math.sqrt(distance / FLASH_RADIUS)));
 
             if (damage <= 0f) {
                 continue;

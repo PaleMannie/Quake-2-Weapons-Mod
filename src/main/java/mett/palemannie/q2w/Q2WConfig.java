@@ -194,6 +194,8 @@ public class Q2WConfig {
                     .comment("Range in blocks where monsters aggro when weapons are fired or loud weapons are held.")
                     .defineInRange("weaponAggroRange", 32, 0, 256);
 
+            builder.pop();
+
         }
     }
 

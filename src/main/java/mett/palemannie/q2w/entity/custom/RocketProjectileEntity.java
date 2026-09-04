@@ -12,7 +12,6 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -21,7 +20,6 @@ import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.entity.projectile.ProjectileUtil;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.LightBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.*;
 import net.minecraftforge.event.ForgeEventFactory;
@@ -88,11 +86,11 @@ public class RocketProjectileEntity extends Projectile {
                     BlockState state = level.getBlockState(candidate);
 
                     if (state.isAir()) {
-                        level.setBlock(candidate, Blocks.LIGHT.defaultBlockState().setValue(LightBlock.LEVEL, 15), 3);
+                        level.setBlock(candidate, ModBlocks.QUAKE_LIGHT_AIR.get().defaultBlockState(), 3);
                         this.lightPos = candidate;
                         return;
                     } else if (state.getBlock() == Blocks.WATER) {
-                        level.setBlock(candidate, ModBlocks.LIGHT_WATER.get().defaultBlockState(), 3);
+                        level.setBlock(candidate, ModBlocks.QUAKE_LIGHT_WATER.get().defaultBlockState(), 3);
                         this.lightPos = candidate;
                         return;
                     }
@@ -102,13 +100,39 @@ public class RocketProjectileEntity extends Projectile {
     }
 
     private void cleanupLight() {
+
+        if (this.level().isClientSide) {
+            return;
+        }
+
         if (this.lightPos != null) {
-            BlockState state = this.level().getBlockState(this.lightPos);
-            if (state.getBlock() == Blocks.LIGHT) {
-                this.level().removeBlock(this.lightPos, false);
-            } else if (state.getBlock() == ModBlocks.LIGHT_WATER.get()) {
-                this.level().setBlock(this.lightPos, Blocks.WATER.defaultBlockState(), 3);
+            cleanupLightAround(this.lightPos);
+        }
+
+        cleanupLightAround(this.blockPosition());
+
+        this.lightPos = null;
+    }
+
+    private void cleanupLightAround(BlockPos center) {
+
+        for (int dy = -1; dy <= 1; dy++) {
+            for (int dx = -1; dx <= 1; dx++) {
+                for (int dz = -1; dz <= 1; dz++) {
+                    cleanupLightBlock(center.offset(dx, dy, dz));
+                }
             }
+        }
+    }
+
+    private void cleanupLightBlock(BlockPos pos) {
+
+        BlockState state = this.level().getBlockState(pos);
+
+        if (state.getBlock() == ModBlocks.QUAKE_LIGHT_AIR.get()) {
+            this.level().setBlock(pos, Blocks.AIR.defaultBlockState(), 3);
+        } else if (state.getBlock() == ModBlocks.QUAKE_LIGHT_WATER.get()) {
+            this.level().setBlock(pos, Blocks.WATER.defaultBlockState(), 3);
         }
     }
 
