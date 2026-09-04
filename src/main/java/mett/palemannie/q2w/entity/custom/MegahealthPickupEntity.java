@@ -19,7 +19,8 @@ public class MegahealthPickupEntity extends AbstractItempickupEntity {
     protected void onPickup(Player player) {
 
         player.addEffect(new MobEffectInstance(MobEffects.HEAL, 1, 10, false, false));
-        player.addEffect(new MobEffectInstance(MobEffects.ABSORPTION, 600, 5, false, false));
+        player.addEffect(new MobEffectInstance(MobEffects.ABSORPTION, 600, 4, false, false));
+        player.addEffect(new MobEffectInstance(MobEffects.SATURATION, 10, 10, false, false));
 
         level().playSound(null, this.getX(), this.getY(), this.getZ(), ModSounds.ADRENALINE_USE.get(), SoundSource.PLAYERS, 1f, 1f);
     }
