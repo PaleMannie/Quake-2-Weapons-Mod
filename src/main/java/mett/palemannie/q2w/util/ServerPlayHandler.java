@@ -11,6 +11,7 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -262,7 +263,8 @@ public class ServerPlayHandler {
             LivingEntity target = (LivingEntity) entityHit.getEntity();
             Vec3 hitPos = entityHit.getLocation();
 
-            hurtWithScaledKnockback(target, serverLevel.damageSources().source(ModDamageTypes.MACHINEGUN_DAMAGE, player, player), DAMAGE, 0.25d);
+            hurtWithScaledKnockback(target, serverLevel.damageSources().source(DamageTypes.PLAYER_ATTACK, player, player), Float.MIN_VALUE, 0.25d);
+            hurtWithScaledKnockback(target, serverLevel.damageSources().source(ModDamageTypes.MACHINEGUN_DAMAGE, null, null), DAMAGE, 0.25d);
 
             if (Q2WConfig.COMMON.enableGore.get()) {
 
@@ -313,7 +315,8 @@ public class ServerPlayHandler {
             LivingEntity target = (LivingEntity) entityHit.getEntity();
             Vec3 hitPos = entityHit.getLocation();
 
-            hurtWithScaledKnockback(target, serverLevel.damageSources().source(ModDamageTypes.MACHINEGUN_DAMAGE, player, player), DAMAGE, 0.25d);
+            hurtWithScaledKnockback(target, serverLevel.damageSources().source(DamageTypes.PLAYER_ATTACK, player, player), Float.MIN_VALUE, 0.25d);
+            hurtWithScaledKnockback(target, serverLevel.damageSources().source(ModDamageTypes.CHAINGUN_DAMAGE, null, null), DAMAGE, 0.25d);
 
             if (Q2WConfig.COMMON.enableGore.get()) {
 
@@ -390,7 +393,10 @@ public class ServerPlayHandler {
 
         for (RailHit hit : hits) {
 
-            hit.target().hurt(serverLevel.damageSources().source(ModDamageTypes.RAILGUN_DAMAGE, player, player), DAMAGE);
+            //hit.target().hurt(serverLevel.damageSources().source(ModDamageTypes.RAILGUN_DAMAGE, player, player), DAMAGE);
+            hurtWithScaledKnockback(hit.target(), serverLevel.damageSources().source(DamageTypes.PLAYER_ATTACK, player, player), Float.MIN_VALUE, 0.25d);
+            hurtWithScaledKnockback(hit.target(), serverLevel.damageSources().source(ModDamageTypes.RAILGUN_DAMAGE, null, null), DAMAGE, 0.25d);
+
             Vec3 hitPos = hit.hitPos();
 
             if (Q2WConfig.COMMON.enableGore.get()) {
@@ -568,7 +574,8 @@ public class ServerPlayHandler {
             if (entityHit != null && (blockHit == null || entityHit.getLocation().distanceTo(eyePos) < blockHit.getLocation().distanceTo(eyePos))) {
 
                 LivingEntity target = (LivingEntity) entityHit.getEntity();
-                target.hurt(sevel.damageSources().source(ModDamageTypes.SUPER_SHOTGUN_DAMAGE, player, player), DAMAGE_PER_PELLET);
+                target.hurt(sevel.damageSources().source(DamageTypes.PLAYER_ATTACK, player, player), Float.MIN_VALUE);
+                target.hurt(sevel.damageSources().source(ModDamageTypes.SUPER_SHOTGUN_DAMAGE, null, null), DAMAGE_PER_PELLET);
 
                 Vec3 hitPos = entityHit.getLocation();
 
@@ -630,7 +637,8 @@ public class ServerPlayHandler {
 
             if (entityHit != null && (blockHit == null || entityHit.getLocation().distanceTo(eyePos) < blockHit.getLocation().distanceTo(eyePos))) {
                 LivingEntity target = (LivingEntity) entityHit.getEntity();
-                target.hurt(level.damageSources().source(ModDamageTypes.SHOTGUN_DAMAGE, player, player), DAMAGE_PER_PELLET);
+                target.hurt(sevel.damageSources().source(DamageTypes.PLAYER_ATTACK, player, player), Float.MIN_VALUE);
+                target.hurt(sevel.damageSources().source(ModDamageTypes.SHOTGUN_DAMAGE, null, null), DAMAGE_PER_PELLET);
 
                 Vec3 hitPos = entityHit.getLocation();
 

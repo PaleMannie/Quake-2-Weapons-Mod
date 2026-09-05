@@ -15,6 +15,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -293,10 +294,13 @@ public class Bfg10kProjectileEntity extends Projectile {
 
         hits.sort(Comparator.comparingDouble(e -> e.distanceToSqr(this)));
 
-        DamageSource source = level.damageSources().source(ModDamageTypes.BFG10K_LASER_DAMAGE, this, this.getOwner());
+        DamageSource source = level.damageSources().source(ModDamageTypes.BFG10K_LASER_DAMAGE, null, null);
+        DamageSource source2 = level.damageSources().source(DamageTypes.PLAYER_ATTACK, this.getOwner(), this.getOwner());
 
         for (LivingEntity living : hits) {
+            hurtWithScaledKnockback(living ,source2, Float.MIN_VALUE, 0.1f);
             hurtWithScaledKnockback(living ,source, LASER_DAMAGE, 0.1f);
+
         }
     }
 
@@ -327,7 +331,8 @@ public class Bfg10kProjectileEntity extends Projectile {
 
         if (directTarget instanceof LivingEntity livingTarget) {
 
-            livingTarget.hurt(level.damageSources().source(ModDamageTypes.BFG10K_DAMAGE, this, this.getOwner()), DIRECT_BLAST_DAMAGE);
+            livingTarget.hurt(level.damageSources().source(DamageTypes.PLAYER_ATTACK, this.getOwner(), this.getOwner()), Float.MIN_VALUE);
+            livingTarget.hurt(level.damageSources().source(ModDamageTypes.BFG10K_DAMAGE, null, null), DIRECT_BLAST_DAMAGE);
         }
 
         doBlastRadiusDamage(level, directTarget);
@@ -365,11 +370,8 @@ public class Bfg10kProjectileEntity extends Projectile {
                 center.z + BLAST_RADIUS
         );
 
-        DamageSource source = level.damageSources().source(
-                ModDamageTypes.BFG10K_DAMAGE,
-                this,
-                this.getOwner()
-        );
+        DamageSource source = level.damageSources().source(DamageTypes.PLAYER_ATTACK, this.getOwner(), this.getOwner());
+        DamageSource source2 = level.damageSources().source(ModDamageTypes.BFG10K_DAMAGE, null, null);
 
         for (LivingEntity entity : level.getEntitiesOfClass(LivingEntity.class, area, LivingEntity::isAlive)) {
             if (entity == directTarget) {
@@ -386,7 +388,8 @@ public class Bfg10kProjectileEntity extends Projectile {
             float damage = RADIUS_BLAST_DAMAGE * scale;
 
             if (damage > 0f) {
-                entity.hurt(source, damage);
+                entity.hurt(source, Float.MIN_VALUE);
+                entity.hurt(source2, damage);
             }
         }
     }
@@ -425,7 +428,8 @@ public class Bfg10kProjectileEntity extends Projectile {
                 center.z + FLASH_RADIUS
         );
 
-        DamageSource source = level.damageSources().source(ModDamageTypes.BFG10K_FLASH_DAMAGE, this, this.getOwner());
+        DamageSource source = level.damageSources().source(DamageTypes.PLAYER_ATTACK, this.getOwner(), this.getOwner());
+        DamageSource source2 = level.damageSources().source(ModDamageTypes.BFG10K_FLASH_DAMAGE, null, null);
 
         for (LivingEntity entity : level.getEntitiesOfClass(LivingEntity.class, area, LivingEntity::isAlive)) {
 
@@ -456,7 +460,8 @@ public class Bfg10kProjectileEntity extends Projectile {
                 continue;
             }
 
-            entity.hurt(source, damage);
+            entity.hurt(source, Float.MIN_VALUE);
+            entity.hurt(source2, damage);
             spawnBfgEffectHitParticles(level, entity);
         }
     }
