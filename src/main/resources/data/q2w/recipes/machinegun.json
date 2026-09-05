@@ -2,22 +2,22 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "pattern": [
-    " Di",
-    "DCI",
-    "iIS"
+    " I ",
+    "DIP",
+    " CL"
   ],
   "key": {
     "I": {
       "item": "minecraft:iron_block"
     },
-    "S": {
-      "item": "minecraft:stick"
+    "P": {
+      "item": "minecraft:piston"
     },
     "C": {
-      "item": "minecraft:comparator"
+      "item": "minecraft:flower_pot"
     },
-    "i": {
-      "item": "minecraft:iron_ingot"
+    "L": {
+      "tag": "minecraft:logs"
     },
     "D": {
       "item": "minecraft:dispenser"

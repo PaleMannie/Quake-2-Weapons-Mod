@@ -9,19 +9,14 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 
-public class SilencerItem extends AbstractPowerupItem {
+public class SilencerItem extends AbstractConsumptionItem {
 
     public SilencerItem(Properties properties) {
         super(properties);
     }
 
     @Override
-    public MobEffect getPowerupEffect() {
-        return null;
-    }
-
-    @Override
-    protected void onPowerupUse(Level level, Player player, ItemStack stack, int duration) {
+    protected void onPowerupUse(Level level, Player player, ItemStack stack) {
         if (level.isClientSide) {
             return;
         }

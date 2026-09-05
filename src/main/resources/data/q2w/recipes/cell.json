@@ -2,29 +2,20 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "pattern": [
-    "RIL",
-    "GCG",
-    "CGC"
+    "IGI",
+    "GGG",
+    "IGI"
   ],
   "key": {
-    "R": {
-      "item": "minecraft:redstone_torch"
-    },
     "G": {
-      "item": "minecraft:gold_ingot"
-    },
-    "C": {
-      "item": "minecraft:copper_ingot"
+      "item": "minecraft:glowstone_dust"
     },
     "I": {
       "item": "minecraft:iron_ingot"
-    },
-    "L": {
-      "item": "minecraft:lapis_lazuli"
     }
   },
   "result": {
     "item": "q2w:cell",
-    "count": 16
+    "count": 32
   }
 }

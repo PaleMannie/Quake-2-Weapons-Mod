@@ -1,6 +1,8 @@
 package mett.palemannie.q2w.item.custom;
 
 import mett.palemannie.q2w.item.client.HandgrenadeRenderer;
+import mett.palemannie.q2w.net.ModMessages;
+import mett.palemannie.q2w.net.custom.WeaponRecoilS2CPacket;
 import mett.palemannie.q2w.sound.ModSounds;
 import mett.palemannie.q2w.util.ServerPlayHandler;
 import mett.palemannie.q2w.util.WeaponAggroHandler;
@@ -292,6 +294,11 @@ public class HandgrenadeItem extends AbstractWeapon {
 
         ServerPlayHandler.handleHandgrenadeThrow(player, remainingFuseTicks, velocity);
         WeaponAggroHandler.onWeaponShot(player);
+        ModMessages.sendToPlayer(new WeaponRecoilS2CPacket(
+                0f,
+                player.getRandom().nextBoolean() ? 0.33f : -0.33f,
+                player.getRandom().nextBoolean() ? 0.33f : -0.33f), player);
+
 
         player.getCooldowns().addCooldown(this, RELEASE_COOLDOWN_TICKS);
         player.stopUsingItem();
@@ -308,6 +315,10 @@ public class HandgrenadeItem extends AbstractWeapon {
 
         ServerPlayHandler.handleHandgrenadeOvercook(player);
         WeaponAggroHandler.onWeaponShot(player);
+        ModMessages.sendToPlayer(new WeaponRecoilS2CPacket(
+                0f,
+                player.getRandom().nextBoolean() ? 30f : -30f,
+                0f), player);
 
         player.getCooldowns().addCooldown(this, RELEASE_COOLDOWN_TICKS);
         player.stopUsingItem();

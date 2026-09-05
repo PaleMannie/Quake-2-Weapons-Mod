@@ -2,9 +2,9 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "pattern": [
-    "II",
-    "IL",
-    "LL"
+    "GI ",
+    "BDR",
+    " dL"
   ],
   "key": {
     "I": {
@@ -12,6 +12,21 @@
     },
     "L": {
       "tag": "minecraft:logs"
+    },
+    "B": {
+      "item": "q2w:blaster"
+    },
+    "D": {
+      "item": "minecraft:dispenser"
+    },
+    "d": {
+      "item": "minecraft:diamond"
+    },
+    "R": {
+      "item": "minecraft:repeater"
+    },
+    "G": {
+      "item": "minecraft:gold_block"
     }
   },
   "result": {

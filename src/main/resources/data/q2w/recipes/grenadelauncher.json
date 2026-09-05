@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "pattern": [
-    "WII",
+    "rII",
     "DBR",
     "IIS"
   ],
@@ -19,8 +19,8 @@
     "R": {
       "item": "minecraft:repeater"
     },
-    "W": {
-      "tag": "minecraft:planks"
+    "r": {
+      "item": "minecraft:redstone"
     },
     "D": {
       "item": "minecraft:dispenser"

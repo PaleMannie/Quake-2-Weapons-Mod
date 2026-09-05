@@ -1,6 +1,8 @@
 package mett.palemannie.q2w.item.custom;
 
 import mett.palemannie.q2w.item.client.BlasterRenderer;
+import mett.palemannie.q2w.net.ModMessages;
+import mett.palemannie.q2w.net.custom.WeaponRecoilS2CPacket;
 import mett.palemannie.q2w.util.ServerPlayHandler;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.server.level.ServerLevel;
@@ -27,7 +29,13 @@ public class BlasterItem extends AbstractQ2Weapon {
 
     @Override
     protected void fireWeapon(ServerLevel level, ServerPlayer player, ItemStack stack, int useTicks) {
+
         ServerPlayHandler.handleBlasterShoot(player);
+        ModMessages.sendToPlayer(new WeaponRecoilS2CPacket(
+                2f,
+                0f,
+                player.getRandom().nextBoolean() ? 0.25f : -0.25f), player);
+
     }
 
     @Override

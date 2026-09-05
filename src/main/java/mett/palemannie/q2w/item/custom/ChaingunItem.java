@@ -2,6 +2,8 @@ package mett.palemannie.q2w.item.custom;
 
 import mett.palemannie.q2w.item.ModItems;
 import mett.palemannie.q2w.item.client.ChaingunRenderer;
+import mett.palemannie.q2w.net.ModMessages;
+import mett.palemannie.q2w.net.custom.WeaponRecoilS2CPacket;
 import mett.palemannie.q2w.util.ServerPlayHandler;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.server.level.ServerLevel;
@@ -75,6 +77,10 @@ public class ChaingunItem extends AbstractQ2Weapon {
 
         useticks = useTicks;
         ServerPlayHandler.handleChaingunShoot(player);
+        ModMessages.sendToPlayer(new WeaponRecoilS2CPacket(
+                player.getRandom().nextBoolean() ? 0.15f : -0.15f,
+                player.getRandom().nextBoolean() ? 0.15f : -0.15f,
+                player.getRandom().nextBoolean() ? 0.15f : -0.15f), player);
     }
 
     @Override

@@ -2,16 +2,22 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "pattern": [
-    "II",
-    "IL",
-    " L"
+    " C ",
+    "IRR",
+    " CL"
   ],
   "key": {
     "I": {
-      "item": "minecraft:iron_block"
+      "item": "minecraft:iron_ingot"
     },
     "L": {
       "tag": "minecraft:logs"
+    },
+    "C": {
+      "item": "minecraft:copper_ingot"
+    },
+    "R": {
+      "item": "minecraft:redstone"
     }
   },
   "result": {

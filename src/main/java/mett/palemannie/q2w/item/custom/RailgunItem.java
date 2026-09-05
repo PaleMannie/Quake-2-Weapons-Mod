@@ -2,6 +2,8 @@ package mett.palemannie.q2w.item.custom;
 
 import mett.palemannie.q2w.item.ModItems;
 import mett.palemannie.q2w.item.client.RailgunRenderer;
+import mett.palemannie.q2w.net.ModMessages;
+import mett.palemannie.q2w.net.custom.WeaponRecoilS2CPacket;
 import mett.palemannie.q2w.util.ServerPlayHandler;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.server.level.ServerLevel;
@@ -39,7 +41,12 @@ public class RailgunItem extends AbstractQ2Weapon{
 
     @Override
     protected void fireWeapon(ServerLevel level, ServerPlayer player, ItemStack stack, int useTicks) {
+
         ServerPlayHandler.handleRailgunShoot(player);
+        ModMessages.sendToPlayer(new WeaponRecoilS2CPacket(
+                5f,
+                0f,
+                player.getRandom().nextBoolean() ? 0.33f : -0.33f), player);
     }
 
     @Override

@@ -2,16 +2,16 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "pattern": [
-    "DB ",
-    "BRI",
-    " IS"
+    "GRR",
+    "dDQ",
+    " IL"
   ],
   "key": {
     "D": {
       "item": "minecraft:diamond"
     },
-    "B": {
-      "item": "minecraft:blaze_rod"
+    "d": {
+      "item": "minecraft:dispenser"
     },
     "I": {
       "item": "minecraft:iron_ingot"
@@ -19,8 +19,14 @@
     "R": {
       "item": "minecraft:redstone_block"
     },
-    "S": {
-      "item": "minecraft:stick"
+    "L": {
+      "tag": "minecraft:logs"
+    },
+    "Q": {
+      "item": "minecraft:quartz"
+    },
+    "G": {
+      "item": "minecraft:ghast_tear"
     }
   },
   "result": {

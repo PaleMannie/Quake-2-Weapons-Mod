@@ -2,6 +2,8 @@ package mett.palemannie.q2w.item.custom;
 
 import mett.palemannie.q2w.item.ModItems;
 import mett.palemannie.q2w.item.client.Bfg10kRenderer;
+import mett.palemannie.q2w.net.ModMessages;
+import mett.palemannie.q2w.net.custom.WeaponRecoilS2CPacket;
 import mett.palemannie.q2w.sound.ModSounds;
 import mett.palemannie.q2w.util.ServerPlayHandler;
 import mett.palemannie.q2w.util.WeaponAggroHandler;
@@ -229,6 +231,7 @@ public class Bfg10kItem extends AbstractWeapon {
 
         ServerPlayHandler.handleBfg10kShoot(player);
         WeaponAggroHandler.onWeaponShot(player);
+        ModMessages.sendToPlayer(new WeaponRecoilS2CPacket(33f, player.getRandom().nextBoolean() ? 15f : -15f, 10f), player);
 
         player.getCooldowns().addCooldown(this, FIRE_SEQUENCE_INTERVAL_TICKS - WINDUP_TICKS);
     }
