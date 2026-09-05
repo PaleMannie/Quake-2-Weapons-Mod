@@ -2,7 +2,6 @@
   "q2w.creativetab.q2w_tab": "Quake 2 Weapons Mod",
 
   "q2w.key.category.title": "Quake 2 Weapons Mod",
-  "q2w.key.shoot": "Shoot Quake 2 Weapons",
 
   "item.q2w.bullet": "Bullet",
   "item.q2w.cell": "Cell",
@@ -26,7 +25,7 @@
   "item.q2w.rebreather_item": "Rebreather",
   "item.q2w.silencer_item": "Silencer",
   "item.q2w.adrenaline_item": "Adrenaline",
-  "item.q2w.power_shield": "Power Shield",
+  "item.q2w.powershield_item": "Power Shield",
 
   "death.attack.q2w.blaster_damage": "blaster_damage",
   "death.attack.q2w.blaster_damage.player": "%1$s was blasted by %2$s",
@@ -38,9 +37,9 @@
   "death.attack.q2w.machinegun_damage.player": "%1$s was machinegunned by %2$s",
   "death.attack.q2w.chaingun_damage": "chaingun_damage",
   "death.attack.q2w.chaingun_damage.player": "%1$s was cut in half by %2$s's chaingun",
-  "death.attack.q2w.handgrenade_damage": "%1$s tripped on their own grenade",
+  "death.attack.q2w.handgrenade_damage": "%1$s tried to put the pin back in",
   "death.attack.q2w.handgrenade_damage.player": "%1$s didn't see %2$s's handgrenade",
-  "death.attack.q2w.grenadelauncher_damage": "%1$s tried to put the pin back in",
+  "death.attack.q2w.grenadelauncher_damage": "%1$s tripped on their own grenade",
   "death.attack.q2w.grenadelauncher_damage.player": "%1$s was popped by %2$s's grenade",
   "death.attack.q2w.rocketlauncher_damage": "%1$s blew themself up",
   "death.attack.q2w.rocketlauncher_damage.player": "%1$s ate %2$s's rocket",
@@ -58,16 +57,24 @@
   "effect.q2w.quad_damage": "Quad Damage",
   "effect.q2w.invulnerability": "Invulnerability",
   "effect.q2w.envirosuit": "Enviro-Suit",
-  "effect.q2w.rebreather": "Rebreather",
-  "effect.q2w.silencer": "Silencer",
 
-  "entity.q2w.nail_projectile": "Nail",
-  "entity.q2w.super_nail_projectile": "Super Nail",
+  "entity.q2w.laser_projectile": "Laser Projectile",
   "entity.q2w.muzzleflash": "Muzzle Flash",
   "entity.q2w.rocket_projectile": "Rocket",
   "entity.q2w.grenade_projectile": "Grenade",
+  "entity.q2w.handgrenade_projectile": "Handgrenade",
   "entity.q2w.quad_damage_powerup": "Quad Damage",
-  "entity.q2w.pentagram_powerup": "Pentagram of Protection",
-  "entity.q2w.ring_powerup": "Ring Of Shadows",
-  "entity.q2w.biosuit_powerup": "Biosuit"
+  "entity.q2w.invuln_powerup": "Invulnerability",
+  "entity.q2w.envirosuit_powerup": "Enviro-Suit",
+
+  "entity.q2w.bullets_ammopickup": "Bullet Crate",
+  "entity.q2w.shells_ammopickup": "Shells Crate",
+  "entity.q2w.grenades_ammopickup": "Grenades Crate",
+  "entity.q2w.rockets_ammopickup": "Rockets Crate",
+  "entity.q2w.cells_ammopickup": "Cells Canister",
+  "entity.q2w.adrenaline_pickup": "Adrenaline",
+  "entity.q2w.megahealth_pickup": "Megahealth",
+  "entity.q2w.silencer_powerup": "Silencer",
+  "entity.q2w.rebreather_pickup": "Rebreather",
+  "entity.q2w.powershield_pickup": "Power Shield"
 }
