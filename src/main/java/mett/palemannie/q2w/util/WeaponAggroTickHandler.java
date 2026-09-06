@@ -12,6 +12,8 @@ import net.minecraftforge.fml.common.Mod;
 @Mod.EventBusSubscriber(modid = Quake2Weapons.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class WeaponAggroTickHandler {
 
+    /// Monster will be aggro'd by holding Railgun & BFG10k
+
     private static final int HELD_AGGRO_INTERVAL_TICKS = 20;
 
     @SubscribeEvent

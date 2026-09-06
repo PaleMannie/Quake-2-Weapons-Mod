@@ -13,6 +13,8 @@ import net.minecraftforge.fml.common.Mod;
 @Mod.EventBusSubscriber(modid = Quake2Weapons.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE, value = Dist.CLIENT)
 public class WeaponRecoilClientEvents {
 
+    /// This recoil doesn't affect your actual camera position i.e. aim
+
     @SubscribeEvent
     public static void onClientTick(TickEvent.ClientTickEvent event) {
 

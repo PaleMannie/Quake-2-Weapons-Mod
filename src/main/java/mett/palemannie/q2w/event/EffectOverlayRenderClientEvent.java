@@ -31,15 +31,15 @@ public class EffectOverlayRenderClientEvent {
             long gameTime = mc.level.getGameTime();
 
             float r, g, b, alpha;
-            r = 0.24F;
-            g = 0.44F;
-            b = 0.95F;
+            r = 0.24f;
+            g = 0.44f;
+            b = 0.95f;
 
             if (remaining > 60) {
-                alpha = 0.01F;
+                alpha = 0.01f;
 
             } else {
-                alpha = 0.01F + 0.025F * (0.25F * (1.0F + Mth.sin((gameTime % 20) / 20.0F * Mth.TWO_PI)));
+                alpha = 0.01f + 0.025f * (0.25f * (1.0f + Mth.sin((gameTime % 20) / 20.0f * Mth.TWO_PI)));
             }
 
             int screenW = mc.getWindow().getGuiScaledWidth();
@@ -69,10 +69,10 @@ public class EffectOverlayRenderClientEvent {
 
             if (remaining > 60) {
 
-                alpha = 0.01F;
+                alpha = 0.01f;
             } else {
 
-                alpha = 0.01F + 0.025F * (0.25F * (1.0F + Mth.sin((gameTime % 20) / 20.0F * Mth.TWO_PI)));
+                alpha = 0.01f + 0.025f * (0.25f * (1.0f + Mth.sin((gameTime % 20) / 20.0f * Mth.TWO_PI)));
             }
 
             int screenW = mc.getWindow().getGuiScaledWidth();
@@ -102,10 +102,10 @@ public class EffectOverlayRenderClientEvent {
 
             if (remaining > 60) {
 
-                alpha = 0.01F;
+                alpha = 0.01f;
             } else {
 
-                alpha = 0.01F + 0.025F * (0.25F * (1.0F + Mth.sin((gameTime % 20) / 20.0F * Mth.TWO_PI)));
+                alpha = 0.01f + 0.025f * (0.25f * (1.0f + Mth.sin((gameTime % 20) / 20.0f * Mth.TWO_PI)));
             }
 
             int screenW = mc.getWindow().getGuiScaledWidth();

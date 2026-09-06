@@ -18,10 +18,7 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.UUID;
 
-@Mod.EventBusSubscriber(
-        modid = Quake2Weapons.MODID,
-        value = Dist.CLIENT
-)
+@Mod.EventBusSubscriber(modid = Quake2Weapons.MODID, value = Dist.CLIENT)
 public class HandgrenadeCookSoundHandler {
 
     private static final Map<UUID, HandgrenadePlayerCookLoopSoundInstance> PLAYER_COOK_LOOPS = new HashMap<>();

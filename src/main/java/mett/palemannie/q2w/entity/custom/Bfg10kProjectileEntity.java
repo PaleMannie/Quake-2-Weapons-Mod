@@ -45,7 +45,9 @@ public class Bfg10kProjectileEntity extends Projectile {
     private static final double FLASH_RADIUS = 31.25d;
 
     private static final float DIRECT_BLAST_DAMAGE = Q2WConfigStats.Bfg10kDamage;
-    private static final float RADIUS_BLAST_DAMAGE = 4f;
+    private static final float RADIUS_BLAST_DAMAGE = 6f;
+    private static final float BFG_SELF_DAMAGE_MULTIPLIER = 1.25F;
+    private static final float BFG_MIN_CLOSE_SELF_DAMAGE = 12.0F;
     private static final float LASER_DAMAGE = Q2WConfigStats.Bfg10kLaserDamage;
     private static final float MAX_FLASH_DAMAGE = Q2WConfigStats.Bfg10kFlashDamage;
 
@@ -360,6 +362,7 @@ public class Bfg10kProjectileEntity extends Projectile {
     private void doBlastRadiusDamage(ServerLevel level, Entity directTarget) {
 
         Vec3 center = this.position();
+        Entity owner = this.getOwner();
 
         AABB area = new AABB(
                 center.x - BLAST_RADIUS,
@@ -370,27 +373,48 @@ public class Bfg10kProjectileEntity extends Projectile {
                 center.z + BLAST_RADIUS
         );
 
-        DamageSource source = level.damageSources().source(DamageTypes.PLAYER_ATTACK, this.getOwner(), this.getOwner());
-        DamageSource source2 = level.damageSources().source(ModDamageTypes.BFG10K_DAMAGE, null, null);
+        DamageSource creditSource = level.damageSources().source(DamageTypes.PLAYER_ATTACK, this, owner);
+
+        DamageSource bfgSource = level.damageSources().source(ModDamageTypes.BFG10K_DAMAGE, this, null);
 
         for (LivingEntity entity : level.getEntitiesOfClass(LivingEntity.class, area, LivingEntity::isAlive)) {
+
             if (entity == directTarget) {
                 continue;
             }
 
-            double distance = entity.getBoundingBox().getCenter().distanceTo(center);
+            Vec3 targetPoint = entity.getBoundingBox().getCenter();
+            double distance = targetPoint.distanceTo(center);
 
             if (distance > BLAST_RADIUS) {
                 continue;
             }
 
-            float scale = (float) (1d - distance / BLAST_RADIUS);
-            float damage = RADIUS_BLAST_DAMAGE * scale;
+            float scale = (float) (1.0D - distance / BLAST_RADIUS);
 
-            if (damage > 0f) {
-                entity.hurt(source, Float.MIN_VALUE);
-                entity.hurt(source2, Q2WConfigStats.applyQuadDamage(damage, this.getOwner()));
+            if (scale <= 0.0F) {
+                continue;
             }
+
+            float damage = Q2WConfigStats.applyQuadDamage(
+                    RADIUS_BLAST_DAMAGE * scale,
+                    owner
+            );
+
+            if (entity == owner) {
+                damage *= BFG_SELF_DAMAGE_MULTIPLIER;
+
+                if (scale >= 0.75F) {
+                    damage = Math.max(damage, BFG_MIN_CLOSE_SELF_DAMAGE);
+                }
+            }
+
+            if (damage <= 0.0F) {
+                continue;
+            }
+
+            entity.hurt(creditSource, Float.MIN_VALUE);
+            entity.hurt(bfgSource, damage);
         }
     }
 

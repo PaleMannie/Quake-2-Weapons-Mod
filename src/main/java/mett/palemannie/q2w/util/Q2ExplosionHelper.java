@@ -1,8 +1,11 @@
 package mett.palemannie.q2w.util;
 
+import mett.palemannie.q2w.entity.ModEntities;
+import mett.palemannie.q2w.entity.custom.HandgrenadeProjectileEntity;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.ClipContext;
@@ -10,6 +13,8 @@ import net.minecraft.world.phys.*;
 import org.jetbrains.annotations.Nullable;
 
 public final class Q2ExplosionHelper {
+
+    /// Custom made explosion handler since vanillas damage falloff is not ideal
 
     private Q2ExplosionHelper() {}
 
@@ -22,10 +27,11 @@ public final class Q2ExplosionHelper {
     public static final float ROCKET_DAMAGE = Q2WConfigStats.RocketlauncherDamage;
     public static final double ROCKET_RADIUS = Q2WConfigStats.RocketlauncherRadius;
 
-    public static void handgrenadeExplosion(ServerLevel level, @Nullable Entity inflictor, @Nullable Entity attacker, Vec3 center, Entity quadapply) {
+    public static void handgrenadeExplosion(ServerLevel level, @Nullable Entity inflictor, @Nullable Entity attacker, Vec3 center, Entity quadapply, boolean isOvercook) {
 
         DamageSource source = level.damageSources().source(ModDamageTypes.HANDGRENADE_DAMAGE, inflictor, attacker);
-        q2RadiusDamage(level, inflictor, center, Q2WConfigStats.applyQuadDamage(HANDGRENADE_DAMAGE, quadapply), HANDGRENADE_RADIUS, source);
+        DamageSource source2 = level.damageSources().source(ModDamageTypes.HANDGRENADE_OVERCOOK_DAMAGE, inflictor, attacker);
+        q2RadiusDamage(level, inflictor, center, Q2WConfigStats.applyQuadDamage(HANDGRENADE_DAMAGE, quadapply), HANDGRENADE_RADIUS, isOvercook ? source2 : source);
     }
 
     public static void grenadelauncherExplosion(ServerLevel level, @Nullable Entity inflictor, @Nullable Entity attacker, Vec3 center, Entity quadapply) {

@@ -12,7 +12,9 @@ import net.minecraft.world.level.block.state.BlockState;
 
 public class QuakeLightAirBlock extends AirBlock {
 
-    private static final int LIFETIME_TICKS = 5;
+    /// custom air block with light levels and timer for better cleanup
+
+    private static final int LIFETIME_TICKS = 4;
 
     public QuakeLightAirBlock(Properties properties) {
         super(properties);

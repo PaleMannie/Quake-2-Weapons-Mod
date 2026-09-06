@@ -18,7 +18,7 @@ public class HyperblasterItem extends AbstractQ2Weapon {
 
     public static final int FIRE_INTERVAL_TICKS = 2;
 
-    public static final float DRUM_SPIN_HZ = 1.66f;
+    public static final float DRUM_SPIN_HZ = 1.51f;
     public static final float DRUM_SPIN_RADIANS_PER_TICK = (net.minecraft.util.Mth.TWO_PI * DRUM_SPIN_HZ / 20f);
     public static final int DRUM_RETURN_TICKS = 38;
 

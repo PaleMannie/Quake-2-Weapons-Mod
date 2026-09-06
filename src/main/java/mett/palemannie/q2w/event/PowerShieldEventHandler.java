@@ -62,7 +62,7 @@ public class PowerShieldEventHandler {
             return;
         }
 
-        if (event.getAmount() <= 0.0F) {
+        if (event.getAmount() <= 0f) {
             return;
         }
 
@@ -100,7 +100,7 @@ public class PowerShieldEventHandler {
             return;
         }
 
-        float newDamage = Math.max(0.0F, incomingDamage - actualAbsorb);
+        float newDamage = Math.max(0f, incomingDamage - actualAbsorb);
         event.setAmount(newDamage);
 
         spawnPowerShieldHitParticles(player);
@@ -131,48 +131,23 @@ public class PowerShieldEventHandler {
 
         int pointsPerRing = 18;
 
-        double radius = Math.max(0.75D, player.getBbWidth() * 0.9D);
-        double[] yOffsets = {
-                -0.75D,
-                -0.25D,
-                0.25D,
-                0.75D
-        };
+        double radius = Math.max(0.75d, player.getBbWidth() * 0.9d);
+        double[] yOffsets = {-0.75d, -0.25d, 0.25d, 0.75d};
 
-        double spinOffset = player.tickCount * 0.35D;
+        double spinOffset = player.tickCount * 0.35d;
 
         for (double yOffset : yOffsets) {
             for (int i = 0; i < pointsPerRing; i++) {
-                double angle = ((Math.PI * 2.0D) / pointsPerRing) * i + spinOffset;
+                double angle = ((Math.PI * 2d) / pointsPerRing) * i + spinOffset;
 
                 double x = center.x + Math.cos(angle) * radius;
                 double y = center.y + yOffset;
                 double z = center.z + Math.sin(angle) * radius;
 
-                level.sendParticles(
-                        ModParticles.BFG_LASER_PARTICLE.get(),
-                        x,
-                        y,
-                        z,
-                        1,
-                        0.0D,
-                        0.0D,
-                        0.0D,
-                        0.0D
-                );
+                level.sendParticles(ModParticles.BFG_LASER_PARTICLE.get(), x, y, z, 1, 0d, 0d, 0d, 0d);
             }
         }
 
-        level.sendParticles(
-                ModParticles.BFG_LASER_PARTICLE.get(),
-                center.x,
-                center.y,
-                center.z,
-                10,
-                player.getBbWidth() * 0.35D,
-                player.getBbHeight() * 0.35D,
-                player.getBbWidth() * 0.35D,
-                0.0D
-        );
+        level.sendParticles(ModParticles.BFG_LASER_PARTICLE.get(), center.x, center.y, center.z, 10, player.getBbWidth() * 0.35d, player.getBbHeight() * 0.35d, player.getBbWidth() * 0.35d, 0d);
     }
 }

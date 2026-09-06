@@ -1,18 +1,14 @@
 package mett.palemannie.q2w.entity.custom;
 
-import mett.palemannie.q2w.effect.ModEffects;
 import mett.palemannie.q2w.sound.ModSounds;
-import mett.palemannie.q2w.util.ModDamageTypes;
 import mett.palemannie.q2w.util.Q2ExplosionHelper;
 import mett.palemannie.q2w.util.Q2WConfigStats;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.entity.projectile.ProjectileUtil;
 import net.minecraft.world.level.ClipContext;
@@ -24,6 +20,13 @@ public class HandgrenadeProjectileEntity extends Projectile {
     public HandgrenadeProjectileEntity(EntityType<? extends Projectile> entityType, Level level) {
         super(entityType, level);
     }
+
+    public HandgrenadeProjectileEntity(EntityType<? extends Projectile> entityType, Level level, boolean isOvercook) {
+        super(entityType, level);
+        this.isOvercookKey = isOvercook;
+    }
+
+    boolean isOvercookKey;
 
     @Override
     protected void defineSynchedData() {}
@@ -46,7 +49,7 @@ public class HandgrenadeProjectileEntity extends Projectile {
             }
         }
 
-        Q2ExplosionHelper.handgrenadeExplosion((ServerLevel) level, null, null, center, this.getOwner());
+        Q2ExplosionHelper.handgrenadeExplosion((ServerLevel) level, null, null, center, this.getOwner(), isOvercookKey);
 
         ((ServerLevel) this.level()).sendParticles(ParticleTypes.FLAME,
                 center.x, center.y, center.z,

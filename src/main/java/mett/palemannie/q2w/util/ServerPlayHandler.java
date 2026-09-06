@@ -486,7 +486,7 @@ public class ServerPlayHandler {
         Level level = player.level();
 
         HandgrenadeProjectileEntity grenade =
-                new HandgrenadeProjectileEntity(ModEntities.HANDGRENADE_PROJECTILE.get(), serverLevel);
+                new HandgrenadeProjectileEntity(ModEntities.HANDGRENADE_PROJECTILE.get(), serverLevel, false);
 
         grenade.setOwner(player);
         grenade.setFuseTicks(remainingFuseTicks);
@@ -520,13 +520,38 @@ public class ServerPlayHandler {
 
     public static void handleHandgrenadeOvercook(ServerPlayer player) {
 
-        ServerLevel level = player.serverLevel();
+        ServerLevel serverLevel = player.serverLevel();
+        Level level = player.level();
 
-        Vec3 center = player.getBoundingBox().getCenter();
+        HandgrenadeProjectileEntity grenade =
+                new HandgrenadeProjectileEntity(ModEntities.HANDGRENADE_PROJECTILE.get(), serverLevel, true);
 
-        Q2ExplosionHelper.handgrenadeExplosion((ServerLevel) level, null, player, center, player);
-        level.sendParticles(ParticleTypes.FLAME, center.x, center.y, center.z, 20, 0, 0, 0, 0.1);
-        level.playSound(null, center.x, center.y, center.z, ModSounds.EXPLOSION.get(), SoundSource.PLAYERS, weaponSoundVolume(player, 2f), 1f);
+        grenade.setOwner(player);
+        grenade.setFuseTicks(0);
+
+        double forwardOffset = 0d;
+        double rightOffset = 0d;
+        double downOffset = 0d;
+
+        Vec3 look = player.getLookAngle().normalize();
+        Vec3 worldUp = new Vec3(0d, 1d, 0d);
+        Vec3 right = look.cross(worldUp);
+
+        if (right.lengthSqr() < 1e-7f) {
+            right = new Vec3(1d, 0d, 0d);
+        } else {
+            right = right.normalize();
+        }
+
+        Vec3 spawnPos = player.getEyePosition()
+                .add(look.scale(forwardOffset))
+                .add(right.scale(rightOffset))
+                .add(0d, -downOffset, 0d);
+
+        shootFromRotationNoMomentum(grenade, player, player.getXRot(), player.getYRot(), 0, 0f);
+        grenade.setPos(spawnPos.x, spawnPos.y, spawnPos.z);
+
+        serverLevel.addFreshEntity(grenade);
     }
 
     public static void handleGrenadeLauncherShoot(ServerPlayer player){

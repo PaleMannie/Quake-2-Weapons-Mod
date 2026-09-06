@@ -11,6 +11,9 @@ import net.minecraft.world.phys.AABB;
 
 public final class WeaponAggroHandler {
 
+    /// Monsters will be aggro'd by shooting any Quake 2 Weapon
+    /// the Silencer undoes that
+
     private WeaponAggroHandler() {}
 
     private static final String SILENCED_SHOTS_TAG = "Q2WSilencedShots";

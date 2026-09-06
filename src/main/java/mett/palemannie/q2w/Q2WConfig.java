@@ -38,12 +38,12 @@ public class Q2WConfig {
 
 
         public Common(ForgeConfigSpec.Builder builder) {
-            builder.push("Effects");
+            builder.push("Visual Effects");
 
             enableMuzzleFlash = builder.comment("\n[EXPERIMENTAL: EPILEPSY WARNING] Enables/Disables muzzle flash when shooting")
                     .define("enableMuzzleFlash", false);
 
-            enableProjectileTrailLight = builder.comment("\n[EXPERIMENTAL: EPILEPSY WARNING] Enables/Disables projectile trail lighting (Blaster(s), Rocket, BFG10k)")
+            enableProjectileTrailLight = builder.comment("\n[EXPERIMENTAL: EPILEPSY WARNING] Enables/Disables projectile trail lighting (Blasters, Rocket, BFG10k)")
                     .define("enableProjectileTrailLight", false);
 
             enableGore = builder.comment("\nEnables/Disables Gore particles when hitting a mob with Quake weapons")
