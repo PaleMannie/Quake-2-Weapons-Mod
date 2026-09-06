@@ -22,22 +22,22 @@ public final class Q2ExplosionHelper {
     public static final float ROCKET_DAMAGE = Q2WConfigStats.RocketlauncherDamage;
     public static final double ROCKET_RADIUS = Q2WConfigStats.RocketlauncherRadius;
 
-    public static void handgrenadeExplosion(ServerLevel level, @Nullable Entity inflictor, @Nullable Entity attacker, Vec3 center) {
+    public static void handgrenadeExplosion(ServerLevel level, @Nullable Entity inflictor, @Nullable Entity attacker, Vec3 center, Entity quadapply) {
 
         DamageSource source = level.damageSources().source(ModDamageTypes.HANDGRENADE_DAMAGE, inflictor, attacker);
-        q2RadiusDamage(level, inflictor, center, HANDGRENADE_DAMAGE, HANDGRENADE_RADIUS, source);
+        q2RadiusDamage(level, inflictor, center, Q2WConfigStats.applyQuadDamage(HANDGRENADE_DAMAGE, quadapply), HANDGRENADE_RADIUS, source);
     }
 
-    public static void grenadelauncherExplosion(ServerLevel level, @Nullable Entity inflictor, @Nullable Entity attacker, Vec3 center) {
+    public static void grenadelauncherExplosion(ServerLevel level, @Nullable Entity inflictor, @Nullable Entity attacker, Vec3 center, Entity quadapply) {
 
         DamageSource source = level.damageSources().source(ModDamageTypes.GRENADELAUNCHER_DAMAGE, inflictor, attacker);
-        q2RadiusDamage(level, inflictor, center, GRENADELAUNCHER_DAMAGE, GRENADELAUNCHER_RADIUS, source);
+        q2RadiusDamage(level, inflictor, center, Q2WConfigStats.applyQuadDamage(GRENADELAUNCHER_DAMAGE, quadapply), GRENADELAUNCHER_RADIUS, source);
     }
 
-    public static void rocketExplosion(ServerLevel level, @Nullable Entity inflictor, @Nullable Entity attacker, Vec3 center) {
+    public static void rocketExplosion(ServerLevel level, @Nullable Entity inflictor, @Nullable Entity attacker, Vec3 center, Entity quadapply) {
 
         DamageSource source = level.damageSources().source(ModDamageTypes.ROCKETLAUNCHER_DAMAGE, inflictor, attacker);
-        q2RadiusDamage(level, inflictor, center, ROCKET_DAMAGE, ROCKET_RADIUS, source);
+        q2RadiusDamage(level, inflictor, center, Q2WConfigStats.applyQuadDamage(ROCKET_DAMAGE, quadapply), ROCKET_RADIUS, source);
     }
 
     public static void q2RadiusDamage(ServerLevel level, Entity inflictor, Vec3 center, float maxDamage, double radius, DamageSource damageSource) {

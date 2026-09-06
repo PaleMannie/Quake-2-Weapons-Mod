@@ -1,6 +1,11 @@
 package mett.palemannie.q2w.util;
 
 import mett.palemannie.q2w.Q2WConfig;
+import mett.palemannie.q2w.effect.ModEffects;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
+
+import javax.annotation.Nullable;
 
 public class Q2WConfigStats {
 
@@ -22,4 +27,32 @@ public class Q2WConfigStats {
     public static float Bfg10kFlashDamage = Q2WConfig.COMMON.bfg10kFlashDamage.get().floatValue();
     public static float PowershieldAbsorbRatio = Q2WConfig.SERVER.powershieldAbsorbRatio.get().floatValue();
     public static float PowershieldDamagePreCellConsumed = Q2WConfig.SERVER.powershieldDamagePreCellConsumed.get().floatValue();
+
+    public static float applyQuadDamage(float baseDamage, @Nullable Entity attacker) {
+        if (attacker instanceof LivingEntity livingEntity && livingEntity.hasEffect(ModEffects.QUAD_DAMAGE.get())) {
+            return baseDamage * 4.0F;
+        }
+
+        return baseDamage;
+    }
+
+    public static float shotgunDamage(@Nullable Entity attacker) {
+        return applyQuadDamage(ShotgunDamage, attacker);
+    }
+
+    public static float superShotgunDamage(@Nullable Entity attacker) {
+        return applyQuadDamage(SuperShotgunDamage, attacker);
+    }
+
+    public static float machinegunDamage(@Nullable Entity attacker) {
+        return applyQuadDamage(MachinegunDamage, attacker);
+    }
+
+    public static float chaingunDamage(@Nullable Entity attacker) {
+        return applyQuadDamage(ChaingunDamage, attacker);
+    }
+
+    public static float railgunDamage(@Nullable Entity attacker) {
+        return applyQuadDamage(RailgunDamage, attacker);
+    }
 }

@@ -46,7 +46,7 @@ public class GrenadelauncherProjectileEntity extends Projectile {
             }
         }
 
-        Q2ExplosionHelper.grenadelauncherExplosion((ServerLevel) level, null, null, center);
+        Q2ExplosionHelper.grenadelauncherExplosion((ServerLevel) level, null, null, center, this.getOwner());
 
         ((ServerLevel) this.level()).sendParticles(ParticleTypes.FLAME,
                 center.x, center.y, center.z,

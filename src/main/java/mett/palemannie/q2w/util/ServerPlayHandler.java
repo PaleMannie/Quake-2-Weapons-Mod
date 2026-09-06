@@ -240,7 +240,7 @@ public class ServerPlayHandler {
 
         final double RANGE = 96d;
         final double INACCURACY_DEGREES = 2f;
-        final float DAMAGE = Q2WConfigStats.MachinegunDamage;
+        final float DAMAGE = Q2WConfigStats.machinegunDamage(player);
 
         Vec3 eyePos = player.getEyePosition();
         Vec3 look = player.getLookAngle();
@@ -292,7 +292,7 @@ public class ServerPlayHandler {
 
         final double RANGE = 96d;
         final double INACCURACY_DEGREES = 4f;
-        final float DAMAGE = Q2WConfigStats.ChaingunDamage;
+        final float DAMAGE = Q2WConfigStats.chaingunDamage(player);
 
         Vec3 eyePos = player.getEyePosition();
         Vec3 look = player.getLookAngle();
@@ -344,7 +344,7 @@ public class ServerPlayHandler {
 
         final double RANGE = 128d;
         final double HITBOX_INFLATE = 0.3d;
-        final float DAMAGE = Q2WConfigStats.RailgunDamage;
+        final float DAMAGE = Q2WConfigStats.railgunDamage(player);
 
         final double RIGHT_OFFSET = 0.35d;
         final double DOWN_OFFSET = 0.25d;
@@ -393,7 +393,6 @@ public class ServerPlayHandler {
 
         for (RailHit hit : hits) {
 
-            //hit.target().hurt(serverLevel.damageSources().source(ModDamageTypes.RAILGUN_DAMAGE, player, player), DAMAGE);
             hurtWithScaledKnockback(hit.target(), serverLevel.damageSources().source(DamageTypes.PLAYER_ATTACK, player, player), Float.MIN_VALUE, 0.25d);
             hurtWithScaledKnockback(hit.target(), serverLevel.damageSources().source(ModDamageTypes.RAILGUN_DAMAGE, null, null), DAMAGE, 0.25d);
 
@@ -525,7 +524,7 @@ public class ServerPlayHandler {
 
         Vec3 center = player.getBoundingBox().getCenter();
 
-        Q2ExplosionHelper.handgrenadeExplosion((ServerLevel) level, null, player, center);
+        Q2ExplosionHelper.handgrenadeExplosion((ServerLevel) level, null, player, center, player);
         level.sendParticles(ParticleTypes.FLAME, center.x, center.y, center.z, 20, 0, 0, 0, 0.1);
         level.playSound(null, center.x, center.y, center.z, ModSounds.EXPLOSION.get(), SoundSource.PLAYERS, weaponSoundVolume(player, 2f), 1f);
     }
@@ -561,7 +560,7 @@ public class ServerPlayHandler {
         final double RANGE = 64d;
         final double SPREAD_H = 11d;
         final double SPREAD_V = 7d;
-        final float DAMAGE_PER_PELLET = Q2WConfigStats.SuperShotgunDamage;
+        final float DAMAGE_PER_PELLET = Q2WConfigStats.superShotgunDamage(player);
 
         for (int i = 0; i < PELLETS; i++) {
 
@@ -612,7 +611,7 @@ public class ServerPlayHandler {
         final int PELLETS = 12;
         final double RANGE = 64d;
         final double SPREAD_DEGREES = 10d;
-        final float DAMAGE_PER_PELLET = Q2WConfigStats.ShotgunDamage;
+        final float DAMAGE_PER_PELLET = Q2WConfigStats.shotgunDamage(player);
 
         Vec3 eyePos = player.getEyePosition();
         Vec3 look = player.getLookAngle();

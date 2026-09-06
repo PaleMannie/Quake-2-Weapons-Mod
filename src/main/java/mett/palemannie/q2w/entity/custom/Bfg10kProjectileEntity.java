@@ -299,7 +299,7 @@ public class Bfg10kProjectileEntity extends Projectile {
 
         for (LivingEntity living : hits) {
             hurtWithScaledKnockback(living ,source2, Float.MIN_VALUE, 0.1f);
-            hurtWithScaledKnockback(living ,source, LASER_DAMAGE, 0.1f);
+            hurtWithScaledKnockback(living ,source, Q2WConfigStats.applyQuadDamage(LASER_DAMAGE, this.getOwner()), 0.1f);
 
         }
     }
@@ -332,7 +332,7 @@ public class Bfg10kProjectileEntity extends Projectile {
         if (directTarget instanceof LivingEntity livingTarget) {
 
             livingTarget.hurt(level.damageSources().source(DamageTypes.PLAYER_ATTACK, this.getOwner(), this.getOwner()), Float.MIN_VALUE);
-            livingTarget.hurt(level.damageSources().source(ModDamageTypes.BFG10K_DAMAGE, null, null), DIRECT_BLAST_DAMAGE);
+            livingTarget.hurt(level.damageSources().source(ModDamageTypes.BFG10K_DAMAGE, null, null), Q2WConfigStats.applyQuadDamage(DIRECT_BLAST_DAMAGE, this.getOwner()));
         }
 
         doBlastRadiusDamage(level, directTarget);
@@ -389,7 +389,7 @@ public class Bfg10kProjectileEntity extends Projectile {
 
             if (damage > 0f) {
                 entity.hurt(source, Float.MIN_VALUE);
-                entity.hurt(source2, damage);
+                entity.hurt(source2, Q2WConfigStats.applyQuadDamage(damage, this.getOwner()));
             }
         }
     }
@@ -461,7 +461,7 @@ public class Bfg10kProjectileEntity extends Projectile {
             }
 
             entity.hurt(source, Float.MIN_VALUE);
-            entity.hurt(source2, damage);
+            entity.hurt(source2, Q2WConfigStats.applyQuadDamage(damage, owner));
             spawnBfgEffectHitParticles(level, entity);
         }
     }

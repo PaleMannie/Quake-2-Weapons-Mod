@@ -50,7 +50,7 @@ public class RocketProjectileEntity extends Projectile {
             }
         }
 
-        Q2ExplosionHelper.rocketExplosion((ServerLevel) level, null, null, center);
+        Q2ExplosionHelper.rocketExplosion((ServerLevel) level, null, null, center, this.getOwner());
 
         ((ServerLevel) this.level()).sendParticles(ParticleTypes.FLAME,
                 center.x, center.y, center.z,
