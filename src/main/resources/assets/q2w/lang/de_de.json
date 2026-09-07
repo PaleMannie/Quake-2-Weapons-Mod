@@ -1,4 +1,5 @@
 {
+
   "q2w.creativetab.q2w_tab": "Quake 2 Weapons Mod",
 
   "q2w.key.category.title": "Quake 2 Weapons Mod",
@@ -78,5 +79,9 @@
   "entity.q2w.megahealth_pickup": "Megaheilung",
   "entity.q2w.silencer_powerup": "Schalldämpfer",
   "entity.q2w.rebreather_pickup": "Kreislaufgerät",
-  "entity.q2w.powershield_pickup": "Energieschild"
+  "entity.q2w.powershield_pickup": "Energieschild",
+
+  "command.q2w.testkit.success": "Testkit bereit: Alle Waffen vorhanden und Munition aufgefüllt.",
+  "command.q2w.refill.success": "Munition aufgefüllt: 256 Patronen, 512 Zellen, 128 Schrotpatronen und je 64 Granaten, Raketen und Geschosse.",
+  "command.q2w.supply.full": "Inventar voll: Noch %s Gegenstände bis zum vollständigen Vorrat. Platz schaffen und den Befehl erneut ausführen."
 }

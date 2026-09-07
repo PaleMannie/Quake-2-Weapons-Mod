@@ -3,7 +3,7 @@
   "category": "misc",
   "pattern": [
     "IGI",
-    "GGG",
+    "GRG",
     "IGI"
   ],
   "key": {
@@ -12,6 +12,9 @@
     },
     "I": {
       "item": "minecraft:iron_ingot"
+    },
+    "R": {
+      "item": "minecraft:redstone"
     }
   },
   "result": {

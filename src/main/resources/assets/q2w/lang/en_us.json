@@ -1,4 +1,5 @@
 {
+
   "q2w.creativetab.q2w_tab": "Quake 2 Weapons Mod",
 
   "q2w.key.category.title": "Quake 2 Weapons Mod",
@@ -78,5 +79,9 @@
   "entity.q2w.megahealth_pickup": "Megahealth",
   "entity.q2w.silencer_powerup": "Silencer",
   "entity.q2w.rebreather_pickup": "Rebreather",
-  "entity.q2w.powershield_pickup": "Power Shield"
+  "entity.q2w.powershield_pickup": "Power Shield",
+
+  "command.q2w.testkit.success": "Test kit ready: All weapons present and ammunition replenished.",
+  "command.q2w.refill.success": "Ammo replenished: 256 bullets, 512 cells, 128 shells, and 64 each of grenades, rockets and slugs.",
+  "command.q2w.supply.full": "Inventory full: Still missing %s items from the supply target. Make room and run the command again."
 }
