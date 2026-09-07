@@ -127,16 +127,7 @@ public class ServerPlayHandler {
         double rightOffset = 0.25d;
         double downOffset = 0.2d;
 
-        Vec3 up = new Vec3(0d, 1d, 0d);
-        Vec3 right = shotDir.cross(up);
-
-        if (right.lengthSqr() < 1e-7d) {
-
-            right = new Vec3(1d, 0d, 0d);
-        } else {
-
-            right = right.normalize();
-        }
+        Vec3 right = getPlayerRight(player);
 
         Vec3 spawnPos = player.getEyePosition()
                 .add(shotDir.scale(forwardOffset))
@@ -195,17 +186,15 @@ public class ServerPlayHandler {
 
     private record RailHit(LivingEntity target, Vec3 hitPos, double distance) {}
 
+    private static Vec3 getPlayerRight(ServerPlayer player) {
+
+        double yaw = Math.toRadians(player.getYRot());
+        return new Vec3(-Math.cos(yaw), 0d, -Math.sin(yaw));
+    }
+
     private static Vec3 getOffsetShotStart(ServerPlayer player, Vec3 direction, double rightOffset, double downOffset, double forwardOffset) {
-        Vec3 worldUp = new Vec3(0d, 1d, 0d);
-        Vec3 right = direction.cross(worldUp);
 
-        if (right.lengthSqr() < 1e-7d) {
-
-            right = new Vec3(1d, 0d, 0d);
-        } else {
-
-            right = right.normalize();
-        }
+        Vec3 right = getPlayerRight(player);
 
         return player.getEyePosition()
                 .add(direction.scale(forwardOffset))
@@ -699,7 +688,7 @@ public class ServerPlayHandler {
 
         Vec3 look = player.getLookAngle();
         float rightOffset = 0.25f;
-        Vec3 right = look.cross(new Vec3(0, 1.5, 0)).normalize();
+        Vec3 right = getPlayerRight(player);
 
         double spawnX = player.getX() + right.x * rightOffset + look.x * forwardOffset;
         double spawnY = player.getEyeY() - upOffset + right.y * rightOffset + look.y * forwardOffset;
@@ -731,7 +720,7 @@ public class ServerPlayHandler {
 
         Vec3 look = player.getLookAngle();
         float rightOffset = 0.3f;
-        Vec3 right = look.cross(new Vec3(0, 1.5, 0)).normalize();
+        Vec3 right = getPlayerRight(player);
 
         double spawnX = player.getX() + right.x * rightOffset + look.x * forwardOffset;
         double spawnY = player.getEyeY() - 0.25 + right.y * rightOffset + look.y * forwardOffset;
