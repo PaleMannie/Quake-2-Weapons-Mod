@@ -40,80 +40,80 @@ public class Q2WConfig {
         public Common(ForgeConfigSpec.Builder builder) {
             builder.push("Visual Effects");
 
-            enableMuzzleFlash = builder.comment("\n[EXPERIMENTAL: EPILEPSY WARNING] Enables/Disables muzzle flash when shooting")
+            enableMuzzleFlash = builder.comment("\nEnables muzzle flashes when firing weapons.\nEXPERIMENTAL: Contains flashing lights that may trigger photosensitive seizures.")
                     .define("enableMuzzleFlash", false);
 
-            enableProjectileTrailLight = builder.comment("\n[EXPERIMENTAL: EPILEPSY WARNING] Enables/Disables projectile trail lighting (Blasters, Rocket, BFG10k)")
+            enableProjectileTrailLight = builder.comment("\nEnables dynamic lighting for Blaster, Hyperblaster, Rocket and BFG10K projectiles.\nEXPERIMENTAL: Contains flashing lights that may trigger photosensitive seizures.")
                     .define("enableProjectileTrailLight", false);
 
-            enableGore = builder.comment("\nEnables/Disables Gore particles when hitting a mob with Quake weapons")
+            enableGore = builder.comment("\nEnables gore particles when living entities are hit by Quake weapons.")
                     .define("enableGore", false);
 
             builder.pop();
             builder.push("Weapon damage");
 
             blasterDamage = builder
-                    .comment("\nHow much damage the Blaster deals")
+                    .comment("\nBase damage per Blaster projectile hit.\nDamage is measured in health points: 2 points = 1 heart.")
                     .defineInRange("blasterDamage", 3.0, 0.0, Float.MAX_VALUE);
 
             shotgunDamage = builder
-                    .comment("\nHow much damage the Shotgun deals per pellet (12 pellets per shot)")
+                    .comment("\nBase damage per Shotgun pellet. Each shot fires 12 pellets.\nDamage is measured in health points: 2 points = 1 heart.")
                     .defineInRange("shotgunDamage", 0.8, 0.0, Float.MAX_VALUE);
 
             superShotgunDamage = builder
-                    .comment("\nHow much damage the Double Barreled Shotgun deals per pellet (20 pellets per shot)")
+                    .comment("\nBase damage per Super Shotgun pellet. Each shot fires 20 pellets.\nDamage is measured in health points: 2 points = 1 heart.")
                     .defineInRange("superShotgunDamage", 1.2, 0.0, Float.MAX_VALUE);
 
             machinegunDamage = builder
-                    .comment("\nHow much damage the Machine Gun deals per shot")
+                    .comment("\nBase damage per Machine Gun bullet.\nDamage is measured in health points: 2 points = 1 heart.")
                     .defineInRange("machinegunDamage", 1.6, 0.0, Float.MAX_VALUE);
 
             chaingunDamage = builder
-                    .comment("\nHow much damage the Chaingun deals per shot")
+                    .comment("\nBase damage per Chaingun bullet.\nDamage is measured in health points: 2 points = 1 heart.")
                     .defineInRange("chaingunDamage", 1.2, 0.0, Float.MAX_VALUE);
 
             handgrenadeDamage = builder
-                    .comment("\nMaximum damage the Grenade deals")
+                    .comment("\nMaximum base damage dealt by a Hand Grenade explosion.\nDamage is measured in health points: 2 points = 1 heart.")
                     .defineInRange("handgrenadeDamage", 28.0, 0.0, Float.MAX_VALUE);
 
             handgrenadeRadius = builder
-                    .comment("\nBlast radius of the Handgrenade")
+                    .comment("\nBlast radius of Hand Grenade explosions, in blocks.")
                     .defineInRange("handgrenadeRadius", 5.0, 0.0, Float.MAX_VALUE);
 
             grenadelauncherDamage = builder
-                    .comment("\nMaximum the Grenade Launcher deals per shot")
+                    .comment("\nMaximum base damage dealt by a Grenade Launcher explosion.\nDamage is measured in health points: 2 points = 1 heart.")
                     .defineInRange("grenadelauncherDamage", 28.0, 0.0, Float.MAX_VALUE);
 
             grenadelauncherRadius = builder
-                    .comment("\nBlast radius of the Grenade launcher")
+                    .comment("\nBlast radius of Grenade Launcher explosions, in blocks.")
                     .defineInRange("grenadelauncherRadius", 5.0, 0.0, Float.MAX_VALUE);
 
             rocketlauncherDamage = builder
-                    .comment("\nMaximum damage the Rocket Launcher deals per shot")
+                    .comment("\nMaximum base damage dealt by a Rocket Launcher explosion.\nDamage is measured in health points: 2 points = 1 heart.")
                     .defineInRange("rocketlauncherDamage", 28.0, 0.0, Float.MAX_VALUE);
 
             rocketlauncherRadius = builder
-                    .comment("\nBlast radius of the Rocket launcher")
+                    .comment("\nBlast radius of Rocket Launcher explosions, in blocks.")
                     .defineInRange("rocketlauncherRadius", 4.0, 0.0, Float.MAX_VALUE);
 
             hyperblasterDamage = builder
-                    .comment("\nHow much damage the Hyperblaster deals per shot.")
+                    .comment("\nBase damage per Hyperblaster projectile hit.\nDamage is measured in health points: 2 points = 1 heart.")
                     .defineInRange("hyperblasterDamage", 4.0, 0.0, Float.MAX_VALUE);
 
             railgunDamage = builder
-                    .comment("\nHow much damage the Railgun deals per shot.")
+                    .comment("\nBase damage dealt to each entity hit by a Railgun shot.\nDamage is measured in health points: 2 points = 1 heart.")
                     .defineInRange("railgunDamage", 30.0, 0.0, Float.MAX_VALUE);
 
             bfg10kDamage = builder
-                    .comment("\nHow much damage the BFG10K deals upon impact.")
+                    .comment("\nBase damage dealt to the entity directly hit by a BFG10K projectile and its surrounding blast radius.\nDamage is measured in health points: 2 points = 1 heart.")
                     .defineInRange("bfg10kDamage", 40.0, 0.0, Float.MAX_VALUE);
 
             bfg10kLaserDamage = builder
-                    .comment("\nHow much damage the BFG10K lasers deal per tick")
+                    .comment("\nBase damage per BFG10K laser hit while the projectile is in flight.\nLaser attacks are processed every 2 game ticks.\nDamage is measured in health points: 2 points = 1 heart.")
                     .defineInRange("bfg10kLaserDamage", 1.0, 0.0, Float.MAX_VALUE);
 
             bfg10kFlashDamage = builder
-                    .comment("\nHow much damage the BFG10K deals in its flash.")
+                    .comment("\nMaximum base damage of the BFG10K flash after impact.\nDamage decreases with distance from the explosion.\nDamage is measured in health points: 2 points = 1 heart.")
                     .defineInRange("bfg10kFlashDamage", 40, 0.0, Float.MAX_VALUE);
 
             builder.pop();
@@ -147,31 +147,31 @@ public class Q2WConfig {
             builder.push("Powerup Spawner values");
 
             enablePowerups = builder
-                    .comment("\nEnables/Disables the spawning of powerups in your world")
+                    .comment("\nEnables automatic spawning of powerups, pickups, ammo and health near players.")
                     .define("enablePowerups", true);
 
             powerupDebug = builder
-                    .comment("\nPowerup spawn attempts are visible in chat")
+                    .comment("\nReports successful spawns and failed spawn attempts in chat and the server console.\nChat messages are sent to all players in the affected dimension.")
                     .define("powerupDebug", false);
 
             powerupEffectDuration = builder
-                    .comment("\nDuration of powerups effects upon picking up in ticks")
+                    .comment("\nDuration of powerup effects, in game ticks.\nAt normal game speed, 20 ticks = 1 second; 600 ticks = 30 seconds.")
                     .defineInRange("powerupEffectDuration", 600, 1, Integer.MAX_VALUE-1);
 
             powerupLifetime = builder
-                    .comment("\nDuration of powerups in the world in ticks until despawning")
+                    .comment("\nTime before an uncollected powerup or pickup despawns, in game ticks.\nAt normal game speed, 20 ticks = 1 second; 6000 ticks = 5 minutes.")
                     .defineInRange("powerupLifetime", 6000, 1, Integer.MAX_VALUE-1);
 
             powerupSpawnInterval = builder
-                    .comment("\nSpawns a powerup every x ticks in the world randomly")
+                    .comment("\nInterval between automatic spawn attempt rounds, in game ticks.\nEach round performs the configured number of attempts for every player.\nAn attempt only spawns a pickup if a suitable location is found.\nAt normal game speed, 600 ticks = 30 seconds.")
                     .defineInRange("powerupSpawnInterval", 600, 20, Integer.MAX_VALUE-1);
 
             powerupSpawnAttempts = builder
-                    .comment("\nAttemts of spawning a powerup at each interval")
+                    .comment("\nNumber of spawn attempts per player during each spawn round.\nEach attempt can spawn one pickup. Failed attempts do not spawn anything.\nHigher values increase spawn opportunities and server workload.")
                     .defineInRange("powerupSpawnAttempts", 5, 1, 512);
 
             powerupSpawnSearchRadius = builder
-                    .comment("\nSearch radius for a suitable spawning place at each spawning attempt")
+                    .comment("\nSearch distance in blocks along each axis around a randomly chosen spawn candidate.\nThis controls the local search area, not the distance from the player.\nHigher values search more blocks and can significantly increase server workload.")
                     .defineInRange("powerupSpawnSearchRadius", 5, 1, 512);
 
             builder.pop();
@@ -179,24 +179,22 @@ public class Q2WConfig {
             builder.push("Weapon aggro values");
 
             weaponAggroRange = builder
-                    .comment("\nRange in blocks where monsters aggro when weapons are fired or loud weapons are held")
-                    .defineInRange("weaponAggroRange", 32, 0, 256);
+                    .comment("\nDistance in blocks within which monsters target a player firing a Quake weapon or holding a loud weapon.\nAn active Silencer prevents this weapon-triggered aggression.\nSet to 0 to disable weapon-triggered aggression.")
+                    .defineInRange("weaponAggroRange", 24, 0, 256);
 
             builder.pop();
 
             builder.push("Power Shield values");
 
             powershieldAbsorbRatio = builder
-                    .comment("\nHow much damage will be absorbed by the Power Shield")
+                    .comment("\nFraction of incoming damage absorbed by an active Power Shield, limited by available Cells.\n0.0 = 0%, 0.66 = 66%, 1.0 = 100%.")
                     .defineInRange("powershieldAbsorbRatio", 0.66d, 0d, 1d);
 
             powershieldDamagePreCellConsumed = builder
-                    .comment("\nHow much damage each cell will absorb")
+                    .comment("\nDamage points absorbed per Cell consumed by the Power Shield.\nHigher values make each Cell last longer. 2 damage points = 1 heart.\nCell consumption is rounded up to whole Cells for each hit.")
                     .defineInRange("powershieldDamagePreCellConsumed", 2d, 0d, Double.MAX_VALUE-1d);
 
-
             builder.pop();
-
         }
     }
 

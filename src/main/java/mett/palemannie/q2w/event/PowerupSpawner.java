@@ -21,6 +21,10 @@ import net.minecraftforge.fml.event.config.ModConfigEvent;
 import com.mojang.logging.LogUtils;
 import org.slf4j.Logger;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.WeakHashMap;
 import java.util.function.Consumer;
 
 @Mod.EventBusSubscriber(modid = Quake2Weapons.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE)
@@ -105,20 +109,35 @@ public class PowerupSpawner {
         }
     }
 
+    /// random xyz distribution relative to your position
+
     private static void trySpawnNearPlayer(ServerLevel level, ServerPlayer player) {
 
         RandomSource random = level.random;
+
         int x = player.blockPosition().getX() + Mth.nextInt(random, -128, 128);
         int z = player.blockPosition().getZ() + Mth.nextInt(random, -128, 128);
-        int y = Mth.nextInt(random, level.getMinBuildHeight() + 5, level.getMaxBuildHeight() - 5);
+        int minY = Math.max(level.getMinBuildHeight() + 1, player.blockPosition().getY() - 64);
+        int maxY = Math.min(level.getMaxBuildHeight() - 1, player.blockPosition().getY() + 64);
+        int y = Mth.nextInt(random, minY, maxY);
+
         BlockPos candidate = new BlockPos(x, y, z);
 
         if (tryFindSpawnPos(level, candidate, searchRadius, searchRadius, pos -> {
 
             Entity entity = randomPowerup(level);
             entity.moveTo(pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5, 0, 0);
-            level.addFreshEntity(entity);
-            debug(level, "§aSpawned " + entity.getType().toShortString() + " at " + pos);
+
+            if (level.addFreshEntity(entity)) {
+                List<Integer> bag = getPowerupBag(level);
+                bag.remove(bag.size() - 1);
+
+                debug(level, "§aSpawned "
+                        + entity.getType().toShortString() + " at " + pos);
+            } else {
+                debug(level, "§cSpawn rejected for "
+                        + entity.getType().toShortString() + " at " + pos);
+            }
         })) return;
 
         debug(level, "§cNo valid spawn near " + candidate);
@@ -142,9 +161,43 @@ public class PowerupSpawner {
         return false;
     }
 
+    /// pseudo random distribution of successfully spawning powerups
+
+    private static final int POWERUP_TYPE_COUNT = 14;
+
+    private static final Map<ServerLevel, List<Integer>> POWERUP_BAGS =
+            new WeakHashMap<>();
+
+    private static List<Integer> getPowerupBag(ServerLevel level) {
+
+        List<Integer> bag = POWERUP_BAGS.computeIfAbsent(
+                level, ignored -> new ArrayList<>(POWERUP_TYPE_COUNT)
+        );
+
+        if (bag.isEmpty()) {
+            for (int i = 0; i < POWERUP_TYPE_COUNT; i++) {
+                bag.add(i);
+            }
+
+            for (int i = bag.size() - 1; i > 0; i--) {
+
+                int j = level.random.nextInt(i + 1);
+                int temp = bag.get(i);
+                bag.set(i, bag.get(j));
+                bag.set(j, temp);
+            }
+        }
+
+        return bag;
+    }
+
     private static Entity randomPowerup(ServerLevel level) {
 
-        return switch (level.random.nextInt(14)) {
+        List<Integer> bag = getPowerupBag(level);
+        int type = bag.get(bag.size() - 1);
+
+        return switch (type) {
+
             case 0 -> new QuadDamagePowerupEntity(ModEntities.QUAD_DAMAGE_POWERUP.get(), level);
             case 1 -> new InvulnerabilityPowerupEntity(ModEntities.INVULN_POWERUP.get(), level);
             case 2 -> new EnvirosuitPowerupEntity(ModEntities.ENVIROSUIT_POWERUP.get(), level);
@@ -167,6 +220,5 @@ public class PowerupSpawner {
         if (!debugEnabled) return;
         Component comp = Component.literal("§d[PowerupSpawner]§r " + msg);
         for (ServerPlayer sp : level.players()) sp.sendSystemMessage(comp);
-        System.out.println("[PowerupSpawner] " + msg.replaceAll("§.", ""));
     }
 }
