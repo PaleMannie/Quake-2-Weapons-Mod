@@ -19,6 +19,8 @@ import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.extensions.common.IClientItemExtensions;
 import org.jetbrains.annotations.NotNull;
 import software.bernie.geckolib.animatable.GeoItem;
@@ -61,8 +63,6 @@ public abstract class AbstractWeapon extends Item implements GeoItem {
 
     protected abstract String animationPrefix();
 
-    protected abstract BlockEntityWithoutLevelRenderer createRenderer();
-
     protected String shootingAnimationName() {
         return animationPrefix() + ".animation.shooting";
     }
@@ -96,49 +96,6 @@ public abstract class AbstractWeapon extends Item implements GeoItem {
         })
                 .triggerableAnim("shoot", shootingAnim)
                 .triggerableAnim("ammoempty", ammoEmptyAnim));
-    }
-
-    @Override
-    public void initializeClient(Consumer<IClientItemExtensions> consumer) {
-
-        consumer.accept(new IClientItemExtensions() {
-
-            private BlockEntityWithoutLevelRenderer renderer;
-
-            @Override
-            public BlockEntityWithoutLevelRenderer getCustomRenderer() {
-
-                if (this.renderer == null) {
-                    this.renderer = createRenderer();
-                }
-
-                return this.renderer;
-            }
-
-            @Override
-            public boolean applyForgeHandTransform(PoseStack poseStack, LocalPlayer player, HumanoidArm arm, ItemStack itemInHand, float partialTick, float equipProcess, float swingProcess) {
-
-                if (itemInHand.getItem() instanceof AbstractWeapon) {
-
-                    int side = arm == HumanoidArm.RIGHT ? 1 : -1;
-                    poseStack.translate(side * 0.56f, -0.52f, -0.72f);
-
-                    return true;
-                }
-
-                return false;
-            }
-
-            @Override
-            public HumanoidModel.ArmPose getArmPose(LivingEntity entityLiving, InteractionHand hand, ItemStack itemStack) {
-
-                if (!itemStack.isEmpty() && entityLiving.getItemInHand(hand) == itemStack) {
-                    return HumanoidModel.ArmPose.BOW_AND_ARROW;
-                }
-
-                return HumanoidModel.ArmPose.EMPTY;
-            }
-        });
     }
 
     public void setCurrentHand(InteractionHand hand, LivingEntity livingEntity) {

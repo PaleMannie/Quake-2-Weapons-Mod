@@ -1,5 +1,6 @@
 package mett.palemannie.q2w.item.custom;
 
+import com.mojang.blaze3d.vertex.PoseStack;
 import mett.palemannie.q2w.item.ModItems;
 import mett.palemannie.q2w.item.client.HandgrenadeRenderer;
 import mett.palemannie.q2w.net.ModMessages;
@@ -7,6 +8,8 @@ import mett.palemannie.q2w.net.custom.WeaponRecoilS2CPacket;
 import mett.palemannie.q2w.sound.ModSounds;
 import mett.palemannie.q2w.util.ServerPlayHandler;
 import mett.palemannie.q2w.util.WeaponAggroHandler;
+import net.minecraft.client.model.HumanoidModel;
+import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -15,10 +18,12 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraftforge.client.extensions.common.IClientItemExtensions;
 import software.bernie.geckolib.animatable.GeoItem;
 import software.bernie.geckolib.core.animation.Animation;
 import software.bernie.geckolib.core.animation.AnimationController;
@@ -29,8 +34,56 @@ import software.bernie.geckolib.core.object.PlayState;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
+import java.util.function.Consumer;
 
 public class HandgrenadeItem extends AbstractWeapon {
+
+    public HandgrenadeItem(Properties properties) {
+        super(properties);
+    }
+
+    @Override
+    public void initializeClient(Consumer<IClientItemExtensions> consumer) {
+
+        consumer.accept(new IClientItemExtensions() {
+
+            private HandgrenadeRenderer renderer;
+
+            @Override
+            public BlockEntityWithoutLevelRenderer getCustomRenderer() {
+
+                if (this.renderer == null) {
+                    this.renderer = new HandgrenadeRenderer();
+                }
+
+                return this.renderer;
+            }
+
+            @Override
+            public boolean applyForgeHandTransform(PoseStack poseStack, LocalPlayer player, HumanoidArm arm, ItemStack itemInHand, float partialTick, float equipProcess, float swingProcess) {
+
+                if (itemInHand.getItem() instanceof AbstractWeapon) {
+
+                    int side = arm == HumanoidArm.RIGHT ? 1 : -1;
+                    poseStack.translate(side * 0.56f, -0.52f, -0.72f);
+
+                    return true;
+                }
+
+                return false;
+            }
+
+            @Override
+            public HumanoidModel.ArmPose getArmPose(LivingEntity entityLiving, InteractionHand hand, ItemStack itemStack) {
+
+                if (!itemStack.isEmpty() && entityLiving.getItemInHand(hand) == itemStack) {
+                    return HumanoidModel.ArmPose.BOW_AND_ARROW;
+                }
+
+                return HumanoidModel.ArmPose.EMPTY;
+            }
+        });
+    }
 
     @Override
     public net.minecraft.world.item.Item getAmmoItem() {
@@ -39,20 +92,20 @@ public class HandgrenadeItem extends AbstractWeapon {
 
 
     public static final int FUSE_TICKS = 84;
-
     public static final int PIN_SOUND_TICK = 5;
     public static final int COOK_START_TICK = 11;
+
     public static final int THROW_PROJECTILE_DELAY_TICKS = 4;
 
     private static final int RELEASE_COOLDOWN_TICKS = 30;
-
     private static final float MIN_THROW_VELOCITY = 0.55f;
+
     private static final float MAX_THROW_VELOCITY = 1.1f;
 
     private static final String HANDGRENADE_CONTROLLER = "handgrenade_controller";
-
     private static final String PRIME_TRIGGER = "prime";
     private static final String THROW_TRIGGER = "throw";
+
     private static final String OVERCOOK_TRIGGER = "overcook";
 
     private static final RawAnimation PRIME_ANIM = RawAnimation.begin()
@@ -69,18 +122,9 @@ public class HandgrenadeItem extends AbstractWeapon {
 
     private final Map<UUID, GrenadeState> states = new HashMap<>();
 
-    public HandgrenadeItem(Properties properties) {
-        super(properties);
-    }
-
     @Override
     protected String animationPrefix() {
         return "handgrenade";
-    }
-
-    @Override
-    protected BlockEntityWithoutLevelRenderer createRenderer() {
-        return new HandgrenadeRenderer();
     }
 
     @Override
