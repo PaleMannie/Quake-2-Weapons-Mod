@@ -37,6 +37,12 @@ public abstract class AbstractQ2Weapon extends AbstractWeapon {
         return null;
     }
 
+    @Override
+    @Nullable
+    public Item getAmmoItem() {
+        return ammoItem();
+    }
+
     protected int ammoCostPerShot() {
         return 0;
     }

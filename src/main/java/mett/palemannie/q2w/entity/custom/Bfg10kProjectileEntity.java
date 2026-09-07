@@ -5,6 +5,7 @@ import mett.palemannie.q2w.block.ModBlocks;
 import mett.palemannie.q2w.particle.ModParticles;
 import mett.palemannie.q2w.sound.ModSounds;
 import mett.palemannie.q2w.util.ModDamageTypes;
+import mett.palemannie.q2w.util.Q2ExplosionHelper;
 import mett.palemannie.q2w.util.Q2WConfigStats;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -415,6 +416,7 @@ public class Bfg10kProjectileEntity extends Projectile {
 
             entity.hurt(creditSource, Float.MIN_VALUE);
             entity.hurt(bfgSource, damage);
+            Q2ExplosionHelper.applyQ2Knockback(entity, center, scale);
         }
     }
 

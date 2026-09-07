@@ -16,6 +16,11 @@ import net.minecraft.world.level.Level;
 
 public class GrenadelauncherItem extends AbstractQ2Weapon{
 
+    @Override
+    public net.minecraft.world.item.Item getAmmoItem() {
+        return ModItems.GRENADE.get();
+    }
+
     public GrenadelauncherItem(Properties pProperties) {
         super(pProperties,24,22);
     }

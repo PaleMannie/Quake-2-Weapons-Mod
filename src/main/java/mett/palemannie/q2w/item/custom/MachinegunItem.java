@@ -15,6 +15,11 @@ import net.minecraft.world.level.Level;
 
 public class MachinegunItem extends AbstractQ2Weapon{
 
+    @Override
+    public net.minecraft.world.item.Item getAmmoItem() {
+        return ModItems.BULLET.get();
+    }
+
     public MachinegunItem(Properties pProperties) {
         super(pProperties,2,1);
     }

@@ -35,6 +35,11 @@ import java.util.function.Consumer;
 
 public abstract class AbstractWeapon extends Item implements GeoItem {
 
+    @org.jetbrains.annotations.Nullable
+    public Item getAmmoItem() {
+        return null;
+    }
+
     protected final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
 
     protected static final String SHOOT_CONTROLLER = "shoot_controller";

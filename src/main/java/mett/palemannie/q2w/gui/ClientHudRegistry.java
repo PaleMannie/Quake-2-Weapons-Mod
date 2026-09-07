@@ -13,5 +13,6 @@ public class ClientHudRegistry {
     @SubscribeEvent
     public static void registerGuiOverlays(RegisterGuiOverlaysEvent event) {
         event.registerAbove(VanillaGuiOverlay.CROSSHAIR.id(), "silencer_shots", SilencerHudOverlay.HUD);
+        event.registerAbove(VanillaGuiOverlay.PLAYER_HEALTH.id(), "weapon_ammo", AmmoHudOverlay.HUD);
     }
 }

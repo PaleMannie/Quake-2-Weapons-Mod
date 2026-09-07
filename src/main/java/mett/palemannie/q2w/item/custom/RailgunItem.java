@@ -15,6 +15,11 @@ import net.minecraft.world.level.Level;
 
 public class RailgunItem extends AbstractQ2Weapon{
 
+    @Override
+    public net.minecraft.world.item.Item getAmmoItem() {
+        return ModItems.SLUG.get();
+    }
+
     public RailgunItem(Properties properties) {
         super(properties, 36, 34);
     }

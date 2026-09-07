@@ -414,8 +414,6 @@ public class ServerPlayHandler {
             serverLevel.sendParticles(ParticleTypes.SMOKE, blockHitPos.x, blockHitPos.y, blockHitPos.z, 8, 0.15d, 0.15d, 0.15d, 0d);
         }
 
-        //TODO: ganzen Railgunsound finden
-
         player.level().playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.RAILGUN_SHOOT.get(), SoundSource.PLAYERS, weaponSoundVolume(player, 1f), 1f);
     }
 

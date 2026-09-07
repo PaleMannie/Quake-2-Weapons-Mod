@@ -1,5 +1,6 @@
 package mett.palemannie.q2w.item.custom;
 
+import mett.palemannie.q2w.item.ModItems;
 import mett.palemannie.q2w.item.client.HandgrenadeRenderer;
 import mett.palemannie.q2w.net.ModMessages;
 import mett.palemannie.q2w.net.custom.WeaponRecoilS2CPacket;
@@ -30,6 +31,12 @@ import java.util.Map;
 import java.util.UUID;
 
 public class HandgrenadeItem extends AbstractWeapon {
+
+    @Override
+    public net.minecraft.world.item.Item getAmmoItem() {
+        return ModItems.GRENADE.get();
+    }
+
 
     public static final int FUSE_TICKS = 84;
 

@@ -16,6 +16,11 @@ import net.minecraft.world.level.Level;
 
 public class ChaingunItem extends AbstractQ2Weapon {
 
+    @Override
+    public net.minecraft.world.item.Item getAmmoItem() {
+        return ModItems.BULLET.get();
+    }
+
     public static final int FIRE_INTERVAL_TICKS = 2;
     public static final int AFTERSPIN_TICKS = 35;
     public static final int STAGE_1_END_TICKS = 10;

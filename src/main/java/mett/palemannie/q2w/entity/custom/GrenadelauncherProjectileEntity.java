@@ -29,7 +29,6 @@ public class GrenadelauncherProjectileEntity extends Projectile {
         return false;
     }
 
-    /// Vanilla minecraft explosion with custom particle effects
     private void quakeExplosion(Level level) {
         if (this.level().isClientSide) return;
 

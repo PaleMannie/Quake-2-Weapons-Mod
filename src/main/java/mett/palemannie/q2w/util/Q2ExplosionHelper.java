@@ -1,15 +1,15 @@
 package mett.palemannie.q2w.util;
 
-import mett.palemannie.q2w.entity.ModEntities;
-import mett.palemannie.q2w.entity.custom.HandgrenadeProjectileEntity;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.ClipContext;
-import net.minecraft.world.phys.*;
+import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.HitResult;
+import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 
 public final class Q2ExplosionHelper {
@@ -105,7 +105,7 @@ public final class Q2ExplosionHelper {
         return hit.getType() == HitResult.Type.MISS;
     }
 
-    private static void applyQ2Knockback(LivingEntity target, Vec3 center, double falloff) {
+    public static void applyQ2Knockback(LivingEntity target, Vec3 center, double falloff) {
 
         Vec3 targetCenter = target.getBoundingBox().getCenter();
         Vec3 dir = targetCenter.subtract(center);

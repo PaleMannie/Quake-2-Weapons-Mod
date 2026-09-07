@@ -16,6 +16,11 @@ import net.minecraft.world.level.Level;
 
 public class HyperblasterItem extends AbstractQ2Weapon {
 
+    @Override
+    public net.minecraft.world.item.Item getAmmoItem() {
+        return ModItems.CELL.get();
+    }
+
     public static final int FIRE_INTERVAL_TICKS = 2;
 
     public static final float DRUM_SPIN_HZ = 1.51f;

@@ -32,6 +32,11 @@ import java.util.UUID;
 
 public class Bfg10kItem extends AbstractWeapon {
 
+    @Override
+    public net.minecraft.world.item.Item getAmmoItem() {
+        return ModItems.CELL.get();
+    }
+
     public static final int WINDUP_TICKS = 16;
 
     public static final int FIRE_SEQUENCE_INTERVAL_TICKS = 50;

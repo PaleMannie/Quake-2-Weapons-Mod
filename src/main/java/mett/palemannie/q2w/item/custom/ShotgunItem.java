@@ -15,6 +15,11 @@ import net.minecraft.world.level.Level;
 
 public class ShotgunItem extends AbstractQ2Weapon{
 
+    @Override
+    public net.minecraft.world.item.Item getAmmoItem() {
+        return ModItems.SHELL.get();
+    }
+
     public ShotgunItem(Properties properties) {
         super(properties, 31, 29);
     }
