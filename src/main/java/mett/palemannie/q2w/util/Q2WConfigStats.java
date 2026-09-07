@@ -2,12 +2,18 @@ package mett.palemannie.q2w.util;
 
 import mett.palemannie.q2w.Q2WConfig;
 import mett.palemannie.q2w.effect.ModEffects;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraftforge.registries.ForgeRegistries;
 
 import javax.annotation.Nullable;
 
 public class Q2WConfigStats {
+
+    private static final ResourceLocation QUAKEWEAPONS_QUAD_DAMAGE =
+            ResourceLocation.fromNamespaceAndPath("quakeweapons", "quad_damage");
 
     public static float BlasterDamage = Q2WConfig.COMMON.blasterDamage.get().floatValue();
     public static float HyperBlasterDamage = Q2WConfig.COMMON.hyperblasterDamage.get().floatValue();
@@ -29,8 +35,13 @@ public class Q2WConfigStats {
     public static float PowershieldDamagePreCellConsumed = Q2WConfig.SERVER.powershieldDamagePreCellConsumed.get().floatValue();
 
     public static float applyQuadDamage(float baseDamage, @Nullable Entity attacker) {
-        if (attacker instanceof LivingEntity livingEntity && livingEntity.hasEffect(ModEffects.QUAD_DAMAGE.get())) {
-            return baseDamage * 4.0F;
+        if (attacker instanceof LivingEntity livingEntity) {
+            // Resolve the optional effect through the registry; Quakeweapons is not required.
+            MobEffect quakeweaponsQuad = ForgeRegistries.MOB_EFFECTS.getValue(QUAKEWEAPONS_QUAD_DAMAGE);
+            if (livingEntity.hasEffect(ModEffects.QUAD_DAMAGE.get())
+                    || (quakeweaponsQuad != null && livingEntity.hasEffect(quakeweaponsQuad))) {
+                return baseDamage * 4.0F;
+            }
         }
 
         return baseDamage;

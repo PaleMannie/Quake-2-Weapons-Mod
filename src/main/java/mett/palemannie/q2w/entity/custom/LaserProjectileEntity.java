@@ -2,9 +2,9 @@ package mett.palemannie.q2w.entity.custom;
 
 import mett.palemannie.q2w.Q2WConfig;
 import mett.palemannie.q2w.block.ModBlocks;
-import mett.palemannie.q2w.effect.ModEffects;
 import mett.palemannie.q2w.sound.ModSounds;
 import mett.palemannie.q2w.util.ModDamageTypes;
+import mett.palemannie.q2w.util.Q2WConfigStats;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.resources.ResourceKey;
@@ -83,7 +83,7 @@ public class LaserProjectileEntity extends Projectile {
         if(pResult.getEntity() instanceof LivingEntity entity){
 
             entity.hurt(source2, Float.MIN_VALUE);
-            entity.hurt(source, (float) (player.hasEffect(ModEffects.QUAD_DAMAGE.get()) ? damage * 4 : damage));
+            entity.hurt(source, Q2WConfigStats.applyQuadDamage((float) damage, player));
         }
     }
 

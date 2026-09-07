@@ -2,7 +2,6 @@ package mett.palemannie.q2w.entity.custom;
 
 import mett.palemannie.q2w.Q2WConfig;
 import mett.palemannie.q2w.block.ModBlocks;
-import mett.palemannie.q2w.effect.ModEffects;
 import mett.palemannie.q2w.sound.ModSounds;
 import mett.palemannie.q2w.util.ModDamageTypes;
 import mett.palemannie.q2w.util.Q2ExplosionHelper;
@@ -212,7 +211,7 @@ public class RocketProjectileEntity extends Projectile {
 
         pResult.getEntity().hurt(level().damageSources().source(DamageTypes.PLAYER_ATTACK, this.getOwner(), this.getOwner()), Float.MIN_VALUE);
         pResult.getEntity().hurt(level().damageSources().source(ModDamageTypes.ROCKETLAUNCHER_DAMAGE, null, null),
-                player.hasEffect(ModEffects.QUAD_DAMAGE.get()) ? (Q2WConfigStats.RocketlauncherDamage * RandomSource.create().nextFloat()/4) * 4 : (Q2WConfigStats.RocketlauncherDamage * RandomSource.create().nextFloat()/4));
+                Q2WConfigStats.applyQuadDamage(Q2WConfigStats.RocketlauncherDamage * RandomSource.create().nextFloat()/4, player));
 
         quakeExplosion(this.level());
 
