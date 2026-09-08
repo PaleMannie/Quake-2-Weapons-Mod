@@ -133,6 +133,7 @@ public class Q2WConfig {
 
         public final ForgeConfigSpec.IntValue powerupSpawnInterval;
         public final ForgeConfigSpec.IntValue powerupSpawnAttempts;
+        public final ForgeConfigSpec.IntValue maxNearbyPowerups;
         public final ForgeConfigSpec.IntValue powerupSpawnSearchRadius;
         public final ForgeConfigSpec.IntValue powerupEffectDuration;
         public final ForgeConfigSpec.IntValue powerupLifetime;
@@ -173,6 +174,10 @@ public class Q2WConfig {
             powerupSpawnSearchRadius = builder
                     .comment("\nSearch distance in blocks along each axis around a randomly chosen spawn candidate.\nThis controls the local search area, not the distance from the player.\nHigher values search more blocks and can significantly increase server workload.")
                     .defineInRange("powerupSpawnSearchRadius", 5, 1, 512);
+
+            maxNearbyPowerups = builder
+                    .comment("Maximum automatically spawned powerups and pickups within 128 blocks of a player. Includes ammo and health. Manually placed pickups do not count. Existing pickups are not removed when lowering this limit.")
+                    .defineInRange("maxNearbyPowerups", 8, 1, Integer.MAX_VALUE);
 
             builder.pop();
 

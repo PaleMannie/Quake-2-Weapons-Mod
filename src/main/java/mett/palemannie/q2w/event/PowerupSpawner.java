@@ -14,6 +14,7 @@ import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -35,6 +36,9 @@ public class PowerupSpawner {
     private static int spawnInterval = 600;
     private static int spawnAttempts = 3;
     private static int searchRadius = 5;
+    private static int maxNearbyPowerups = 16;
+    private static final double NEARBY_RADIUS = 128d;
+    private static final String AUTO_SPAWN_TAG = "Q2WAutomaticPowerup";
     private static boolean debugEnabled = false;
     private static boolean powerupSpawningEnabled = true;
 
@@ -54,28 +58,31 @@ public class PowerupSpawner {
             spawnInterval = Q2WConfig.SERVER.powerupSpawnInterval.get();
             spawnAttempts = Q2WConfig.SERVER.powerupSpawnAttempts.get();
             searchRadius = Q2WConfig.SERVER.powerupSpawnSearchRadius.get();
+            maxNearbyPowerups = Q2WConfig.SERVER.maxNearbyPowerups.get();
             debugEnabled = Q2WConfig.SERVER.powerupDebug.get();
             powerupSpawningEnabled = Q2WConfig.SERVER.enablePowerups.get();
 
             LOGGER.info("[Quake2Weapons] PowerupSpawner config reloaded:");
-            LOGGER.info("interval={} | attempts={} | radius={} | debug={} | enablePowerups={}",
-                    spawnInterval, spawnAttempts, searchRadius, debugEnabled, powerupSpawningEnabled);
+            LOGGER.info("interval={} | attempts={} | radius={} | debug={} | enablePowerups={}, maxNearbyPowerups={}",
+                    spawnInterval, spawnAttempts, searchRadius, debugEnabled, powerupSpawningEnabled, maxNearbyPowerups);
 
         } catch (Exception e) {
             LOGGER.error("[Quake2Weapons] Failed to load config values, using defaults!", e);
             spawnInterval = 600;
             spawnAttempts = 3;
             searchRadius = 5;
+            maxNearbyPowerups = 3;
             debugEnabled = false;
             powerupSpawningEnabled = true;
         }
 
-        LOGGER.info("[Quake2Weapons] Config values after load: powerupSpawnInterval={}, powerupSpawnAttempts={}, powerupSpawnSearchRadius={}, enablePowerups={}, powerupDebug={}",
+        LOGGER.info("[Quake2Weapons] Config values after load: powerupSpawnInterval={}, powerupSpawnAttempts={}, powerupSpawnSearchRadius={}, enablePowerups={}, powerupDebug={}, maxNearbyPowerups={}",
                 Q2WConfig.SERVER.powerupSpawnInterval.get(),
                 Q2WConfig.SERVER.powerupSpawnAttempts.get(),
                 Q2WConfig.SERVER.powerupSpawnSearchRadius.get(),
                 Q2WConfig.SERVER.enablePowerups.get(),
-                Q2WConfig.SERVER.powerupDebug.get());
+                Q2WConfig.SERVER.powerupDebug.get(),
+                Q2WConfig.SERVER.maxNearbyPowerups);
     }
 
     @SubscribeEvent
@@ -113,6 +120,11 @@ public class PowerupSpawner {
 
     private static void trySpawnNearPlayer(ServerLevel level, ServerPlayer player) {
 
+        if (nearbyLimitReached(level, player)) {
+            debug(level, "Nearby automatic pickup limit reached for " + player.getScoreboardName());
+            return;
+        }
+
         RandomSource random = level.random;
 
         int x = player.blockPosition().getX() + Mth.nextInt(random, -128, 128);
@@ -123,9 +135,17 @@ public class PowerupSpawner {
 
         BlockPos candidate = new BlockPos(x, y, z);
 
-        if (tryFindSpawnPos(level, candidate, searchRadius, searchRadius, pos -> {
+        if (tryFindSpawnPos(level, player, candidate, searchRadius, searchRadius, pos -> {
+
+            // Recheck immediately before insertion; earlier players/attempts in this tick count.
+            Vec3 spawnPosition = Vec3.atBottomCenterOf(pos);
+            for (ServerPlayer nearbyPlayer : level.players()) {
+                if (nearbyPlayer.distanceToSqr(spawnPosition) <= NEARBY_RADIUS * NEARBY_RADIUS
+                        && nearbyLimitReached(level, nearbyPlayer)) return;
+            }
 
             Entity entity = randomPowerup(level);
+            entity.getPersistentData().putBoolean(AUTO_SPAWN_TAG, true);
             entity.moveTo(pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5, 0, 0);
 
             if (level.addFreshEntity(entity)) {
@@ -143,12 +163,22 @@ public class PowerupSpawner {
         debug(level, "§cNo valid spawn near " + candidate);
     }
 
-    private static boolean tryFindSpawnPos(ServerLevel level, BlockPos center, int radius, int yRadius, Consumer<BlockPos> onFound) {
+    private static boolean nearbyLimitReached(ServerLevel level, ServerPlayer player) {
+        if (maxNearbyPowerups == 0) return true;
+        return level.getEntities(player, player.getBoundingBox().inflate(NEARBY_RADIUS),
+                entity -> !entity.isRemoved()
+                        && entity.getPersistentData().getBoolean(AUTO_SPAWN_TAG)
+                        && entity.distanceToSqr(player) <= NEARBY_RADIUS * NEARBY_RADIUS)
+                .size() >= maxNearbyPowerups;
+    }
+
+    private static boolean tryFindSpawnPos(ServerLevel level, ServerPlayer player, BlockPos center, int radius, int yRadius, Consumer<BlockPos> onFound) {
 
         for (int dx = -radius; dx <= radius; dx++) {
             for (int dz = -radius; dz <= radius; dz++) {
                 for (int dy = -yRadius; dy <= yRadius; dy++) {
                     BlockPos pos = center.offset(dx, dy, dz);
+                    if (player.distanceToSqr(Vec3.atBottomCenterOf(pos)) > NEARBY_RADIUS * NEARBY_RADIUS) continue;
                     BlockState above = level.getBlockState(pos);
                     BlockState below = level.getBlockState(pos.below());
                     if (above.isAir() && (below.isSolid() || below.isFaceSturdy(level, pos.below(), Direction.UP))) {
