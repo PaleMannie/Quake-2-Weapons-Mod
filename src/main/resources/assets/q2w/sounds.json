@@ -103,7 +103,10 @@
   "handgrenade_start": {
     "subtitle": "sounds.q2w.handgrenade_start",
     "sounds": [
-      "q2w:handgrenade_start"
+      {
+        "name": "q2w:handgrenade_start",
+        "attenuation_distance": 16
+      }
     ]
   },
 
@@ -112,6 +115,7 @@
     "sounds": [
       {
         "name": "q2w:handgrenade_cook",
+        "attenuation_distance": 16,
         "stream": false
       }
     ]

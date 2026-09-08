@@ -33,7 +33,7 @@ public class ModSounds {
 
     public static final RegistryObject<SoundEvent> EXPLOSION = registerSoundEvents("explosion");
 
-    public static final RegistryObject<SoundEvent> HANDGRENADE_START = registerSoundEvents("handgrenade_start");
+    public static final RegistryObject<SoundEvent> HANDGRENADE_START = SOUND_EVENTS.register("handgrenade_start", () -> SoundEvent.createFixedRangeEvent(ResourceLocation.fromNamespaceAndPath(Quake2Weapons.MODID, "handgrenade_start"), 16f));
     public static final RegistryObject<SoundEvent> HANDGRENADE_COOK = registerSoundEvents("handgrenade_cook");
     public static final RegistryObject<SoundEvent> HANDGRENADE_TOSS = registerSoundEvents("handgrenade_toss");
     public static final RegistryObject<SoundEvent> HANDGRENADE_BOUNCE = registerSoundEvents("handgrenade_bounce");

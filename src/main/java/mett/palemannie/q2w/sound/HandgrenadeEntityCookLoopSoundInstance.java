@@ -2,6 +2,7 @@ package mett.palemannie.q2w.sound;
 
 import mett.palemannie.q2w.entity.custom.HandgrenadeProjectileEntity;
 import net.minecraft.client.resources.sounds.AbstractTickableSoundInstance;
+import net.minecraft.client.resources.sounds.SoundInstance;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
@@ -16,6 +17,8 @@ public class HandgrenadeEntityCookLoopSoundInstance extends AbstractTickableSoun
 
         this.grenade = grenade;
 
+        this.relative = false;
+        this.attenuation = SoundInstance.Attenuation.LINEAR;
         this.looping = true;
         this.delay = 0;
         this.volume = 0.8f;
@@ -25,27 +28,24 @@ public class HandgrenadeEntityCookLoopSoundInstance extends AbstractTickableSoun
         this.y = grenade.getY();
         this.z = grenade.getZ();
         this.baseVolume = volume;
+        this.volume = baseVolume;
+    }
+
+    @Override
+    public boolean canStartSilent() {
+        return true;
     }
 
     @Override
     public void tick() {
 
-        if (grenade == null || grenade.isRemoved()) {
+        if (grenade == null || grenade.isRemoved()
+                || grenade.level() != net.minecraft.client.Minecraft.getInstance().level) {
             stop();
             return;
         }
 
-        var minecraft = net.minecraft.client.Minecraft.getInstance();
-
-        if (minecraft.player != null) {
-
-            double distance = minecraft.player.distanceTo(grenade);
-            double maxDistance = 24d;
-
-            float distanceScale = (float) Math.max(0d, 1d - distance / maxDistance);
-
-            this.volume = this.baseVolume * distanceScale;
-        }
+        this.volume = baseVolume;
 
         this.x = grenade.getX();
         this.y = grenade.getY();

@@ -550,5 +550,4 @@ public class Bfg10kProjectileEntity extends Projectile {
                     1, 0d, 0d, 0d, 0d);
         }
     }
-
 }

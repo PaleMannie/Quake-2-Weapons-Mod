@@ -140,7 +140,7 @@ public class ServerPlayHandler {
         serverLevel.addFreshEntity(flash);
     }
 
-    private static void spawnRailgunTrail(ServerLevel serverLevel, ServerPlayer player, Vec3 start, Vec3 end) {
+    private static void spawnRailgunTrail(ServerLevel serverLevel, Vec3 start, Vec3 end) {
 
         Vec3 axis = end.subtract(start);
         double length = axis.length();
@@ -172,13 +172,15 @@ public class ServerPlayHandler {
 
             Vec3 center = start.add(direction.scale(distance));
 
-            serverLevel.sendParticles(player, ParticleTypes.SMOKE, true, center.x, center.y, center.z, 1, 0d, 0d, 0d, 0d);
-
             double angle = index * ANGLE_STEP;
             Vec3 smokeOffset = right.scale(Math.cos(angle) * SMOKE_RADIUS).add(up.scale(Math.sin(angle) * SMOKE_RADIUS));
             Vec3 smokePos = center.add(smokeOffset);
 
-            serverLevel.sendParticles(player, ParticleTypes.END_ROD, true, smokePos.x, smokePos.y, smokePos.z, 1, 0.02d, 0.02d, 0.02d, 0d);
+            // ServerLevel applies the distance check for each point and recipient.
+            for (ServerPlayer viewer : serverLevel.players()) {
+                serverLevel.sendParticles(viewer, ParticleTypes.SMOKE, true, center.x, center.y, center.z, 1, 0d, 0d, 0d, 0d);
+                serverLevel.sendParticles(viewer, ParticleTypes.END_ROD, true, smokePos.x, smokePos.y, smokePos.z, 1, 0.02d, 0.02d, 0.02d, 0d);
+            }
 
             index++;
         }
@@ -395,7 +397,7 @@ public class ServerPlayHandler {
             serverLevel.sendParticles(ParticleTypes.END_ROD, hitPos.x, hitPos.y, hitPos.z, 3, 0.12d, 0.12d, 0.12d, 0.0d);
         }
 
-        spawnRailgunTrail(serverLevel, player, shotStart, endPos);
+        spawnRailgunTrail(serverLevel, shotStart, endPos);
 
         if (blockHit.getType() != HitResult.Type.MISS) {
 

@@ -4,6 +4,7 @@ import mett.palemannie.q2w.gui.ClientSilencerData;
 import mett.palemannie.q2w.item.custom.HandgrenadeItem;
 import mett.palemannie.q2w.util.WeaponAggroHandler;
 import net.minecraft.client.resources.sounds.AbstractTickableSoundInstance;
+import net.minecraft.client.resources.sounds.SoundInstance;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
@@ -22,6 +23,8 @@ public class HandgrenadePlayerCookLoopSoundInstance extends AbstractTickableSoun
 
         this.player = player;
 
+        this.relative = false;
+        this.attenuation = SoundInstance.Attenuation.LINEAR;
         this.looping = true;
         this.delay = 0;
         this.volume = 0.8f;
@@ -44,8 +47,14 @@ public class HandgrenadePlayerCookLoopSoundInstance extends AbstractTickableSoun
     }
 
     @Override
+    public boolean canStartSilent() {
+        return true;
+    }
+
+    @Override
     public void tick() {
-        if (player == null || player.isRemoved()) {
+        if (player == null || player.isRemoved()
+                || player.level() != net.minecraft.client.Minecraft.getInstance().level) {
             stop();
             return;
         }
