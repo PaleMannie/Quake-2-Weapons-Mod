@@ -4,7 +4,8 @@ import mett.palemannie.q2w.Quake2Weapons;
 import mett.palemannie.q2w.item.ModItems;
 import mett.palemannie.q2w.item.custom.HyperblasterItem;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.player.LocalPlayer;
+import net.minecraft.world.entity.player.Player;
+import mett.palemannie.q2w.item.client.WeaponPresentation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.event.TickEvent;
@@ -14,11 +15,11 @@ import net.minecraftforge.fml.common.Mod;
 @Mod.EventBusSubscriber(modid = Quake2Weapons.MODID, value = Dist.CLIENT)
 public class HyperblasterSoundHandler {
 
-    private static HyperblasterFireLoopSoundInstance hyperblasterLoop;
+    private HyperblasterFireLoopSoundInstance hyperblasterLoop;
 
-    private static boolean wasFiring = false;
+    private boolean wasFiring = false;
 
-    private static int fireTicks = 0;
+    private int fireTicks = 0;
 
     @SubscribeEvent
     public static void onClientTick(TickEvent.ClientTickEvent event) {
@@ -28,14 +29,27 @@ public class HyperblasterSoundHandler {
         }
 
         Minecraft minecraft = Minecraft.getInstance();
-        LocalPlayer player = minecraft.player;
-
-        if (player == null) {
-            stopHyperblasterLoop();
-            wasFiring = false;
+        if (minecraft.level == null) {
+            states.values().forEach(state -> state.stopHyperblasterLoop());
+            states.clear();
             return;
         }
+        states.entrySet().removeIf(entry -> {
+            Player player = entry.getKey();
+            if (player.isRemoved() || !player.isAlive() || player.level() != minecraft.level) {
+                entry.getValue().stopHyperblasterLoop();
+                return true;
+            }
+            return false;
+        });
+        for (Player player : minecraft.level.players()) {
+            if (player.isAlive()) states.computeIfAbsent(player, ignored -> new HyperblasterSoundHandler()).tick(player);
+        }
+    }
 
+    private static final java.util.Map<Player, HyperblasterSoundHandler> states = new java.util.HashMap<>();
+
+    private void tick(Player player) {
         boolean firing = isFiringHyperblaster(player);
 
         if (!firing && wasFiring) {
@@ -56,7 +70,7 @@ public class HyperblasterSoundHandler {
         wasFiring = firing;
     }
 
-    private static boolean isFiringHyperblaster(LocalPlayer player) {
+    private boolean isFiringHyperblaster(Player player) {
         ItemStack mainHand = player.getMainHandItem();
 
         boolean usingHyperblaster =
@@ -67,7 +81,7 @@ public class HyperblasterSoundHandler {
         return usingHyperblaster && hasBulletAmmo(player);
     }
 
-    private static void playSpindown(LocalPlayer player) {
+    private void playSpindown(Player player) {
         Minecraft.getInstance().getSoundManager().play(
                 new FollowPlayerOneShotSoundInstance(
                         player,
@@ -78,7 +92,7 @@ public class HyperblasterSoundHandler {
         );
     }
 
-    private static void startHyperblasterLoop(LocalPlayer player) {
+    private void startHyperblasterLoop(Player player) {
         if (hyperblasterLoop != null && !hyperblasterLoop.isStopped()) {
             return;
         }
@@ -91,24 +105,14 @@ public class HyperblasterSoundHandler {
         Minecraft.getInstance().getSoundManager().play(hyperblasterLoop);
     }
 
-    private static void stopHyperblasterLoop() {
+    private void stopHyperblasterLoop() {
         if (hyperblasterLoop != null) {
             hyperblasterLoop.stop();
             hyperblasterLoop = null;
         }
     }
 
-    private static boolean hasBulletAmmo(LocalPlayer player) {
-        if (player.isCreative()) {
-            return true;
-        }
-
-        for (ItemStack stack : player.getInventory().items) {
-            if (stack.is(ModItems.CELL.get())) {
-                return true;
-            }
-        }
-
-        return false;
+    private boolean hasBulletAmmo(Player player) {
+        return WeaponPresentation.hasAmmo(player, ModItems.CELL.get());
     }
 }

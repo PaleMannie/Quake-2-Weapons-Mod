@@ -178,6 +178,20 @@ public abstract class AbstractWeapon extends Item implements GeoItem {
         if (!(level instanceof ServerLevel serverLevel)) return;
         if (!(entity instanceof LivingEntity livingEntity)) return;
 
+        if (selected && entity instanceof net.minecraft.server.level.ServerPlayer player
+                && (this instanceof ChaingunItem || this instanceof HyperblasterItem)) {
+            boolean hasAmmo = player.isCreative();
+            for (ItemStack ammo : player.getInventory().items) {
+                if (ammo.is(getAmmoItem()) && !ammo.isEmpty()) {
+                    hasAmmo = true;
+                    break;
+                }
+            }
+            stack.getOrCreateTag().putBoolean("Q2WHasAmmo", hasAmmo);
+            stack.getOrCreateTag().putBoolean("Q2WSilenced",
+                    mett.palemannie.q2w.util.WeaponAggroHandler.hasSilencerActive(player));
+        }
+
         if (stack.hasTag() && stack.getTag().getBoolean("WasDropped")) {
             hardStopTriggeredAnimations(livingEntity, serverLevel, stack);
             stack.getTag().remove("WasDropped");

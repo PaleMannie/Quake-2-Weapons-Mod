@@ -57,9 +57,9 @@
   "death.attack.q2w.bfg10k_flash": "bfg10k_flash",
   "death.attack.q2w.bfg10k_flash.player": "%1$s couldn't hide from %2$s's BFG",
 
-  "effect.q2w.quad_damage": "Quad Damage",
-  "effect.q2w.invulnerability": "Invulnerability",
-  "effect.q2w.envirosuit": "Enviro-Suit",
+  "effect.q2w.quad_damage_effect": "Quad Damage",
+  "effect.q2w.invuln_effect": "Invulnerability",
+  "effect.q2w.envirosuit_effect": "Enviro-Suit",
 
   "entity.q2w.laser_projectile": "Laser Projectile",
   "entity.q2w.muzzleflash": "Muzzle Flash",

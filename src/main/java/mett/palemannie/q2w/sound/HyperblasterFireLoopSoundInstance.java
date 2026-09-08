@@ -4,7 +4,8 @@ import mett.palemannie.q2w.gui.ClientSilencerData;
 import mett.palemannie.q2w.item.ModItems;
 import mett.palemannie.q2w.item.custom.HyperblasterItem;
 import mett.palemannie.q2w.util.WeaponAggroHandler;
-import net.minecraft.client.player.LocalPlayer;
+import net.minecraft.world.entity.player.Player;
+import mett.palemannie.q2w.item.client.WeaponPresentation;
 import net.minecraft.client.resources.sounds.AbstractTickableSoundInstance;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
@@ -13,10 +14,10 @@ import net.minecraft.world.item.ItemStack;
 
 public class HyperblasterFireLoopSoundInstance extends AbstractTickableSoundInstance {
 
-    private final LocalPlayer player;
+    private final Player player;
     private final float baseVolume;
 
-    public HyperblasterFireLoopSoundInstance(LocalPlayer player, SoundEvent soundEvent) {
+    public HyperblasterFireLoopSoundInstance(Player player, SoundEvent soundEvent) {
         super(soundEvent, SoundSource.PLAYERS, RandomSource.create());
 
         this.player = player;
@@ -35,7 +36,9 @@ public class HyperblasterFireLoopSoundInstance extends AbstractTickableSoundInst
     }
 
     private float getCurrentVolume() {
-        if (ClientSilencerData.hasSilencerActive()) {
+        if (player == net.minecraft.client.Minecraft.getInstance().player
+                ? ClientSilencerData.hasSilencerActive()
+                : player.getMainHandItem().hasTag() && player.getMainHandItem().getTag().getBoolean("Q2WSilenced")) {
             return this.baseVolume * WeaponAggroHandler.SILENCED_WEAPON_VOLUME_MULTIPLIER;
         }
 
@@ -70,17 +73,7 @@ public class HyperblasterFireLoopSoundInstance extends AbstractTickableSoundInst
         this.volume = getCurrentVolume();
     }
 
-    private boolean hasBulletAmmo(LocalPlayer player) {
-        if (player.isCreative()) {
-            return true;
-        }
-
-        for (ItemStack stack : player.getInventory().items) {
-            if (stack.is(ModItems.CELL.get())) {
-                return true;
-            }
-        }
-
-        return false;
+    private boolean hasBulletAmmo(Player player) {
+        return WeaponPresentation.hasAmmo(player, ModItems.CELL.get());
     }
 }

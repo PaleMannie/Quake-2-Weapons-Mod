@@ -4,7 +4,8 @@ import mett.palemannie.q2w.Quake2Weapons;
 import mett.palemannie.q2w.item.ModItems;
 import mett.palemannie.q2w.item.custom.ChaingunItem;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.player.LocalPlayer;
+import net.minecraft.world.entity.player.Player;
+import mett.palemannie.q2w.item.client.WeaponPresentation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.event.TickEvent;
@@ -14,11 +15,11 @@ import net.minecraftforge.fml.common.Mod;
 @Mod.EventBusSubscriber(modid = Quake2Weapons.MODID, value = Dist.CLIENT)
 public class ChaingunSoundHandler {
 
-    private static ChaingunFireLoopSoundInstance chaingunLoop;
+    private ChaingunFireLoopSoundInstance chaingunLoop;
 
-    private static boolean wasFiring = false;
+    private boolean wasFiring = false;
 
-    private static int fireTicks = 0;
+    private int fireTicks = 0;
     private static final int LOOP_START_DELAY_TICKS = 17;
 
     @SubscribeEvent
@@ -29,14 +30,27 @@ public class ChaingunSoundHandler {
         }
 
         Minecraft minecraft = Minecraft.getInstance();
-        LocalPlayer player = minecraft.player;
-
-        if (player == null) {
-            stopChaingunLoop();
-            wasFiring = false;
+        if (minecraft.level == null) {
+            states.values().forEach(state -> state.stopChaingunLoop());
+            states.clear();
             return;
         }
+        states.entrySet().removeIf(entry -> {
+            Player player = entry.getKey();
+            if (player.isRemoved() || !player.isAlive() || player.level() != minecraft.level) {
+                entry.getValue().stopChaingunLoop();
+                return true;
+            }
+            return false;
+        });
+        for (Player player : minecraft.level.players()) {
+            if (player.isAlive()) states.computeIfAbsent(player, ignored -> new ChaingunSoundHandler()).tick(player);
+        }
+    }
 
+    private static final java.util.Map<Player, ChaingunSoundHandler> states = new java.util.HashMap<>();
+
+    private void tick(Player player) {
         boolean firing = isFiringChaingun(player);
 
         if (firing && !wasFiring) {
@@ -64,7 +78,7 @@ public class ChaingunSoundHandler {
         wasFiring = firing;
     }
 
-    private static boolean isFiringChaingun(LocalPlayer player) {
+    private boolean isFiringChaingun(Player player) {
         ItemStack mainHand = player.getMainHandItem();
 
         boolean usingChaingun =
@@ -75,7 +89,7 @@ public class ChaingunSoundHandler {
         return usingChaingun && hasBulletAmmo(player);
     }
 
-    private static void playSpinup(LocalPlayer player) {
+    private void playSpinup(Player player) {
         Minecraft.getInstance().getSoundManager().play(
                 new FollowPlayerOneShotSoundInstance(
                         player,
@@ -86,7 +100,7 @@ public class ChaingunSoundHandler {
         );
     }
 
-    private static void playSpindown(LocalPlayer player) {
+    private void playSpindown(Player player) {
         Minecraft.getInstance().getSoundManager().play(
                 new FollowPlayerOneShotSoundInstance(
                         player,
@@ -97,7 +111,7 @@ public class ChaingunSoundHandler {
         );
     }
 
-    private static void startChaingunLoop(LocalPlayer player) {
+    private void startChaingunLoop(Player player) {
         if (chaingunLoop != null && !chaingunLoop.isStopped()) {
             return;
         }
@@ -110,24 +124,14 @@ public class ChaingunSoundHandler {
         Minecraft.getInstance().getSoundManager().play(chaingunLoop);
     }
 
-    private static void stopChaingunLoop() {
+    private void stopChaingunLoop() {
         if (chaingunLoop != null) {
             chaingunLoop.stop();
             chaingunLoop = null;
         }
     }
 
-    private static boolean hasBulletAmmo(LocalPlayer player) {
-        if (player.isCreative()) {
-            return true;
-        }
-
-        for (ItemStack stack : player.getInventory().items) {
-            if (stack.is(ModItems.BULLET.get())) {
-                return true;
-            }
-        }
-
-        return false;
+    private boolean hasBulletAmmo(Player player) {
+        return WeaponPresentation.hasAmmo(player, ModItems.BULLET.get());
     }
 }

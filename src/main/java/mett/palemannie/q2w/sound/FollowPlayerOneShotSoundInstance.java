@@ -1,6 +1,6 @@
 package mett.palemannie.q2w.sound;
 
-import net.minecraft.client.player.LocalPlayer;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.client.resources.sounds.AbstractTickableSoundInstance;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
@@ -8,9 +8,9 @@ import net.minecraft.util.RandomSource;
 
 public class FollowPlayerOneShotSoundInstance extends AbstractTickableSoundInstance {
 
-    private final LocalPlayer player;
+    private final Player player;
 
-    public FollowPlayerOneShotSoundInstance(LocalPlayer player, SoundEvent soundEvent, float volume, float pitch) {
+    public FollowPlayerOneShotSoundInstance(Player player, SoundEvent soundEvent, float volume, float pitch) {
         super(soundEvent, SoundSource.PLAYERS, RandomSource.create());
 
         this.player = player;

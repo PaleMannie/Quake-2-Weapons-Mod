@@ -57,9 +57,9 @@
   "death.attack.q2w.bfg10k_flash": "bfg10k_flash",
   "death.attack.q2w.bfg10k_flash.player": "%1$s konnte sich nicht vor %2$s's BFG verstecken",
 
-  "effect.q2w.quad_damage": "Vierfacher Schaden",
-  "effect.q2w.invulnerability": "Unverwundbarkeit",
-  "effect.q2w.envirosuit": "Schutzanzug",
+  "effect.q2w.quad_damage_effect": "Vierfacher Schaden",
+  "effect.q2w.invuln_effect": "Unverwundbarkeit",
+  "effect.q2w.envirosuit_effect": "Schutzanzug",
 
   "entity.q2w.laser_projectile": "Laserprojektil",
   "entity.q2w.muzzleflash": "Mündungsfeuer",
