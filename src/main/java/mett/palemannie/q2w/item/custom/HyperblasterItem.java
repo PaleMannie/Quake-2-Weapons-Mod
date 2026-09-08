@@ -102,9 +102,9 @@ public class HyperblasterItem extends AbstractQ2Weapon {
 
         ServerPlayHandler.handleHyperblasterShoot(player);
         ModMessages.sendToPlayer(new WeaponRecoilS2CPacket(
-                player.getRandom().nextBoolean() ? 0.15f : -0.15f,
-                player.getRandom().nextBoolean() ? 0.15f : -0.15f,
-                player.getRandom().nextBoolean() ? 0.15f : -0.15f), player);
+                player.getRandom().nextBoolean() ? 0.2f : -0.2f,
+                player.getRandom().nextBoolean() ? 0.2f : -0.2f,
+                player.getRandom().nextBoolean() ? 0.2f : -0.2f), player);
     }
     @Override
     protected void afterShooting(ItemStack stack, Level level, LivingEntity livingEntity, int timeCharged) {

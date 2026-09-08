@@ -8,6 +8,7 @@ import mett.palemannie.q2w.util.ModDamageTypes;
 import mett.palemannie.q2w.util.Q2ExplosionHelper;
 import mett.palemannie.q2w.util.Q2WConfigStats;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -20,6 +21,7 @@ import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.entity.projectile.ProjectileUtil;
 import net.minecraft.world.level.ClipContext;
@@ -268,13 +270,22 @@ public class Bfg10kProjectileEntity extends Projectile {
         }
     }
 
+    private static boolean isEligibleTarget(Entity entity) {
+        return entity.isAlive() && !entity.isSpectator()
+                && !(entity instanceof Player player && player.isCreative());
+    }
+
+    @Override
+    protected boolean canHitEntity(Entity entity) {
+        return isEligibleTarget(entity) && super.canHitEntity(entity);
+    }
+
     private boolean isValidLaserTarget(LivingEntity entity) {
 
         Entity owner = this.getOwner();
 
-        return entity.isAlive()
+        return isEligibleTarget(entity)
                 && entity != owner
-                && !entity.isSpectator()
                 && entity.isPickable();
     }
 
@@ -332,7 +343,7 @@ public class Bfg10kProjectileEntity extends Projectile {
             return;
         }
 
-        if (directTarget instanceof LivingEntity livingTarget) {
+        if (directTarget instanceof LivingEntity livingTarget && isEligibleTarget(livingTarget)) {
 
             livingTarget.hurt(level.damageSources().source(DamageTypes.PLAYER_ATTACK, this.getOwner(), this.getOwner()), Float.MIN_VALUE);
             livingTarget.hurt(level.damageSources().source(ModDamageTypes.BFG10K_DAMAGE, null, null), Q2WConfigStats.applyQuadDamage(DIRECT_BLAST_DAMAGE, this.getOwner()));
@@ -378,7 +389,7 @@ public class Bfg10kProjectileEntity extends Projectile {
 
         DamageSource bfgSource = level.damageSources().source(ModDamageTypes.BFG10K_DAMAGE, this, null);
 
-        for (LivingEntity entity : level.getEntitiesOfClass(LivingEntity.class, area, LivingEntity::isAlive)) {
+        for (LivingEntity entity : level.getEntitiesOfClass(LivingEntity.class, area, Bfg10kProjectileEntity::isEligibleTarget)) {
 
             if (entity == directTarget) {
                 continue;
@@ -457,7 +468,7 @@ public class Bfg10kProjectileEntity extends Projectile {
         DamageSource source = level.damageSources().source(DamageTypes.PLAYER_ATTACK, this.getOwner(), this.getOwner());
         DamageSource source2 = level.damageSources().source(ModDamageTypes.BFG10K_FLASH_DAMAGE, null, null);
 
-        for (LivingEntity entity : level.getEntitiesOfClass(LivingEntity.class, area, LivingEntity::isAlive)) {
+        for (LivingEntity entity : level.getEntitiesOfClass(LivingEntity.class, area, Bfg10kProjectileEntity::isEligibleTarget)) {
 
             if (entity == this.getOwner()) {
                 continue;
@@ -515,23 +526,29 @@ public class Bfg10kProjectileEntity extends Projectile {
         for (double d = 0d; d <= length; d += STEP) {
             Vec3 pos = start.add(dir.scale(d));
 
-            level.sendParticles((ServerPlayer) this.getOwner(), ModParticles.BFG_LASER_PARTICLE.get(),true, pos.x, pos.y, pos.z,
-                    1, 0d, 0d, 0d, 0d);
+            sendBfgParticles(level, ModParticles.BFG_LASER_PARTICLE.get(), pos);
         }
     }
 
     private void spawnExplosionFrameParticles(ServerLevel level) {
         Vec3 pos = this.position();
 
-        level.sendParticles((ServerPlayer) this.getOwner(), ModParticles.BFG_EXPLOSION_PARTICLE.get(), true, pos.x, pos.y, pos.z,
-                1, 0d, 0d, 0d, 0d);
+        sendBfgParticles(level, ModParticles.BFG_EXPLOSION_PARTICLE.get(), pos);
     }
 
     private void spawnBfgEffectHitParticles(ServerLevel level, LivingEntity entity) {
 
         Vec3 pos = entity.getBoundingBox().getCenter();
 
-        level.sendParticles((ServerPlayer) this.getOwner(), ModParticles.BFG_FLASH_PARTICLE.get(), true, pos.x, pos.y, pos.z,
-                1, 0d, 0d, 0d, 0d);
+        sendBfgParticles(level, ModParticles.BFG_FLASH_PARTICLE.get(), pos);
     }
+
+    private static void sendBfgParticles(ServerLevel level, ParticleOptions particle, Vec3 pos) {
+        // Preserve long-distance visibility; ServerLevel checks each recipient's distance.
+        for (ServerPlayer viewer : level.players()) {
+            level.sendParticles(viewer, particle, true, pos.x, pos.y, pos.z,
+                    1, 0d, 0d, 0d, 0d);
+        }
+    }
+
 }

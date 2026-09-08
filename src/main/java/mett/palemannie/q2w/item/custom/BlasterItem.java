@@ -78,9 +78,9 @@ public class BlasterItem extends AbstractQ2Weapon {
 
         ServerPlayHandler.handleBlasterShoot(player);
         ModMessages.sendToPlayer(new WeaponRecoilS2CPacket(
-                2f,
-                0f,
-                player.getRandom().nextBoolean() ? 0.25f : -0.25f), player);
+                2f,                                                   //pitch
+                0f,                                                            //roll
+                player.getRandom().nextBoolean() ? 0.25f : -0.25f), player);   //yaw
 
     }
 

@@ -97,7 +97,7 @@ public class GrenadelauncherItem extends AbstractQ2Weapon{
 
         ServerPlayHandler.handleGrenadeLauncherShoot(player);
         ModMessages.sendToPlayer(new WeaponRecoilS2CPacket(
-                3f,
+                4f,
                 0f,
                 player.getRandom().nextBoolean() ? 0.33f : -0.33f), player);
     }

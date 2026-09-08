@@ -95,7 +95,7 @@ public class ShotgunItem extends AbstractQ2Weapon{
 
         ServerPlayHandler.handleShotgunShoot(player);
         ModMessages.sendToPlayer(new WeaponRecoilS2CPacket(
-                2f,
+                3f,
                 0f,
                 player.getRandom().nextBoolean() ? 0.33f : -0.33f), player);
     }
