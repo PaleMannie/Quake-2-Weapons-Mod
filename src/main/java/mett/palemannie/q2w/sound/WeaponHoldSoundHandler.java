@@ -4,88 +4,59 @@ import mett.palemannie.q2w.Quake2Weapons;
 import mett.palemannie.q2w.item.custom.Bfg10kItem;
 import mett.palemannie.q2w.item.custom.RailgunItem;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.player.LocalPlayer;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @Mod.EventBusSubscriber(modid = Quake2Weapons.MODID, value = Dist.CLIENT)
 public class WeaponHoldSoundHandler {
 
-    private static WeaponHoldLoopSoundInstance railgunLoop;
-    private static WeaponHoldLoopSoundInstance bfg10kLoop;
+    private static final Map<Player, WeaponHoldLoopSoundInstance> loops = new HashMap<>();
 
     @SubscribeEvent
     public static void onClientTick(TickEvent.ClientTickEvent event) {
-
-        if (event.phase != TickEvent.Phase.END) { return; }
+        if (event.phase != TickEvent.Phase.END) return;
 
         Minecraft minecraft = Minecraft.getInstance();
-        LocalPlayer player = minecraft.player;
-
-        if (player == null) {
-
-            stopRailgunLoop();
-            stopBfg10kLoop();
+        if (minecraft.level == null || minecraft.player == null) {
+            loops.values().forEach(WeaponHoldLoopSoundInstance::stop);
+            loops.clear();
             return;
         }
 
-        ItemStack mainHand = player.getMainHandItem();
-        Item heldItem = mainHand.getItem();
+        // Remove old entities as well as old weapons, including across respawns/world changes.
+        loops.entrySet().removeIf(entry -> {
+            Player player = entry.getKey();
+            WeaponHoldLoopSoundInstance sound = entry.getValue();
+            if (player.level() != minecraft.level || !minecraft.level.players().contains(player)
+                    || !sound.isValid() || sound.isStopped()) {
+                sound.stop();
+                return true;
+            }
+            return false;
+        });
 
-        if (heldItem instanceof RailgunItem) {
+        for (Player player : minecraft.level.players()) {
+            if (!player.isAlive() || player.isRemoved() || player.isSpectator() || loops.containsKey(player)) continue;
 
-            startRailgunLoop(player, heldItem);
-        } else {
+            Item heldItem = player.getMainHandItem().getItem();
+            WeaponHoldLoopSoundInstance sound;
+            if (heldItem instanceof RailgunItem) {
+                sound = new WeaponHoldLoopSoundInstance(player, heldItem, ModSounds.RAILGUN_HUM.get(), 0.55f, 1f);
+            } else if (heldItem instanceof Bfg10kItem) {
+                sound = new WeaponHoldLoopSoundInstance(player, heldItem, ModSounds.BFG10K_HUM.get(), 0.65f, 1f);
+            } else {
+                continue;
+            }
 
-            stopRailgunLoop();
-        }
-
-        if (heldItem instanceof Bfg10kItem) {
-
-            startBfg10kLoop(player, heldItem);
-        } else {
-
-            stopBfg10kLoop();
-        }
-    }
-
-    private static void startRailgunLoop(LocalPlayer player, Item heldItem) {
-
-        if (railgunLoop != null && !railgunLoop.isStopped()) { return; }
-
-        railgunLoop = new WeaponHoldLoopSoundInstance(player, heldItem, ModSounds.RAILGUN_HUM.get(), 0.55f, 1f);
-
-        Minecraft.getInstance().getSoundManager().play(railgunLoop);
-    }
-
-    private static void stopRailgunLoop() {
-
-        if (railgunLoop != null) {
-
-            railgunLoop.stop();
-            railgunLoop = null;
-        }
-    }
-
-    private static void startBfg10kLoop(LocalPlayer player, Item heldItem) {
-
-        if (bfg10kLoop != null && !bfg10kLoop.isStopped()) { return; }
-
-        bfg10kLoop = new WeaponHoldLoopSoundInstance(player, heldItem, ModSounds.BFG10K_HUM.get(), 0.65f, 1f);
-
-        Minecraft.getInstance().getSoundManager().play(bfg10kLoop);
-    }
-
-    private static void stopBfg10kLoop() {
-
-        if (bfg10kLoop != null) {
-
-            bfg10kLoop.stop();
-            bfg10kLoop = null;
+            loops.put(player, sound);
+            minecraft.getSoundManager().play(sound);
         }
     }
 }

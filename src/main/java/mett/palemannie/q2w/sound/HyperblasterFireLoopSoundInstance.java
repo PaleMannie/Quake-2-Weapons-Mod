@@ -7,6 +7,7 @@ import mett.palemannie.q2w.util.WeaponAggroHandler;
 import net.minecraft.world.entity.player.Player;
 import mett.palemannie.q2w.item.client.WeaponPresentation;
 import net.minecraft.client.resources.sounds.AbstractTickableSoundInstance;
+import net.minecraft.client.resources.sounds.SoundInstance;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
@@ -22,6 +23,8 @@ public class HyperblasterFireLoopSoundInstance extends AbstractTickableSoundInst
 
         this.player = player;
 
+        this.relative = false;
+        this.attenuation = SoundInstance.Attenuation.NONE;
         this.looping = true;
         this.delay = 0;
         this.volume = 0.75f;
@@ -39,10 +42,16 @@ public class HyperblasterFireLoopSoundInstance extends AbstractTickableSoundInst
         if (player == net.minecraft.client.Minecraft.getInstance().player
                 ? ClientSilencerData.hasSilencerActive()
                 : player.getMainHandItem().hasTag() && player.getMainHandItem().getTag().getBoolean("Q2WSilenced")) {
-            return this.baseVolume * WeaponAggroHandler.SILENCED_WEAPON_VOLUME_MULTIPLIER;
+            return WeaponSoundRange.volume(player, this.baseVolume * WeaponAggroHandler.SILENCED_WEAPON_VOLUME_MULTIPLIER, WeaponSoundRange.BLOCKS);
         }
 
-        return this.baseVolume;
+        return WeaponSoundRange.volume(player, this.baseVolume, WeaponSoundRange.BLOCKS);
+    }
+
+    @Override
+    public boolean canStartSilent() {
+        // Keep the loop ticking outside its radius so approaching listeners hear it again.
+        return true;
     }
 
     @Override

@@ -188,6 +188,11 @@ public abstract class AbstractWeapon extends Item implements GeoItem {
                 }
             }
             stack.getOrCreateTag().putBoolean("Q2WHasAmmo", hasAmmo);
+        }
+
+        if (selected && entity instanceof net.minecraft.server.level.ServerPlayer player
+                && (this instanceof ChaingunItem || this instanceof HyperblasterItem
+                    || this instanceof RailgunItem || this instanceof Bfg10kItem)) {
             stack.getOrCreateTag().putBoolean("Q2WSilenced",
                     mett.palemannie.q2w.util.WeaponAggroHandler.hasSilencerActive(player));
         }

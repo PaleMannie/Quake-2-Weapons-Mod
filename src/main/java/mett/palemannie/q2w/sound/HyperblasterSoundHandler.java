@@ -87,7 +87,8 @@ public class HyperblasterSoundHandler {
                         player,
                         ModSounds.HYPERBLASTER_SPINDOWN.get(),
                         0.85f,
-                        1f
+                        1f,
+                        WeaponSoundRange.BLOCKS
                 )
         );
     }
