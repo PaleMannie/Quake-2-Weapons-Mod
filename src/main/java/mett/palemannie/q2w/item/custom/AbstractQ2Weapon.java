@@ -1,8 +1,13 @@
 package mett.palemannie.q2w.item.custom;
 
 import mett.palemannie.q2w.util.ServerPlayHandler;
+import mett.palemannie.q2w.util.WeaponRefireClock;
+import java.util.Map;
+import java.util.WeakHashMap;
 import mett.palemannie.q2w.util.WeaponAggroHandler;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -13,6 +18,43 @@ import org.jetbrains.annotations.Nullable;
 
 
 public abstract class AbstractQ2Weapon extends AbstractWeapon {
+
+    private static final Map<ServerPlayer, WeaponRefireClock<AbstractQ2Weapon>> REFIRE_CLOCKS = new WeakHashMap<>();
+
+    private record SpinningUse(AbstractQ2Weapon weapon, ItemStack stack, int slot) {}
+    private static final Map<Player, SpinningUse> SPINNING_USES = new WeakHashMap<>();
+
+    private boolean requiresSpindown() {
+        return this instanceof ChaingunItem || this instanceof HyperblasterItem;
+    }
+
+    public static void checkSpinningWeaponSwitch(Player player) {
+        SpinningUse active = SPINNING_USES.get(player);
+        if (active == null) return;
+        if (!player.isUsingItem() || player.getInventory().selected != active.slot()
+                || player.getMainHandItem().getItem() != active.weapon()) {
+            // Remove first so release/cleanup cannot start the cooldown a second time.
+            SPINNING_USES.remove(player);
+            player.getCooldowns().addCooldown(active.weapon(), active.weapon().getReleaseCooldownTicks());
+            active.weapon().afterShooting(active.stack(), player.level(), player, 0);
+            if (player.getUseItem() == active.stack()) player.stopUsingItem();
+        }
+    }
+
+    @Override
+    public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
+        // Check before accepting a new use, even if the slot-change packet arrived this tick.
+        if (!level.isClientSide) checkSpinningWeaponSwitch(player);
+        if (player.getCooldowns().isOnCooldown(this)) {
+            return InteractionResultHolder.fail(player.getItemInHand(hand));
+        }
+        var result = super.use(level, player, hand);
+        if (!level.isClientSide && requiresSpindown() && player.isUsingItem()
+                && player.getUseItem() == player.getItemInHand(hand)) {
+            SPINNING_USES.put(player, new SpinningUse(this, player.getItemInHand(hand), player.getInventory().selected));
+        }
+        return result;
+    }
 
     private final int fireIntervalTicks;
     private final int releaseCooldownTicks;
@@ -30,6 +72,17 @@ public abstract class AbstractQ2Weapon extends AbstractWeapon {
     @Override
     protected int getReleaseCooldownTicks() {
         return this.releaseCooldownTicks;
+    }
+
+    @Override
+    public void releaseUsing(ItemStack stack, Level level, LivingEntity user, int timeCharged) {
+        // Spinning weapons must finish their run-down before the same weapon type can restart.
+        // Vanilla cooldowns are per player and item type, so duplicate stacks share this lock.
+        if (requiresSpindown() && user instanceof Player player) {
+            SPINNING_USES.remove(player);
+            player.getCooldowns().addCooldown(this, getReleaseCooldownTicks());
+        }
+        afterShooting(stack, level, user, timeCharged);
     }
 
     @Nullable
@@ -55,7 +108,9 @@ public abstract class AbstractQ2Weapon extends AbstractWeapon {
     }
 
     protected boolean shouldAttemptFire(ServerLevel level, ServerPlayer player, ItemStack stack, int useTicks) {
-        return useTicks % fireIntervalTicks() == 0;
+        if (player.getCooldowns().isOnCooldown(this)) return false;
+        return REFIRE_CLOCKS.computeIfAbsent(player, ignored -> new WeaponRefireClock<>())
+                .tryFire(this, player.getServer().getTickCount(), fireIntervalTicks());
     }
 
     protected abstract void fireWeapon(ServerLevel level, ServerPlayer player, ItemStack stack, int useTicks);
@@ -64,6 +119,9 @@ public abstract class AbstractQ2Weapon extends AbstractWeapon {
     protected final void executeWeaponFire(Level level, LivingEntity user, ItemStack stack, int remainingUseDuration) {
         if (!(level instanceof ServerLevel serverLevel)) return;
         if (!(user instanceof ServerPlayer serverPlayer)) return;
+
+        checkSpinningWeaponSwitch(serverPlayer);
+        if (!serverPlayer.isUsingItem() || serverPlayer.getCooldowns().isOnCooldown(this)) return;
 
         int useTicks = getUseDuration(stack) - remainingUseDuration;
 
