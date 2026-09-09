@@ -164,7 +164,7 @@ public abstract class AbstractWeapon extends Item implements GeoItem {
 
         int releaseCooldown = getReleaseCooldownTicks();
 
-        if (releaseCooldown > 0 && livingEntity instanceof Player player) {
+        if (livingEntity instanceof Player player) {
             player.getCooldowns().addCooldown(this, releaseCooldown);
         }
 
