@@ -22,13 +22,6 @@ public class ModCreativeModeTabs {
                     .title(Component.translatable("q2w.creativetab.q2w_tab"))
                     .displayItems((pParameters, pOutput) -> {
 
-                        pOutput.accept(ModItems.SHELL.get());
-                        pOutput.accept(ModItems.BULLET.get());
-                        pOutput.accept(ModItems.GRENADE.get());
-                        pOutput.accept(ModItems.ROCKET.get());
-                        pOutput.accept(ModItems.CELL.get());
-                        pOutput.accept(ModItems.SLUG.get());
-
                         /// Weapons sorted in gameplay order
                         pOutput.accept(ModItems.BLASTER.get());
                         pOutput.accept(ModItems.SHOTGUN.get());
@@ -40,6 +33,13 @@ public class ModCreativeModeTabs {
                         pOutput.accept(ModItems.HYPERBLASTER.get());
                         pOutput.accept(ModItems.RAILGUN.get());
                         pOutput.accept(ModItems.BFG10K.get());
+
+                        pOutput.accept(ModItems.SHELL.get());
+                        pOutput.accept(ModItems.BULLET.get());
+                        pOutput.accept(ModItems.GRENADE.get());
+                        pOutput.accept(ModItems.ROCKET.get());
+                        pOutput.accept(ModItems.CELL.get());
+                        pOutput.accept(ModItems.SLUG.get());
 
                         pOutput.accept(ModItems.QUAD_DAMAGE_ITEM.get());
                         pOutput.accept(ModItems.INVULN_ITEM.get());

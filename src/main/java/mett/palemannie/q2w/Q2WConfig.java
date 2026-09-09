@@ -177,7 +177,7 @@ public class Q2WConfig {
 
             maxNearbyPowerups = builder
                     .comment("Maximum automatically spawned powerups and pickups within 128 blocks of a player. Includes ammo and health. Manually placed pickups do not count. Existing pickups are not removed when lowering this limit.")
-                    .defineInRange("maxNearbyPowerups", 8, 1, Integer.MAX_VALUE);
+                    .defineInRange("maxNearbyPowerups", 4, 1, Integer.MAX_VALUE);
 
             builder.pop();
 
