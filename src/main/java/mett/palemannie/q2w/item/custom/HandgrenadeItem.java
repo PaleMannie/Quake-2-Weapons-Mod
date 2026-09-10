@@ -98,8 +98,8 @@ public class HandgrenadeItem extends AbstractWeapon {
     public static final int THROW_PROJECTILE_DELAY_TICKS = 4;
 
     private static final int RELEASE_COOLDOWN_TICKS = 30;
-    private static final float MIN_THROW_VELOCITY = 0.55f;
 
+    private static final float MIN_THROW_VELOCITY = 0.65f;
     private static final float MAX_THROW_VELOCITY = 1.1f;
 
     private static final String HANDGRENADE_CONTROLLER = "handgrenade_controller";
