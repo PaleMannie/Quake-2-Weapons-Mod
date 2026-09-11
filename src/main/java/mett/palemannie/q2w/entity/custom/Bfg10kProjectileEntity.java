@@ -70,17 +70,17 @@ public class Bfg10kProjectileEntity extends Projectile {
         this.noPhysics = false;
     }
 
-    @Override
-    protected void defineSynchedData() {
-        this.entityData.define(EXPLODING, false);
-    }
-
     public boolean isExploding() {
         return this.entityData.get(EXPLODING);
     }
 
     private void setExploding(boolean exploding) {
         this.entityData.set(EXPLODING, exploding);
+    }
+
+    @Override
+    protected void defineSynchedData(SynchedEntityData.Builder pBuilder) {
+        this.entityData.define(EXPLODING, false);
     }
 
     @Override
@@ -117,7 +117,7 @@ public class Bfg10kProjectileEntity extends Projectile {
 
     private void cleanupLight() {
 
-        if (this.level().isClientSide) {
+        if (this.level().isClientSide()) {
             return;
         }
 
@@ -156,7 +156,7 @@ public class Bfg10kProjectileEntity extends Projectile {
     public void tick() {
         super.tick();
 
-        if (this.level().isClientSide) {
+        if (this.level().isClientSide()) {
             return;
         }
 
@@ -213,7 +213,7 @@ public class Bfg10kProjectileEntity extends Projectile {
             return;
         }
 
-        if (!this.level().isClientSide && Q2WConfig.COMMON.enableProjectileTrailLight.get()) {
+        if (!this.level().isClientSide() && Q2WConfig.COMMON.enableProjectileTrailLight.get()) {
             if (this.tickCount % 2 == 0) {
                 cleanupLight();
                 tryPlaceLight();
@@ -322,7 +322,7 @@ public class Bfg10kProjectileEntity extends Projectile {
 
         Vec3 motionBefore = target.getDeltaMovement();
 
-        boolean hurt = target.hurt(damageSource, damage);
+        boolean hurt = target.hurtServer(damageSource, damage);
 
         if (hurt) {
 

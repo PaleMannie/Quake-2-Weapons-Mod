@@ -178,8 +178,8 @@ public class ServerPlayHandler {
 
             // ServerLevel applies the distance check for each point and recipient.
             for (ServerPlayer viewer : serverLevel.players()) {
-                serverLevel.sendParticles(viewer, ParticleTypes.SMOKE, true, center.x, center.y, center.z, 1, 0d, 0d, 0d, 0d);
-                serverLevel.sendParticles(viewer, ParticleTypes.END_ROD, true, smokePos.x, smokePos.y, smokePos.z, 1, 0.02d, 0.02d, 0.02d, 0d);
+                serverLevel.sendParticles(ParticleTypes.SMOKE, true, true, center.x, center.y, center.z, 1, 0d, 0d, 0d, 0d);
+                serverLevel.sendParticles(ParticleTypes.END_ROD, true, true, smokePos.x, smokePos.y, smokePos.z, 1, 0.02d, 0.02d, 0.02d, 0d);
             }
 
             index++;
@@ -208,7 +208,7 @@ public class ServerPlayHandler {
 
         Vec3 motionBefore = target.getDeltaMovement();
 
-        boolean hurt = target.hurt(damageSource, damage);
+        boolean hurt = target.hurtServer(target.level().getServer().getLevel(target.level().dimension()),damageSource, damage);
 
         if (hurt) {
 
@@ -227,7 +227,7 @@ public class ServerPlayHandler {
 
     public static void handleMachinegunShoot(ServerPlayer player) {
 
-        ServerLevel serverLevel = player.serverLevel();
+        ServerLevel serverLevel = player.level().getServer().getLevel(player.level().dimension());
 
         final double RANGE = 96d;
         final double INACCURACY_DEGREES = 2f;
@@ -259,16 +259,16 @@ public class ServerPlayHandler {
 
             if (Q2WConfig.COMMON.enableGore.get()) {
 
-                serverLevel.sendParticles(player, ParticleTypes.LANDING_LAVA, true, hitPos.x, hitPos.y, hitPos.z, 1, 0.25d, 0.25d, 0.25d, 0.0d);
+                serverLevel.sendParticles(ParticleTypes.LANDING_LAVA, true, true, hitPos.x, hitPos.y, hitPos.z, 1, 0.25d, 0.25d, 0.25d, 0.0d);
             }
 
-            serverLevel.sendParticles(player, ParticleTypes.SMOKE, true, hitPos.x, hitPos.y, hitPos.z, 1, 0.05d, 0.05d, 0.05d, 0.0d);
+            serverLevel.sendParticles(ParticleTypes.SMOKE, true, true, hitPos.x, hitPos.y, hitPos.z, 1, 0.05d, 0.05d, 0.05d, 0.0d);
             serverLevel.playSound(null, hitPos.x, hitPos.y, hitPos.z, ModSounds.BULLET_HIT.get(), SoundSource.NEUTRAL, 0.5f, 1f);
 
         } else if (blockHit.getType() != HitResult.Type.MISS) {
 
             Vec3 hitPos = blockHit.getLocation();
-            serverLevel.sendParticles(player, ParticleTypes.SMOKE, true, hitPos.x, hitPos.y, hitPos.z, 1, 0.05d, 0.05d, 0.05d, 0.0d);
+            serverLevel.sendParticles(ParticleTypes.SMOKE, true, true, hitPos.x, hitPos.y, hitPos.z, 1, 0.05d, 0.05d, 0.05d, 0.0d);
             player.level().playSound(null, hitPos.x, hitPos.y, hitPos.z, ModSounds.BULLET_HIT.get(), SoundSource.NEUTRAL, 0.5f, 1f);
         }
 
@@ -279,7 +279,7 @@ public class ServerPlayHandler {
 
     public static void handleChaingunShoot(ServerPlayer player){
 
-        ServerLevel serverLevel = player.serverLevel();
+        ServerLevel serverLevel = player.level().getServer().getLevel(player.level().dimension());
 
         final double RANGE = 96d;
         final double INACCURACY_DEGREES = 4f;
@@ -311,16 +311,16 @@ public class ServerPlayHandler {
 
             if (Q2WConfig.COMMON.enableGore.get()) {
 
-                serverLevel.sendParticles(player, ParticleTypes.LANDING_LAVA, true, hitPos.x, hitPos.y, hitPos.z, 1, 0.25d, 0.25d, 0.25d, 0.0d);
+                serverLevel.sendParticles(ParticleTypes.LANDING_LAVA, true, true, hitPos.x, hitPos.y, hitPos.z, 1, 0.25d, 0.25d, 0.25d, 0.0d);
             }
 
-            serverLevel.sendParticles(player, ParticleTypes.SMOKE, true, hitPos.x, hitPos.y, hitPos.z, 1, 0.05d, 0.05d, 0.05d, 0.0d);
+            serverLevel.sendParticles(ParticleTypes.SMOKE, true, true, hitPos.x, hitPos.y, hitPos.z, 1, 0.05d, 0.05d, 0.05d, 0.0d);
             serverLevel.playSound(null, hitPos.x, hitPos.y, hitPos.z, ModSounds.BULLET_HIT.get(), SoundSource.NEUTRAL, 0.25f, 1f);
 
         } else if (blockHit.getType() != HitResult.Type.MISS) {
 
             Vec3 hitPos = blockHit.getLocation();
-            serverLevel.sendParticles(player, ParticleTypes.SMOKE, true, hitPos.x, hitPos.y, hitPos.z, 1, 0.05d, 0.05d, 0.05d, 0.0d);
+            serverLevel.sendParticles(ParticleTypes.SMOKE, true, true, hitPos.x, hitPos.y, hitPos.z, 1, 0.05d, 0.05d, 0.05d, 0.0d);
             player.level().playSound(null, hitPos.x, hitPos.y, hitPos.z, ModSounds.BULLET_HIT.get(), SoundSource.NEUTRAL, 0.25f, 1f);
         }
 
@@ -331,7 +331,7 @@ public class ServerPlayHandler {
 
     public static void handleRailgunShoot(ServerPlayer player){
 
-        ServerLevel serverLevel = player.serverLevel();
+        ServerLevel serverLevel = player.level().getServer().getLevel(player.level().dimension());
 
         final double RANGE = 128d;
         final double HITBOX_INFLATE = 0.3d;
@@ -410,7 +410,7 @@ public class ServerPlayHandler {
 
     public static void handleBfg10kShoot(ServerPlayer player){
 
-        ServerLevel sevel = player.serverLevel();
+        ServerLevel sevel = player.level().getServer().getLevel(player.level().dimension());
         Level lvl = player.level();
 
         ///Entity
@@ -440,7 +440,7 @@ public class ServerPlayHandler {
 
     public static void handleRocketLauncherShoot(ServerPlayer player){
 
-        ServerLevel sevel = player.serverLevel();
+        ServerLevel sevel = player.level().getServer().getLevel(player.level().dimension());
         Level lvl = player.level();
 
         ///Entity
@@ -471,7 +471,7 @@ public class ServerPlayHandler {
 
     public static void handleHandgrenadeThrow(ServerPlayer player, int remainingFuseTicks, float velocity) {
 
-        ServerLevel serverLevel = player.serverLevel();
+        ServerLevel serverLevel = player.level().getServer().getLevel(player.level().dimension());
         Level level = player.level();
 
         HandgrenadeProjectileEntity grenade =
@@ -509,7 +509,7 @@ public class ServerPlayHandler {
 
     public static void handleHandgrenadeOvercook(ServerPlayer player) {
 
-        ServerLevel serverLevel = player.serverLevel();
+        ServerLevel serverLevel = player.level().getServer().getLevel(player.level().dimension());
         Level level = player.level();
 
         HandgrenadeProjectileEntity grenade =
@@ -545,7 +545,7 @@ public class ServerPlayHandler {
 
     public static void handleGrenadeLauncherShoot(ServerPlayer player){
 
-        ServerLevel sevel = player.serverLevel();
+        ServerLevel sevel = player.level().getServer().getLevel(player.level().dimension());
         Level lvl = player.level();
 
         ///Entity
@@ -566,7 +566,7 @@ public class ServerPlayHandler {
 
     public static void handleSuperShotgunShoot(ServerPlayer player) {
 
-        ServerLevel sevel = player.serverLevel();
+        ServerLevel sevel = player.level().getServer().getLevel(player.level().dimension());
         Vec3 eyePos = player.getEyePosition();
         Vec3 look = player.getLookAngle();
 
@@ -593,9 +593,9 @@ public class ServerPlayHandler {
                 Vec3 hitPos = entityHit.getLocation();
 
                 if(Q2WConfig.COMMON.enableGore.get()){
-                sevel.sendParticles(player, ParticleTypes.LANDING_LAVA, true, hitPos.x, hitPos.y, hitPos.z, 1, 0.5d, 0.5d, 0.5d, 0d); }
+                sevel.sendParticles(ParticleTypes.LANDING_LAVA, true, true, hitPos.x, hitPos.y, hitPos.z, 1, 0.5d, 0.5d, 0.5d, 0d); }
 
-                sevel.sendParticles(player, ParticleTypes.SMOKE, true, hitPos.x, hitPos.y, hitPos.z, 1, 0.5d, 0.5d, 0.5d, 0d);
+                sevel.sendParticles(ParticleTypes.SMOKE, true, true, hitPos.x, hitPos.y, hitPos.z, 1, 0.5d, 0.5d, 0.5d, 0d);
             }
             else if (blockHit != null && blockHit.getType() != HitResult.Type.MISS) {
                 Vec3 hitPos = blockHit.getLocation();
@@ -617,7 +617,7 @@ public class ServerPlayHandler {
 
     public static void handleShotgunShoot(ServerPlayer player){
 
-        ServerLevel sevel = player.serverLevel();
+        ServerLevel sevel = player.level().getServer().getLevel(player.level().dimension());
         Level level = player.level();
 
 
@@ -656,15 +656,15 @@ public class ServerPlayHandler {
                 Vec3 hitPos = entityHit.getLocation();
 
                 if(Q2WConfig.COMMON.enableGore.get()){
-                sevel.sendParticles(player, ParticleTypes.LANDING_LAVA, true, hitPos.x, hitPos.y, hitPos.z, 1, 0.5d, 0.5d, 0.5d, 0d);}
+                sevel.sendParticles(ParticleTypes.LANDING_LAVA, true, true, hitPos.x, hitPos.y, hitPos.z, 1, 0.5d, 0.5d, 0.5d, 0d);}
 
-                sevel.sendParticles(player, ParticleTypes.SMOKE, true, hitPos.x, hitPos.y, hitPos.z, 1, 0.5d, 0.5d, 0.5d, 0d);
+                sevel.sendParticles(ParticleTypes.SMOKE, true, true, hitPos.x, hitPos.y, hitPos.z, 1, 0.5d, 0.5d, 0.5d, 0d);
             }
 
             else if (blockHit != null && blockHit.getType() != HitResult.Type.MISS) {
 
                 Vec3 hitPos = blockHit.getLocation();
-                sevel.sendParticles(player, ParticleTypes.SMOKE, true, hitPos.x, hitPos.y, hitPos.z, 1, 0.1d, 0.1d, 0.1d, 0d);
+                sevel.sendParticles(ParticleTypes.SMOKE, true, true, hitPos.x, hitPos.y, hitPos.z, 1, 0.1d, 0.1d, 0.1d, 0d);
             }
         }
 
@@ -681,7 +681,7 @@ public class ServerPlayHandler {
 
     public static void handleHyperblasterShoot(ServerPlayer player){
 
-        ServerLevel sevel = player.serverLevel();
+        ServerLevel sevel = player.level().getServer().getLevel(player.level().dimension());
         Level lvl = player.level();
 
         ///Entity
@@ -714,7 +714,7 @@ public class ServerPlayHandler {
 
     public static void handleBlasterShoot(ServerPlayer player){
 
-        ServerLevel sevel = player.serverLevel();
+        ServerLevel sevel = player.level().getServer().getLevel(player.level().dimension());
         Level lvl = player.level();
 
         ///Entity

@@ -9,7 +9,7 @@ import mett.palemannie.q2w.item.client.WeaponPresentation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.event.TickEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.eventbus.api.listener.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
 @Mod.EventBusSubscriber(modid = Quake2Weapons.MODID, value = Dist.CLIENT)
@@ -24,9 +24,9 @@ public class HyperblasterSoundHandler {
     @SubscribeEvent
     public static void onClientTick(TickEvent.ClientTickEvent event) {
 
-        if (event.phase != TickEvent.Phase.END) {
+        /*if (event.phase != TickEvent.Phase.END) {
             return;
-        }
+        }*/
 
         Minecraft minecraft = Minecraft.getInstance();
         if (minecraft.level == null) {

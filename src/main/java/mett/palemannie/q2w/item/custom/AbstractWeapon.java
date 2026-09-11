@@ -1,39 +1,26 @@
 package mett.palemannie.q2w.item.custom;
 
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.math.Axis;
-import net.minecraft.client.model.HumanoidModel;
-import net.minecraft.client.player.LocalPlayer;
-import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
-import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.UseAnim;
+import net.minecraft.world.item.ItemUseAnimation;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.client.extensions.common.IClientItemExtensions;
 import org.jetbrains.annotations.NotNull;
 import software.bernie.geckolib.animatable.GeoItem;
 import software.bernie.geckolib.animatable.SingletonGeoAnimatable;
-import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.core.animation.AnimatableManager;
-import software.bernie.geckolib.core.animation.Animation;
-import software.bernie.geckolib.core.animation.AnimationController;
-import software.bernie.geckolib.core.animation.RawAnimation;
-import software.bernie.geckolib.core.object.PlayState;
+import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.animatable.manager.AnimatableManager;
+import software.bernie.geckolib.animation.AnimationController;
+import software.bernie.geckolib.animation.RawAnimation;
+import software.bernie.geckolib.animation.object.LoopType;
+import software.bernie.geckolib.animation.object.PlayState;
 import software.bernie.geckolib.util.GeckoLibUtil;
-
-import java.util.function.Consumer;
 
 public abstract class AbstractWeapon extends Item implements GeoItem {
 
@@ -82,15 +69,15 @@ public abstract class AbstractWeapon extends Item implements GeoItem {
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
         RawAnimation shootingAnim = RawAnimation.begin()
-                .then(shootingAnimationName(), Animation.LoopType.PLAY_ONCE);
+                .then(shootingAnimationName(), LoopType.PLAY_ONCE);
 
         RawAnimation ammoEmptyAnim = RawAnimation.begin()
-                .then(ammoEmptyAnimationName(), Animation.LoopType.PLAY_ONCE);
+                .then(ammoEmptyAnimationName(), LoopType.PLAY_ONCE);
 
         RawAnimation idleAnim = RawAnimation.begin()
-                .then(idleAnimationName(), Animation.LoopType.LOOP);
+                .then(idleAnimationName(), LoopType.LOOP);
 
-        controllers.add(new AnimationController<>(this, "weapon_controller", 0, state -> {
+        controllers.add(new AnimationController<>("weapon_controller", 0, state -> {
             state.setAndContinue(idleAnim);
             return PlayState.CONTINUE;
         })
@@ -98,17 +85,18 @@ public abstract class AbstractWeapon extends Item implements GeoItem {
                 .triggerableAnim("ammoempty", ammoEmptyAnim));
     }
 
-    public void setCurrentHand(InteractionHand hand, LivingEntity livingEntity) {
-        ItemStack itemStack = livingEntity.getItemInHand(hand);
+    public void setCurrentHand(InteractionHand hand, LivingEntity player) {
 
-        if (!itemStack.isEmpty() && !livingEntity.isUsingItem()) {
-            livingEntity.useItem = itemStack;
-            livingEntity.useItemRemaining = itemStack.getUseDuration();
+        ItemStack itemStack = player.getItemInHand(hand);
+        if (!itemStack.isEmpty() && !player.isUsingItem()) {
 
-            if (!livingEntity.level().isClientSide()) {
-                livingEntity.setLivingEntityFlag(1, true);
-                livingEntity.setLivingEntityFlag(2, hand == InteractionHand.OFF_HAND);
-                livingEntity.gameEvent(GameEvent.ITEM_INTERACT_START);
+            player.useItem = itemStack;
+            player.useItemRemaining = itemStack.getUseDuration(player);
+            if (!player.level().isClientSide()) {
+
+                player.setLivingEntityFlag(1, true);
+                player.setLivingEntityFlag(2, hand == InteractionHand.OFF_HAND);
+                player.gameEvent(GameEvent.ITEM_INTERACT_START);
             }
         }
     }
@@ -119,18 +107,13 @@ public abstract class AbstractWeapon extends Item implements GeoItem {
     }
 
     @Override
-    public @NotNull UseAnim getUseAnimation(ItemStack stack) {
-        return UseAnim.NONE;
+    public @NotNull ItemUseAnimation getUseAnimation(ItemStack stack) {
+        return ItemUseAnimation.NONE;
     }
 
     @Override
-    public int getUseDuration(ItemStack stack) {
+    public int getUseDuration(ItemStack stack, LivingEntity entity) {
         return 2_000_000_000;
-    }
-
-    @Override
-    public boolean canAttackBlock(BlockState state, Level level, BlockPos pos, Player player) {
-        return false;
     }
 
     @Override
@@ -139,13 +122,14 @@ public abstract class AbstractWeapon extends Item implements GeoItem {
     }
 
     @Override
-    public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand usedHand) {
+    public InteractionResult use(Level level, Player player, InteractionHand usedHand) {
+
         if (usedHand != InteractionHand.MAIN_HAND) {
-            return InteractionResultHolder.fail(player.getItemInHand(usedHand));
+            return InteractionResult.FAIL;
         }
 
         setCurrentHand(usedHand, player);
-        return InteractionResultHolder.consume(player.getItemInHand(usedHand));
+        return InteractionResult.CONSUME;
     }
 
     protected abstract void executeWeaponFire(Level level, LivingEntity user, ItemStack stack, int remainingUseDuration);
@@ -159,16 +143,17 @@ public abstract class AbstractWeapon extends Item implements GeoItem {
     }
 
     @Override
-    public void releaseUsing(ItemStack stack, Level level, LivingEntity livingEntity, int timeCharged) {
+    public boolean releaseUsing(ItemStack stack, Level level, LivingEntity livingEntity, int timeCharged) {
         super.releaseUsing(stack, level, livingEntity, timeCharged);
 
         int releaseCooldown = getReleaseCooldownTicks();
 
         if (livingEntity instanceof Player player) {
-            player.getCooldowns().addCooldown(this, releaseCooldown);
+            player.getCooldowns().addCooldown(stack, releaseCooldown);
         }
 
         afterShooting(stack, level, livingEntity, timeCharged);
+        return false;
     }
 
     @Override

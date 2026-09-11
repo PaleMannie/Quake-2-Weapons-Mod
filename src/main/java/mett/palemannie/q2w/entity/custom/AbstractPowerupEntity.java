@@ -23,17 +23,6 @@ public abstract class AbstractPowerupEntity extends Entity {
 
     public static int durationOnPickup = 0;
 
-    @Override
-    protected void defineSynchedData() {}
-
-    @Override
-    protected void readAdditionalSaveData(CompoundTag tag) {
-    }
-
-    @Override
-    protected void addAdditionalSaveData(CompoundTag tag) {
-    }
-
     protected int getPowerupDuration() {
         return Q2WConfig.SERVER.powerupEffectDuration.get();
     }
@@ -43,7 +32,7 @@ public abstract class AbstractPowerupEntity extends Entity {
         super.tick();
 
         /// Extract entity lifetime from config
-        if(!level().isClientSide) { durationOnPickup = Q2WConfig.SERVER.powerupEffectDuration.get(); }
+        if(!level().isClientSide()) { durationOnPickup = Q2WConfig.SERVER.powerupEffectDuration.get(); }
 
         /// Lifetime check
         if (this.tickCount > Q2WConfig.SERVER.powerupLifetime.get()) {
@@ -52,7 +41,7 @@ public abstract class AbstractPowerupEntity extends Entity {
         }
 
         /// Entity Hitbox
-        if (!level().isClientSide) {
+        if (!level().isClientSide()) {
             for (Player player : level().getEntitiesOfClass(Player.class, getBoundingBox().inflate(0.5))) {
                 onPickup(player);
                 discard();
@@ -71,10 +60,10 @@ public abstract class AbstractPowerupEntity extends Entity {
         ItemStack stack = player.getItemInHand(hand);
 
         /// Rightclicking the entity with a diamond will drop it
-        if (!level().isClientSide && stack.is(Items.DIAMOND)) {
+        if (!level().isClientSide() && stack.is(Items.DIAMOND)) {
 
-            this.spawnAtLocation(getPowerupItem());
-            level().playSound(null, blockPosition(), SoundEvents.GENERIC_EXPLODE, SoundSource.PLAYERS, 1.0F, 2.0F);
+            this.spawnAtLocation(this.level().getServer().getLevel(level().dimension()), getPowerupItem());
+            level().playSound(null, blockPosition(), SoundEvents.GENERIC_EXPLODE.get(), SoundSource.PLAYERS, 1.0F, 2.0F);
 
             if(!player.isCreative()){
 

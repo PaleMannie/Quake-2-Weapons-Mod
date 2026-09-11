@@ -4,6 +4,7 @@ import mett.palemannie.q2w.block.ModBlocks;
 import mett.palemannie.q2w.entity.ModEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.protocol.game.ClientboundAddEntityPacket;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.Projectile;
@@ -23,10 +24,7 @@ public class MuzzleflashEntity extends Projectile {
         this.setOwner(player);
         this.setPos(player.getX(), player.getEyeY()-0.2d, player.getZ());
     }
-
-    @Override
-    protected void defineSynchedData() {}
-
+    
     @Override
     public boolean isNoGravity() {
         return true;
@@ -61,7 +59,7 @@ public class MuzzleflashEntity extends Projectile {
 
     private void cleanupLight() {
 
-        if (this.level().isClientSide) {
+        if (this.level().isClientSide()) {
             return;
         }
 
@@ -98,7 +96,7 @@ public class MuzzleflashEntity extends Projectile {
 
     void muzzleFlashHandler(){
 
-        if (!this.level().isClientSide) {
+        if (!this.level().isClientSide()) {
             if (this.tickCount == 1) {
                 this.tryPlaceLight();
             }
@@ -108,6 +106,9 @@ public class MuzzleflashEntity extends Projectile {
             }
         }
     }
+
+    @Override
+    protected void defineSynchedData(SynchedEntityData.Builder pBuilder) {}
 
     @Override
     public void tick() {

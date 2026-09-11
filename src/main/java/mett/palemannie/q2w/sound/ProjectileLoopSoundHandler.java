@@ -9,7 +9,7 @@ import net.minecraft.client.resources.sounds.AbstractTickableSoundInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.event.TickEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.eventbus.api.listener.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
 import java.util.HashMap;
@@ -24,9 +24,9 @@ public class ProjectileLoopSoundHandler {
     @SubscribeEvent
     public static void onClientTick(TickEvent.ClientTickEvent event) {
 
-        if (event.phase != TickEvent.Phase.END) {
+        /*if (event.phase != TickEvent.Phase.END) {
             return;
-        }
+        }*/
 
         Minecraft minecraft = Minecraft.getInstance();
         ClientLevel level = minecraft.level;

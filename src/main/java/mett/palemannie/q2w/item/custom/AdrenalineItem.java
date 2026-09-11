@@ -16,7 +16,7 @@ public class AdrenalineItem extends AbstractConsumptionItem{
 
     @Override
     protected void onPowerupUse(Level level, Player player, ItemStack stack) {
-        if (level.isClientSide) {
+        if (level.isClientSide()) {
             return;
         }
 
@@ -32,7 +32,7 @@ public class AdrenalineItem extends AbstractConsumptionItem{
 
         player.addEffect(new MobEffectInstance(MobEffects.HEALTH_BOOST, Integer.MAX_VALUE - 1, newAmplifier, false, false, true));
 
-        player.addEffect(new MobEffectInstance(MobEffects.HEAL, 2, 10));
+        player.addEffect(new MobEffectInstance(MobEffects.INSTANT_HEALTH, 2, 10));
         player.addEffect(new MobEffectInstance(MobEffects.SATURATION, 10, 10));
 
         level.playSound(null, player.blockPosition(), ModSounds.ADRENALINE_USE.get(), SoundSource.PLAYERS, 1f, 1f);

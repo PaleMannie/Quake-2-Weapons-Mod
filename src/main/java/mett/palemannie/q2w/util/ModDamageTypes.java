@@ -3,13 +3,13 @@ package mett.palemannie.q2w.util;
 import mett.palemannie.q2w.Quake2Weapons;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.damagesource.DamageType;
 
 public class ModDamageTypes {
 
     public static final ResourceKey<DamageType> register(String name){
-        return ResourceKey.create(Registries.DAMAGE_TYPE, ResourceLocation.fromNamespaceAndPath(Quake2Weapons.MODID, name));
+        return ResourceKey.create(Registries.DAMAGE_TYPE, Identifier.fromNamespaceAndPath(Quake2Weapons.MODID, name));
     }
 
     public static final ResourceKey<DamageType> BLASTER_DAMAGE = register("blaster_damage");

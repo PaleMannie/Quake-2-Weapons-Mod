@@ -2,6 +2,7 @@ package mett.palemannie.q2w.item.custom;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import mett.palemannie.q2w.item.ModItems;
+import mett.palemannie.q2w.item.client.GrenadelauncherRenderer;
 import mett.palemannie.q2w.item.client.HyperblasterRenderer;
 import mett.palemannie.q2w.item.client.MachinegunRenderer;
 import mett.palemannie.q2w.net.ModMessages;
@@ -19,6 +20,9 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.client.extensions.common.IClientItemExtensions;
+import org.jetbrains.annotations.NotNull;
+import software.bernie.geckolib.animatable.client.GeoRenderProvider;
+import software.bernie.geckolib.renderer.GeoItemRenderer;
 
 import java.util.function.Consumer;
 
@@ -29,21 +33,24 @@ public class HyperblasterItem extends AbstractQ2Weapon {
     }
 
     @Override
-    public void initializeClient(Consumer<IClientItemExtensions> consumer) {
-
-        consumer.accept(new IClientItemExtensions() {
-
+    public void createGeoRenderer(Consumer<GeoRenderProvider> consumer) {
+        consumer.accept(new GeoRenderProvider() {
             private HyperblasterRenderer renderer;
 
             @Override
-            public BlockEntityWithoutLevelRenderer getCustomRenderer() {
-
-                if (this.renderer == null) {
+            public GeoItemRenderer<@NotNull HyperblasterItem> getGeoItemRenderer() {
+                if (this.renderer == null)
                     this.renderer = new HyperblasterRenderer();
-                }
 
                 return this.renderer;
             }
+        });
+    }
+
+    @Override
+    public void initializeClient(Consumer<IClientItemExtensions> consumer) {
+
+        consumer.accept(new IClientItemExtensions() {
 
             @Override
             public boolean applyForgeHandTransform(PoseStack poseStack, LocalPlayer player, HumanoidArm arm, ItemStack itemInHand, float partialTick, float equipProcess, float swingProcess) {

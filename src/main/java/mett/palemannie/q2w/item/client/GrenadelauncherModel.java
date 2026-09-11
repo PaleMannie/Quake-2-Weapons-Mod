@@ -1,33 +1,32 @@
 package mett.palemannie.q2w.item.client;
 
 import mett.palemannie.q2w.Quake2Weapons;
-import mett.palemannie.q2w.item.custom.Bfg10kItem;
 import mett.palemannie.q2w.item.custom.GrenadelauncherItem;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
+import org.jetbrains.annotations.NotNull;
 import software.bernie.geckolib.model.GeoModel;
+import software.bernie.geckolib.renderer.base.GeoRenderState;
 
-public class GrenadelauncherModel extends GeoModel<GrenadelauncherItem> {
+public class GrenadelauncherModel extends GeoModel<@NotNull GrenadelauncherItem> {
 
-    private static final ResourceLocation DEFAULT_MODEL = ResourceLocation.fromNamespaceAndPath(Quake2Weapons.MODID, "geo/grenadelauncher.geo.json");
+    private static final Identifier DEFAULT_MODEL = Identifier.fromNamespaceAndPath(Quake2Weapons.MODID, "grenadelauncher");
 
-    private static final ResourceLocation DEFAULT_TEXTURE = ResourceLocation.fromNamespaceAndPath(Quake2Weapons.MODID, "textures/item/grenadelauncher.png");
+    private static final Identifier DEFAULT_TEXTURE = Identifier.fromNamespaceAndPath(Quake2Weapons.MODID, "textures/item/grenadelauncher.png");
 
-    private static final ResourceLocation DEFAULT_ANIM = ResourceLocation.fromNamespaceAndPath(Quake2Weapons.MODID, "animations/grenadelauncher.animation.json");
+    private static final Identifier DEFAULT_ANIM = Identifier.fromNamespaceAndPath(Quake2Weapons.MODID, "grenadelauncher");
 
     @Override
-    public ResourceLocation getModelResource(GrenadelauncherItem animatable) {
-
+    public @NotNull Identifier getModelResource(@NotNull GeoRenderState geoRenderState) {
         return DEFAULT_MODEL;
     }
 
     @Override
-    public ResourceLocation getTextureResource(GrenadelauncherItem animatable) {
-
+    public @NotNull Identifier getTextureResource(@NotNull GeoRenderState geoRenderState) {
         return DEFAULT_TEXTURE;
     }
 
     @Override
-    public ResourceLocation getAnimationResource(GrenadelauncherItem animatable) {
+    public @NotNull Identifier getAnimationResource(GrenadelauncherItem animatable) {
 
         return DEFAULT_ANIM;
     }

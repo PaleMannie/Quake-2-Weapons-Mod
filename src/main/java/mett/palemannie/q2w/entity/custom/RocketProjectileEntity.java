@@ -8,6 +8,7 @@ import mett.palemannie.q2w.util.Q2ExplosionHelper;
 import mett.palemannie.q2w.util.Q2WConfigStats;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
@@ -30,15 +31,12 @@ public class RocketProjectileEntity extends Projectile {
     }
 
     @Override
-    protected void defineSynchedData() {}
-
-    @Override
     public boolean isNoGravity() {
         return true;
     }
 
     private void quakeExplosion(Level level) {
-        if (this.level().isClientSide) return;
+        if (this.level().isClientSide()) return;
 
         Vec3 center = this.position();
 
@@ -100,7 +98,7 @@ public class RocketProjectileEntity extends Projectile {
 
     private void cleanupLight() {
 
-        if (this.level().isClientSide) {
+        if (this.level().isClientSide()) {
             return;
         }
 
@@ -145,7 +143,7 @@ public class RocketProjectileEntity extends Projectile {
 
     void projectileFlyStraight(){
 
-        if (this.level().isClientSide) {
+        if (this.level().isClientSide()) {
             Vec3 motion = this.getDeltaMovement().normalize().scale(-0.25);
             double px = this.getX() + motion.x;
             double py = this.getY() + motion.y;
@@ -168,10 +166,13 @@ public class RocketProjectileEntity extends Projectile {
     }
 
     @Override
+    protected void defineSynchedData(SynchedEntityData.Builder pBuilder) {}
+
+    @Override
     public void tick() {
         super.tick();
 
-        if (!this.level().isClientSide && Q2WConfig.COMMON.enableProjectileTrailLight.get()) {
+        if (!this.level().isClientSide() && Q2WConfig.COMMON.enableProjectileTrailLight.get()) {
             if (this.tickCount % 2 == 0) {
                 this.cleanupLight();
                 this.tryPlaceLight();
@@ -192,7 +193,7 @@ public class RocketProjectileEntity extends Projectile {
     @Override
     protected void onHitBlock(BlockHitResult pResult) {
 
-        if (!this.level().isClientSide) {
+        if (!this.level().isClientSide()) {
             this.level().broadcastEntityEvent(this, (byte)3);
             this.discard();
         }

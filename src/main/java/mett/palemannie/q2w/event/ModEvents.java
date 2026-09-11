@@ -12,7 +12,7 @@ import net.minecraftforge.event.entity.living.MobEffectEvent;
 import net.minecraftforge.event.entity.player.ArrowLooseEvent;
 import net.minecraftforge.event.entity.player.AttackEntityEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.eventbus.api.listener.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
 @Mod.EventBusSubscriber(modid = Quake2Weapons.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE)
@@ -23,28 +23,28 @@ public class ModEvents {
 
         /// Quad Damage apply damage
         if (event.getSource().getEntity() instanceof LivingEntity attacker) {
-            if(attacker.hasEffect(ModEffects.QUAD_DAMAGE.get())) {
+            if(attacker.hasEffect(ModEffects.QUAD_DAMAGE.getHolder().get())) {
 
                 event.setAmount(event.getAmount() * 4.0F);
             }
         }
 
         /// Pentagram apply invulnerability
-        if (event.getEntity().hasEffect(ModEffects.INVULNERABILITY.get())) {
+        if (event.getEntity().hasEffect(ModEffects.INVULNERABILITY.getHolder().get())) {
 
-            event.setCanceled(true);
+            event.setAmount(0f);
             event.getEntity().level().playSound(null, event.getEntity().blockPosition(), ModSounds.INVULN_USE.get(), SoundSource.PLAYERS, 1.0F, 1.0F);
         }
 
         /// Biosuit apply poison and wither immunities & Fire resistance
-        if (event.getEntity().hasEffect(ModEffects.ENVIROSUIT.get())) {
+        if (event.getEntity().hasEffect(ModEffects.ENVIROSUIT.getHolder().get())) {
 
             DamageSource src = event.getSource();
 
             if (src.is(DamageTypes.MAGIC) || src.is(DamageTypes.WITHER) || src.is(DamageTypes.CACTUS) || src.is(DamageTypes.SWEET_BERRY_BUSH)
                     || src.is(DamageTypes.DROWN) || src.is(DamageTypes.INDIRECT_MAGIC) || src.is(DamageTypes.MAGIC)
                     || src.is(DamageTypes.WITHER_SKULL) || src.is(DamageTypes.THORNS) || src.is(DamageTypes.STING)) {
-                event.setCanceled(true);
+                event.setAmount(0f);
             }
 
             if(src.is(DamageTypes.IN_FIRE) || src.is(DamageTypes.ON_FIRE) || src.is(DamageTypes.UNATTRIBUTED_FIREBALL) || src.is(DamageTypes.CRAMMING)
@@ -79,12 +79,11 @@ public class ModEvents {
     }
 
     ///Quad Damage play use sound when attacking with anything or using any item
-    ///additional Invis cancelation when under Ring of Shadows effect
 
     @SubscribeEvent
     public static void onQuadDamageAttack1(PlayerInteractEvent.LeftClickEmpty event){
 
-        if(event.getEntity().hasEffect(ModEffects.QUAD_DAMAGE.get()) && event.getLevel().isClientSide){
+        if(event.getEntity().hasEffect(ModEffects.QUAD_DAMAGE.getHolder().get()) && event.getLevel().isClientSide()){
 
             event.getEntity().playSound(ModSounds.QUAD_DAMAGE_USE.get(), 1f, 1f);
         }
@@ -93,7 +92,7 @@ public class ModEvents {
     @SubscribeEvent
     public static void onQuadDamageAttack2(PlayerInteractEvent.LeftClickBlock event){
 
-        if(event.getEntity().hasEffect(ModEffects.QUAD_DAMAGE.get()) && event.getLevel().isClientSide){
+        if(event.getEntity().hasEffect(ModEffects.QUAD_DAMAGE.getHolder().get()) && event.getLevel().isClientSide()){
 
             event.getEntity().playSound(ModSounds.QUAD_DAMAGE_USE.get(), 1f, 1f);
         }
@@ -102,7 +101,7 @@ public class ModEvents {
     @SubscribeEvent
     public static void onQuadDamageAttack3(PlayerInteractEvent.EntityInteract event){
 
-        if(event.getEntity().hasEffect(ModEffects.QUAD_DAMAGE.get()) && event.getLevel().isClientSide){
+        if(event.getEntity().hasEffect(ModEffects.QUAD_DAMAGE.getHolder().get()) && event.getLevel().isClientSide()){
 
             event.getEntity().playSound(ModSounds.QUAD_DAMAGE_USE.get(), 1f, 1f);
         }
@@ -111,7 +110,7 @@ public class ModEvents {
     @SubscribeEvent
     public static void onQuadDamageAttack4(AttackEntityEvent event){
 
-        if(event.getEntity().hasEffect(ModEffects.QUAD_DAMAGE.get()) && event.getEntity().level().isClientSide()){
+        if(event.getEntity().hasEffect(ModEffects.QUAD_DAMAGE.getHolder().get()) && event.getEntity().level().isClientSide()){
 
             event.getEntity().playSound(ModSounds.QUAD_DAMAGE_USE.get(), 1f, 1f);
         }
@@ -120,7 +119,7 @@ public class ModEvents {
     @SubscribeEvent
     public static void onQuadDamageAttack5(ArrowLooseEvent event){
 
-        if(event.getEntity().hasEffect(ModEffects.QUAD_DAMAGE.get()) && event.getLevel().isClientSide()){
+        if(event.getEntity().hasEffect(ModEffects.QUAD_DAMAGE.getHolder().get()) && event.getLevel().isClientSide()){
 
             event.getEntity().playSound(ModSounds.QUAD_DAMAGE_USE.get(), 1f, 1f);
         }
@@ -129,7 +128,7 @@ public class ModEvents {
     @SubscribeEvent
     public static void onQuadDamageAttack6(PlayerInteractEvent.RightClickItem event){
 
-        if(event.getEntity().hasEffect(ModEffects.QUAD_DAMAGE.get()) && event.getLevel().isClientSide()){
+        if(event.getEntity().hasEffect(ModEffects.QUAD_DAMAGE.getHolder().get()) && event.getLevel().isClientSide()){
 
             event.getEntity().playSound(ModSounds.QUAD_DAMAGE_USE.get(), 1f, 1f);
         }

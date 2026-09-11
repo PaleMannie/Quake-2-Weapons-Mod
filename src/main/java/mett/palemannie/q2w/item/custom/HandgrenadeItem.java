@@ -10,13 +10,12 @@ import mett.palemannie.q2w.util.ServerPlayHandler;
 import mett.palemannie.q2w.util.WeaponAggroHandler;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.player.LocalPlayer;
-import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.entity.LivingEntity;
@@ -24,12 +23,15 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.client.extensions.common.IClientItemExtensions;
+import org.jetbrains.annotations.NotNull;
 import software.bernie.geckolib.animatable.GeoItem;
-import software.bernie.geckolib.core.animation.Animation;
-import software.bernie.geckolib.core.animation.AnimationController;
-import software.bernie.geckolib.core.animation.AnimatableManager;
-import software.bernie.geckolib.core.animation.RawAnimation;
-import software.bernie.geckolib.core.object.PlayState;
+import software.bernie.geckolib.animatable.client.GeoRenderProvider;
+import software.bernie.geckolib.animatable.manager.AnimatableManager;
+import software.bernie.geckolib.animation.AnimationController;
+import software.bernie.geckolib.animation.RawAnimation;
+import software.bernie.geckolib.animation.object.LoopType;
+import software.bernie.geckolib.animation.object.PlayState;
+import software.bernie.geckolib.renderer.GeoItemRenderer;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -43,21 +45,24 @@ public class HandgrenadeItem extends AbstractWeapon {
     }
 
     @Override
-    public void initializeClient(Consumer<IClientItemExtensions> consumer) {
-
-        consumer.accept(new IClientItemExtensions() {
-
+    public void createGeoRenderer(Consumer<GeoRenderProvider> consumer) {
+        consumer.accept(new GeoRenderProvider() {
             private HandgrenadeRenderer renderer;
 
             @Override
-            public BlockEntityWithoutLevelRenderer getCustomRenderer() {
-
-                if (this.renderer == null) {
+            public GeoItemRenderer<@NotNull HandgrenadeItem> getGeoItemRenderer() {
+                if (this.renderer == null)
                     this.renderer = new HandgrenadeRenderer();
-                }
 
                 return this.renderer;
             }
+        });
+    }
+
+    @Override
+    public void initializeClient(Consumer<IClientItemExtensions> consumer) {
+
+        consumer.accept(new IClientItemExtensions() {
 
             @Override
             public boolean applyForgeHandTransform(PoseStack poseStack, LocalPlayer player, HumanoidArm arm, ItemStack itemInHand, float partialTick, float equipProcess, float swingProcess) {
@@ -109,16 +114,16 @@ public class HandgrenadeItem extends AbstractWeapon {
     private static final String OVERCOOK_TRIGGER = "overcook";
 
     private static final RawAnimation PRIME_ANIM = RawAnimation.begin()
-            .then("handgrenade.animation.prime", Animation.LoopType.PLAY_ONCE);
+            .then("handgrenade.animation.prime", LoopType.PLAY_ONCE);
 
     private static final RawAnimation THROW_ANIM = RawAnimation.begin()
-            .then("handgrenade.animation.throw", Animation.LoopType.PLAY_ONCE);
+            .then("handgrenade.animation.throw", LoopType.PLAY_ONCE);
 
     private static final RawAnimation OVERCOOK_ANIM = RawAnimation.begin()
-            .then("handgrenade.animation.overcook", Animation.LoopType.PLAY_ONCE);
+            .then("handgrenade.animation.overcook", LoopType.PLAY_ONCE);
 
     private static final RawAnimation IDLE_ANIM = RawAnimation.begin()
-            .then("handgrenade.animation.idle", Animation.LoopType.LOOP);
+            .then("handgrenade.animation.idle", LoopType.LOOP);
 
     private final Map<UUID, GrenadeState> states = new HashMap<>();
 
@@ -134,7 +139,7 @@ public class HandgrenadeItem extends AbstractWeapon {
 
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
-        controllers.add(new AnimationController<>(this, HANDGRENADE_CONTROLLER, 0, state -> {
+        controllers.add(new AnimationController<>(HANDGRENADE_CONTROLLER, 0, state -> {
             state.setAndContinue(IDLE_ANIM);
             return PlayState.CONTINUE;
         })
@@ -164,22 +169,22 @@ public class HandgrenadeItem extends AbstractWeapon {
     }
 
     @Override
-    public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand usedHand) {
+    public InteractionResult use(Level level, Player player, InteractionHand usedHand) {
 
         ItemStack stack = player.getItemInHand(usedHand);
 
         cleanStackingTags(stack);
 
         if (usedHand != InteractionHand.MAIN_HAND) {
-            return InteractionResultHolder.fail(stack);
+            return InteractionResult.FAIL;
         }
 
         if (states.containsKey(player.getUUID())) {
-            return InteractionResultHolder.consume(stack);
+            return InteractionResult.FAIL;
         }
 
         if (!player.isCreative() && stack.isEmpty()) {
-            return InteractionResultHolder.fail(stack);
+            return InteractionResult.FAIL;
         }
 
         setCurrentHand(usedHand, player);
@@ -188,7 +193,7 @@ public class HandgrenadeItem extends AbstractWeapon {
             startGrenadeUse(serverLevel, serverPlayer, stack, usedHand);
         }
 
-        return InteractionResultHolder.consume(stack);
+        return InteractionResult.CONSUME;
     }
 
     private void startGrenadeUse(ServerLevel level, ServerPlayer player, ItemStack stack, InteractionHand hand) {
@@ -210,26 +215,27 @@ public class HandgrenadeItem extends AbstractWeapon {
     }
 
     @Override
-    public void releaseUsing(ItemStack stack, Level level, LivingEntity livingEntity, int timeCharged) {
+    public boolean releaseUsing(ItemStack stack, Level level, LivingEntity livingEntity, int timeCharged) {
         super.releaseUsing(stack, level, livingEntity, timeCharged);
 
-        if (level.isClientSide) {
-            return;
+        if (level.isClientSide()) {
+            return false;
         }
 
         if (!(livingEntity instanceof ServerPlayer player)) {
             cleanStackingTags(stack);
-            return;
+            return false;
         }
 
         GrenadeState state = states.get(player.getUUID());
 
         if (state == null) {
             cleanStackingTags(stack);
-            return;
+            return false;
         }
 
         state.releaseRequested = true;
+        return false;
     }
 
     @Override
@@ -280,7 +286,7 @@ public class HandgrenadeItem extends AbstractWeapon {
             return;
         }
 
-        if (!level.isClientSide) {
+        if (!level.isClientSide()) {
             cleanStackingTags(stack);
         }
     }
@@ -351,7 +357,7 @@ public class HandgrenadeItem extends AbstractWeapon {
                 player.getRandom().nextBoolean() ? 0.33f : -0.33f), player);
 
 
-        player.getCooldowns().addCooldown(this, RELEASE_COOLDOWN_TICKS);
+        player.getCooldowns().addCooldown(stack, RELEASE_COOLDOWN_TICKS);
         player.stopUsingItem();
 
         states.remove(player.getUUID());
@@ -371,7 +377,7 @@ public class HandgrenadeItem extends AbstractWeapon {
                 player.getRandom().nextBoolean() ? 30f : -30f,
                 0f), player);
 
-        player.getCooldowns().addCooldown(this, RELEASE_COOLDOWN_TICKS);
+        player.getCooldowns().addCooldown(stack, RELEASE_COOLDOWN_TICKS);
         player.stopUsingItem();
 
         states.remove(player.getUUID());

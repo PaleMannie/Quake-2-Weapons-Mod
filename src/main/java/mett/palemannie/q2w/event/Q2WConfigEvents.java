@@ -2,7 +2,7 @@ package mett.palemannie.q2w.event;
 
 import mett.palemannie.q2w.Q2WConfig;
 import mett.palemannie.q2w.Quake2Weapons;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.eventbus.api.listener.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.config.ModConfigEvent;
 

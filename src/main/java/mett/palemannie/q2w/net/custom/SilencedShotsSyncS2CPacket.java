@@ -2,35 +2,39 @@ package mett.palemannie.q2w.net.custom;
 
 import mett.palemannie.q2w.gui.ClientSilencerData;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraftforge.network.NetworkEvent;
-
-import java.util.function.Supplier;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.event.network.CustomPayloadEvent;
 
 public class SilencedShotsSyncS2CPacket {
 
-    private final int shotsLeft;
+    private static int shotsLeft = 0;
 
     public SilencedShotsSyncS2CPacket(int shotsLeft) {
-        this.shotsLeft = shotsLeft;
+        SilencedShotsSyncS2CPacket.shotsLeft = shotsLeft;
     }
 
     public SilencedShotsSyncS2CPacket(FriendlyByteBuf buf) {
-        this.shotsLeft = buf.readVarInt();
+        shotsLeft = buf.readVarInt();
     }
 
-    public void toBytes(FriendlyByteBuf buf) {
-        buf.writeVarInt(this.shotsLeft);
+    public void encode(FriendlyByteBuf buf) {
+        buf.writeVarInt(shotsLeft);
     }
 
-    public boolean handle(Supplier<NetworkEvent.Context> supplier) {
+    public static SilencedShotsSyncS2CPacket decode(FriendlyByteBuf buf) {
+        return new SilencedShotsSyncS2CPacket(buf.readVarInt());
+    }
 
-        NetworkEvent.Context context = supplier.get();
+    public static void handle(SilencedShotsSyncS2CPacket packet, CustomPayloadEvent.Context ctx) {
 
-        context.enqueueWork(() -> {
-            ClientSilencerData.setSilencedShotsLeft(this.shotsLeft);
-        });
+        ctx.enqueueWork(() -> handleClient(packet));
+        ctx.setPacketHandled(true);
+    }
 
-        context.setPacketHandled(true);
-        return true;
+    @OnlyIn(Dist.CLIENT)
+    public static void handleClient(SilencedShotsSyncS2CPacket packet) {
+
+        ClientSilencerData.setSilencedShotsLeft(shotsLeft);
     }
 }

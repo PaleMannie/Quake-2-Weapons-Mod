@@ -4,6 +4,7 @@ import mett.palemannie.q2w.sound.ModSounds;
 import mett.palemannie.q2w.util.Q2ExplosionHelper;
 import mett.palemannie.q2w.util.Q2WConfigStats;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.damagesource.DamageTypes;
@@ -65,6 +66,11 @@ public class GrenadelauncherProjectileEntity extends Projectile {
     public float lastTumbleX = 0;
     public float lastTumbleY = 0;
     public float lastTumbleZ = 0;
+
+    @Override
+    protected void defineSynchedData(SynchedEntityData.Builder pBuilder) {
+
+    }
 
     @Override
     public void tick() {

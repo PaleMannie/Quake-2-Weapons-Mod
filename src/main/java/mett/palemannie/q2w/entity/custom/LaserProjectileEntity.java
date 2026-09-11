@@ -7,6 +7,7 @@ import mett.palemannie.q2w.util.ModDamageTypes;
 import mett.palemannie.q2w.util.Q2WConfigStats;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -45,9 +46,6 @@ public class LaserProjectileEntity extends Projectile {
     public LaserProjectileEntity(EntityType<LaserProjectileEntity> entityType, Level level) {
         super(entityType, level);
     }
-
-    @Override
-    protected void defineSynchedData() {}
 
     @Override
     public boolean isNoGravity() {
@@ -90,13 +88,13 @@ public class LaserProjectileEntity extends Projectile {
     void handleProjectileBlockHitEffects(){
 
         if(level() instanceof ServerLevel)
-            ((ServerLevel) level()).sendParticles((ServerPlayer) this.getOwner(), ParticleTypes.SMOKE, true, this.getX(), this.getY(), this.getZ(), 1, 0f, 0f, 0f, 0f);
+            ((ServerLevel) level()).sendParticles(ParticleTypes.SMOKE, this.getX(), this.getY(), this.getZ(), 1, 0f, 0f, 0f, 0f);
     }
 
     void handleGore(Level level){
 
         if(level instanceof ServerLevel)
-            ((ServerLevel) level()).sendParticles((ServerPlayer) this.getOwner(), ParticleTypes.LANDING_LAVA, true, this.getX(), this.getY(), this.getZ(), 1, 0f, 0f, 0f, 0f);
+            ((ServerLevel) level()).sendParticles(ParticleTypes.LANDING_LAVA, this.getX(), this.getY(), this.getZ(), 1, 0f, 0f, 0f, 0f);
     }
 
     void handleHitSound(@Nullable EntityHitResult entityHitResult, @Nullable BlockHitResult blockHitResult, Level level, SoundEvent soundEvent, float volume, float pitch){
@@ -135,7 +133,7 @@ public class LaserProjectileEntity extends Projectile {
 
     private void cleanupLight() {
 
-        if (this.level().isClientSide) {
+        if (this.level().isClientSide()) {
             return;
         }
 
@@ -171,13 +169,16 @@ public class LaserProjectileEntity extends Projectile {
     }
 
     @Override
+    protected void defineSynchedData(SynchedEntityData.Builder pBuilder) {}
+
+    @Override
     public void tick() {
         super.tick();
 
         hitResultHandler();
         projectileFlyStraight();
 
-        if (!this.level().isClientSide && Q2WConfig.COMMON.enableProjectileTrailLight.get()) {
+        if (!this.level().isClientSide() && Q2WConfig.COMMON.enableProjectileTrailLight.get()) {
             if (this.tickCount % 2 == 0) {
                 cleanupLight();
                 tryPlaceLight();
@@ -194,7 +195,7 @@ public class LaserProjectileEntity extends Projectile {
 
         var soundEvent = ModSounds.BLASTER_HIT.get();
 
-        if (!this.level().isClientSide) {
+        if (!this.level().isClientSide()) {
             this.level().broadcastEntityEvent(this, (byte)3);
             this.discard();
         }

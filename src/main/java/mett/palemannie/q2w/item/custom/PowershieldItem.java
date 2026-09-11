@@ -2,11 +2,10 @@ package mett.palemannie.q2w.item.custom;
 
 import mett.palemannie.q2w.item.ModItems;
 import mett.palemannie.q2w.sound.ModSounds;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -23,27 +22,27 @@ public class PowershieldItem extends Item {
     }
 
     @Override
-    public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand usedHand) {
+    public InteractionResult use(Level level, Player player, InteractionHand usedHand) {
 
         ItemStack stack = player.getItemInHand(usedHand);
 
-        if (level.isClientSide) {
-            return InteractionResultHolder.consume(stack);
+        if (level.isClientSide()) {
+            return InteractionResult.CONSUME;
         }
 
         if (!(player instanceof ServerPlayer serverPlayer)) {
-            return InteractionResultHolder.consume(stack);
+            return InteractionResult.CONSUME;
         }
 
         if (isActive(stack)) {
             setActive(stack, false);
             playOffSound(serverPlayer);
-            return InteractionResultHolder.consume(stack);
+            return InteractionResult.CONSUME;
         }
 
         if (!hasCells(serverPlayer)) {
             playOffSound(serverPlayer);
-            return InteractionResultHolder.fail(stack);
+            return InteractionResult.FAIL;
         }
 
         /// Only one Powershield can be active
@@ -53,7 +52,7 @@ public class PowershieldItem extends Item {
         setActive(stack, true);
         playOnSound(serverPlayer);
 
-        return InteractionResultHolder.consume(stack);
+        return InteractionResult.CONSUME;
     }
 
     @Override

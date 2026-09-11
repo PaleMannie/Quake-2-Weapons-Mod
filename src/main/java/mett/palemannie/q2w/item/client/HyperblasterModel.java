@@ -5,37 +5,37 @@ import mett.palemannie.q2w.item.ModItems;
 import mett.palemannie.q2w.item.custom.HyperblasterItem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.entity.player.Player;
+import org.jetbrains.annotations.NotNull;
 import software.bernie.geckolib.constant.DataTickets;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.ItemStack;
 import software.bernie.geckolib.core.animatable.model.CoreGeoBone;
 import software.bernie.geckolib.core.animation.AnimationState;
 import software.bernie.geckolib.model.GeoModel;
+import software.bernie.geckolib.renderer.base.GeoRenderState;
 
-public class HyperblasterModel extends GeoModel<HyperblasterItem> {
+public class HyperblasterModel extends GeoModel<@NotNull HyperblasterItem> {
 
-    private static final ResourceLocation DEFAULT_MODEL = ResourceLocation.fromNamespaceAndPath(Quake2Weapons.MODID, "geo/hyperblaster.geo.json");
+    private static final Identifier DEFAULT_MODEL = Identifier.fromNamespaceAndPath(Quake2Weapons.MODID, "hyperblaster");
 
-    private static final ResourceLocation DEFAULT_TEXTURE = ResourceLocation.fromNamespaceAndPath(Quake2Weapons.MODID, "textures/item/hyperblaster.png");
+    private static final Identifier DEFAULT_TEXTURE = Identifier.fromNamespaceAndPath(Quake2Weapons.MODID, "textures/item/hyperblaster.png");
 
-    private static final ResourceLocation DEFAULT_ANIM = ResourceLocation.fromNamespaceAndPath(Quake2Weapons.MODID, "animations/hyperblaster.animation.json");
+    private static final Identifier DEFAULT_ANIM = Identifier.fromNamespaceAndPath(Quake2Weapons.MODID, "hyperblaster");
 
     @Override
-    public ResourceLocation getModelResource(HyperblasterItem animatable) {
-
+    public @NotNull Identifier getModelResource(@NotNull GeoRenderState geoRenderState) {
         return DEFAULT_MODEL;
     }
 
     @Override
-    public ResourceLocation getTextureResource(HyperblasterItem animatable) {
-
+    public @NotNull Identifier getTextureResource(@NotNull GeoRenderState geoRenderState) {
         return DEFAULT_TEXTURE;
     }
 
     @Override
-    public ResourceLocation getAnimationResource(HyperblasterItem animatable) {
+    public @NotNull Identifier getAnimationResource(HyperblasterItem animatable) {
 
         return DEFAULT_ANIM;
     }

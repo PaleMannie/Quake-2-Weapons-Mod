@@ -6,28 +6,34 @@ import com.mojang.math.Axis;
 import mett.palemannie.q2w.Quake2Weapons;
 import mett.palemannie.q2w.entity.custom.AdrenalinePickupEntity;
 import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.culling.Frustum;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.client.renderer.feature.ModelFeatureRenderer;
+import net.minecraft.client.renderer.state.CameraRenderState;
 import net.minecraft.client.renderer.texture.OverlayTexture;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
+import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
 import org.jetbrains.annotations.NotNull;
 
-public class AdrenalinePickupRenderer extends EntityRenderer<AdrenalinePickupEntity> {
+public class AdrenalinePickupRenderer extends EntityRenderer<AdrenalinePickupEntity, PickupEntityRenderState> {
 
-    private static final ResourceLocation ADRENALINEPICKUP_LOCATION = ResourceLocation.fromNamespaceAndPath(Quake2Weapons.MODID,"textures/entity/itempickups/adrenaline_pickup.png");
-    private final AdrenalinePickupModel<AdrenalinePickupEntity> model;
+    private static final Identifier ADRENALINEPICKUP_LOCATION = Identifier.fromNamespaceAndPath(Quake2Weapons.MODID,"textures/entity/itempickups/adrenaline_pickup.png");
+
+    private final AdrenalinePickupModel model;
 
     public AdrenalinePickupRenderer(EntityRendererProvider.Context context) {
         super(context);
-        this.model = new AdrenalinePickupModel<>(context.bakeLayer(AdrenalinePickupModel.ADRENALINEPICKUP_LAYER));
+        this.model = new AdrenalinePickupModel(context.bakeLayer(AdrenalinePickupModel.ADRENALINEPICKUP_LAYER));
     }
 
     float bobbingSpeed = 0.05f;
     float bobbingHeight = 0.1f;
     float rotationSpeed = 4.375f;
 
-    public void render(AdrenalinePickupEntity rocketEntity, float v1, float partialTicks, PoseStack poseStack, MultiBufferSource bufferSource, int packedLight) {
+    public void submit(PickupEntityRenderState state, PoseStack poseStack, SubmitNodeCollector nodeCollector, CameraRenderState pCameraRenderState) {
 
         poseStack.pushPose();
 
@@ -36,7 +42,7 @@ public class AdrenalinePickupRenderer extends EntityRenderer<AdrenalinePickupEnt
         poseStack.mulPose(Axis.XP.rotationDegrees(180f));
 
 
-        float ageInTicks = rocketEntity.tickCount + partialTicks;
+        float ageInTicks = state.tickCount + state.partialTicks;
 
         double bob = Math.sin(ageInTicks * bobbingSpeed) * bobbingHeight;
         poseStack.translate(0d, 0.25d + bob, 0d);
@@ -44,12 +50,9 @@ public class AdrenalinePickupRenderer extends EntityRenderer<AdrenalinePickupEnt
         float rotation = (ageInTicks * rotationSpeed) % 360;
         poseStack.mulPose(Axis.YP.rotationDegrees(-rotation));
 
-        VertexConsumer $$6 = bufferSource.getBuffer(this.model.renderType(ADRENALINEPICKUP_LOCATION));
-        this.model.renderToBuffer(poseStack, $$6, packedLight, OverlayTexture.NO_OVERLAY, 1f, 1f, 1f, 1f);
+        nodeCollector.submitModel(this.model, state, poseStack, this.model.renderType(ADRENALINEPICKUP_LOCATION), state.lightCoords, OverlayTexture.NO_OVERLAY, state.outlineColor, (ModelFeatureRenderer.CrumblingOverlay) null);
 
         poseStack.popPose();
-
-        super.render(rocketEntity, v1, partialTicks, poseStack, bufferSource, packedLight);
     }
 
     @Override
@@ -58,6 +61,17 @@ public class AdrenalinePickupRenderer extends EntityRenderer<AdrenalinePickupEnt
     }
 
     @Override
-    public @NotNull ResourceLocation getTextureLocation(@NotNull AdrenalinePickupEntity spit) { return ADRENALINEPICKUP_LOCATION; }
+    public PickupEntityRenderState createRenderState() {
+        return new PickupEntityRenderState();
+    }
 
+    @Override
+    public void extractRenderState(AdrenalinePickupEntity entity, PickupEntityRenderState state, float partialTick) {
+        super.extractRenderState(entity, state, partialTick);
+        state.tickCount = entity.tickCount;
+        state.partialTicks = partialTick;
+        state.bobbingSpeed = this.bobbingSpeed;
+        state.bobbingHeight = this.bobbingHeight;
+        state.rotationSpeed = this.rotationSpeed;
+    }
 }

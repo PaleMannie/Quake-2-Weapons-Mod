@@ -1,33 +1,32 @@
 package mett.palemannie.q2w.item.client;
 
 import mett.palemannie.q2w.Quake2Weapons;
-import mett.palemannie.q2w.item.custom.Bfg10kItem;
 import mett.palemannie.q2w.item.custom.MachinegunItem;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
+import org.jetbrains.annotations.NotNull;
 import software.bernie.geckolib.model.GeoModel;
+import software.bernie.geckolib.renderer.base.GeoRenderState;
 
-public class MachinegunModel extends GeoModel<MachinegunItem> {
+public class MachinegunModel extends GeoModel<@NotNull MachinegunItem> {
 
-    private static final ResourceLocation DEFAULT_MODEL = ResourceLocation.fromNamespaceAndPath(Quake2Weapons.MODID, "geo/machinegun.geo.json");
+    private static final Identifier DEFAULT_MODEL = Identifier.fromNamespaceAndPath(Quake2Weapons.MODID, "machinegun");
 
-    private static final ResourceLocation DEFAULT_TEXTURE = ResourceLocation.fromNamespaceAndPath(Quake2Weapons.MODID, "textures/item/machinegun.png");
+    private static final Identifier DEFAULT_TEXTURE = Identifier.fromNamespaceAndPath(Quake2Weapons.MODID, "textures/item/machinegun.png");
 
-    private static final ResourceLocation DEFAULT_ANIM = ResourceLocation.fromNamespaceAndPath(Quake2Weapons.MODID, "animations/machinegun.animation.json");
+    private static final Identifier DEFAULT_ANIM = Identifier.fromNamespaceAndPath(Quake2Weapons.MODID, "machinegun");
 
     @Override
-    public ResourceLocation getModelResource(MachinegunItem animatable) {
-
+    public @NotNull Identifier getModelResource(@NotNull GeoRenderState geoRenderState) {
         return DEFAULT_MODEL;
     }
 
     @Override
-    public ResourceLocation getTextureResource(MachinegunItem animatable) {
-
+    public @NotNull Identifier getTextureResource(@NotNull GeoRenderState geoRenderState) {
         return DEFAULT_TEXTURE;
     }
 
     @Override
-    public ResourceLocation getAnimationResource(MachinegunItem animatable) {
+    public @NotNull Identifier getAnimationResource(MachinegunItem animatable) {
 
         return DEFAULT_ANIM;
     }

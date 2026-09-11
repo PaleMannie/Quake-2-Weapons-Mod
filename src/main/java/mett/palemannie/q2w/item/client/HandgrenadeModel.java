@@ -1,33 +1,32 @@
 package mett.palemannie.q2w.item.client;
 
 import mett.palemannie.q2w.Quake2Weapons;
-import mett.palemannie.q2w.item.custom.GrenadelauncherItem;
 import mett.palemannie.q2w.item.custom.HandgrenadeItem;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
+import org.jetbrains.annotations.NotNull;
 import software.bernie.geckolib.model.GeoModel;
+import software.bernie.geckolib.renderer.base.GeoRenderState;
 
-public class HandgrenadeModel extends GeoModel<HandgrenadeItem> {
+public class HandgrenadeModel extends GeoModel<@NotNull HandgrenadeItem> {
 
-    private static final ResourceLocation DEFAULT_MODEL = ResourceLocation.fromNamespaceAndPath(Quake2Weapons.MODID, "geo/handgrenade.geo.json");
+    private static final Identifier DEFAULT_MODEL = Identifier.fromNamespaceAndPath(Quake2Weapons.MODID, "handgrenade");
 
-    private static final ResourceLocation DEFAULT_TEXTURE = ResourceLocation.fromNamespaceAndPath(Quake2Weapons.MODID, "textures/item/handgrenade.png");
+    private static final Identifier DEFAULT_TEXTURE = Identifier.fromNamespaceAndPath(Quake2Weapons.MODID, "textures/item/handgrenade.png");
 
-    private static final ResourceLocation DEFAULT_ANIM = ResourceLocation.fromNamespaceAndPath(Quake2Weapons.MODID, "animations/handgrenade.animation.json");
+    private static final Identifier DEFAULT_ANIM = Identifier.fromNamespaceAndPath(Quake2Weapons.MODID, "handgrenade");
 
     @Override
-    public ResourceLocation getModelResource(HandgrenadeItem animatable) {
-
+    public @NotNull Identifier getModelResource(@NotNull GeoRenderState geoRenderState) {
         return DEFAULT_MODEL;
     }
 
     @Override
-    public ResourceLocation getTextureResource(HandgrenadeItem animatable) {
-
+    public @NotNull Identifier getTextureResource(@NotNull GeoRenderState geoRenderState) {
         return DEFAULT_TEXTURE;
     }
 
     @Override
-    public ResourceLocation getAnimationResource(HandgrenadeItem animatable) {
+    public @NotNull Identifier getAnimationResource(HandgrenadeItem animatable) {
 
         return DEFAULT_ANIM;
     }

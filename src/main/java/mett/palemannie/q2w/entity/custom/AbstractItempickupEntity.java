@@ -23,22 +23,11 @@ public abstract class AbstractItempickupEntity extends Entity {
     public static int durationOnPickup = 0;
 
     @Override
-    protected void defineSynchedData() {}
-
-    @Override
-    protected void readAdditionalSaveData(CompoundTag tag) {
-    }
-
-    @Override
-    protected void addAdditionalSaveData(CompoundTag tag) {
-    }
-
-    @Override
     public void tick() {
         super.tick();
 
         /// Extract entity lifetime from config
-        if(!level().isClientSide) { durationOnPickup = Q2WConfig.SERVER.powerupEffectDuration.get(); }
+        if(!level().isClientSide()) { durationOnPickup = Q2WConfig.SERVER.powerupEffectDuration.get(); }
 
         /// Lifetime check
         if (this.tickCount > Q2WConfig.SERVER.powerupLifetime.get()) {
@@ -47,7 +36,7 @@ public abstract class AbstractItempickupEntity extends Entity {
         }
 
         /// Entity Hitbox
-        if (!level().isClientSide) {
+        if (!level().isClientSide()) {
             for (Player player : level().getEntitiesOfClass(Player.class, getBoundingBox().inflate(0.5))) {
                 onPickup(player);
                 discard();

@@ -4,37 +4,35 @@ import mett.palemannie.q2w.Quake2Weapons;
 import mett.palemannie.q2w.item.ModItems;
 import mett.palemannie.q2w.item.custom.ChaingunItem;
 import net.minecraft.client.Minecraft;
-import net.minecraft.world.entity.player.Player;
-import software.bernie.geckolib.constant.DataTickets;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.Mth;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import software.bernie.geckolib.core.animatable.model.CoreGeoBone;
-import software.bernie.geckolib.core.animation.AnimationState;
+import org.jetbrains.annotations.NotNull;
+import software.bernie.geckolib.constant.DataTickets;
 import software.bernie.geckolib.model.GeoModel;
+import software.bernie.geckolib.renderer.base.GeoRenderState;
 
-public class ChaingunModel extends GeoModel<ChaingunItem> {
+public class ChaingunModel extends GeoModel<@NotNull ChaingunItem> {
 
-    private static final ResourceLocation DEFAULT_MODEL = ResourceLocation.fromNamespaceAndPath(Quake2Weapons.MODID, "geo/chaingun.geo.json");
+    private static final Identifier DEFAULT_MODEL = Identifier.fromNamespaceAndPath(Quake2Weapons.MODID, "chaingun");
 
-    private static final ResourceLocation DEFAULT_TEXTURE = ResourceLocation.fromNamespaceAndPath(Quake2Weapons.MODID, "textures/item/chaingun.png");
+    private static final Identifier DEFAULT_TEXTURE = Identifier.fromNamespaceAndPath(Quake2Weapons.MODID, "textures/item/chaingun.png");
 
-    private static final ResourceLocation DEFAULT_ANIM = ResourceLocation.fromNamespaceAndPath(Quake2Weapons.MODID, "animations/chaingun.animation.json");
+    private static final Identifier DEFAULT_ANIM = Identifier.fromNamespaceAndPath(Quake2Weapons.MODID, "chaingun");
 
     @Override
-    public ResourceLocation getModelResource(ChaingunItem animatable) {
-
+    public @NotNull Identifier getModelResource(@NotNull GeoRenderState geoRenderState) {
         return DEFAULT_MODEL;
     }
 
     @Override
-    public ResourceLocation getTextureResource(ChaingunItem animatable) {
-
+    public @NotNull Identifier getTextureResource(@NotNull GeoRenderState geoRenderState) {
         return DEFAULT_TEXTURE;
     }
 
     @Override
-    public ResourceLocation getAnimationResource(ChaingunItem animatable) {
+    public @NotNull Identifier getAnimationResource(ChaingunItem animatable) {
 
         return DEFAULT_ANIM;
     }

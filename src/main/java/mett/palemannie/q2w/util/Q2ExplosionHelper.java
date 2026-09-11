@@ -79,7 +79,7 @@ public final class Q2ExplosionHelper {
                 continue;
             }
 
-            target.hurt(damageSource, damage);
+            target.hurtServer(level, damageSource, damage);
             applyQ2Knockback(target, center, falloff);
         }
     }
@@ -100,7 +100,7 @@ public final class Q2ExplosionHelper {
 
     private static boolean clearPath(ServerLevel level, Vec3 from, Vec3 to) {
 
-        BlockHitResult hit = level.clip(new ClipContext(from, to, ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, null));
+        BlockHitResult hit = level.clip(new ClipContext(from, to, ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, (Entity) null));
 
         return hit.getType() == HitResult.Type.MISS;
     }

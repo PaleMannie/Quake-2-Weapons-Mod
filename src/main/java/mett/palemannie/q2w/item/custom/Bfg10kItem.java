@@ -10,12 +10,11 @@ import mett.palemannie.q2w.util.ServerPlayHandler;
 import mett.palemannie.q2w.util.WeaponAggroHandler;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.player.LocalPlayer;
-import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.entity.LivingEntity;
@@ -24,12 +23,15 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.client.extensions.common.IClientItemExtensions;
+import org.jetbrains.annotations.NotNull;
 import software.bernie.geckolib.animatable.GeoItem;
-import software.bernie.geckolib.core.animation.Animation;
-import software.bernie.geckolib.core.animation.AnimationController;
-import software.bernie.geckolib.core.animation.AnimatableManager;
-import software.bernie.geckolib.core.animation.RawAnimation;
-import software.bernie.geckolib.core.object.PlayState;
+import software.bernie.geckolib.animatable.client.GeoRenderProvider;
+import software.bernie.geckolib.animatable.manager.AnimatableManager;
+import software.bernie.geckolib.animation.AnimationController;
+import software.bernie.geckolib.animation.RawAnimation;
+import software.bernie.geckolib.animation.object.LoopType;
+import software.bernie.geckolib.animation.object.PlayState;
+import software.bernie.geckolib.renderer.GeoItemRenderer;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -43,21 +45,24 @@ public class Bfg10kItem extends AbstractWeapon {
     }
 
     @Override
-    public void initializeClient(Consumer<IClientItemExtensions> consumer) {
-
-        consumer.accept(new IClientItemExtensions() {
-
+    public void createGeoRenderer(Consumer<GeoRenderProvider> consumer) {
+        consumer.accept(new GeoRenderProvider() {
             private Bfg10kRenderer renderer;
 
             @Override
-            public BlockEntityWithoutLevelRenderer getCustomRenderer() {
-
-                if (this.renderer == null) {
+            public GeoItemRenderer<@NotNull Bfg10kItem> getGeoItemRenderer() {
+                if (this.renderer == null)
                     this.renderer = new Bfg10kRenderer();
-                }
 
                 return this.renderer;
             }
+        });
+    }
+
+    @Override
+    public void initializeClient(Consumer<IClientItemExtensions> consumer) {
+
+        consumer.accept(new IClientItemExtensions() {
 
             @Override
             public boolean applyForgeHandTransform(PoseStack poseStack, LocalPlayer player, HumanoidArm arm, ItemStack itemInHand, float partialTick, float equipProcess, float swingProcess) {
@@ -104,16 +109,16 @@ public class Bfg10kItem extends AbstractWeapon {
     private static final String AMMO_EMPTY_TRIGGER = "ammoempty";
 
     private static final RawAnimation IDLE_ANIM = RawAnimation.begin()
-            .then("bfg10k.animation.idle", Animation.LoopType.LOOP);
+            .then("bfg10k.animation.idle", LoopType.LOOP);
 
     private static final RawAnimation WINDUP_ANIM = RawAnimation.begin()
-            .then("bfg10k.animation.windup", Animation.LoopType.PLAY_ONCE);
+            .then("bfg10k.animation.windup", LoopType.PLAY_ONCE);
 
     private static final RawAnimation SHOOT_ANIM = RawAnimation.begin()
-            .then("bfg10k.animation.shooting", Animation.LoopType.PLAY_ONCE);
+            .then("bfg10k.animation.shooting", LoopType.PLAY_ONCE);
 
     private static final RawAnimation AMMO_EMPTY_ANIM = RawAnimation.begin()
-            .then("bfg10k.animation.ammoempty", Animation.LoopType.PLAY_ONCE);
+            .then("bfg10k.animation.ammoempty", LoopType.PLAY_ONCE);
 
     private final Map<UUID, BfgState> states = new HashMap<>();
 
@@ -130,7 +135,7 @@ public class Bfg10kItem extends AbstractWeapon {
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
 
-        controllers.add(new AnimationController<>(this, BFG_CONTROLLER, 0, state -> {
+        controllers.add(new AnimationController<>(BFG_CONTROLLER, 0, state -> {
             state.setAndContinue(IDLE_ANIM);
             return PlayState.CONTINUE;
         })
@@ -140,16 +145,16 @@ public class Bfg10kItem extends AbstractWeapon {
     }
 
     @Override
-    public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand usedHand) {
+    public InteractionResult use(Level level, Player player, InteractionHand usedHand) {
 
         ItemStack stack = player.getItemInHand(usedHand);
 
         if (usedHand != InteractionHand.MAIN_HAND) {
-            return InteractionResultHolder.fail(stack);
+            return InteractionResult.FAIL;
         }
 
-        if (player.getCooldowns().isOnCooldown(this)) {
-            return InteractionResultHolder.fail(stack);
+        if (player.getCooldowns().isOnCooldown(player.getUseItem())) {
+            return InteractionResult.FAIL;
         }
 
         setCurrentHand(usedHand, player);
@@ -161,14 +166,14 @@ public class Bfg10kItem extends AbstractWeapon {
             if (!states.containsKey(uuid)) {
                 if (!hasEnoughAmmo(serverPlayer)) {
                     onAmmoEmpty(serverLevel, serverPlayer, stack);
-                    return InteractionResultHolder.consume(stack);
+                    return InteractionResult.CONSUME;
                 }
 
                 startSequence(serverLevel, serverPlayer, stack);
             }
         }
 
-        return InteractionResultHolder.consume(stack);
+        return InteractionResult.CONSUME;
     }
 
     @Override
@@ -180,8 +185,9 @@ public class Bfg10kItem extends AbstractWeapon {
     }
 
     @Override
-    public void releaseUsing(ItemStack stack, Level level, LivingEntity livingEntity, int timeCharged) {
+    public boolean releaseUsing(ItemStack stack, Level level, LivingEntity livingEntity, int timeCharged) {
         super.releaseUsing(stack, level, livingEntity, timeCharged);
+        return false;
     }
 
     @Override
@@ -282,7 +288,7 @@ public class Bfg10kItem extends AbstractWeapon {
         WeaponAggroHandler.onWeaponShot(player);
         ModMessages.sendToPlayer(new WeaponRecoilS2CPacket(33f, player.getRandom().nextBoolean() ? 15f : -15f, 10f), player);
 
-        player.getCooldowns().addCooldown(this, FIRE_SEQUENCE_INTERVAL_TICKS - WINDUP_TICKS);
+        player.getCooldowns().addCooldown(stack, FIRE_SEQUENCE_INTERVAL_TICKS - WINDUP_TICKS);
     }
 
     private boolean hasEnoughAmmo(Player player) {

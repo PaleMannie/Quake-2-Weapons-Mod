@@ -20,6 +20,6 @@ public class EnvirosuitItem extends AbstractPowerupItem{
 
     @Override
     protected void onPowerupUse(Level level, Player player, ItemStack stack, int duration) {
-        player.addEffect(new MobEffectInstance(ModEffects.ENVIROSUIT.get(), getPowerupDuration()));
+        player.addEffect(new MobEffectInstance(ModEffects.ENVIROSUIT.getHolder().get(), getPowerupDuration()));
     }
 }
