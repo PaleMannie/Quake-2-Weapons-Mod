@@ -1,9 +1,9 @@
 package mett.palemannie.q2w.sound;
 
 import mett.palemannie.q2w.Quake2Weapons;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.eventbus.api.bus.BusGroup;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
@@ -33,7 +33,7 @@ public class ModSounds {
 
     public static final RegistryObject<SoundEvent> EXPLOSION = registerSoundEvents("explosion");
 
-    public static final RegistryObject<SoundEvent> HANDGRENADE_START = SOUND_EVENTS.register("handgrenade_start", () -> SoundEvent.createFixedRangeEvent(ResourceLocation.fromNamespaceAndPath(Quake2Weapons.MODID, "handgrenade_start"), 16f));
+    public static final RegistryObject<SoundEvent> HANDGRENADE_START = SOUND_EVENTS.register("handgrenade_start", () -> SoundEvent.createFixedRangeEvent(Identifier.fromNamespaceAndPath(Quake2Weapons.MODID, "handgrenade_start"), 16f));
     public static final RegistryObject<SoundEvent> HANDGRENADE_COOK = registerSoundEvents("handgrenade_cook");
     public static final RegistryObject<SoundEvent> HANDGRENADE_TOSS = registerSoundEvents("handgrenade_toss");
     public static final RegistryObject<SoundEvent> HANDGRENADE_BOUNCE = registerSoundEvents("handgrenade_bounce");
@@ -80,10 +80,10 @@ public class ModSounds {
 
 
     private static RegistryObject<SoundEvent> registerSoundEvents(String name) {
-        return SOUND_EVENTS.register(name, () -> SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath(Quake2Weapons.MODID, name)));
+        return SOUND_EVENTS.register(name, () -> SoundEvent.createVariableRangeEvent(Identifier.fromNamespaceAndPath(Quake2Weapons.MODID, name)));
     }
 
-    public static void register(IEventBus eventBus) {
+    public static void register(BusGroup eventBus) {
         SOUND_EVENTS.register(eventBus);
     }
 }

@@ -1,10 +1,12 @@
 package mett.palemannie.q2w.effect;
 
 import mett.palemannie.q2w.Quake2Weapons;
-import mett.palemannie.q2w.effect.custom.*;
+import mett.palemannie.q2w.effect.custom.EnvirosuitEffect;
+import mett.palemannie.q2w.effect.custom.InvulnerabilityEffect;
+import mett.palemannie.q2w.effect.custom.QuadDamageEffect;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
-import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.eventbus.api.bus.BusGroup;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
@@ -18,7 +20,7 @@ public class ModEffects {
     public static final RegistryObject<MobEffect> INVULNERABILITY = MOB_EFFECTS.register("invuln_effect", ()-> new InvulnerabilityEffect(MobEffectCategory.BENEFICIAL, 16765184));
     public static final RegistryObject<MobEffect> ENVIROSUIT = MOB_EFFECTS.register("envirosuit_effect", ()-> new EnvirosuitEffect(MobEffectCategory.BENEFICIAL, 65408));
 
-    public static void register(IEventBus eventBus){
+    public static void register(BusGroup eventBus){
         MOB_EFFECTS.register(eventBus);
     }
 }

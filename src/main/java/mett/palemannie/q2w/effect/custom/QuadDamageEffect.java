@@ -2,11 +2,14 @@ package mett.palemannie.q2w.effect.custom;
 
 import mett.palemannie.q2w.effect.ModEffects;
 import mett.palemannie.q2w.sound.ModSounds;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.level.Level;
 
 public class QuadDamageEffect extends MobEffect {
 
@@ -14,27 +17,33 @@ public class QuadDamageEffect extends MobEffect {
         super(pCategory, pColor);
     }
 
-    /// Effect done through Events
-    /// Only Expiring sounds here
-
     @Override
-    public void applyEffectTick(LivingEntity entity, int amplifier) {
+    public void onEffectAdded(LivingEntity entity, int pAmplifier) {
 
-        MobEffectInstance inst = entity.getEffect(ModEffects.QUAD_DAMAGE.get());
-        if (inst != null) {
-            int remaining = inst.getDuration();
+        Level level = entity.level();
+        if (!level.isClientSide()) {
 
-            if (remaining == 60) {
-                if (entity.level().isClientSide) {
+            if (entity instanceof ServerPlayer player) {
 
-                    entity.level().playLocalSound(entity.getX(), entity.getY(), entity.getZ(), ModSounds.QUAD_DAMAGE_EXPIRE.get(), SoundSource.PLAYERS, 3f, 1f, false);
-                }
             }
         }
     }
 
     @Override
-    public boolean isDurationEffectTick(int duration, int amplifier) {
+    public boolean applyEffectTick(ServerLevel sevel, LivingEntity entity, int amplifier) {
+
+        Level level = entity.level();
+        if (!level.isClientSide()) {
+
+            if (entity instanceof ServerPlayer player) {
+
+            }
+        }
         return true;
+    }
+
+    @Override
+    public boolean shouldApplyEffectTickThisTick(int duration, int pAmplifier) {
+        return duration == 60;
     }
 }

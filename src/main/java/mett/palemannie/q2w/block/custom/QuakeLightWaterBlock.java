@@ -39,7 +39,7 @@ public class QuakeLightWaterBlock extends LiquidBlock {
     public void onPlace(BlockState state, Level level, BlockPos pos, BlockState oldState, boolean isMoving) {
         super.onPlace(state, level, pos, oldState, isMoving);
 
-        if (!level.isClientSide && oldState.getBlock() != this) {
+        if (!level.isClientSide() && oldState.getBlock() != this) {
             level.scheduleTick(pos, this, LIFETIME_TICKS);
         }
     }

@@ -24,7 +24,7 @@ public class QuakeLightAirBlock extends AirBlock {
     public void onPlace(BlockState state, Level level, BlockPos pos, BlockState oldState, boolean isMoving) {
         super.onPlace(state, level, pos, oldState, isMoving);
 
-        if (!level.isClientSide && oldState.getBlock() != this) {
+        if (!level.isClientSide() && oldState.getBlock() != this) {
             level.scheduleTick(pos, this, LIFETIME_TICKS);
         }
     }
@@ -42,7 +42,7 @@ public class QuakeLightAirBlock extends AirBlock {
     }
 
     @Override
-    public boolean propagatesSkylightDown(BlockState state, BlockGetter level, BlockPos pos) {
+    protected boolean propagatesSkylightDown(BlockState pState) {
         return true;
     }
 }

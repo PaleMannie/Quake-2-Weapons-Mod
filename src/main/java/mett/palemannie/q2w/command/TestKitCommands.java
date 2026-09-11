@@ -7,11 +7,13 @@ import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.server.permissions.Permission;
+import net.minecraft.server.permissions.Permissions;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.event.RegisterCommandsEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.eventbus.api.listener.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
 import java.util.List;
@@ -24,7 +26,7 @@ public final class TestKitCommands {
     public static void register(RegisterCommandsEvent event) {
 
         event.getDispatcher().register(Commands.literal("q2w")
-                .requires(source -> source.hasPermission(2))
+                .requires(source -> source.permissions().hasPermission(Permissions.COMMANDS_MODERATOR))
                 .then(Commands.literal("testkit").executes(context -> supply(context.getSource(), true)))
                 .then(Commands.literal("refill").executes(context -> supply(context.getSource(), false))));
     }
@@ -77,7 +79,7 @@ public final class TestKitCommands {
 
         for (ItemStack stack : inventory.items) {
             if (remaining == 0) break;
-            if (!stack.isEmpty() && ItemStack.isSameItemSameTags(stack, template)) {
+            if (!stack.isEmpty() && ItemStack.isSameItem(stack, template)) {
                 int added = Math.min(remaining, Math.max(0, stack.getMaxStackSize() - stack.getCount()));
                 stack.grow(added);
                 remaining -= added;
