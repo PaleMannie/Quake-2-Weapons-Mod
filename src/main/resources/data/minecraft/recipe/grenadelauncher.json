@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "rII",
+    "DBR",
+    "IIS"
+  ],
+  "key": {
+    "I": ["minecraft:iron_block"],
+    "B": ["minecraft:blaze_rod"],
+    "S": ["minecraft:stick"],
+    "R": ["minecraft:repeater"],
+    "r": ["minecraft:redstone"],
+    "D": ["minecraft:dispenser"]
+  },
+  "result": {
+    "id": "q2w:grenadelauncher",
+    "count": 1
+  }
+}

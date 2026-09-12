@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " C ",
+    "IRR",
+    " CL"
+  ],
+  "key": {
+    "I": ["minecraft:iron_ingot"],
+    "L": "#minecraft:logs",
+    "C": ["minecraft:copper_ingot"],
+    "R": ["minecraft:redstone"]
+  },
+  "result": {
+    "id": "q2w:blaster",
+    "count": 1
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    ["minecraft:iron_ingot"],
+    ["minecraft:gold_ingot"],
+    ["minecraft:copper_ingot"]
+  ],
+  "result": {
+    "id": "q2w:slug",
+    "count": 2
+  }
+}

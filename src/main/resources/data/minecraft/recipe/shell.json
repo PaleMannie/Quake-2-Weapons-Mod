@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "III",
+    "III",
+    "PGB"
+  ],
+  "key": {
+    "I": ["minecraft:iron_nugget"],
+    "G": ["minecraft:gunpowder"],
+    "P": ["minecraft:paper"],
+    "B": ["minecraft:gold_ingot"]
+  },
+  "result": {
+    "id": "q2w:shell",
+    "count": 8
+  }
+}

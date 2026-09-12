@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "IIG",
+    "DBR",
+    "IIS"
+  ],
+  "key": {
+    "I": ["minecraft:iron_block"],
+    "S": ["minecraft:stick"],
+    "R": ["minecraft:repeater"],
+    "D": ["minecraft:dispenser"],
+    "B": ["minecraft:blaze_rod"],
+    "G": ["minecraft:gold_ingot"]
+  },
+  "result": {
+    "id": "q2w:rocketlauncher",
+    "count": 1
+  }
+}

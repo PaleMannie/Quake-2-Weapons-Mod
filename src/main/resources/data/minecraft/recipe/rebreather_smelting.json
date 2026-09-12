@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": [
+    "q2w:rebreather_item"
+  ],
+  "result": {
+    "id": "minecraft:copper_ingot"
+  },
+  "experience": 0.7,
+  "cookingtime": 200
+}

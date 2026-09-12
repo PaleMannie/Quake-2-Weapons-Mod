@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "GIR",
+    "INW",
+    "RWS"
+  ],
+  "key": {
+    "N": ["q2w:machinegun"],
+    "I": ["minecraft:iron_block"],
+    "W": "#minecraft:planks",
+    "S": ["minecraft:stick"],
+    "R": ["minecraft:redstone"],
+    "G": ["minecraft:gold_ingot"]
+  },
+  "result": {
+    "id": "q2w:chaingun",
+    "count": 1
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "DIS",
+    "EAI",
+    "DIL"
+  ],
+  "key": {
+    "D": ["minecraft:diamond"],
+    "E": ["minecraft:ender_eye"],
+    "I": ["minecraft:iron_block"],
+    "L": "minecraft:logs",
+    "S": ["minecraft:stick"],
+    "A": ["minecraft:amethyst_shard"]
+  },
+  "result": {
+    "id": "q2w:bfg10k",
+    "count": 1
+  }
+}

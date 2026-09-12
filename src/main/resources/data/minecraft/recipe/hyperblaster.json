@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "GI ",
+    "BDR",
+    " dL"
+  ],
+  "key": {
+    "I": ["minecraft:iron_block"],
+    "L": "#minecraft:logs",
+    "B": ["q2w:blaster"],
+    "D": ["minecraft:dispenser"],
+    "d": ["minecraft:diamond"],
+    "R": ["minecraft:repeater"],
+    "G": ["minecraft:gold_block"]
+  },
+  "result": {
+    "id": "q2w:hyperblaster",
+    "count": 1
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " I ",
+    "DIP",
+    " CL"
+  ],
+  "key": {
+    "I": ["minecraft:iron_block"],
+    "P": ["minecraft:piston"],
+    "C": ["minecraft:flower_pot"],
+    "L": "#minecraft:logs",
+    "D": ["minecraft:dispenser"]
+  },
+  "result": {
+    "id": "q2w:machinegun",
+    "count": 1
+  }
+}

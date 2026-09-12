@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "GRR",
+    "dDQ",
+    " IL"
+  ],
+  "key": {
+    "D": ["minecraft:diamond"],
+    "d": ["minecraft:dispenser"],
+    "I": ["minecraft:iron_ingot"],
+    "R": ["minecraft:redstone_block"],
+    "L": "#minecraft:logs",
+    "Q": ["minecraft:quartz"],
+    "G": ["minecraft:ghast_tear"]
+  },
+  "result": {
+    "id": "q2w:railgun",
+    "count": 1
+  }
+}

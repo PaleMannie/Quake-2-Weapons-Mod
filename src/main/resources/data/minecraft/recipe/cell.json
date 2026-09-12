@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "IGI",
+    "GRG",
+    "IGI"
+  ],
+  "key": {
+    "G": ["minecraft:glowstone_dust"],
+    "I": ["minecraft:iron_ingot"],
+    "R": ["minecraft:redstone"]
+  },
+  "result": {
+    "id": "q2w:cell",
+    "count": 16
+  }
+}
