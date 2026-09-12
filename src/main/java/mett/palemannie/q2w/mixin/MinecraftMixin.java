@@ -27,6 +27,15 @@ public class MinecraftMixin {
         return original.call(instance);
     }
 
+    @WrapOperation(method = "handleKeybinds", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/Minecraft;continueAttack(Z)V"))
+    private void quakeweapons$preventMiningWhileFiring(Minecraft instance, boolean attacking, Operation<Void> original) {
+        // Held attack also drives block mining, including gaps between weapon uses.
+        // Pass false so vanilla stops mining instead of merely skipping this tick.
+        boolean holdingWeapon = instance.player != null
+                && instance.player.getMainHandItem().getItem() instanceof AbstractWeapon;
+        original.call(instance, attacking && !holdingWeapon);
+    }
+
     @WrapOperation(method = "handleKeybinds", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/KeyMapping;isDown()Z"))
     // Keeps the Quake weapons firing. Replace right click check with left click check when Quake weapons are fired to ensure that.
     private boolean isQuakeWeaponFired(KeyMapping key, Operation<Boolean> original) {
