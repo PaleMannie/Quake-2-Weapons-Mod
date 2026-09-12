@@ -78,9 +78,17 @@ public abstract class AbstractWeapon extends Item implements GeoItem {
                 .then(idleAnimationName(), LoopType.LOOP);
 
         controllers.add(new AnimationController<>("weapon_controller", 0, state -> {
-            state.setAndContinue(idleAnim);
-            return PlayState.CONTINUE;
+            // GeckoLib 5.4.5 sets timelineTime to -2 at the end, so the
+            // controller's hasAnimationFinished() stays false. Check the frame.
+            var point = state.controller().getCurrentAnimationPoint();
+            if (point != null && point.hasFinished()) {
+                state.controller().stopTriggeredAnimation();
+            } else if (state.controller().isTriggeredAnimation("shoot") || state.controller().isTriggeredAnimation("ammoempty")) {
+                return PlayState.CONTINUE;
+            }
+            return state.setAndContinue(idleAnim);
         })
+                .receiveTriggeredAnimations()
                 .triggerableAnim("shoot", shootingAnim)
                 .triggerableAnim("ammoempty", ammoEmptyAnim));
     }

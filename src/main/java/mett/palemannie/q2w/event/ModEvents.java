@@ -61,20 +61,23 @@ public class ModEvents {
     public static void onEffectGotten(MobEffectEvent.Added event){
 
         LivingEntity entity = event.getEntity();
-
-        if(event.getEffectInstance().getEffect().equals(ModEffects.QUAD_DAMAGE.get())){
-
-            entity.level().playSound(null, entity.blockPosition(), ModSounds.QUAD_DAMAGE_PICKUP.get(), SoundSource.PLAYERS, 1.0F, 1.0F);
+        if (entity.level().isClientSide()) {
+            return;
         }
 
-        if(event.getEffectInstance().getEffect().equals(ModEffects.INVULNERABILITY.get())){
+        if(event.getEffectInstance().getEffect().equals(ModEffects.QUAD_DAMAGE.getHolder().orElseThrow())){
 
-            entity.level().playSound(null, entity.blockPosition(), ModSounds.INVULN_PICKUP.get(), SoundSource.PLAYERS, 1.0F, 1.0F);
+            entity.level().playSound(null, entity, ModSounds.QUAD_DAMAGE_PICKUP.get(), SoundSource.PLAYERS, 1.0F, 1.0F);
         }
 
-        if(event.getEffectInstance().getEffect().equals(ModEffects.ENVIROSUIT.get())){
+        if(event.getEffectInstance().getEffect().equals(ModEffects.INVULNERABILITY.getHolder().orElseThrow())){
 
-            entity.level().playSound(null, entity.blockPosition(), ModSounds.ENVIROSUIT_PICKUP.get(), SoundSource.PLAYERS, 1.0F, 1.0F);
+            entity.level().playSound(null, entity, ModSounds.INVULN_PICKUP.get(), SoundSource.PLAYERS, 1.0F, 1.0F);
+        }
+
+        if(event.getEffectInstance().getEffect().equals(ModEffects.ENVIROSUIT.getHolder().orElseThrow())){
+
+            entity.level().playSound(null, entity, ModSounds.ENVIROSUIT_PICKUP.get(), SoundSource.PLAYERS, 1.0F, 1.0F);
         }
     }
 

@@ -95,12 +95,12 @@ public final class Q2ExplosionHelper {
         Vec3 eyes = target.getEyePosition();
         Vec3 feet = target.position().add(0d, 0.15d, 0d);
 
-        return clearPath(level, center, body) || clearPath(level, center, eyes) || clearPath(level, center, feet);
+        return clearPath(level, center, body, target) || clearPath(level, center, eyes, target) || clearPath(level, center, feet, target);
     }
 
-    private static boolean clearPath(ServerLevel level, Vec3 from, Vec3 to) {
+    private static boolean clearPath(ServerLevel level, Vec3 from, Vec3 to, Entity entity) {
 
-        BlockHitResult hit = level.clip(new ClipContext(from, to, ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, (Entity) null));
+        BlockHitResult hit = level.clip(new ClipContext(from, to, ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, entity));
 
         return hit.getType() == HitResult.Type.MISS;
     }

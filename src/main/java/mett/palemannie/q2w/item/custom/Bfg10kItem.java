@@ -136,9 +136,17 @@ public class Bfg10kItem extends AbstractWeapon {
     public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
 
         controllers.add(new AnimationController<>(BFG_CONTROLLER, 0, state -> {
-            state.setAndContinue(IDLE_ANIM);
-            return PlayState.CONTINUE;
+            // GeckoLib 5.4.5 sets timelineTime to -2 at the end, so the
+            // controller's hasAnimationFinished() stays false. Check the frame.
+            var point = state.controller().getCurrentAnimationPoint();
+            if (point != null && point.hasFinished()) {
+                state.controller().stopTriggeredAnimation();
+            } else if (state.controller().isTriggeredAnimation(WINDUP_TRIGGER) || state.controller().isTriggeredAnimation(SHOOT_TRIGGER) || state.controller().isTriggeredAnimation(AMMO_EMPTY_TRIGGER)) {
+                return PlayState.CONTINUE;
+            }
+            return state.setAndContinue(IDLE_ANIM);
         })
+                .receiveTriggeredAnimations()
                 .triggerableAnim(WINDUP_TRIGGER, WINDUP_ANIM)
                 .triggerableAnim(SHOOT_TRIGGER, SHOOT_ANIM)
                 .triggerableAnim(AMMO_EMPTY_TRIGGER, AMMO_EMPTY_ANIM));

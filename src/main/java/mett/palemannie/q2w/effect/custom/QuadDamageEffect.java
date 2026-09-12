@@ -1,49 +1,26 @@
 package mett.palemannie.q2w.effect.custom;
 
-import mett.palemannie.q2w.effect.ModEffects;
 import mett.palemannie.q2w.sound.ModSounds;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
-import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.level.Level;
 
 public class QuadDamageEffect extends MobEffect {
-
-    public QuadDamageEffect(MobEffectCategory pCategory, int pColor) {
-        super(pCategory, pColor);
+    public QuadDamageEffect(MobEffectCategory category, int color) {
+        super(category, color);
     }
 
     @Override
-    public void onEffectAdded(LivingEntity entity, int pAmplifier) {
-
-        Level level = entity.level();
-        if (!level.isClientSide()) {
-
-            if (entity instanceof ServerPlayer player) {
-
-            }
-        }
-    }
-
-    @Override
-    public boolean applyEffectTick(ServerLevel sevel, LivingEntity entity, int amplifier) {
-
-        Level level = entity.level();
-        if (!level.isClientSide()) {
-
-            if (entity instanceof ServerPlayer player) {
-
-            }
-        }
+    public boolean applyEffectTick(ServerLevel level, LivingEntity entity, int amplifier) {
+        level.playSound(null, entity, ModSounds.QUAD_DAMAGE_EXPIRE.get(), SoundSource.PLAYERS, 1.0F, 1.0F);
         return true;
     }
 
     @Override
-    public boolean shouldApplyEffectTickThisTick(int duration, int pAmplifier) {
+    public boolean shouldApplyEffectTickThisTick(int duration, int amplifier) {
+        // Quake's expiration warning starts three seconds before the effect ends.
         return duration == 60;
     }
 }

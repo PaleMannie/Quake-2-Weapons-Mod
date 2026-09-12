@@ -140,9 +140,17 @@ public class HandgrenadeItem extends AbstractWeapon {
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
         controllers.add(new AnimationController<>(HANDGRENADE_CONTROLLER, 0, state -> {
-            state.setAndContinue(IDLE_ANIM);
-            return PlayState.CONTINUE;
+            // GeckoLib 5.4.5 sets timelineTime to -2 at the end, so the
+            // controller's hasAnimationFinished() stays false. Check the frame.
+            var point = state.controller().getCurrentAnimationPoint();
+            if (point != null && point.hasFinished()) {
+                state.controller().stopTriggeredAnimation();
+            } else if (state.controller().isTriggeredAnimation(PRIME_TRIGGER) || state.controller().isTriggeredAnimation(THROW_TRIGGER) || state.controller().isTriggeredAnimation(OVERCOOK_TRIGGER)) {
+                return PlayState.CONTINUE;
+            }
+            return state.setAndContinue(IDLE_ANIM);
         })
+                .receiveTriggeredAnimations()
                 .triggerableAnim(PRIME_TRIGGER, PRIME_ANIM)
                 .triggerableAnim(THROW_TRIGGER, THROW_ANIM)
                 .triggerableAnim(OVERCOOK_TRIGGER, OVERCOOK_ANIM));
