@@ -7,6 +7,7 @@ import mett.palemannie.q2w.entity.ModEntities;
 import mett.palemannie.q2w.entity.client.*;
 import mett.palemannie.q2w.item.ModItems;
 import mett.palemannie.q2w.net.ModMessages;
+import mett.palemannie.q2w.particle.ModParticles;
 import mett.palemannie.q2w.sound.ModSounds;
 import mett.palemannie.q2w.util.ModCreativeModeTabs;
 import net.minecraft.client.renderer.entity.EntityRenderers;
@@ -17,7 +18,6 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.slf4j.Logger;
-import software.bernie.geckolib.GeckoLib;
 
 @Mod(Quake2Weapons.MODID)
 public class Quake2Weapons {
@@ -30,13 +30,12 @@ public class Quake2Weapons {
         var modBusGroup = context.getModBusGroup();
         FMLCommonSetupEvent.getBus(modBusGroup).addListener(Quake2Weapons::commonSetup);
 
-        GeckoLib.DATA_COMPONENTS_REGISTER.register(modBusGroup);
-
         ModItems.register(modBusGroup);
         ModEffects.register(modBusGroup);
         ModEntities.register(modBusGroup);
         ModSounds.register(modBusGroup);
         ModBlocks.register(modBusGroup);
+        ModParticles.PARTICLES.register(modBusGroup);
         ModCreativeModeTabs.register(modBusGroup);
 
         Q2WConfig.registerConfigs();

@@ -247,7 +247,7 @@ public class ServerPlayHandler {
             blockDistance = blockHit.getLocation().distanceTo(eyePos);
         }
 
-        EntityHitResult entityHit = ProjectileUtil.getEntityHitResult(serverLevel, player, eyePos, endPos, new AABB(eyePos, endPos).inflate(0.35d), entity -> entity instanceof LivingEntity && entity != player && !entity.isSpectator() && entity.isPickable());
+        EntityHitResult entityHit = ProjectileUtil.getEntityHitResult(serverLevel, player, eyePos, endPos, new AABB(eyePos, endPos).inflate(0.35d), entity -> entity instanceof LivingEntity && entity != player && !entity.isSpectator() && entity.isPickable(), 0.3f);
 
         if (entityHit != null && entityHit.getLocation().distanceTo(eyePos) < blockDistance) {
 
@@ -299,7 +299,7 @@ public class ServerPlayHandler {
             blockDistance = blockHit.getLocation().distanceTo(eyePos);
         }
 
-        EntityHitResult entityHit = ProjectileUtil.getEntityHitResult(serverLevel, player, eyePos, endPos, new AABB(eyePos, endPos).inflate(0.35d), entity -> entity instanceof LivingEntity && entity != player && !entity.isSpectator() && entity.isPickable());
+        EntityHitResult entityHit = ProjectileUtil.getEntityHitResult(serverLevel, player, eyePos, endPos, new AABB(eyePos, endPos).inflate(0.35d), entity -> entity instanceof LivingEntity && entity != player && !entity.isSpectator() && entity.isPickable(), 0.3f);
 
         if (entityHit != null && entityHit.getLocation().distanceTo(eyePos) < blockDistance) {
 
@@ -582,7 +582,7 @@ public class ServerPlayHandler {
             Vec3 endPos = eyePos.add(pelletDir.scale(RANGE));
 
             BlockHitResult blockHit = sevel.clip(new ClipContext(eyePos, endPos, ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, player));
-            EntityHitResult entityHit = ProjectileUtil.getEntityHitResult(sevel, player, eyePos, endPos, new AABB(eyePos, endPos).inflate(1.0), e -> e instanceof LivingEntity && e != player);
+            EntityHitResult entityHit = ProjectileUtil.getEntityHitResult(sevel, player, eyePos, endPos, new AABB(eyePos, endPos).inflate(1.0), e -> e instanceof LivingEntity && e != player, 0.3f);
 
             if (entityHit != null && (blockHit == null || entityHit.getLocation().distanceTo(eyePos) < blockHit.getLocation().distanceTo(eyePos))) {
 
@@ -646,7 +646,7 @@ public class ServerPlayHandler {
                     level, player, eyePos, endPos,
                     new AABB(eyePos, endPos).inflate(1),
                     e -> e instanceof LivingEntity && e != player
-            );
+            , 0.3f);
 
             if (entityHit != null && (blockHit == null || entityHit.getLocation().distanceTo(eyePos) < blockHit.getLocation().distanceTo(eyePos))) {
                 LivingEntity target = (LivingEntity) entityHit.getEntity();

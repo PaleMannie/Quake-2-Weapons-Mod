@@ -29,7 +29,7 @@ minecraft {
             workingDir.convention layout.projectDirectory.dir('run')
             systemProperty 'forge.logging.console.level', 'debug'
             systemProperty 'eventbus.api.strictRuntimeChecks', 'true'
-            args "-mixin.config=${mod_id}.mixins.json"
+            args "-mixin.config=mixins.${mod_id}.json"
 
         }
 

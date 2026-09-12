@@ -9,12 +9,10 @@ import net.minecraftforge.fml.common.Mod;
 @Mod.EventBusSubscriber(modid = Quake2Weapons.MODID)
 public final class WeaponSwitchCooldownHandler {
 
-    /// TODO: player da reinkriegen
-
     @SubscribeEvent
-    public static void onPlayerTick(TickEvent.PlayerTickEvent event) {
-        if (/*event.phase == TickEvent.Phase.END &&*/ !event.side().isClient()) {
-            AbstractQ2Weapon.checkSpinningWeaponSwitch();
+    public static void onPlayerTick(TickEvent.PlayerTickEvent.Post event) {
+        if (!event.side().isClient()) {
+            AbstractQ2Weapon.checkSpinningWeaponSwitch(event.player());
         }
     }
 }

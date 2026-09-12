@@ -5,10 +5,10 @@ import net.minecraft.client.particle.*;
 import net.minecraft.core.particles.SimpleParticleType;
 import org.jetbrains.annotations.Nullable;
 
-public class BfgLaserParticle extends TextureSheetParticle {
+public class BfgLaserParticle extends SingleQuadParticle {
 
     protected BfgLaserParticle(ClientLevel level, double x, double y, double z, double xd, double yd, double zd, SpriteSet spriteSet) {
-        super(level, x, y, z, 0d, 0d, 0d);
+        super(level, x, y, z, 0d, 0d, 0d, spriteSet.get(0, 1));
 
         this.xd = 0d;
         this.yd = 0d;
@@ -26,7 +26,7 @@ public class BfgLaserParticle extends TextureSheetParticle {
         this.bCol = 1f;
         this.alpha = 1f;
 
-        this.pickSprite(spriteSet);
+        this.setSprite(spriteSet.get(0, 1));
     }
 
     @Override
@@ -42,8 +42,8 @@ public class BfgLaserParticle extends TextureSheetParticle {
     }
 
     @Override
-    public ParticleRenderType getRenderType() {
-        return ParticleRenderType.PARTICLE_SHEET_TRANSLUCENT;
+    protected Layer getLayer() {
+        return Layer.TRANSLUCENT;
     }
 
     public static class Provider implements ParticleProvider<SimpleParticleType> {
@@ -55,7 +55,7 @@ public class BfgLaserParticle extends TextureSheetParticle {
         }
 
         @Override
-        public @Nullable Particle createParticle(SimpleParticleType type, ClientLevel level, double x, double y, double z, double xd, double yd, double zd) {
+        public @Nullable Particle createParticle(SimpleParticleType type, ClientLevel level, double x, double y, double z, double xd, double yd, double zd, net.minecraft.util.RandomSource random) {
 
             return new BfgLaserParticle(level, x, y, z, xd, yd, zd, spriteSet);
         }

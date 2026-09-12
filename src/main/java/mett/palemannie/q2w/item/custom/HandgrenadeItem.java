@@ -156,16 +156,8 @@ public class HandgrenadeItem extends AbstractWeapon {
             return;
         }
 
-        if (!stack.hasTag()) {
-            return;
-        }
-
-        stack.getTag().remove(OLD_STACK_ID_TAG);
-        stack.getTag().remove(GECKOLIB_ID_TAG);
-
-        if (stack.hasTag() && stack.getTag().isEmpty()) {
-            stack.setTag(null);
-        }
+        mett.palemannie.q2w.util.ItemData.remove(stack, OLD_STACK_ID_TAG);
+        mett.palemannie.q2w.util.ItemData.remove(stack, GECKOLIB_ID_TAG);
     }
 
     @Override
@@ -239,11 +231,14 @@ public class HandgrenadeItem extends AbstractWeapon {
     }
 
     @Override
-    public void inventoryTick(ItemStack stack, Level level, Entity entity, int slot, boolean selected) {
-        super.inventoryTick(stack, level, entity, slot, selected);
+    public void inventoryTick(ItemStack stack, ServerLevel level, Entity entity, net.minecraft.world.entity.EquipmentSlot equipmentSlot) {
+        super.inventoryTick(stack, level, entity, equipmentSlot);
+        boolean selected = equipmentSlot == net.minecraft.world.entity.EquipmentSlot.MAINHAND;
+        int slot = entity instanceof net.minecraft.world.entity.player.Player playerEntity ? playerEntity.getInventory().items.indexOf(stack) : -1;
 
 
-        if (level instanceof ServerLevel serverLevel && entity instanceof ServerPlayer player) {
+        ServerLevel serverLevel = level;
+        if (entity instanceof ServerPlayer player) {
 
             GrenadeState state = states.get(player.getUUID());
 

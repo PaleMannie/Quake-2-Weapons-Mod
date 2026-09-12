@@ -80,7 +80,7 @@ public class Bfg10kProjectileEntity extends Projectile {
 
     @Override
     protected void defineSynchedData(SynchedEntityData.Builder pBuilder) {
-        this.entityData.define(EXPLODING, false);
+        pBuilder.define(EXPLODING, false);
     }
 
     @Override
@@ -322,7 +322,7 @@ public class Bfg10kProjectileEntity extends Projectile {
 
         Vec3 motionBefore = target.getDeltaMovement();
 
-        boolean hurt = target.hurtServer(damageSource, damage);
+        boolean hurt = target.hurtServer((ServerLevel) target.level(), damageSource, damage);
 
         if (hurt) {
 
@@ -546,7 +546,7 @@ public class Bfg10kProjectileEntity extends Projectile {
     private static void sendBfgParticles(ServerLevel level, ParticleOptions particle, Vec3 pos) {
         // Preserve long-distance visibility; ServerLevel checks each recipient's distance.
         for (ServerPlayer viewer : level.players()) {
-            level.sendParticles(viewer, particle, true, pos.x, pos.y, pos.z,
+            level.sendParticles(viewer, particle, true, false, pos.x, pos.y, pos.z,
                     1, 0d, 0d, 0d, 0d);
         }
     }

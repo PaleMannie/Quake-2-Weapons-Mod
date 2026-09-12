@@ -157,10 +157,11 @@ public abstract class AbstractWeapon extends Item implements GeoItem {
     }
 
     @Override
-    public void inventoryTick(ItemStack stack, Level level, Entity entity, int slot, boolean selected) {
-        super.inventoryTick(stack, level, entity, slot, selected);
+    public void inventoryTick(ItemStack stack, ServerLevel level, Entity entity, net.minecraft.world.entity.EquipmentSlot slot) {
+        super.inventoryTick(stack, level, entity, slot);
+        boolean selected = slot == net.minecraft.world.entity.EquipmentSlot.MAINHAND;
 
-        if (!(level instanceof ServerLevel serverLevel)) return;
+        ServerLevel serverLevel = level;
         if (!(entity instanceof LivingEntity livingEntity)) return;
 
         if (selected && entity instanceof net.minecraft.server.level.ServerPlayer player
@@ -172,19 +173,19 @@ public abstract class AbstractWeapon extends Item implements GeoItem {
                     break;
                 }
             }
-            stack.getOrCreateTag().putBoolean("Q2WHasAmmo", hasAmmo);
+            mett.palemannie.q2w.util.ItemData.setBoolean(stack, "Q2WHasAmmo", hasAmmo);
         }
 
         if (selected && entity instanceof net.minecraft.server.level.ServerPlayer player
                 && (this instanceof ChaingunItem || this instanceof HyperblasterItem
                     || this instanceof RailgunItem || this instanceof Bfg10kItem)) {
-            stack.getOrCreateTag().putBoolean("Q2WSilenced",
+            mett.palemannie.q2w.util.ItemData.setBoolean(stack, "Q2WSilenced",
                     mett.palemannie.q2w.util.WeaponAggroHandler.hasSilencerActive(player));
         }
 
-        if (stack.hasTag() && stack.getTag().getBoolean("WasDropped")) {
+        if (mett.palemannie.q2w.util.ItemData.getBoolean(stack, "WasDropped")) {
             hardStopTriggeredAnimations(livingEntity, serverLevel, stack);
-            stack.getTag().remove("WasDropped");
+            mett.palemannie.q2w.util.ItemData.remove(stack, "WasDropped");
         }
 
         if (entity instanceof Player player) {

@@ -23,11 +23,9 @@ public class ChaingunSoundHandler {
     private static final int LOOP_START_DELAY_TICKS = 17;
 
     @SubscribeEvent
-    public static void onClientTick(TickEvent.ClientTickEvent event) {
+    public static void onClientTick(TickEvent.ClientTickEvent.Post event) {
 
-        /*if (event.phase != TickEvent.Phase.END) {
-            return;
-        }*/
+
 
         Minecraft minecraft = Minecraft.getInstance();
         if (minecraft.level == null) {

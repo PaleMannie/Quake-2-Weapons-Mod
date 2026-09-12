@@ -5,11 +5,13 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.client.gui.overlay.IGuiOverlay;
+import net.minecraftforge.client.gui.overlay.ForgeLayer;
 
 public class SilencerHudOverlay {
 
-    public static final IGuiOverlay HUD = (gui, guiGraphics, partialTick, screenWidth, screenHeight) -> {
+    public static final ForgeLayer HUD = (guiGraphics, deltaTracker) -> {
+        int screenWidth = guiGraphics.guiWidth();
+        int screenHeight = guiGraphics.guiHeight();
         int shotsLeft = ClientSilencerData.getSilencedShotsLeft();
 
         if (shotsLeft <= 0) {
@@ -39,7 +41,7 @@ public class SilencerHudOverlay {
         int textY = iconY + 4;
 
         guiGraphics.renderItem(silencerStack, iconX, iconY);
-        drawOutlinedString(guiGraphics, font, numberText, textX, textY, 0xFFFFFF, 0x000000);
+        drawOutlinedString(guiGraphics, font, numberText, textX, textY, 0xFFFFFFFF, 0xFF000000);
     };
 
     private static void drawOutlinedString(GuiGraphics guiGraphics, Font font, String text, int x, int y, int color, int outlineColor) {

@@ -25,11 +25,9 @@ public class HandgrenadeCookSoundHandler {
     private static final Map<Integer, HandgrenadeEntityCookLoopSoundInstance> GRENADE_COOK_LOOPS = new HashMap<>();
 
     @SubscribeEvent
-    public static void onClientTick(TickEvent.ClientTickEvent event) {
+    public static void onClientTick(TickEvent.ClientTickEvent.Post event) {
 
-        /*if (event.phase != TickEvent.Phase.END) {
-            return;
-        }*/
+
 
         Minecraft minecraft = Minecraft.getInstance();
         ClientLevel level = minecraft.level;

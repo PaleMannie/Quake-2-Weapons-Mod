@@ -41,7 +41,7 @@ public class HyperblasterFireLoopSoundInstance extends AbstractTickableSoundInst
     private float getCurrentVolume() {
         if (player == net.minecraft.client.Minecraft.getInstance().player
                 ? ClientSilencerData.hasSilencerActive()
-                : player.getMainHandItem().hasTag() && player.getMainHandItem().getTag().getBoolean("Q2WSilenced")) {
+                : mett.palemannie.q2w.util.ItemData.getBoolean(player.getMainHandItem(), "Q2WSilenced")) {
             return WeaponSoundRange.volume(player, this.baseVolume * WeaponAggroHandler.SILENCED_WEAPON_VOLUME_MULTIPLIER, WeaponSoundRange.BLOCKS);
         }
 

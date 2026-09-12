@@ -22,11 +22,9 @@ public class HyperblasterSoundHandler {
     private int fireTicks = 0;
 
     @SubscribeEvent
-    public static void onClientTick(TickEvent.ClientTickEvent event) {
+    public static void onClientTick(TickEvent.ClientTickEvent.Post event) {
 
-        /*if (event.phase != TickEvent.Phase.END) {
-            return;
-        }*/
+
 
         Minecraft minecraft = Minecraft.getInstance();
         if (minecraft.level == null) {

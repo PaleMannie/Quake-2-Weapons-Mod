@@ -41,7 +41,7 @@ public final class WeaponAggroHandler {
         }
 
         CompoundTag data = player.getPersistentData();
-        int current = data.getInt(SILENCED_SHOTS_TAG).get();
+        int current = data.getIntOr(SILENCED_SHOTS_TAG, 0);
         int next = current + amount;
 
         data.putInt(SILENCED_SHOTS_TAG, next);
@@ -49,7 +49,7 @@ public final class WeaponAggroHandler {
     }
 
     public static int getSilencedShots(ServerPlayer player) {
-        return player.getPersistentData().getInt(SILENCED_SHOTS_TAG).get();
+        return player.getPersistentData().getIntOr(SILENCED_SHOTS_TAG, 0);
     }
 
     public static boolean hasSilencerActive(ServerPlayer player) {
@@ -97,7 +97,7 @@ public final class WeaponAggroHandler {
     private static boolean consumeSilencerShot(ServerPlayer player) {
 
         CompoundTag data = player.getPersistentData();
-        int shots = data.getInt(SILENCED_SHOTS_TAG).get();
+        int shots = data.getIntOr(SILENCED_SHOTS_TAG, 0);
 
         if (shots <= 0) {
             syncSilencerShots(player);

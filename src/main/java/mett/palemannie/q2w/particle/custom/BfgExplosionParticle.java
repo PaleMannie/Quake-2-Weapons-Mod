@@ -5,13 +5,13 @@ import net.minecraft.client.particle.*;
 import net.minecraft.core.particles.SimpleParticleType;
 import org.jetbrains.annotations.Nullable;
 
-public class BfgExplosionParticle extends TextureSheetParticle {
+public class BfgExplosionParticle extends SingleQuadParticle {
 
     private final SpriteSet spriteSet;
 
     protected BfgExplosionParticle(ClientLevel level, double x, double y, double z,
                                    double xd, double yd, double zd, SpriteSet spriteSet) {
-        super(level, x, y, z, 0d, 0d, 0d);
+        super(level, x, y, z, 0d, 0d, 0d, spriteSet.get(0, 1));
 
         this.spriteSet = spriteSet;
 
@@ -50,8 +50,8 @@ public class BfgExplosionParticle extends TextureSheetParticle {
     }
 
     @Override
-    public ParticleRenderType getRenderType() {
-        return ParticleRenderType.PARTICLE_SHEET_TRANSLUCENT;
+    protected Layer getLayer() {
+        return Layer.TRANSLUCENT;
     }
 
     public static class Provider implements ParticleProvider<SimpleParticleType> {
@@ -63,7 +63,7 @@ public class BfgExplosionParticle extends TextureSheetParticle {
         }
 
         @Override
-        public @Nullable Particle createParticle(SimpleParticleType type, ClientLevel level, double x, double y, double z, double xd, double yd, double zd) {
+        public @Nullable Particle createParticle(SimpleParticleType type, ClientLevel level, double x, double y, double z, double xd, double yd, double zd, net.minecraft.util.RandomSource random) {
             return new BfgExplosionParticle(level, x, y, z, xd, yd, zd, spriteSet);
         }
     }

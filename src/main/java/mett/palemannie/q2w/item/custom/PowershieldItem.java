@@ -61,25 +61,17 @@ public class PowershieldItem extends Item {
     }
 
     public static boolean isActive(ItemStack stack) {
-        return stack.hasTag() && stack.getTag().getBoolean(ACTIVE_TAG);
+        return mett.palemannie.q2w.util.ItemData.getBoolean(stack, ACTIVE_TAG);
     }
 
     public static void setActive(ItemStack stack, boolean active) {
 
         if (active) {
-            stack.getOrCreateTag().putBoolean(ACTIVE_TAG, true);
+            mett.palemannie.q2w.util.ItemData.setBoolean(stack, ACTIVE_TAG, true);
             return;
         }
 
-        if (!stack.hasTag()) {
-            return;
-        }
-
-        stack.getTag().remove(ACTIVE_TAG);
-
-        if (stack.getTag().isEmpty()) {
-            stack.setTag(null);
-        }
+        mett.palemannie.q2w.util.ItemData.remove(stack, ACTIVE_TAG);
     }
 
     public static Optional<ItemStack> findActiveShield(Player player) {

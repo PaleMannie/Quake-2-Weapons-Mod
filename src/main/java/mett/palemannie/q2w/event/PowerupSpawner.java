@@ -18,7 +18,6 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.listener.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.event.config.ModConfigEvent;
 import com.mojang.logging.LogUtils;
 import org.slf4j.Logger;
 
@@ -44,15 +43,8 @@ public class PowerupSpawner {
 
     private static long tickCounter = 0;
 
-    @SubscribeEvent
-    public static void onConfigReload(ModConfigEvent event) {
-
-        if (event.getConfig().getSpec() == Q2WConfig.SERVER_SPEC) {
-            reloadConfigValues();
-        }
-    }
-
     public static void reloadConfigValues() {
+        if (!Q2WConfig.SERVER_SPEC.isLoaded()) return;
 
         try {
             spawnInterval = Q2WConfig.SERVER.powerupSpawnInterval.get();
@@ -76,17 +68,12 @@ public class PowerupSpawner {
             powerupSpawningEnabled = true;
         }
 
-        LOGGER.info("[Quake2Weapons] Config values after load: powerupSpawnInterval={}, powerupSpawnAttempts={}, powerupSpawnSearchRadius={}, enablePowerups={}, powerupDebug={}, maxNearbyPowerups={}",
-                Q2WConfig.SERVER.powerupSpawnInterval.get(),
-                Q2WConfig.SERVER.powerupSpawnAttempts.get(),
-                Q2WConfig.SERVER.powerupSpawnSearchRadius.get(),
-                Q2WConfig.SERVER.enablePowerups.get(),
-                Q2WConfig.SERVER.powerupDebug.get(),
-                Q2WConfig.SERVER.maxNearbyPowerups);
+
     }
 
     @SubscribeEvent
-    public static void onWorldTick(TickEvent.LevelTickEvent event) {
+    public static void onWorldTick(TickEvent.LevelTickEvent.Post event) {
+        if (!(event.level() instanceof ServerLevel level)) return;
 
         if (!powerupSpawningEnabled) {
             if (debugEnabled) {
@@ -97,11 +84,8 @@ public class PowerupSpawner {
             return;
         }
 
-        if (/*event.phase != TickEvent.Phase.END ||*/ event.level().isClientSide()) return;
-
         int interval = spawnInterval;
         int attempts = spawnAttempts;
-        ServerLevel level = (ServerLevel) event.level();
         long gameTime = level.getGameTime();
 
 
@@ -164,7 +148,7 @@ public class PowerupSpawner {
         if (maxNearbyPowerups == 0) return true;
         return level.getEntities(player, player.getBoundingBox().inflate(NEARBY_RADIUS),
                 entity -> !entity.isRemoved()
-                        && entity.getPersistentData().getBoolean(AUTO_SPAWN_TAG).get()
+                        && entity.getPersistentData().getBooleanOr(AUTO_SPAWN_TAG, false)
                         && entity.distanceToSqr(player) <= NEARBY_RADIUS * NEARBY_RADIUS)
                 .size() >= maxNearbyPowerups;
     }

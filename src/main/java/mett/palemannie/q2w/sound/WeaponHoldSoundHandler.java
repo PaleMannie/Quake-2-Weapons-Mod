@@ -20,9 +20,9 @@ public class WeaponHoldSoundHandler {
     private static final Map<Player, WeaponHoldLoopSoundInstance> loops = new HashMap<>();
 
     @SubscribeEvent
-    public static void onClientTick(TickEvent.ClientTickEvent event) {
+    public static void onClientTick(TickEvent.ClientTickEvent.Post event) {
 
-        /*if (event.phase != TickEvent.Phase.END) return;*/
+
 
         Minecraft minecraft = Minecraft.getInstance();
         if (minecraft.level == null || minecraft.player == null) {

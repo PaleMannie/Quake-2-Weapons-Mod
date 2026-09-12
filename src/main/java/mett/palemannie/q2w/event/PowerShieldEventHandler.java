@@ -15,7 +15,6 @@ import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.listener.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.event.config.ModConfigEvent;
 
 import java.util.Optional;
 
@@ -25,15 +24,8 @@ public class PowerShieldEventHandler {
     private static float ABSORB_RATIO = 0.66f;
     private static float DAMAGE_PER_CELL = 2f;
 
-    @SubscribeEvent
-    public static void onConfigReload(ModConfigEvent event) {
-
-        if (event.getConfig().getSpec() == Q2WConfig.SERVER_SPEC) {
-            reloadConfigValues();
-        }
-    }
-
     public static void reloadConfigValues() {
+        if (!Q2WConfig.SERVER_SPEC.isLoaded()) return;
 
         try {
 

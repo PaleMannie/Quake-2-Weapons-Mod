@@ -1,9 +1,6 @@
 {
-
   "q2w.creativetab.q2w_tab": "Quake 2 Weapons Mod",
-
   "q2w.key.category.title": "Quake 2 Weapons Mod",
-
   "item.q2w.bullet": "Bullet",
   "item.q2w.cell": "Cell",
   "item.q2w.shell": "Shell",
@@ -27,7 +24,6 @@
   "item.q2w.silencer_item": "Silencer",
   "item.q2w.adrenaline_item": "Adrenaline",
   "item.q2w.powershield_item": "Power Shield",
-
   "death.attack.q2w.blaster_damage": "blaster_damage",
   "death.attack.q2w.blaster_damage.player": "%1$s was blasted by %2$s",
   "death.attack.q2w.shotgun_damage": "shotgun_damage",
@@ -56,11 +52,9 @@
   "death.attack.q2w.bfg10k_laser.player": "%1$s saw the pretty lights from %2$s's BFG",
   "death.attack.q2w.bfg10k_flash": "bfg10k_flash",
   "death.attack.q2w.bfg10k_flash.player": "%1$s couldn't hide from %2$s's BFG",
-
   "effect.q2w.quad_damage_effect": "Quad Damage",
   "effect.q2w.invuln_effect": "Invulnerability",
   "effect.q2w.envirosuit_effect": "Enviro-Suit",
-
   "entity.q2w.laser_projectile": "Laser Projectile",
   "entity.q2w.muzzleflash": "Muzzle Flash",
   "entity.q2w.rocket_projectile": "Rocket",
@@ -69,7 +63,6 @@
   "entity.q2w.quad_damage_powerup": "Quad Damage",
   "entity.q2w.invuln_powerup": "Invulnerability",
   "entity.q2w.envirosuit_powerup": "Enviro-Suit",
-
   "entity.q2w.bullets_ammopickup": "Bullet Crate",
   "entity.q2w.shells_ammopickup": "Shells Crate",
   "entity.q2w.grenades_ammopickup": "Grenades Crate",
@@ -80,8 +73,11 @@
   "entity.q2w.silencer_powerup": "Silencer",
   "entity.q2w.rebreather_pickup": "Rebreather",
   "entity.q2w.powershield_pickup": "Power Shield",
-
   "command.q2w.testkit.success": "Test kit ready: All weapons present and ammunition replenished.",
   "command.q2w.refill.success": "Ammo replenished: 256 bullets, 512 cells, 128 shells, and 64 each of grenades, rockets and slugs.",
-  "command.q2w.supply.full": "Inventory full: Still missing %s items from the supply target. Make room and run the command again."
+  "command.q2w.supply.full": "Inventory full: Still missing %s items from the supply target. Make room and run the command again.",
+  "entity.q2w.bfg10k_projectile": "BFG10k Projectile",
+  "entity.q2w.slugs_ammopickup": "Slugs Crate",
+  "entity.q2w.grenadelauncher_projectile": "Grenade",
+  "entity.q2w.rocketlauncher_projectile": "Rocket"
 }

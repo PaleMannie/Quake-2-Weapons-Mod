@@ -30,15 +30,12 @@ public class HandgrenadeProjectileEntity extends Projectile {
     boolean isOvercookKey;
 
     @Override
-    protected void defineSynchedData() {}
-
-    @Override
     public boolean isNoGravity() {
         return false;
     }
 
     private void quakeExplosion(Level level) {
-        if (this.level().isClientSide) return;
+        if (this.level().isClientSide()) return;
 
         Vec3 center = this.position();
 
@@ -91,7 +88,7 @@ public class HandgrenadeProjectileEntity extends Projectile {
 
         Vec3 motion = this.getDeltaMovement();
 
-        if (this.level().isClientSide) {
+        if (this.level().isClientSide()) {
 
             Vec3 motion1 = this.getDeltaMovement().normalize().scale(-0.25);
             double px = this.getX() + motion1.x;
@@ -111,7 +108,7 @@ public class HandgrenadeProjectileEntity extends Projectile {
         if (blockHit.getType() != HitResult.Type.MISS) {
             this.onHitBlock(blockHit);
 
-            Vec3 normal = Vec3.atLowerCornerOf(blockHit.getDirection().getNormal());
+            Vec3 normal = Vec3.atLowerCornerOf(blockHit.getDirection().getUnitVec3i());
             Vec3 bounced = motion.subtract(normal.scale(2 * motion.dot(normal)));
 
             float loss = 0.5f + this.random.nextFloat() * 0.25f;
@@ -119,10 +116,10 @@ public class HandgrenadeProjectileEntity extends Projectile {
 
             if (bounced.lengthSqr() < 0.04) {
                 this.setDeltaMovement(Vec3.ZERO);
-                this.hasImpulse = false;
+                this.needsSync = false;
             } else {
                 this.setDeltaMovement(bounced);
-                this.hasImpulse = true;
+                this.needsSync = true;
             }
 
             this.setPos(blockHit.getLocation());
@@ -151,7 +148,7 @@ public class HandgrenadeProjectileEntity extends Projectile {
             this.setDeltaMovement(this.getDeltaMovement().add(0.0, -0.06, 0.0));
         }
 
-        if (!this.level().isClientSide && this.tickCount >= this.fuseTicks) {
+        if (!this.level().isClientSide() && this.tickCount >= this.fuseTicks) {
             quakeExplosion(this.level());
         }
     }

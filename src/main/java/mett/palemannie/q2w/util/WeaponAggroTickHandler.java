@@ -17,13 +17,11 @@ public class WeaponAggroTickHandler {
     private static final int HELD_AGGRO_INTERVAL_TICKS = 20;
 
     @SubscribeEvent
-    public static void onPlayerTick(TickEvent.PlayerTickEvent event) {
+    public static void onPlayerTick(TickEvent.PlayerTickEvent.Post event) {
 
-        /*if (event.phase != TickEvent.Phase.END) {
-            return;
-        }*/
 
-        if (!(event.player instanceof ServerPlayer player)) {
+
+        if (!(event.player() instanceof ServerPlayer player)) {
             return;
         }
 

@@ -16,9 +16,8 @@ public class WeaponRecoilClientEvents {
     /// This recoil doesn't affect your actual camera position i.e. aim
 
     @SubscribeEvent
-    public static void onClientTick(TickEvent.ClientTickEvent event) {
+    public static void onClientTick(TickEvent.ClientTickEvent.Post event) {
 
-        //if (event.phase != TickEvent.Phase.END) { return; }
         ClientWeaponRecoil.clientTick();
     }
 

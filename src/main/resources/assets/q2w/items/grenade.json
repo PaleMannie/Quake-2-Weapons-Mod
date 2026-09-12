@@ -16,8 +16,11 @@
       }
     ],
     "fallback": {
-      "type": "geckolib:geckolib",
-      "model": "q2w:item/grenade_3d"
+      "type": "minecraft:special",
+      "base": "q2w:item/grenade_3d",
+      "model": {
+        "type": "geckolib:geckolib"
+      }
     },
     "property": "minecraft:display_context"
   }
