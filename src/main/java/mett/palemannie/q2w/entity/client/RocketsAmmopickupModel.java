@@ -1,22 +1,21 @@
 package mett.palemannie.q2w.entity.client;
 
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
 import mett.palemannie.q2w.Quake2Weapons;
-import net.minecraft.client.model.HierarchicalModel;
+import net.minecraft.client.model.EntityModel;
+import net.minecraft.client.renderer.entity.state.EntityRenderState;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.Entity;
+import net.minecraft.resources.Identifier;
 
-public class RocketsAmmopickupModel<T extends Entity> extends HierarchicalModel<T> {
+public class RocketsAmmopickupModel extends EntityModel<EntityRenderState> {
 
-	public static final ModelLayerLocation ROCKETSPICKUP_LAYER = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(Quake2Weapons.MODID, "rockets_ammopickup"), "main");
+	public static final ModelLayerLocation ROCKETSPICKUP_LAYER = new ModelLayerLocation(Identifier.fromNamespaceAndPath(Quake2Weapons.MODID, "rockets_ammopickup"), "main");
 	private final ModelPart root;
 
 	public RocketsAmmopickupModel(ModelPart root) {
+        super(root);
 		this.root = root;
 	}
 
@@ -37,19 +36,6 @@ public class RocketsAmmopickupModel<T extends Entity> extends HierarchicalModel<
 				.texOffs(0, 0).addBox(-3.8439F, -6.0005F, -1.8995F, 6.0F, 12.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.7519F, -5.9995F, 1.0825F, 0.0F, -1.0472F, 0.0F));
 
 		return LayerDefinition.create(meshdefinition, 64, 64);
-	}
-
-	@Override
-	public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
-		root.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
-	}
-
-	@Override
-	public ModelPart root() { return this.root; }
-
-	@Override
-	public void setupAnim(T t, float v, float v1, float v2, float v3, float v4) {
-
 	}
 }
 

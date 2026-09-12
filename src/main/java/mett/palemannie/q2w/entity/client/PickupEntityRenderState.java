@@ -7,6 +7,6 @@ public class PickupEntityRenderState extends EntityRenderState {
     public float bobbingHeight;
     public float bobbingSpeed;
     public float rotationSpeed;
-    public int tickCount;
+    public int ageInTicks;
     public float partialTicks;
 }

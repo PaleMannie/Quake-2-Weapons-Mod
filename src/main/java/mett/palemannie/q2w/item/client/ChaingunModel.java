@@ -3,17 +3,15 @@ package mett.palemannie.q2w.item.client;
 import mett.palemannie.q2w.Quake2Weapons;
 import mett.palemannie.q2w.item.ModItems;
 import mett.palemannie.q2w.item.custom.ChaingunItem;
-import net.minecraft.client.Minecraft;
 import net.minecraft.resources.Identifier;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.NotNull;
-import software.bernie.geckolib.constant.DataTickets;
-import software.bernie.geckolib.model.GeoModel;
+import software.bernie.geckolib.renderer.GeoItemRenderer;
 import software.bernie.geckolib.renderer.base.GeoRenderState;
 
-public class ChaingunModel extends GeoModel<@NotNull ChaingunItem> {
+public class ChaingunModel extends AnimatedWeaponModel<@NotNull ChaingunItem> {
 
     private static final Identifier DEFAULT_MODEL = Identifier.fromNamespaceAndPath(Quake2Weapons.MODID, "chaingun");
 
@@ -55,16 +53,14 @@ public class ChaingunModel extends GeoModel<@NotNull ChaingunItem> {
     private VisualState visual = new VisualState();
 
     @Override
-    public void setCustomAnimations(ChaingunItem animatable, long instanceId, AnimationState<ChaingunItem> animationState) {
-        super.setCustomAnimations(animatable, instanceId, animationState);
+    protected void captureAnimations(ChaingunItem animatable, GeoItemRenderer.RenderData renderData, GeoRenderState state, java.util.function.Function<String, WeaponBonePose> bones) {
 
-        CoreGeoBone barrels = getAnimationProcessor().getBone("barrels");
-        CoreGeoBone fire = getAnimationProcessor().getBone("fire");
+        WeaponBonePose barrels = bones.apply("barrels");
+        WeaponBonePose fire = bones.apply("fire");
 
         if (barrels == null || fire == null) { return; }
 
-        Minecraft minecraft = Minecraft.getInstance();
-        Player player = WeaponPresentation.holder(animationState.getData(DataTickets.ITEMSTACK));
+        Player player = renderData.itemOwner() instanceof Player owner ? owner : WeaponPresentation.holder(renderData.itemStack());
 
         if (player == null) {
             visual = new VisualState();
@@ -74,12 +70,12 @@ public class ChaingunModel extends GeoModel<@NotNull ChaingunItem> {
         }
 
         visual = visuals.computeIfAbsent(player, ignored -> new VisualState());
-        float renderTick = player.tickCount + minecraft.getFrameTime();
+        float renderTick = player.tickCount + state.getPartialTick();
         float deltaTicks = getDeltaTicks(renderTick);
 
         ItemStack heldStack = player.getMainHandItem();
 
-        boolean holdingThisChaingun = heldStack.getItem() == animatable;
+        boolean holdingThisChaingun = heldStack == renderData.itemStack() && heldStack.getItem() == animatable;
         boolean usingThisChaingun =
                 holdingThisChaingun
                         && player.isUsingItem()
@@ -93,12 +89,12 @@ public class ChaingunModel extends GeoModel<@NotNull ChaingunItem> {
 
         if (usingThisChaingun) {
 
-            useTicks = heldStack.getUseDuration() - player.getUseItemRemainingTicks();
+            useTicks = heldStack.getUseDuration(player) - player.getUseItemRemainingTicks();
         }
 
         updateSpinState(firing, jammed, useTicks, deltaTicks);
         applyBarrelRotation(barrels, renderTick, holdingThisChaingun, firing, jammed);
-        applyFireScale(fire, firing, useTicks, minecraft.getFrameTime());
+        applyFireScale(fire, firing, useTicks, state.getPartialTick());
     }
 
     private float getDeltaTicks(float renderTick) {
@@ -145,7 +141,7 @@ public class ChaingunModel extends GeoModel<@NotNull ChaingunItem> {
         visual.barrelAngle = visual.barrelAngle % Mth.TWO_PI;
     }
 
-    private void applyBarrelRotation(CoreGeoBone barrels, float renderTick, boolean holding, boolean firing, boolean jammed) {
+    private void applyBarrelRotation(WeaponBonePose barrels, float renderTick, boolean holding, boolean firing, boolean jammed) {
 
         float angle = visual.barrelAngle;
 
@@ -165,7 +161,7 @@ public class ChaingunModel extends GeoModel<@NotNull ChaingunItem> {
         barrels.setRotZ(-angle);
     }
 
-    private void applyFireScale(CoreGeoBone fire, boolean firing, int useTicks, float partialTick) {
+    private void applyFireScale(WeaponBonePose fire, boolean firing, int useTicks, float partialTick) {
 
         if (!firing) {
 
@@ -243,7 +239,7 @@ public class ChaingunModel extends GeoModel<@NotNull ChaingunItem> {
         visual.idleTwitchPulses = 1;
     }
 
-    private void resetVisuals(CoreGeoBone barrels, CoreGeoBone fire) {
+    private void resetVisuals(WeaponBonePose barrels, WeaponBonePose fire) {
 
         barrels.setRotZ(0.0F);
 

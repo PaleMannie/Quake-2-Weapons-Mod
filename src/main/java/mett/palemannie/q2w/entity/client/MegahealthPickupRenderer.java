@@ -1,33 +1,34 @@
 package mett.palemannie.q2w.entity.client;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Axis;
 import mett.palemannie.q2w.Quake2Weapons;
 import mett.palemannie.q2w.entity.custom.MegahealthPickupEntity;
-import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.SubmitNodeCollector;
+import net.minecraft.client.renderer.entity.state.EntityRenderState;
+import net.minecraft.client.renderer.state.CameraRenderState;
 import net.minecraft.client.renderer.culling.Frustum;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.texture.OverlayTexture;
-import net.minecraft.resources.ResourceLocation;
-import org.jetbrains.annotations.NotNull;
+import net.minecraft.resources.Identifier;
 
-public class MegahealthPickupRenderer extends EntityRenderer<MegahealthPickupEntity> {
+public class MegahealthPickupRenderer extends EntityRenderer<MegahealthPickupEntity, EntityRenderState> {
 
-    private static final ResourceLocation MEGAHEALTHPICKUP_LOCATION = ResourceLocation.fromNamespaceAndPath(Quake2Weapons.MODID,"textures/entity/itempickups/megahealth_pickup.png");
-    private final MegahealthPickupModel<MegahealthPickupEntity> model;
+    private static final Identifier MEGAHEALTHPICKUP_LOCATION = Identifier.fromNamespaceAndPath(Quake2Weapons.MODID,"textures/entity/itempickups/megahealth_pickup.png");
+    private final MegahealthPickupModel model;
 
     public MegahealthPickupRenderer(EntityRendererProvider.Context context) {
         super(context);
-        this.model = new MegahealthPickupModel<>(context.bakeLayer(MegahealthPickupModel.MEGAHEALTHPICKUP_LAYER));
+        this.model = new MegahealthPickupModel(context.bakeLayer(MegahealthPickupModel.MEGAHEALTHPICKUP_LAYER));
     }
 
     float bobbingSpeed = 0.05f;
     float bobbingHeight = 0.1f;
     float rotationSpeed = 4.375f;
 
-    public void render(MegahealthPickupEntity rocketEntity, float v1, float partialTicks, PoseStack poseStack, MultiBufferSource bufferSource, int packedLight) {
+    @Override
+    public void submit(EntityRenderState state, PoseStack poseStack, SubmitNodeCollector nodeCollector, CameraRenderState cameraState) {
 
         poseStack.pushPose();
 
@@ -36,7 +37,7 @@ public class MegahealthPickupRenderer extends EntityRenderer<MegahealthPickupEnt
         poseStack.mulPose(Axis.XP.rotationDegrees(180f));
 
 
-        float ageInTicks = rocketEntity.tickCount + partialTicks;
+        float ageInTicks = state.ageInTicks;
 
         double bob = Math.sin(ageInTicks * bobbingSpeed) * bobbingHeight;
         poseStack.translate(0d, 0.25d + bob, 0d);
@@ -44,12 +45,11 @@ public class MegahealthPickupRenderer extends EntityRenderer<MegahealthPickupEnt
         float rotation = (ageInTicks * rotationSpeed) % 360;
         poseStack.mulPose(Axis.YP.rotationDegrees(-rotation));
 
-        VertexConsumer $$6 = bufferSource.getBuffer(this.model.renderType(MEGAHEALTHPICKUP_LOCATION));
-        this.model.renderToBuffer(poseStack, $$6, packedLight, OverlayTexture.NO_OVERLAY, 1f, 1f, 1f, 1f);
+        nodeCollector.submitModel(this.model, state, poseStack, this.model.renderType(MEGAHEALTHPICKUP_LOCATION), state.lightCoords, OverlayTexture.NO_OVERLAY, state.outlineColor, null);
 
         poseStack.popPose();
 
-        super.render(rocketEntity, v1, partialTicks, poseStack, bufferSource, packedLight);
+        super.submit(state, poseStack, nodeCollector, cameraState);
     }
 
     @Override
@@ -58,6 +58,8 @@ public class MegahealthPickupRenderer extends EntityRenderer<MegahealthPickupEnt
     }
 
     @Override
-    public @NotNull ResourceLocation getTextureLocation(@NotNull MegahealthPickupEntity spit) { return MEGAHEALTHPICKUP_LOCATION; }
+    public EntityRenderState createRenderState() {
+        return new EntityRenderState();
+    }
 
 }

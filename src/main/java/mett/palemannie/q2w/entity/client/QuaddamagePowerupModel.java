@@ -1,23 +1,22 @@
 package mett.palemannie.q2w.entity.client;
 
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
 import mett.palemannie.q2w.Quake2Weapons;
-import net.minecraft.client.model.HierarchicalModel;
+import net.minecraft.client.model.EntityModel;
+import net.minecraft.client.renderer.entity.state.EntityRenderState;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.Entity;
+import net.minecraft.resources.Identifier;
 
-public class QuaddamagePowerupModel<T extends Entity> extends HierarchicalModel<T> {
+public class QuaddamagePowerupModel extends EntityModel<EntityRenderState> {
 
-	public static final ModelLayerLocation QUAD_LAYER = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(Quake2Weapons.MODID, "quad_damage_powerup"), "main");
+	public static final ModelLayerLocation QUAD_LAYER = new ModelLayerLocation(Identifier.fromNamespaceAndPath(Quake2Weapons.MODID, "quad_damage_powerup"), "main");
 	private static final String MAIN = "main";
 	private final ModelPart root;
 
 	public QuaddamagePowerupModel(ModelPart root) {
+        super(root);
 		this.root = root;
 	}
 
@@ -42,19 +41,6 @@ public class QuaddamagePowerupModel<T extends Entity> extends HierarchicalModel<
 		PartDefinition cube_r8 = bb_main.addOrReplaceChild("cube_r8", CubeListBuilder.create().texOffs(0, 0).addBox(-2.0F, -2.0F, -6.0F, 4.0F, 4.0F, 12.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(-0.125F, 0.5F, -4.75F, 0.3927F, 0.0F, 0.0F));
 
 		return LayerDefinition.create(meshdefinition, 128, 128);
-	}
-
-	@Override
-	public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
-		root.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
-	}
-
-	@Override
-	public ModelPart root() { return this.root; }
-
-	@Override
-	public void setupAnim(T t, float v, float v1, float v2, float v3, float v4) {
-
 	}
 }
 

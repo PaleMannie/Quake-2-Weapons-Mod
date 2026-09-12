@@ -1,11 +1,9 @@
 package mett.palemannie.q2w.entity.client;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Axis;
 import mett.palemannie.q2w.Quake2Weapons;
 import mett.palemannie.q2w.entity.custom.AdrenalinePickupEntity;
-import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.culling.Frustum;
 import net.minecraft.client.renderer.entity.EntityRenderer;
@@ -14,9 +12,6 @@ import net.minecraft.client.renderer.feature.ModelFeatureRenderer;
 import net.minecraft.client.renderer.state.CameraRenderState;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.Identifier;
-import net.minecraft.util.Mth;
-import net.minecraft.util.RandomSource;
-import org.jetbrains.annotations.NotNull;
 
 public class AdrenalinePickupRenderer extends EntityRenderer<AdrenalinePickupEntity, PickupEntityRenderState> {
 
@@ -42,7 +37,7 @@ public class AdrenalinePickupRenderer extends EntityRenderer<AdrenalinePickupEnt
         poseStack.mulPose(Axis.XP.rotationDegrees(180f));
 
 
-        float ageInTicks = state.tickCount + state.partialTicks;
+        float ageInTicks = state.ageInTicks + state.partialTicks;
 
         double bob = Math.sin(ageInTicks * bobbingSpeed) * bobbingHeight;
         poseStack.translate(0d, 0.25d + bob, 0d);
@@ -68,7 +63,7 @@ public class AdrenalinePickupRenderer extends EntityRenderer<AdrenalinePickupEnt
     @Override
     public void extractRenderState(AdrenalinePickupEntity entity, PickupEntityRenderState state, float partialTick) {
         super.extractRenderState(entity, state, partialTick);
-        state.tickCount = entity.tickCount;
+        state.ageInTicks = entity.tickCount;
         state.partialTicks = partialTick;
         state.bobbingSpeed = this.bobbingSpeed;
         state.bobbingHeight = this.bobbingHeight;

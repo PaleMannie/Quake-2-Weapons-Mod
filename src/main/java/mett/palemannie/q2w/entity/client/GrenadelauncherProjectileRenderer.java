@@ -1,30 +1,29 @@
 package mett.palemannie.q2w.entity.client;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Axis;
 import mett.palemannie.q2w.Quake2Weapons;
 import mett.palemannie.q2w.entity.custom.GrenadelauncherProjectileEntity;
-import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.SubmitNodeCollector;
+import net.minecraft.client.renderer.state.CameraRenderState;
+import net.minecraft.client.renderer.rendertype.RenderTypes;
 import net.minecraft.client.renderer.culling.Frustum;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.texture.OverlayTexture;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.Mth;
 import net.minecraft.world.phys.Vec3;
-import org.jetbrains.annotations.NotNull;
 
-public class GrenadelauncherProjectileRenderer extends EntityRenderer<GrenadelauncherProjectileEntity> {
+public class GrenadelauncherProjectileRenderer extends EntityRenderer<GrenadelauncherProjectileEntity, ProjectileRenderState> {
 
-    private static final ResourceLocation GRENADE_LOCATION = ResourceLocation.fromNamespaceAndPath(Quake2Weapons.MODID,"textures/entity/projectiles/grenadelauncher_projectile.png");
+    private static final Identifier GRENADE_LOCATION = Identifier.fromNamespaceAndPath(Quake2Weapons.MODID,"textures/entity/projectiles/grenadelauncher_projectile.png");
 
-    private final GrenadelauncherProjectileModel<GrenadelauncherProjectileEntity> model;
+    private final GrenadelauncherProjectileModel model;
 
     public GrenadelauncherProjectileRenderer(EntityRendererProvider.Context context) {
         super(context);
-        this.model = new GrenadelauncherProjectileModel<>(context.bakeLayer(GrenadelauncherProjectileModel.GRENADE_LAYER));
+        this.model = new GrenadelauncherProjectileModel(context.bakeLayer(GrenadelauncherProjectileModel.GRENADE_LAYER));
     }
 
     private static void applyGrenadeDirectionRotation(PoseStack poseStack, float pitch, float yaw) {
@@ -34,44 +33,20 @@ public class GrenadelauncherProjectileRenderer extends EntityRenderer<Grenadelau
     }
 
     @Override
-    public void render(GrenadelauncherProjectileEntity grenadeEntity, float entityYaw, float partialTicks,
-                       PoseStack poseStack, MultiBufferSource bufferSource, int packedLight) {
+    public void submit(ProjectileRenderState state, PoseStack poseStack, SubmitNodeCollector nodeCollector, CameraRenderState cameraState) {
 
         poseStack.pushPose();
 
         poseStack.scale(0.3F, 0.3F, 0.3F);
         poseStack.translate(0.0F, 0.1F, 0.0F);
 
-        Vec3 motion = grenadeEntity.getDeltaMovement();
+        applyGrenadeDirectionRotation(poseStack, state.xRot, state.yRot);
 
-        final double VISUAL_STOP_SPEED = 0.03D;
-        final double VISUAL_STOP_SPEED_SQR = VISUAL_STOP_SPEED * VISUAL_STOP_SPEED;
-
-        if (motion.lengthSqr() > VISUAL_STOP_SPEED_SQR && !grenadeEntity.hasStopped) {
-
-            Vec3 direction = motion.normalize();
-
-            float yaw = (float) (Mth.atan2(direction.x, direction.z) * Mth.RAD_TO_DEG);
-            float pitch = (float) (-(Mth.atan2(direction.y, Math.sqrt(direction.x * direction.x + direction.z * direction.z)) * Mth.RAD_TO_DEG));
-
-            grenadeEntity.lastTumbleX = pitch;
-            grenadeEntity.lastTumbleY = yaw;
-            grenadeEntity.lastTumbleZ = 0.0F;
-
-            applyGrenadeDirectionRotation(poseStack, pitch, yaw);
-        } else {
-
-            grenadeEntity.hasStopped = true;
-
-            applyGrenadeDirectionRotation(poseStack, grenadeEntity.lastTumbleX, grenadeEntity.lastTumbleY);
-        }
-
-        VertexConsumer vertexConsumer = bufferSource.getBuffer(RenderType.entityCutoutNoCull(GRENADE_LOCATION));
-        this.model.renderToBuffer(poseStack, vertexConsumer, packedLight, OverlayTexture.NO_OVERLAY, 1, 1, 1, 1);
+        nodeCollector.submitModel(this.model, state, poseStack, RenderTypes.entityCutoutNoCull(GRENADE_LOCATION), state.lightCoords, OverlayTexture.NO_OVERLAY, state.outlineColor, null);
 
         poseStack.popPose();
 
-        super.render(grenadeEntity, entityYaw, partialTicks, poseStack, bufferSource, packedLight);
+        super.submit(state, poseStack, nodeCollector, cameraState);
     }
 
     @Override
@@ -80,6 +55,24 @@ public class GrenadelauncherProjectileRenderer extends EntityRenderer<Grenadelau
     }
 
     @Override
-    public @NotNull ResourceLocation getTextureLocation(@NotNull GrenadelauncherProjectileEntity spit) { return GRENADE_LOCATION; }
+    public ProjectileRenderState createRenderState() {
+        return new ProjectileRenderState();
+    }
+
+    @Override
+    public void extractRenderState(GrenadelauncherProjectileEntity entity, ProjectileRenderState state, float partialTick) {
+        super.extractRenderState(entity, state, partialTick);
+        Vec3 motion = entity.getDeltaMovement();
+        if (motion.lengthSqr() > 0.03D * 0.03D && !entity.hasStopped) {
+            Vec3 direction = motion.normalize();
+            entity.lastTumbleY = (float) (Mth.atan2(direction.x, direction.z) * Mth.RAD_TO_DEG);
+            entity.lastTumbleX = (float) (-Mth.atan2(direction.y, Math.sqrt(direction.x * direction.x + direction.z * direction.z)) * Mth.RAD_TO_DEG);
+            entity.lastTumbleZ = 0f;
+        } else {
+            entity.hasStopped = true;
+        }
+        state.xRot = entity.lastTumbleX;
+        state.yRot = entity.lastTumbleY;
+    }
 
 }

@@ -1,41 +1,42 @@
 package mett.palemannie.q2w.entity.client;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Axis;
 import mett.palemannie.q2w.Quake2Weapons;
 import mett.palemannie.q2w.entity.custom.QuadDamagePowerupEntity;
-import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.SubmitNodeCollector;
+import net.minecraft.client.renderer.entity.state.EntityRenderState;
+import net.minecraft.client.renderer.state.CameraRenderState;
+import net.minecraft.client.renderer.rendertype.RenderTypes;
 import net.minecraft.client.renderer.culling.Frustum;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.texture.OverlayTexture;
-import net.minecraft.resources.ResourceLocation;
-import org.jetbrains.annotations.NotNull;
+import net.minecraft.resources.Identifier;
 
-public class QuaddamagePowerupRenderer extends EntityRenderer<QuadDamagePowerupEntity> {
+public class QuaddamagePowerupRenderer extends EntityRenderer<QuadDamagePowerupEntity, EntityRenderState> {
 
-    private static final ResourceLocation QUAD_LOCATION = ResourceLocation.fromNamespaceAndPath(Quake2Weapons.MODID,"textures/entity/powerups/quad_damage_powerup.png");
-    private final QuaddamagePowerupModel<QuadDamagePowerupEntity> model;
+    private static final Identifier QUAD_LOCATION = Identifier.fromNamespaceAndPath(Quake2Weapons.MODID,"textures/entity/powerups/quad_damage_powerup.png");
+    private final QuaddamagePowerupModel model;
 
     public QuaddamagePowerupRenderer(EntityRendererProvider.Context context) {
         super(context);
-        this.model = new QuaddamagePowerupModel<>(context.bakeLayer(QuaddamagePowerupModel.QUAD_LAYER));
+        this.model = new QuaddamagePowerupModel(context.bakeLayer(QuaddamagePowerupModel.QUAD_LAYER));
     }
 
     float bobbingSpeed = 0.05f;
     float bobbingHeight = 0.1f;
     float rotationSpeed = 5f;
 
-    public void render(QuadDamagePowerupEntity rocketEntity, float v1, float partialTicks, PoseStack poseStack, MultiBufferSource bufferSource, int packedLight) {
+    @Override
+    public void submit(EntityRenderState state, PoseStack poseStack, SubmitNodeCollector nodeCollector, CameraRenderState cameraState) {
 
         poseStack.pushPose();
 
         poseStack.translate(0f, 0.75f, 0f);
         poseStack.scale(0.75f, 0.75f, 0.75f);
 
-        float ageInTicks = rocketEntity.tickCount + partialTicks;
+        float ageInTicks = state.ageInTicks;
 
         double bob = Math.sin(ageInTicks * bobbingSpeed) * bobbingHeight;
         poseStack.translate(0d, 0.25d + bob, 0d);
@@ -43,15 +44,13 @@ public class QuaddamagePowerupRenderer extends EntityRenderer<QuadDamagePowerupE
         float rotation = (ageInTicks * rotationSpeed) % 360;
         poseStack.mulPose(Axis.YP.rotationDegrees(rotation));
 
-        VertexConsumer $$6 = bufferSource.getBuffer(this.model.renderType(QUAD_LOCATION));
-        this.model.renderToBuffer(poseStack, $$6, packedLight, OverlayTexture.NO_OVERLAY, 1f, 1f, 1f, 1f);
+        nodeCollector.submitModel(this.model, state, poseStack, this.model.renderType(QUAD_LOCATION), state.lightCoords, OverlayTexture.NO_OVERLAY, state.outlineColor, null);
 
-        VertexConsumer $$7 = bufferSource.getBuffer(RenderType.eyes(QUAD_LOCATION));
-        this.model.renderToBuffer(poseStack, $$7, packedLight, OverlayTexture.NO_OVERLAY, 1f, 1f, 1f, 1f);
+        nodeCollector.submitModel(this.model, state, poseStack, RenderTypes.eyes(QUAD_LOCATION), state.lightCoords, OverlayTexture.NO_OVERLAY, state.outlineColor, null);
 
         poseStack.popPose();
 
-        super.render(rocketEntity, v1, partialTicks, poseStack, bufferSource, packedLight);
+        super.submit(state, poseStack, nodeCollector, cameraState);
     }
 
     @Override
@@ -60,6 +59,8 @@ public class QuaddamagePowerupRenderer extends EntityRenderer<QuadDamagePowerupE
     }
 
     @Override
-    public @NotNull ResourceLocation getTextureLocation(@NotNull QuadDamagePowerupEntity spit) { return QUAD_LOCATION; }
+    public EntityRenderState createRenderState() {
+        return new EntityRenderState();
+    }
 
 }

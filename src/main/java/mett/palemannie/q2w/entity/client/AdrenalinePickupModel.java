@@ -8,9 +8,8 @@ import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.client.renderer.entity.state.EntityRenderState;
 import net.minecraft.resources.Identifier;
-import org.jetbrains.annotations.NotNull;
 
-public class AdrenalinePickupModel extends EntityModel<@NotNull EntityRenderState> {
+public class AdrenalinePickupModel extends EntityModel<EntityRenderState> {
 
 	public static final ModelLayerLocation ADRENALINEPICKUP_LAYER = new ModelLayerLocation(Identifier.fromNamespaceAndPath(Quake2Weapons.MODID, "adrenaline_pickup"), "main");
 	private final ModelPart root;
