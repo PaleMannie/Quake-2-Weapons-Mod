@@ -1,0 +1,9 @@
+{
+  "model": {
+    "type": "minecraft:special",
+    "base": "q2w:item/bfg10k",
+    "model": {
+      "type": "geckolib:geckolib"
+    }
+  }
+}

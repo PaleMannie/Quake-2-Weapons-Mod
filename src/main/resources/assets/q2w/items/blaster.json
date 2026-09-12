@@ -1,0 +1,9 @@
+{
+  "model": {
+    "type": "minecraft:special",
+    "base": "q2w:item/blaster",
+    "model": {
+      "type": "geckolib:geckolib"
+    }
+  }
+}

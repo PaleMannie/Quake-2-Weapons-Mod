@@ -1,0 +1,9 @@
+{
+  "model": {
+    "type": "minecraft:special",
+    "base": "q2w:item/shotgun",
+    "model": {
+      "type": "geckolib:geckolib"
+    }
+  }
+}
