@@ -2,6 +2,7 @@ package mett.palemannie.q2w.entity.client;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
+import com.mojang.blaze3d.pipeline.RenderPipeline;
 import com.mojang.math.Axis;
 import mett.palemannie.q2w.Quake2Weapons;
 import mett.palemannie.q2w.entity.custom.Bfg10kProjectileEntity;
@@ -11,7 +12,9 @@ import net.minecraft.client.renderer.culling.Frustum;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.state.EntityRenderState;
-import net.minecraft.client.renderer.rendertype.RenderTypes;
+import net.minecraft.client.renderer.rendertype.RenderSetup;
+import net.minecraft.client.renderer.rendertype.RenderType;
+import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.client.renderer.state.CameraRenderState;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.Identifier;
@@ -23,6 +26,23 @@ public class Bfg10kProjectileRenderer extends EntityRenderer<Bfg10kProjectileEnt
 
     private static final Identifier FRAME_1 =
             Identifier.fromNamespaceAndPath(Quake2Weapons.MODID, "textures/entity/projectiles/bfg_ball2.png");
+
+    private static final RenderPipeline EMISSIVE_CUTOUT_PIPELINE = RenderPipeline.builder(RenderPipelines.ENTITY_EMISSIVE_SNIPPET)
+            .withLocation("q2w/pipeline/bfg_ball_emissive_cutout")
+            .withShaderDefine("ALPHA_CUTOUT", 0.1f)
+            .withSampler("Sampler1")
+            .withCull(false)
+            .build();
+
+    private static RenderType emissiveCutout(Identifier texture) {
+        return RenderType.create("bfg_ball_emissive_cutout", RenderSetup.builder(EMISSIVE_CUTOUT_PIPELINE)
+                .withTexture("Sampler0", texture)
+                .useOverlay()
+                .createRenderSetup());
+    }
+
+    private static final RenderType FRAME_0_RENDER_TYPE = emissiveCutout(FRAME_0);
+    private static final RenderType FRAME_1_RENDER_TYPE = emissiveCutout(FRAME_1);
 
     public Bfg10kProjectileRenderer(EntityRendererProvider.Context context) {
         super(context);
@@ -39,7 +59,7 @@ public class Bfg10kProjectileRenderer extends EntityRenderer<Bfg10kProjectileEnt
         float scale = 2f;
         poseStack.scale(scale, scale, scale);
 
-        nodeCollector.submitCustomGeometry(poseStack, RenderTypes.entityTranslucent(state.texture), (pose, vertexConsumer) -> {
+        nodeCollector.submitCustomGeometry(poseStack, state.texture == FRAME_0 ? FRAME_0_RENDER_TYPE : FRAME_1_RENDER_TYPE, (pose, vertexConsumer) -> {
             addVertex(vertexConsumer, pose, -0.5f, -0.5f, 0f, 1f);
             addVertex(vertexConsumer, pose,  0.5f, -0.5f, 1f, 1f);
             addVertex(vertexConsumer, pose,  0.5f,  0.5f, 1f, 0f);

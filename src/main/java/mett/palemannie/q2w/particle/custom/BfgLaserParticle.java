@@ -3,6 +3,7 @@ package mett.palemannie.q2w.particle.custom;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.*;
 import net.minecraft.core.particles.SimpleParticleType;
+import net.minecraft.client.renderer.LightTexture;
 import org.jetbrains.annotations.Nullable;
 
 public class BfgLaserParticle extends SingleQuadParticle {
@@ -43,7 +44,12 @@ public class BfgLaserParticle extends SingleQuadParticle {
 
     @Override
     protected Layer getLayer() {
-        return Layer.TRANSLUCENT;
+        return BfgParticleLayer.EMISSIVE;
+    }
+
+    @Override
+    public int getLightColor(float partialTick) {
+        return LightTexture.FULL_BRIGHT;
     }
 
     public static class Provider implements ParticleProvider<SimpleParticleType> {
