@@ -1,6 +1,7 @@
 package mett.palemannie.q2w.item.custom;
 
 import mett.palemannie.q2w.effect.ModEffects;
+import net.minecraft.core.Holder;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.player.Player;
@@ -14,8 +15,8 @@ public class EnvirosuitItem extends AbstractPowerupItem{
     }
 
     @Override
-    public MobEffect getPowerupEffect() {
-        return ModEffects.ENVIROSUIT.get();
+    public Holder<MobEffect> getPowerupEffect() {
+        return ModEffects.ENVIROSUIT.getHolder().get();
     }
 
     @Override

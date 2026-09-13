@@ -3,9 +3,7 @@ package mett.palemannie.q2w.event;
 
 import mett.palemannie.q2w.Quake2Weapons;
 import mett.palemannie.q2w.item.custom.AbstractPowerupItem;
-import net.minecraft.core.Holder;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
@@ -33,7 +31,7 @@ public class PowerupFeedHandler {
 
         if (powerupItem.getPowerupEffect() != null) {
 
-            living.addEffect(new MobEffectInstance((Holder<MobEffect>) powerupItem.getPowerupEffect(), 600, 0, false, false, true));
+            living.addEffect(new MobEffectInstance(powerupItem.getPowerupEffect(), 600, 0, false, false, true));
             level.playSound(null, living.blockPosition(), SoundEvents.HORSE_EAT, net.minecraft.sounds.SoundSource.PLAYERS, 1f, 1f);
 
             if (!player.getAbilities().instabuild) {
