@@ -13,6 +13,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
 
@@ -100,6 +101,11 @@ public abstract class AbstractQ2Weapon extends AbstractWeapon {
         return 0;
     }
 
+    @Nullable
+    protected TagKey<Item> ammoTag() {
+        return null;
+    }
+
     protected int shotsPerTrigger(ServerLevel level, ServerPlayer player, ItemStack stack, int useTicks) {
         return 1;
     }
@@ -168,7 +174,7 @@ public abstract class AbstractQ2Weapon extends AbstractWeapon {
         int available = 0;
 
         for (ItemStack inventoryStack : player.getInventory().items) {
-            if (inventoryStack.is(ammoItem)) {
+            if (inventoryStack.is(ammoItem) || ammoTag() != null && inventoryStack.is(ammoTag())) {
                 available += inventoryStack.getCount();
             }
         }
@@ -180,7 +186,7 @@ public abstract class AbstractQ2Weapon extends AbstractWeapon {
         int remaining = amount;
 
         for (ItemStack inventoryStack : player.getInventory().items) {
-            if (!inventoryStack.is(ammoItem)) continue;
+            if (!inventoryStack.is(ammoItem) && (ammoTag() == null || !inventoryStack.is(ammoTag()))) continue;
 
             int removed = Math.min(remaining, inventoryStack.getCount());
             inventoryStack.shrink(removed);

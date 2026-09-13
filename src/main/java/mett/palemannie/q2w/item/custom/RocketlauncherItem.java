@@ -12,6 +12,7 @@ import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.entity.LivingEntity;
@@ -84,6 +85,11 @@ public class RocketlauncherItem extends AbstractQ2Weapon{
     @Override
     protected Item ammoItem() {
         return ModItems.ROCKET.get();
+    }
+
+    @Override
+    protected TagKey<Item> ammoTag() {
+        return ExplosiveAmmo.ROCKETS;
     }
 
     @Override
