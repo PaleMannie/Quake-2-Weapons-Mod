@@ -5,6 +5,7 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
@@ -31,22 +32,26 @@ public final class Q2ExplosionHelper {
 
         DamageSource source = level.damageSources().source(ModDamageTypes.HANDGRENADE_DAMAGE, inflictor, attacker);
         DamageSource source2 = level.damageSources().source(ModDamageTypes.HANDGRENADE_OVERCOOK_DAMAGE, inflictor, attacker);
-        q2RadiusDamage(level, inflictor, center, Q2WConfigStats.applyQuadDamage(HANDGRENADE_DAMAGE, quadapply), HANDGRENADE_RADIUS, isOvercook ? source2 : source);
+        q2RadiusDamage(level, inflictor, center, Q2WConfigStats.applyQuadDamage(HANDGRENADE_DAMAGE, quadapply), HANDGRENADE_RADIUS, isOvercook ? source2 : source, quadapply);
     }
 
     public static void grenadelauncherExplosion(ServerLevel level, @Nullable Entity inflictor, @Nullable Entity attacker, Vec3 center, Entity quadapply) {
 
         DamageSource source = level.damageSources().source(ModDamageTypes.GRENADELAUNCHER_DAMAGE, inflictor, attacker);
-        q2RadiusDamage(level, inflictor, center, Q2WConfigStats.applyQuadDamage(GRENADELAUNCHER_DAMAGE, quadapply), GRENADELAUNCHER_RADIUS, source);
+        q2RadiusDamage(level, inflictor, center, Q2WConfigStats.applyQuadDamage(GRENADELAUNCHER_DAMAGE, quadapply), GRENADELAUNCHER_RADIUS, source, quadapply);
     }
 
     public static void rocketExplosion(ServerLevel level, @Nullable Entity inflictor, @Nullable Entity attacker, Vec3 center, Entity quadapply) {
 
         DamageSource source = level.damageSources().source(ModDamageTypes.ROCKETLAUNCHER_DAMAGE, inflictor, attacker);
-        q2RadiusDamage(level, inflictor, center, Q2WConfigStats.applyQuadDamage(ROCKET_DAMAGE, quadapply), ROCKET_RADIUS, source);
+        q2RadiusDamage(level, inflictor, center, Q2WConfigStats.applyQuadDamage(ROCKET_DAMAGE, quadapply), ROCKET_RADIUS, source, quadapply);
     }
 
     public static void q2RadiusDamage(ServerLevel level, Entity inflictor, Vec3 center, float maxDamage, double radius, DamageSource damageSource) {
+        q2RadiusDamage(level, inflictor, center, maxDamage, radius, damageSource, null);
+    }
+
+    private static void q2RadiusDamage(ServerLevel level, Entity inflictor, Vec3 center, float maxDamage, double radius, DamageSource damageSource, @Nullable Entity owner) {
 
         AABB area = new AABB(center, center).inflate(radius);
 
@@ -80,7 +85,7 @@ public final class Q2ExplosionHelper {
             }
 
             target.hurt(damageSource, damage);
-            applyQ2Knockback(target, center, falloff);
+            applyQ2Knockback(target, center, falloff, target == owner && target instanceof Player);
         }
     }
 
@@ -106,6 +111,10 @@ public final class Q2ExplosionHelper {
     }
 
     public static void applyQ2Knockback(LivingEntity target, Vec3 center, double falloff) {
+        applyQ2Knockback(target, center, falloff, false);
+    }
+
+    private static void applyQ2Knockback(LivingEntity target, Vec3 center, double falloff, boolean selfBlast) {
 
         Vec3 targetCenter = target.getBoundingBox().getCenter();
         Vec3 dir = targetCenter.subtract(center);
@@ -116,9 +125,14 @@ public final class Q2ExplosionHelper {
             dir = dir.normalize();
         }
 
-        double strength = 0.85d * falloff;
+        double strength = (selfBlast ? 1.35d : 0.85d) * falloff;
+        double lift = selfBlast
+                ? Math.max(0.35d * falloff, dir.y * strength + 0.3d * falloff)
+                : Math.max(0.18d, dir.y * strength + 0.15d);
 
-        target.push(dir.x * strength, Math.max(0.18d, dir.y * strength + 0.15d), dir.z * strength);
+        // Keep the player's existing air speed so successive blasts can build momentum.
+        target.push(dir.x * strength, lift, dir.z * strength);
+        if (selfBlast) target.setOnGround(false);
 
         target.hurtMarked = true;
     }
