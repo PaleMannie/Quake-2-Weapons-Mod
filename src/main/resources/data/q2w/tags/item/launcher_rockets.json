@@ -1,0 +1,6 @@
+{
+  "values": [
+    "q2w:rocket",
+    { "id": "quakeweapons:rocket", "required": false }
+  ]
+}
