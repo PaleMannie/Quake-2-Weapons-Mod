@@ -118,9 +118,7 @@ public final class WeaponAggroHandler {
 
     private static void aggroMonsters(ServerPlayer player, int range) {
 
-        if (!(player.level() instanceof ServerLevel level)) {
-            return;
-        }
+        ServerLevel level = player.level();
 
         double radius = range;
         double radiusSqr = radius * radius;
