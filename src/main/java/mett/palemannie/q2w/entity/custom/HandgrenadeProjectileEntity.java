@@ -1,7 +1,7 @@
 package mett.palemannie.q2w.entity.custom;
 
 import mett.palemannie.q2w.sound.ModSounds;
-import mett.palemannie.q2w.util.Q2ExplosionHelper;
+import mett.palemannie.q2w.util.QWExplosionHelper;
 import mett.palemannie.q2w.util.Q2WConfigStats;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -17,6 +17,8 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.*;
 
 public class HandgrenadeProjectileEntity extends Projectile {
+
+    private boolean exploded;
 
     public HandgrenadeProjectileEntity(EntityType<? extends Projectile> entityType, Level level) {
         super(entityType, level);
@@ -35,7 +37,8 @@ public class HandgrenadeProjectileEntity extends Projectile {
     }
 
     private void quakeExplosion(Level level) {
-        if (this.level().isClientSide()) return;
+        if (!(level instanceof ServerLevel serverLevel) || exploded) return;
+        exploded = true;
 
         Vec3 center = this.position();
 
@@ -46,7 +49,8 @@ public class HandgrenadeProjectileEntity extends Projectile {
             }
         }
 
-        Q2ExplosionHelper.handgrenadeExplosion((ServerLevel) level, null, null, center, this.getOwner(), isOvercookKey);
+        QWExplosionHelper.handGrenadeExplosion(serverLevel, this, this.getOwner(), center,
+                this.getOwner(), isOvercookKey);
 
         ((ServerLevel) this.level()).sendParticles(ParticleTypes.FLAME,
                 center.x, center.y, center.z,

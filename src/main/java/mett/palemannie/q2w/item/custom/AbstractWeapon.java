@@ -156,7 +156,10 @@ public abstract class AbstractWeapon extends Item implements GeoItem {
 
         int releaseCooldown = getReleaseCooldownTicks();
 
-        if (livingEntity instanceof Player player) {
+        // Adding a zero-length cooldown replaces an already active cooldown for the
+        // same item type. In particular, releasing the BFG after it fired used to
+        // erase its post-shot lock and made spam-click refiring possible.
+        if (releaseCooldown > 0 && livingEntity instanceof Player player) {
             player.getCooldowns().addCooldown(stack, releaseCooldown);
         }
 

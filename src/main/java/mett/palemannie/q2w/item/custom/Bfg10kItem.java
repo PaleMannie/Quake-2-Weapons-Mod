@@ -161,7 +161,9 @@ public class Bfg10kItem extends AbstractWeapon {
             return InteractionResult.FAIL;
         }
 
-        if (player.getCooldowns().isOnCooldown(player.getUseItem())) {
+        // getUseItem() may already be empty after a quick release. Checking it here
+        // allowed another windup to start while the BFG stack itself was cooling down.
+        if (player.getCooldowns().isOnCooldown(stack)) {
             return InteractionResult.FAIL;
         }
 
@@ -171,7 +173,9 @@ public class Bfg10kItem extends AbstractWeapon {
 
             UUID uuid = serverPlayer.getUUID();
 
-            if (!states.containsKey(uuid)) {
+            // Keep the authoritative check next to the server-side state transition as
+            // well; a new sequence must never be created for a cooling-down BFG.
+            if (!serverPlayer.getCooldowns().isOnCooldown(stack) && !states.containsKey(uuid)) {
                 if (!hasEnoughAmmo(serverPlayer)) {
                     onAmmoEmpty(serverLevel, serverPlayer, stack);
                     return InteractionResult.CONSUME;

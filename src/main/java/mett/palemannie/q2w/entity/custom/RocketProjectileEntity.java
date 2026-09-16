@@ -4,7 +4,7 @@ import mett.palemannie.q2w.Q2WConfig;
 import mett.palemannie.q2w.block.ModBlocks;
 import mett.palemannie.q2w.sound.ModSounds;
 import mett.palemannie.q2w.util.ModDamageTypes;
-import mett.palemannie.q2w.util.Q2ExplosionHelper;
+import mett.palemannie.q2w.util.QWExplosionHelper;
 import mett.palemannie.q2w.util.Q2WConfigStats;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
@@ -26,6 +26,8 @@ import net.minecraftforge.event.ForgeEventFactory;
 
 public class RocketProjectileEntity extends Projectile {
 
+    private boolean exploded;
+
     public RocketProjectileEntity(EntityType<? extends Projectile> entityType, Level level) {
         super(entityType, level);
     }
@@ -36,7 +38,8 @@ public class RocketProjectileEntity extends Projectile {
     }
 
     private void quakeExplosion(Level level) {
-        if (this.level().isClientSide()) return;
+        if (!(level instanceof ServerLevel serverLevel) || exploded) return;
+        exploded = true;
 
         Vec3 center = this.position();
 
@@ -47,7 +50,7 @@ public class RocketProjectileEntity extends Projectile {
             }
         }
 
-        Q2ExplosionHelper.rocketExplosion((ServerLevel) level, null, null, center, this.getOwner());
+        QWExplosionHelper.rocketExplosion(serverLevel, this, this.getOwner(), center, this.getOwner());
 
         ((ServerLevel) this.level()).sendParticles(ParticleTypes.FLAME,
                 center.x, center.y, center.z,
@@ -194,8 +197,12 @@ public class RocketProjectileEntity extends Projectile {
     protected void onHitBlock(BlockHitResult pResult) {
 
         if (!this.level().isClientSide()) {
+            // Keep the blast just outside the hit face so floor and wall jumps are unobstructed.
+            this.setPos(pResult.getLocation().add(
+                    pResult.getDirection().getStepX() * 0.01D,
+                    pResult.getDirection().getStepY() * 0.01D,
+                    pResult.getDirection().getStepZ() * 0.01D));
             this.level().broadcastEntityEvent(this, (byte)3);
-            this.discard();
         }
 
         quakeExplosion(this.level());
