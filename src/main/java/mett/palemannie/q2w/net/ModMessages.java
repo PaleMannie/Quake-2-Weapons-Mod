@@ -2,6 +2,7 @@ package mett.palemannie.q2w.net;
 
 import mett.palemannie.q2w.Quake2Weapons;
 import mett.palemannie.q2w.net.custom.WeaponRecoilS2CPacket;
+import mett.palemannie.q2w.net.custom.ExplosionImpulseS2CPacket;
 import mett.palemannie.q2w.net.custom.SilencedShotsSyncS2CPacket;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
@@ -35,6 +36,12 @@ public class ModMessages {
                 .encoder(WeaponRecoilS2CPacket::toBytes)
                 .decoder(WeaponRecoilS2CPacket::new)
                 .consumerMainThread(WeaponRecoilS2CPacket::handle)
+                .add();
+
+        INSTANCE.messageBuilder(ExplosionImpulseS2CPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
+                .encoder(ExplosionImpulseS2CPacket::toBytes)
+                .decoder(ExplosionImpulseS2CPacket::new)
+                .consumerMainThread(ExplosionImpulseS2CPacket::handle)
                 .add();
 
     }

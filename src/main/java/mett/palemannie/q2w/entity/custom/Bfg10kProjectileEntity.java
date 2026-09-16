@@ -49,8 +49,6 @@ public class Bfg10kProjectileEntity extends Projectile {
 
     private static final float DIRECT_BLAST_DAMAGE = Q2WConfigStats.Bfg10kDamage;
     private static final float RADIUS_BLAST_DAMAGE = 6f;
-    private static final float BFG_SELF_DAMAGE_MULTIPLIER = 1.25F;
-    private static final float BFG_MIN_CLOSE_SELF_DAMAGE = 12.0F;
     private static final float LASER_DAMAGE = Q2WConfigStats.Bfg10kLaserDamage;
     private static final float MAX_FLASH_DAMAGE = Q2WConfigStats.Bfg10kFlashDamage;
 
@@ -414,12 +412,10 @@ public class Bfg10kProjectileEntity extends Projectile {
             );
 
             if (entity == owner) {
-                damage *= BFG_SELF_DAMAGE_MULTIPLIER;
-
-                if (scale >= 0.75F) {
-                    damage = Math.max(damage, BFG_MIN_CLOSE_SELF_DAMAGE);
-                }
+                damage *= Q2WConfig.COMMON.explosionSelfDamageMultiplier.get().floatValue();
             }
+
+            Q2ExplosionHelper.applyExplosionImpulse(level, entity, center, BLAST_RADIUS, owner, owner);
 
             if (damage <= 0.0F) {
                 continue;
@@ -427,7 +423,6 @@ public class Bfg10kProjectileEntity extends Projectile {
 
             entity.hurt(creditSource, Float.MIN_VALUE);
             entity.hurt(bfgSource, damage);
-            Q2ExplosionHelper.applyQ2Knockback(entity, center, scale);
         }
     }
 

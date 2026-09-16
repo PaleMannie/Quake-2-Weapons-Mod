@@ -17,6 +17,8 @@ import net.minecraft.world.phys.*;
 
 public class GrenadelauncherProjectileEntity extends Projectile {
 
+    private boolean exploded;
+
     public GrenadelauncherProjectileEntity(EntityType<? extends Projectile> entityType, Level level) {
         super(entityType, level);
     }
@@ -30,7 +32,8 @@ public class GrenadelauncherProjectileEntity extends Projectile {
     }
 
     private void quakeExplosion(Level level) {
-        if (this.level().isClientSide) return;
+        if (!(level instanceof ServerLevel serverLevel) || exploded) return;
+        exploded = true;
 
         Vec3 center = this.position();
 
@@ -41,7 +44,7 @@ public class GrenadelauncherProjectileEntity extends Projectile {
             }
         }
 
-        Q2ExplosionHelper.grenadelauncherExplosion((ServerLevel) level, null, null, center, this.getOwner());
+        Q2ExplosionHelper.grenadeLauncherExplosion(serverLevel, this, this.getOwner(), center, this.getOwner());
 
         ((ServerLevel) this.level()).sendParticles(ParticleTypes.FLAME,
                 center.x, center.y, center.z,

@@ -158,7 +158,8 @@ public class Bfg10kItem extends AbstractWeapon {
 
             UUID uuid = serverPlayer.getUUID();
 
-            if (!states.containsKey(uuid)) {
+            // Recheck on the authoritative side before creating a new windup state.
+            if (!serverPlayer.getCooldowns().isOnCooldown(this) && !states.containsKey(uuid)) {
                 if (!hasEnoughAmmo(serverPlayer)) {
                     onAmmoEmpty(serverLevel, serverPlayer, stack);
                     return InteractionResultHolder.consume(stack);

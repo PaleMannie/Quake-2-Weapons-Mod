@@ -35,6 +35,7 @@ public class Q2WConfig {
         public final ForgeConfigSpec.DoubleValue bfg10kDamage;
         public final ForgeConfigSpec.DoubleValue bfg10kLaserDamage;
         public final ForgeConfigSpec.DoubleValue bfg10kFlashDamage;
+        public final ForgeConfigSpec.DoubleValue explosionSelfDamageMultiplier;
 
 
         public Common(ForgeConfigSpec.Builder builder) {
@@ -115,6 +116,12 @@ public class Q2WConfig {
             bfg10kFlashDamage = builder
                     .comment("\nMaximum base damage of the BFG10K flash after impact.\nDamage decreases with distance from the explosion.\nDamage is measured in health points: 2 points = 1 heart.")
                     .defineInRange("bfg10kFlashDamage", 40, 0.0, Float.MAX_VALUE);
+
+            explosionSelfDamageMultiplier = builder
+                    .comment("\nSelf splash damage multiplier for rockets, grenades and the BFG blast."
+                            + "\n0 = no self damage, 0.5 = half damage, 1 = full damage."
+                            + "\nThis does not change blast impulse or damage dealt to other entities.")
+                    .defineInRange("explosionSelfDamageMultiplier", 0.5D, 0.0D, 1.0D);
 
             builder.pop();
         }
