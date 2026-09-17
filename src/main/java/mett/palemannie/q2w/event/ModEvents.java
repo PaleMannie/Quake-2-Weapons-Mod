@@ -6,8 +6,12 @@ import mett.palemannie.q2w.sound.ModSounds;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageTypes;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.Items;
+import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
+import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
 import net.minecraftforge.event.entity.living.MobEffectEvent;
 import net.minecraftforge.event.entity.player.ArrowLooseEvent;
 import net.minecraftforge.event.entity.player.AttackEntityEvent;
@@ -15,8 +19,50 @@ import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.listener.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
+
 @Mod.EventBusSubscriber(modid = Quake2Weapons.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class ModEvents {
+
+    private static final Map<UUID, MobEffectInstance> ADRENALINE_BEFORE_MILK = new HashMap<>();
+
+    @SubscribeEvent
+    public static void onMilkDrinkStarted(LivingEntityUseItemEvent.Start event) {
+        if (!event.getItem().is(Items.MILK_BUCKET) || event.getEntity().level().isClientSide()) {
+            return;
+        }
+
+        MobEffectInstance adrenaline = event.getEntity().getEffect(ModEffects.ADRENALINE_HEALTH_BOOST.getHolder().get());
+        if (adrenaline != null) {
+            ADRENALINE_BEFORE_MILK.put(event.getEntity().getUUID(), new MobEffectInstance(adrenaline));
+        }
+    }
+
+    @SubscribeEvent
+    public static void onMilkDrinkStopped(LivingEntityUseItemEvent.Stop event) {
+        if (event.getItem().is(Items.MILK_BUCKET)) {
+            ADRENALINE_BEFORE_MILK.remove(event.getEntity().getUUID());
+        }
+    }
+
+    @SubscribeEvent
+    public static void onMilkDrinkFinished(LivingEntityUseItemEvent.Finish event) {
+        if (!event.getItem().is(Items.MILK_BUCKET) || event.getEntity().level().isClientSide()) {
+            return;
+        }
+
+        MobEffectInstance adrenaline = ADRENALINE_BEFORE_MILK.remove(event.getEntity().getUUID());
+        if (adrenaline != null && !event.getEntity().isDeadOrDying()) {
+            event.getEntity().addEffect(adrenaline);
+        }
+    }
+
+    @SubscribeEvent
+    public static void onDeathWhileDrinkingMilk(LivingDeathEvent event) {
+        ADRENALINE_BEFORE_MILK.remove(event.getEntity().getUUID());
+    }
 
     @SubscribeEvent
     public static void onQuadDamageHurt(LivingHurtEvent event) {

@@ -1,5 +1,6 @@
 package mett.palemannie.q2w.item.custom;
 
+import mett.palemannie.q2w.effect.ModEffects;
 import mett.palemannie.q2w.sound.ModSounds;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -20,7 +21,7 @@ public class AdrenalineItem extends AbstractConsumptionItem{
             return;
         }
 
-        MobEffectInstance currentHealthBoost = player.getEffect(MobEffects.HEALTH_BOOST);
+        MobEffectInstance currentHealthBoost = player.getEffect(ModEffects.ADRENALINE_HEALTH_BOOST.getHolder().get());
 
         int newAmplifier = 0;
 
@@ -30,7 +31,8 @@ public class AdrenalineItem extends AbstractConsumptionItem{
 
         newAmplifier = Math.min(newAmplifier, 255);
 
-        player.addEffect(new MobEffectInstance(MobEffects.HEALTH_BOOST, Integer.MAX_VALUE - 1, newAmplifier, false, false, true));
+        player.addEffect(new MobEffectInstance(ModEffects.ADRENALINE_HEALTH_BOOST.getHolder().get(),
+                Integer.MAX_VALUE - 1, newAmplifier, false, false, false));
 
         player.addEffect(new MobEffectInstance(MobEffects.INSTANT_HEALTH, 2, 10));
         player.addEffect(new MobEffectInstance(MobEffects.SATURATION, 10, 10));

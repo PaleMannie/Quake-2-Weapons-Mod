@@ -1,11 +1,15 @@
 package mett.palemannie.q2w.effect;
 
 import mett.palemannie.q2w.Quake2Weapons;
+import mett.palemannie.q2w.effect.custom.AdrenalineHealthBoostEffect;
 import mett.palemannie.q2w.effect.custom.EnvirosuitEffect;
 import mett.palemannie.q2w.effect.custom.InvulnerabilityEffect;
 import mett.palemannie.q2w.effect.custom.QuadDamageEffect;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraftforge.eventbus.api.bus.BusGroup;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -19,6 +23,11 @@ public class ModEffects {
     public static final RegistryObject<MobEffect> QUAD_DAMAGE = MOB_EFFECTS.register("quad_damage_effect", ()-> new QuadDamageEffect(MobEffectCategory.BENEFICIAL, 4034242));
     public static final RegistryObject<MobEffect> INVULNERABILITY = MOB_EFFECTS.register("invuln_effect", ()-> new InvulnerabilityEffect(MobEffectCategory.BENEFICIAL, 16765184));
     public static final RegistryObject<MobEffect> ENVIROSUIT = MOB_EFFECTS.register("envirosuit_effect", ()-> new EnvirosuitEffect(MobEffectCategory.BENEFICIAL, 65408));
+    public static final RegistryObject<MobEffect> ADRENALINE_HEALTH_BOOST = MOB_EFFECTS.register("adrenaline_health_boost_effect",
+            () -> new AdrenalineHealthBoostEffect(MobEffectCategory.BENEFICIAL, 16284963)
+                    .addAttributeModifier(Attributes.MAX_HEALTH,
+                            Identifier.fromNamespaceAndPath(Quake2Weapons.MODID, "effect.adrenaline_health_boost"),
+                            2.0, AttributeModifier.Operation.ADD_VALUE));
 
     public static void register(BusGroup eventBus){
         MOB_EFFECTS.register(eventBus);
