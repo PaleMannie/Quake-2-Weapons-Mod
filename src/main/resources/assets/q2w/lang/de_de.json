@@ -26,6 +26,7 @@
   "item.q2w.rebreather_item": "Kreislaufgerät",
   "item.q2w.silencer_item": "Schalldämpfer",
   "item.q2w.adrenaline_item": "Adrenalin",
+  "effect.q2w.adrenaline_health_boost_effect": "Adrenalin-Extraenergie",
   "item.q2w.powershield_item": "Energieschild",
 
   "death.attack.q2w.blaster_damage": "blaster_damage",

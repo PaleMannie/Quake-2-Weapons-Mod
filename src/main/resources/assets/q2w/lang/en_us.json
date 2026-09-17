@@ -26,6 +26,7 @@
   "item.q2w.rebreather_item": "Rebreather",
   "item.q2w.silencer_item": "Silencer",
   "item.q2w.adrenaline_item": "Adrenaline",
+  "effect.q2w.adrenaline_health_boost_effect": "Adrenaline Health Boost",
   "item.q2w.powershield_item": "Power Shield",
 
   "death.attack.q2w.blaster_damage": "blaster_damage",
