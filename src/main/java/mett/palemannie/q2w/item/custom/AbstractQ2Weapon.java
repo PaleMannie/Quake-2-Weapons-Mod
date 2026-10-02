@@ -107,6 +107,12 @@ public abstract class AbstractQ2Weapon extends AbstractWeapon {
         return null;
     }
 
+    @Override
+    public boolean acceptsAmmo(ItemStack stack) {
+        TagKey<Item> tag = ammoTag();
+        return super.acceptsAmmo(stack) || !stack.isEmpty() && tag != null && stack.is(tag);
+    }
+
     protected int shotsPerTrigger(ServerLevel level, ServerPlayer player, ItemStack stack, int useTicks) {
         return 1;
     }
@@ -175,7 +181,7 @@ public abstract class AbstractQ2Weapon extends AbstractWeapon {
         int available = 0;
 
         for (ItemStack inventoryStack : player.getInventory().items) {
-            if (inventoryStack.is(ammoItem) || ammoTag() != null && inventoryStack.is(ammoTag())) {
+            if (acceptsAmmo(inventoryStack)) {
                 available += inventoryStack.getCount();
             }
         }
@@ -187,7 +193,7 @@ public abstract class AbstractQ2Weapon extends AbstractWeapon {
         int remaining = amount;
 
         for (ItemStack inventoryStack : player.getInventory().items) {
-            if (!inventoryStack.is(ammoItem) && (ammoTag() == null || !inventoryStack.is(ammoTag()))) continue;
+            if (!acceptsAmmo(inventoryStack)) continue;
 
             int removed = Math.min(remaining, inventoryStack.getCount());
             inventoryStack.shrink(removed);

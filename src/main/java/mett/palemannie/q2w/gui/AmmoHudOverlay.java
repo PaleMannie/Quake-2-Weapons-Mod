@@ -28,9 +28,8 @@ public final class AmmoHudOverlay {
         }
 
         int total = 0;
-        for (int slot = 0; slot < minecraft.player.getInventory().getContainerSize(); slot++) {
-            ItemStack stack = minecraft.player.getInventory().getItem(slot);
-            if (stack.is(ammo)) {
+        for (ItemStack stack : minecraft.player.getInventory().items) {
+            if (weapon.acceptsAmmo(stack)) {
                 total += stack.getCount();
             }
         }
