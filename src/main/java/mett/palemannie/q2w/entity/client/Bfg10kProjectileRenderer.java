@@ -2,11 +2,12 @@ package mett.palemannie.q2w.entity.client;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.mojang.blaze3d.pipeline.RenderPipeline;
+import com.mojang.renderpearl.api.pipeline.RenderPipeline;
+import com.mojang.renderpearl.api.pipeline.ColorTargetState;
 import com.mojang.math.Axis;
 import mett.palemannie.q2w.Quake2Weapons;
 import mett.palemannie.q2w.entity.custom.Bfg10kProjectileEntity;
-import net.minecraft.client.renderer.LightTexture;
+import net.minecraft.util.LightCoordsUtil;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.culling.Frustum;
 import net.minecraft.client.renderer.entity.EntityRenderer;
@@ -15,7 +16,7 @@ import net.minecraft.client.renderer.entity.state.EntityRenderState;
 import net.minecraft.client.renderer.rendertype.RenderSetup;
 import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.client.renderer.RenderPipelines;
-import net.minecraft.client.renderer.state.CameraRenderState;
+import net.minecraft.client.renderer.state.level.CameraRenderState;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.Identifier;
 
@@ -30,7 +31,9 @@ public class Bfg10kProjectileRenderer extends EntityRenderer<Bfg10kProjectileEnt
     private static final RenderPipeline EMISSIVE_CUTOUT_PIPELINE = RenderPipeline.builder(RenderPipelines.ENTITY_EMISSIVE_SNIPPET)
             .withLocation("q2w/pipeline/bfg_ball_emissive_cutout")
             .withShaderDefine("ALPHA_CUTOUT", 0.1f)
-            .withSampler("Sampler1")
+            // 26.3 snippets do not declare the main render pass's color attachment.
+            .withColorTargetState(ColorTargetState.DEFAULT)
+            .withBindGroupLayout(net.minecraft.client.renderer.BindGroupLayouts.SAMPLER1)
             .withCull(false)
             .build();
 
@@ -53,8 +56,8 @@ public class Bfg10kProjectileRenderer extends EntityRenderer<Bfg10kProjectileEnt
 
         poseStack.pushPose();
 
-        poseStack.mulPose(cameraState.orientation);
-        poseStack.mulPose(Axis.YP.rotationDegrees(180f));
+        poseStack.rotate(cameraState.orientation);
+        poseStack.rotate(Axis.YP.rotationDegrees(180f));
 
         float scale = 2f;
         poseStack.scale(scale, scale, scale);
@@ -87,12 +90,12 @@ public class Bfg10kProjectileRenderer extends EntityRenderer<Bfg10kProjectileEnt
                 .setColor(255, 255, 255, 255)
                 .setUv(u, v)
                 .setOverlay(OverlayTexture.NO_OVERLAY)
-                .setLight(LightTexture.FULL_BRIGHT)
+                .setLight(LightCoordsUtil.FULL_BRIGHT)
                 .setNormal(pose, 0f, 1f, 0f);
     }
 
     @Override
-    public boolean shouldRender(Bfg10kProjectileEntity entity, Frustum camera, double camX, double camY, double camZ) {
+    public boolean shouldRender(Bfg10kProjectileEntity entity, Frustum camera, double camX, double camY, double camZ, float partialTicks) {
         return true;
     }
 

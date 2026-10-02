@@ -5,12 +5,12 @@ import mett.palemannie.q2w.particle.ModParticles;
 import mett.palemannie.q2w.particle.custom.BfgExplosionParticle;
 import mett.palemannie.q2w.particle.custom.BfgFlashParticle;
 import mett.palemannie.q2w.particle.custom.BfgLaserParticle;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.client.event.RegisterParticleProvidersEvent;
-import net.minecraftforge.eventbus.api.listener.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.neoforge.client.event.RegisterParticleProvidersEvent;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
 
-@Mod.EventBusSubscriber(modid = Quake2Weapons.MODID, value = Dist.CLIENT)
+@EventBusSubscriber(modid = Quake2Weapons.MODID, value = Dist.CLIENT)
 public class ModParticleProviders {
 
     @SubscribeEvent

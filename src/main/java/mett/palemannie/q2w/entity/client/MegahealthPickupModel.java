@@ -30,4 +30,3 @@ public class MegahealthPickupModel extends EntityModel<EntityRenderState> {
 		return LayerDefinition.create(meshdefinition, 64, 64);
 	}
 }
-

@@ -40,4 +40,3 @@ public class CellsAmmopickupModel extends EntityModel<EntityRenderState> {
 		return LayerDefinition.create(meshdefinition, 128, 128);
 	}
 }
-

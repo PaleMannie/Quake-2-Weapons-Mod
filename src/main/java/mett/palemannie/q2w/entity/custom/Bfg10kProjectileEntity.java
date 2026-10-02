@@ -329,7 +329,7 @@ public class Bfg10kProjectileEntity extends Projectile {
             Vec3 scaledMotion = motionBefore.add(addedKnockback.scale(knockbackScale));
 
             target.setDeltaMovement(scaledMotion);
-            target.hurtMarked = true;
+            target.needsSync = true;
         }
 
         return hurt;

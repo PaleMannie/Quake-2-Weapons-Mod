@@ -15,9 +15,8 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.event.TickEvent;
-import net.minecraftforge.eventbus.api.listener.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
 import com.mojang.logging.LogUtils;
 import org.slf4j.Logger;
 
@@ -27,7 +26,7 @@ import java.util.Map;
 import java.util.WeakHashMap;
 import java.util.function.Consumer;
 
-@Mod.EventBusSubscriber(modid = Quake2Weapons.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE)
+@EventBusSubscriber(modid = Quake2Weapons.MODID)
 public class PowerupSpawner {
 
     private static final Logger LOGGER = LogUtils.getLogger();
@@ -72,14 +71,14 @@ public class PowerupSpawner {
     }
 
     @SubscribeEvent
-    public static void onWorldTick(TickEvent.LevelTickEvent.Post event) {
-        if (!(event.level() instanceof ServerLevel level)) return;
+    public static void onWorldTick(net.neoforged.neoforge.event.tick.LevelTickEvent.Post event) {
+        if (!(event.getLevel() instanceof ServerLevel level)) return;
 
         if (!powerupSpawningEnabled) {
             if (debugEnabled) {
 
                 LOGGER.warn("POWERUP SPAWNING DISABLED. DISABLE DEBUG MODE IN SERVER CONFIG OR ENABLE POWERUP SPAWNING");
-                debug(event.level().getServer().overworld(), "POWERUP SPAWNING DISABLED. DISABLE DEBUG MODE IN SERVER CONFIG OR ENABLE POWERUP SPAWNING");
+                debug(event.getLevel().getServer().overworld(), "POWERUP SPAWNING DISABLED. DISABLE DEBUG MODE IN SERVER CONFIG OR ENABLE POWERUP SPAWNING");
             }
             return;
         }
@@ -109,7 +108,7 @@ public class PowerupSpawner {
             return;
         }
 
-        RandomSource random = level.random;
+        RandomSource random = level.getRandom();
 
         int x = player.blockPosition().getX() + Mth.nextInt(random, -128, 128);
         int z = player.blockPosition().getZ() + Mth.nextInt(random, -128, 128);
@@ -194,7 +193,7 @@ public class PowerupSpawner {
 
             for (int i = bag.size() - 1; i > 0; i--) {
 
-                int j = level.random.nextInt(i + 1);
+                int j = level.getRandom().nextInt(i + 1);
                 int temp = bag.get(i);
                 bag.set(i, bag.get(j));
                 bag.set(j, temp);

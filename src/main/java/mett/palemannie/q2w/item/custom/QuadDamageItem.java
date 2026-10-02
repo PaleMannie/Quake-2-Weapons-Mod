@@ -16,11 +16,11 @@ public class QuadDamageItem extends AbstractPowerupItem{
 
     @Override
     public Holder<MobEffect> getPowerupEffect() {
-        return ModEffects.QUAD_DAMAGE.getHolder().get();
+        return ModEffects.QUAD_DAMAGE;
     }
 
     @Override
     protected void onPowerupUse(Level level, Player player, ItemStack stack, int duration) {
-        player.addEffect(new MobEffectInstance(ModEffects.QUAD_DAMAGE.getHolder().get(), getPowerupDuration()));
+        player.addEffect(new MobEffectInstance(ModEffects.QUAD_DAMAGE, getPowerupDuration()));
     }
 }

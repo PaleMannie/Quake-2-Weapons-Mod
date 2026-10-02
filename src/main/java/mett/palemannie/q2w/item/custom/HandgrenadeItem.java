@@ -1,6 +1,5 @@
 package mett.palemannie.q2w.item.custom;
 
-import com.mojang.blaze3d.vertex.PoseStack;
 import mett.palemannie.q2w.item.ModItems;
 import mett.palemannie.q2w.item.client.HandgrenadeRenderer;
 import mett.palemannie.q2w.net.ModMessages;
@@ -8,8 +7,6 @@ import mett.palemannie.q2w.net.custom.WeaponRecoilS2CPacket;
 import mett.palemannie.q2w.sound.ModSounds;
 import mett.palemannie.q2w.util.ServerPlayHandler;
 import mett.palemannie.q2w.util.WeaponAggroHandler;
-import net.minecraft.client.model.HumanoidModel;
-import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
@@ -17,25 +14,23 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.client.extensions.common.IClientItemExtensions;
 import org.jetbrains.annotations.NotNull;
-import software.bernie.geckolib.animatable.GeoItem;
-import software.bernie.geckolib.animatable.client.GeoRenderProvider;
-import software.bernie.geckolib.animatable.manager.AnimatableManager;
-import software.bernie.geckolib.animation.AnimationController;
-import software.bernie.geckolib.animation.RawAnimation;
-import software.bernie.geckolib.animation.object.LoopType;
-import software.bernie.geckolib.animation.object.PlayState;
-import software.bernie.geckolib.renderer.GeoItemRenderer;
+import com.geckolib.animatable.GeoItem;
+import com.geckolib.animatable.client.GeoRenderProvider;
+import com.geckolib.animatable.manager.AnimatableManager;
+import com.geckolib.animation.AnimationController;
+import com.geckolib.animation.RawAnimation;
+import com.geckolib.animation.object.LoopType;
+import com.geckolib.animation.object.PlayState;
+import com.geckolib.renderer.GeoItemRenderer;
 
-import java.util.HashMap;
+import java.util.WeakHashMap;
 import java.util.Map;
-import java.util.UUID;
+
 import java.util.function.Consumer;
 
 public class HandgrenadeItem extends AbstractWeapon {
@@ -55,37 +50,6 @@ public class HandgrenadeItem extends AbstractWeapon {
                     this.renderer = new HandgrenadeRenderer();
 
                 return this.renderer;
-            }
-        });
-    }
-
-    @Override
-    public void initializeClient(Consumer<IClientItemExtensions> consumer) {
-
-        consumer.accept(new IClientItemExtensions() {
-
-            @Override
-            public boolean applyForgeHandTransform(PoseStack poseStack, LocalPlayer player, HumanoidArm arm, ItemStack itemInHand, float partialTick, float equipProcess, float swingProcess) {
-
-                if (itemInHand.getItem() instanceof AbstractWeapon) {
-
-                    int side = arm == HumanoidArm.RIGHT ? 1 : -1;
-                    poseStack.translate(side * 0.56f, -0.52f, -0.72f);
-
-                    return true;
-                }
-
-                return false;
-            }
-
-            @Override
-            public HumanoidModel.ArmPose getArmPose(LivingEntity entityLiving, InteractionHand hand, ItemStack itemStack) {
-
-                if (!itemStack.isEmpty() && entityLiving.getItemInHand(hand) == itemStack) {
-                    return HumanoidModel.ArmPose.BOW_AND_ARROW;
-                }
-
-                return HumanoidModel.ArmPose.EMPTY;
             }
         });
     }
@@ -125,7 +89,7 @@ public class HandgrenadeItem extends AbstractWeapon {
     private static final RawAnimation IDLE_ANIM = RawAnimation.begin()
             .then("handgrenade.animation.idle", LoopType.LOOP);
 
-    private final Map<UUID, GrenadeState> states = new HashMap<>();
+    private final Map<ServerPlayer, GrenadeState> states = new WeakHashMap<>();
 
     @Override
     protected String animationPrefix() {
@@ -179,7 +143,7 @@ public class HandgrenadeItem extends AbstractWeapon {
             return InteractionResult.FAIL;
         }
 
-        if (states.containsKey(player.getUUID())) {
+        if (player instanceof ServerPlayer serverPlayer && states.containsKey(serverPlayer)) {
             return InteractionResult.FAIL;
         }
 
@@ -199,9 +163,9 @@ public class HandgrenadeItem extends AbstractWeapon {
     private void startGrenadeUse(ServerLevel level, ServerPlayer player, ItemStack stack, InteractionHand hand) {
         int slot = player.getInventory().selected;
 
-        GrenadeState state = new GrenadeState(slot, hand, level.getGameTime());
+        GrenadeState state = new GrenadeState(stack, level, slot, level.getGameTime());
 
-        states.put(player.getUUID(), state);
+        states.put(player, state);
 
         triggerPrimeAnimation(player, level, stack);
     }
@@ -227,7 +191,7 @@ public class HandgrenadeItem extends AbstractWeapon {
             return false;
         }
 
-        GrenadeState state = states.get(player.getUUID());
+        GrenadeState state = states.get(player);
 
         if (state == null) {
             cleanStackingTags(stack);
@@ -241,57 +205,33 @@ public class HandgrenadeItem extends AbstractWeapon {
     @Override
     public void inventoryTick(ItemStack stack, ServerLevel level, Entity entity, net.minecraft.world.entity.EquipmentSlot equipmentSlot) {
         super.inventoryTick(stack, level, entity, equipmentSlot);
-        boolean selected = equipmentSlot == net.minecraft.world.entity.EquipmentSlot.MAINHAND;
-        int slot = entity instanceof net.minecraft.world.entity.player.Player playerEntity ? playerEntity.getInventory().items.indexOf(stack) : -1;
-
-
-        ServerLevel serverLevel = level;
         if (entity instanceof ServerPlayer player) {
+            GrenadeState state = states.get(player);
+            if (state == null || state.stack != stack) cleanStackingTags(stack);
+        }
+    }
 
-            GrenadeState state = states.get(player.getUUID());
+    /** Advance once per player tick, even when the original inventory slot is empty. */
+    public void tickActiveGrenade(ServerPlayer player) {
+        GrenadeState state = states.get(player);
+        if (state == null) return;
 
-            boolean isActiveCookingSlot =
-                    state != null
-                            && slot == state.slot
-                            && selected
-                            && state.hand == InteractionHand.MAIN_HAND
-                            && player.getInventory().selected == state.slot
-                            && player.getMainHandItem() == stack;
-
-            if (!isActiveCookingSlot) {
-                cleanStackingTags(stack);
-            }
-
-            if (state == null) {
-                return;
-            }
-
-            if (slot != state.slot) {
-                return;
-            }
-
-            boolean stillSelected =
-                    selected
-                            && state.hand == InteractionHand.MAIN_HAND
-                            && player.getInventory().selected == state.slot
-                            && player.getMainHandItem() == stack;
-
-            boolean stillUsing =
-                    stillSelected
-                            && player.isUsingItem()
-                            && player.getUseItem() == stack;
-
-            if (!stillUsing) {
-                state.releaseRequested = true;
-            }
-
-            tickGrenadeState(serverLevel, player, stack, state);
+        // A removed stack, death, or dimension change must never leave a permanent use lock.
+        boolean ownsStack = player.getInventory().items.stream().anyMatch(stack -> stack == state.stack)
+                || player.getOffhandItem() == state.stack;
+        if (!player.isAlive() || player.level() != state.level || state.stack.isEmpty()
+                || !state.stack.is(this) || !ownsStack) {
+            states.remove(player);
+            if (player.getUseItem() == state.stack) player.stopUsingItem();
+            cleanStackingTags(state.stack);
             return;
         }
 
-        if (!level.isClientSide()) {
-            cleanStackingTags(stack);
-        }
+        boolean stillUsing = player.getInventory().selected == state.slot
+                && player.getMainHandItem() == state.stack
+                && player.isUsingItem() && player.getUseItem() == state.stack;
+        if (!stillUsing) state.releaseRequested = true;
+        tickGrenadeState(state.level, player, state.stack, state);
     }
 
     private void tickGrenadeState(ServerLevel level, ServerPlayer player, ItemStack stack, GrenadeState state) {
@@ -335,7 +275,7 @@ public class HandgrenadeItem extends AbstractWeapon {
         if (!consumeOneGrenade(player, stack)) {
 
             ServerPlayHandler.playAmmoEmptySound(player);
-            states.remove(player.getUUID());
+            states.remove(player);
             return;
         }
 
@@ -361,9 +301,9 @@ public class HandgrenadeItem extends AbstractWeapon {
 
 
         player.getCooldowns().addCooldown(stack, RELEASE_COOLDOWN_TICKS);
-        player.stopUsingItem();
+        if (player.getUseItem() == stack) player.stopUsingItem();
 
-        states.remove(player.getUUID());
+        states.remove(player);
         cleanStackingTags(stack);
     }
 
@@ -381,9 +321,9 @@ public class HandgrenadeItem extends AbstractWeapon {
                 0f), player);
 
         player.getCooldowns().addCooldown(stack, RELEASE_COOLDOWN_TICKS);
-        player.stopUsingItem();
+        if (player.getUseItem() == stack) player.stopUsingItem();
 
-        states.remove(player.getUUID());
+        states.remove(player);
         cleanStackingTags(stack);
     }
 
@@ -413,8 +353,9 @@ public class HandgrenadeItem extends AbstractWeapon {
     }
 
     private static class GrenadeState {
+        private final ItemStack stack;
+        private final ServerLevel level;
         private final int slot;
-        private final InteractionHand hand;
         private final long startTick;
 
         private boolean releaseRequested = false;
@@ -426,9 +367,10 @@ public class HandgrenadeItem extends AbstractWeapon {
 
         private boolean primeSoundPlayed = false;
 
-        private GrenadeState(int slot, InteractionHand hand, long startTick) {
+        private GrenadeState(ItemStack stack, ServerLevel level, int slot, long startTick) {
+            this.stack = stack;
+            this.level = level;
             this.slot = slot;
-            this.hand = hand;
             this.startTick = startTick;
         }
     }

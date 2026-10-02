@@ -33,8 +33,6 @@ public class MegahealthPickupEntity extends AbstractItempickupEntity {
     @Override
     protected SoundEvent getPickupSound() { return null; }
 
-
-
     @Override
     protected void defineSynchedData(SynchedEntityData.Builder pBuilder) {}
 

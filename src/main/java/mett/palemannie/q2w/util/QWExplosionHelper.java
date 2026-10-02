@@ -66,7 +66,7 @@ public final class QWExplosionHelper {
 
         float quad = Q2WConfigStats.applyQuadDamage(1.0F, quadApplier);
         boolean quadHandledByEvent = source.getEntity() instanceof LivingEntity attacker
-                && attacker.hasEffect(ModEffects.QUAD_DAMAGE.getHolder().get());
+                && attacker.hasEffect(ModEffects.QUAD_DAMAGE);
         float damageScale = Math.max(0.0F, maxDamage) * (quadHandledByEvent ? 1.0F : quad);
         double selfDamageMultiplier = Q2WConfig.COMMON.explosionSelfDamageMultiplier.get();
         AABB area = new AABB(center, center).inflate(radius);
@@ -117,7 +117,7 @@ public final class QWExplosionHelper {
         if (target instanceof ServerPlayer player) {
             ModMessages.sendToPlayer(new ExplosionImpulseS2CPacket(impulse), player);
         } else {
-            target.hurtMarked = true;
+            target.needsSync = true;
         }
     }
 

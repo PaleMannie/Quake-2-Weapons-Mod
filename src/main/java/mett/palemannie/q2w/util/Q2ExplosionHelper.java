@@ -134,6 +134,6 @@ public final class Q2ExplosionHelper {
         target.push(dir.x * strength, lift, dir.z * strength);
         if (selfBlast) target.setOnGround(false);
 
-        target.hurtMarked = true;
+        target.needsSync = true;
     }
 }

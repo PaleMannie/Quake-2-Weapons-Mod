@@ -1,44 +1,44 @@
 package mett.palemannie.q2w;
 
-import net.minecraftforge.common.ForgeConfigSpec;
-import net.minecraftforge.fml.ModLoadingContext;
-import net.minecraftforge.fml.config.ModConfig;
+import net.neoforged.neoforge.common.ModConfigSpec;
+import net.neoforged.fml.ModContainer;
+import net.neoforged.fml.config.ModConfig;
 
 public class Q2WConfig {
 
-    public static final ForgeConfigSpec COMMON_SPEC;
+    public static final ModConfigSpec COMMON_SPEC;
     public static final Common COMMON;
 
     static {
-        final ForgeConfigSpec.Builder builder = new ForgeConfigSpec.Builder();
+        final ModConfigSpec.Builder builder = new ModConfigSpec.Builder();
         COMMON = new Common(builder);
         COMMON_SPEC = builder.build();
     }
 
     public static class Common {
-        public final ForgeConfigSpec.BooleanValue enableMuzzleFlash;
-        public final ForgeConfigSpec.BooleanValue enableProjectileTrailLight;
-        public final ForgeConfigSpec.BooleanValue enableGore;
-        public final ForgeConfigSpec.DoubleValue blasterDamage;
-        public final ForgeConfigSpec.DoubleValue shotgunDamage;
-        public final ForgeConfigSpec.DoubleValue superShotgunDamage;
-        public final ForgeConfigSpec.DoubleValue machinegunDamage;
-        public final ForgeConfigSpec.DoubleValue chaingunDamage;
-        public final ForgeConfigSpec.DoubleValue handgrenadeDamage;
-        public final ForgeConfigSpec.DoubleValue handgrenadeRadius;
-        public final ForgeConfigSpec.DoubleValue grenadelauncherDamage;
-        public final ForgeConfigSpec.DoubleValue grenadelauncherRadius;
-        public final ForgeConfigSpec.DoubleValue rocketlauncherDamage;
-        public final ForgeConfigSpec.DoubleValue rocketlauncherRadius;
-        public final ForgeConfigSpec.DoubleValue hyperblasterDamage;
-        public final ForgeConfigSpec.DoubleValue railgunDamage;
-        public final ForgeConfigSpec.DoubleValue bfg10kDamage;
-        public final ForgeConfigSpec.DoubleValue bfg10kLaserDamage;
-        public final ForgeConfigSpec.DoubleValue bfg10kFlashDamage;
-        public final ForgeConfigSpec.DoubleValue explosionSelfDamageMultiplier;
+        public final ModConfigSpec.BooleanValue enableMuzzleFlash;
+        public final ModConfigSpec.BooleanValue enableProjectileTrailLight;
+        public final ModConfigSpec.BooleanValue enableGore;
+        public final ModConfigSpec.DoubleValue blasterDamage;
+        public final ModConfigSpec.DoubleValue shotgunDamage;
+        public final ModConfigSpec.DoubleValue superShotgunDamage;
+        public final ModConfigSpec.DoubleValue machinegunDamage;
+        public final ModConfigSpec.DoubleValue chaingunDamage;
+        public final ModConfigSpec.DoubleValue handgrenadeDamage;
+        public final ModConfigSpec.DoubleValue handgrenadeRadius;
+        public final ModConfigSpec.DoubleValue grenadelauncherDamage;
+        public final ModConfigSpec.DoubleValue grenadelauncherRadius;
+        public final ModConfigSpec.DoubleValue rocketlauncherDamage;
+        public final ModConfigSpec.DoubleValue rocketlauncherRadius;
+        public final ModConfigSpec.DoubleValue hyperblasterDamage;
+        public final ModConfigSpec.DoubleValue railgunDamage;
+        public final ModConfigSpec.DoubleValue bfg10kDamage;
+        public final ModConfigSpec.DoubleValue bfg10kLaserDamage;
+        public final ModConfigSpec.DoubleValue bfg10kFlashDamage;
+        public final ModConfigSpec.DoubleValue explosionSelfDamageMultiplier;
 
 
-        public Common(ForgeConfigSpec.Builder builder) {
+        public Common(ModConfigSpec.Builder builder) {
             builder.push("Visual Effects");
 
             enableMuzzleFlash = builder.comment("\nEnables muzzle flashes when firing weapons.\nEXPERIMENTAL: Contains flashing lights that may trigger photosensitive seizures.")
@@ -127,30 +127,30 @@ public class Q2WConfig {
         }
     }
 
-    public static final ForgeConfigSpec SERVER_SPEC;
+    public static final ModConfigSpec SERVER_SPEC;
     public static final Server SERVER;
 
     static {
-        ForgeConfigSpec.Builder builder = new ForgeConfigSpec.Builder();
+        ModConfigSpec.Builder builder = new ModConfigSpec.Builder();
         SERVER = new Server(builder);
         SERVER_SPEC = builder.build();
     }
 
     public static class Server {
 
-        public final ForgeConfigSpec.IntValue powerupSpawnInterval;
-        public final ForgeConfigSpec.IntValue powerupSpawnAttempts;
-        public final ForgeConfigSpec.IntValue maxNearbyPowerups;
-        public final ForgeConfigSpec.IntValue powerupSpawnSearchRadius;
-        public final ForgeConfigSpec.IntValue powerupEffectDuration;
-        public final ForgeConfigSpec.IntValue powerupLifetime;
-        public final ForgeConfigSpec.BooleanValue powerupDebug;
-        public final ForgeConfigSpec.BooleanValue enablePowerups;
-        public final ForgeConfigSpec.IntValue weaponAggroRange;
-        public final ForgeConfigSpec.DoubleValue powershieldAbsorbRatio;
-        public final ForgeConfigSpec.DoubleValue powershieldDamagePreCellConsumed;
+        public final ModConfigSpec.IntValue powerupSpawnInterval;
+        public final ModConfigSpec.IntValue powerupSpawnAttempts;
+        public final ModConfigSpec.IntValue maxNearbyPowerups;
+        public final ModConfigSpec.IntValue powerupSpawnSearchRadius;
+        public final ModConfigSpec.IntValue powerupEffectDuration;
+        public final ModConfigSpec.IntValue powerupLifetime;
+        public final ModConfigSpec.BooleanValue powerupDebug;
+        public final ModConfigSpec.BooleanValue enablePowerups;
+        public final ModConfigSpec.IntValue weaponAggroRange;
+        public final ModConfigSpec.DoubleValue powershieldAbsorbRatio;
+        public final ModConfigSpec.DoubleValue powershieldDamagePreCellConsumed;
 
-        public Server(ForgeConfigSpec.Builder builder) {
+        public Server(ModConfigSpec.Builder builder) {
 
             builder.push("Powerup Spawner values");
 
@@ -210,8 +210,8 @@ public class Q2WConfig {
         }
     }
 
-    public static void registerConfigs() {
-        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, COMMON_SPEC);
-        ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, SERVER_SPEC);
+    public static void registerConfigs(ModContainer container) {
+        container.registerConfig(ModConfig.Type.LOCAL, COMMON_SPEC);
+        container.registerConfig(ModConfig.Type.SYNCED, SERVER_SPEC);
     }
 }

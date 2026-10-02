@@ -3,11 +3,11 @@ package mett.palemannie.q2w.item.client;
 import java.util.HashMap;
 import java.util.Map;
 import net.minecraft.world.item.Item;
-import software.bernie.geckolib.animatable.GeoAnimatable;
-import software.bernie.geckolib.constant.dataticket.DataTicket;
-import software.bernie.geckolib.model.GeoModel;
-import software.bernie.geckolib.renderer.GeoItemRenderer;
-import software.bernie.geckolib.renderer.base.GeoRenderState;
+import com.geckolib.animatable.GeoAnimatable;
+import com.geckolib.constant.dataticket.DataTicket;
+import com.geckolib.model.GeoModel;
+import com.geckolib.renderer.GeoItemRenderer;
+import com.geckolib.renderer.base.GeoRenderState;
 
 public abstract class AnimatedWeaponModel<T extends Item & GeoAnimatable> extends GeoModel<T> {
     public record WeaponPose(Map<String, WeaponBonePose> bones) {}

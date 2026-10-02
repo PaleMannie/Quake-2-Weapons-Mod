@@ -30,8 +30,6 @@ public class SlugsAmmopickupEntity extends AbstractItempickupEntity {
         return ModSounds.AMMO_PICKUP.get();
     }
 
-
-
     @Override
     protected void defineSynchedData(SynchedEntityData.Builder pBuilder) {}
 

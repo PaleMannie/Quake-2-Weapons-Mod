@@ -5,7 +5,7 @@ import com.mojang.math.Axis;
 import mett.palemannie.q2w.Quake2Weapons;
 import mett.palemannie.q2w.entity.custom.GrenadelauncherProjectileEntity;
 import net.minecraft.client.renderer.SubmitNodeCollector;
-import net.minecraft.client.renderer.state.CameraRenderState;
+import net.minecraft.client.renderer.state.level.CameraRenderState;
 import net.minecraft.client.renderer.rendertype.RenderTypes;
 import net.minecraft.client.renderer.culling.Frustum;
 import net.minecraft.client.renderer.entity.EntityRenderer;
@@ -28,8 +28,8 @@ public class GrenadelauncherProjectileRenderer extends EntityRenderer<Grenadelau
 
     private static void applyGrenadeDirectionRotation(PoseStack poseStack, float pitch, float yaw) {
 
-        poseStack.mulPose(Axis.YP.rotationDegrees(yaw + 180.0F));
-        poseStack.mulPose(Axis.XP.rotationDegrees(-pitch));
+        poseStack.rotate(Axis.YP.rotationDegrees(yaw + 180.0F));
+        poseStack.rotate(Axis.XP.rotationDegrees(-pitch));
     }
 
     @Override
@@ -42,7 +42,7 @@ public class GrenadelauncherProjectileRenderer extends EntityRenderer<Grenadelau
 
         applyGrenadeDirectionRotation(poseStack, state.xRot, state.yRot);
 
-        nodeCollector.submitModel(this.model, state, poseStack, RenderTypes.entityCutoutNoCull(GRENADE_LOCATION), state.lightCoords, OverlayTexture.NO_OVERLAY, state.outlineColor, null);
+        nodeCollector.submitModel(this.model, state, poseStack, RenderTypes.entityCutout(GRENADE_LOCATION), state.lightCoords, OverlayTexture.NO_OVERLAY, state.outlineColor);
 
         poseStack.popPose();
 
@@ -50,7 +50,7 @@ public class GrenadelauncherProjectileRenderer extends EntityRenderer<Grenadelau
     }
 
     @Override
-    public boolean shouldRender(GrenadelauncherProjectileEntity pLivingEntity, Frustum pCamera, double pCamX, double pCamY, double pCamZ) {
+    public boolean shouldRender(GrenadelauncherProjectileEntity pLivingEntity, Frustum pCamera, double pCamX, double pCamY, double pCamZ, float partialTicks) {
         return true;
     }
 

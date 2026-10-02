@@ -5,7 +5,7 @@ import com.mojang.math.Axis;
 import mett.palemannie.q2w.Quake2Weapons;
 import mett.palemannie.q2w.entity.custom.HandgrenadeProjectileEntity;
 import net.minecraft.client.renderer.SubmitNodeCollector;
-import net.minecraft.client.renderer.state.CameraRenderState;
+import net.minecraft.client.renderer.state.level.CameraRenderState;
 import net.minecraft.client.renderer.rendertype.RenderTypes;
 import net.minecraft.client.renderer.culling.Frustum;
 import net.minecraft.client.renderer.entity.EntityRenderer;
@@ -26,8 +26,6 @@ public class HandgrenadeProjectileRenderer extends EntityRenderer<HandgrenadePro
         this.model = new HandgrenadeProjectileModel(context.bakeLayer(HandgrenadeProjectileModel.HANDGRENADE_LAYER));
     }
 
-   
-
     @Override
     public void submit(ProjectileRenderState state, PoseStack poseStack, SubmitNodeCollector nodeCollector, CameraRenderState cameraState) {
 
@@ -35,18 +33,18 @@ public class HandgrenadeProjectileRenderer extends EntityRenderer<HandgrenadePro
         poseStack.scale(0.2f, 0.2f, 0.2f);
         poseStack.translate(0f, 0.1f, 0f);
 
-        poseStack.mulPose(Axis.XP.rotationDegrees(state.xRot));
-        poseStack.mulPose(Axis.YP.rotationDegrees(state.yRot));
-        poseStack.mulPose(Axis.ZP.rotationDegrees(state.zRot));
+        poseStack.rotate(Axis.XP.rotationDegrees(state.xRot));
+        poseStack.rotate(Axis.YP.rotationDegrees(state.yRot));
+        poseStack.rotate(Axis.ZP.rotationDegrees(state.zRot));
 
-        nodeCollector.submitModel(this.model, state, poseStack, RenderTypes.entityCutoutNoCull(GRENADE_LOCATION), state.lightCoords, OverlayTexture.NO_OVERLAY, state.outlineColor, null);
+        nodeCollector.submitModel(this.model, state, poseStack, RenderTypes.entityCutout(GRENADE_LOCATION), state.lightCoords, OverlayTexture.NO_OVERLAY, state.outlineColor);
         poseStack.popPose();
 
         super.submit(state, poseStack, nodeCollector, cameraState);
     }
 
     @Override
-    public boolean shouldRender(HandgrenadeProjectileEntity pLivingEntity, Frustum pCamera, double pCamX, double pCamY, double pCamZ) {
+    public boolean shouldRender(HandgrenadeProjectileEntity pLivingEntity, Frustum pCamera, double pCamX, double pCamY, double pCamZ, float partialTicks) {
         return true;
     }
 

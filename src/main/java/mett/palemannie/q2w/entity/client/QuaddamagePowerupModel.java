@@ -43,4 +43,3 @@ public class QuaddamagePowerupModel extends EntityModel<EntityRenderState> {
 		return LayerDefinition.create(meshdefinition, 128, 128);
 	}
 }
-

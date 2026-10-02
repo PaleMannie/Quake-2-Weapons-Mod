@@ -6,7 +6,7 @@ import mett.palemannie.q2w.Quake2Weapons;
 import mett.palemannie.q2w.entity.custom.QuadDamagePowerupEntity;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.entity.state.EntityRenderState;
-import net.minecraft.client.renderer.state.CameraRenderState;
+import net.minecraft.client.renderer.state.level.CameraRenderState;
 import net.minecraft.client.renderer.rendertype.RenderTypes;
 import net.minecraft.client.renderer.culling.Frustum;
 import net.minecraft.client.renderer.entity.EntityRenderer;
@@ -42,11 +42,11 @@ public class QuaddamagePowerupRenderer extends EntityRenderer<QuadDamagePowerupE
         poseStack.translate(0d, 0.25d + bob, 0d);
 
         float rotation = (ageInTicks * rotationSpeed) % 360;
-        poseStack.mulPose(Axis.YP.rotationDegrees(rotation));
+        poseStack.rotate(Axis.YP.rotationDegrees(rotation));
 
-        nodeCollector.submitModel(this.model, state, poseStack, this.model.renderType(QUAD_LOCATION), state.lightCoords, OverlayTexture.NO_OVERLAY, state.outlineColor, null);
+        nodeCollector.submitModel(this.model, state, poseStack, this.model.renderType(QUAD_LOCATION), state.lightCoords, OverlayTexture.NO_OVERLAY, state.outlineColor);
 
-        nodeCollector.submitModel(this.model, state, poseStack, RenderTypes.eyes(QUAD_LOCATION), state.lightCoords, OverlayTexture.NO_OVERLAY, state.outlineColor, null);
+        nodeCollector.submitModel(this.model, state, poseStack, RenderTypes.eyes(QUAD_LOCATION), state.lightCoords, OverlayTexture.NO_OVERLAY, state.outlineColor);
 
         poseStack.popPose();
 
@@ -54,7 +54,7 @@ public class QuaddamagePowerupRenderer extends EntityRenderer<QuadDamagePowerupE
     }
 
     @Override
-    public boolean shouldRender(QuadDamagePowerupEntity pLivingEntity, Frustum pCamera, double pCamX, double pCamY, double pCamZ) {
+    public boolean shouldRender(QuadDamagePowerupEntity pLivingEntity, Frustum pCamera, double pCamX, double pCamY, double pCamZ, float partialTicks) {
         return true;
     }
 

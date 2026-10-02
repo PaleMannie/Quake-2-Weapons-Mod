@@ -1,7 +1,6 @@
 package mett.palemannie.q2w.entity.custom;
 
 import mett.palemannie.q2w.Q2WConfig;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
@@ -55,7 +54,7 @@ public abstract class AbstractPowerupEntity extends Entity {
     protected abstract Item getPowerupItem();
 
     @Override
-    public InteractionResult interact(Player player, InteractionHand hand) {
+    public InteractionResult interact(Player player, InteractionHand hand, net.minecraft.world.phys.Vec3 location) {
 
         ItemStack stack = player.getItemInHand(hand);
 
@@ -63,7 +62,7 @@ public abstract class AbstractPowerupEntity extends Entity {
         if (!level().isClientSide() && stack.is(Items.DIAMOND)) {
 
             this.spawnAtLocation(this.level().getServer().getLevel(level().dimension()), getPowerupItem());
-            level().playSound(null, blockPosition(), SoundEvents.GENERIC_EXPLODE.get(), SoundSource.PLAYERS, 1.0F, 2.0F);
+            level().playSound(null, blockPosition(), SoundEvents.GENERIC_EXPLODE.value(), SoundSource.PLAYERS, 1.0F, 2.0F);
 
             if(!player.isCreative()){
 

@@ -21,7 +21,7 @@ public class AdrenalineItem extends AbstractConsumptionItem{
             return;
         }
 
-        MobEffectInstance currentHealthBoost = player.getEffect(ModEffects.ADRENALINE_HEALTH_BOOST.getHolder().get());
+        MobEffectInstance currentHealthBoost = player.getEffect(ModEffects.ADRENALINE_HEALTH_BOOST);
 
         int newAmplifier = 0;
 
@@ -31,7 +31,7 @@ public class AdrenalineItem extends AbstractConsumptionItem{
 
         newAmplifier = Math.min(newAmplifier, 255);
 
-        player.addEffect(new MobEffectInstance(ModEffects.ADRENALINE_HEALTH_BOOST.getHolder().get(),
+        player.addEffect(new MobEffectInstance(ModEffects.ADRENALINE_HEALTH_BOOST,
                 Integer.MAX_VALUE - 1, newAmplifier, false, false, false));
 
         player.addEffect(new MobEffectInstance(MobEffects.INSTANT_HEALTH, 2, 10));

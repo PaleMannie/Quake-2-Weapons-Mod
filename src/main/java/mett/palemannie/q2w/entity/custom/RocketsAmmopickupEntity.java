@@ -30,8 +30,6 @@ public class RocketsAmmopickupEntity extends AbstractItempickupEntity {
         giveAmmoOrDrop(player, ModItems.ROCKET.get(), AMOUNT);
     }
 
-
-
     @Override
     protected void defineSynchedData(SynchedEntityData.Builder pBuilder) {}
 

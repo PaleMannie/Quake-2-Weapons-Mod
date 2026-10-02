@@ -4,8 +4,8 @@ import mett.palemannie.q2w.Quake2Weapons;
 import mett.palemannie.q2w.item.custom.Bfg10kItem;
 import net.minecraft.resources.Identifier;
 import org.jetbrains.annotations.NotNull;
-import software.bernie.geckolib.model.GeoModel;
-import software.bernie.geckolib.renderer.base.GeoRenderState;
+import com.geckolib.model.GeoModel;
+import com.geckolib.renderer.base.GeoRenderState;
 
 public class Bfg10kModel extends GeoModel<@NotNull Bfg10kItem> {
 

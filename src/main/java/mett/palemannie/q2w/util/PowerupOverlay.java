@@ -2,7 +2,7 @@ package mett.palemannie.q2w.util;
 
 import mett.palemannie.q2w.effect.ModEffects;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.world.effect.MobEffectInstance;
 
@@ -13,7 +13,7 @@ public class PowerupOverlay {
     private static final int[] SUIT   = {0, 255, 128, 100};
     private static final int[] PENT   = {255, 214, 0, 100};
 
-    public static void render(GuiGraphics graphics, float partialTick, int screenWidth, int screenHeight) {
+    public static void render(GuiGraphicsExtractor graphics, float partialTick, int screenWidth, int screenHeight) {
 
         LocalPlayer player = Minecraft.getInstance().player;
         if (player == null) return;
@@ -24,7 +24,7 @@ public class PowerupOverlay {
         int maxAlpha = 0;
 
         /// Quad
-        MobEffectInstance quadInst = player.getEffect(ModEffects.QUAD_DAMAGE.getHolder().get());
+        MobEffectInstance quadInst = player.getEffect(ModEffects.QUAD_DAMAGE);
         if (quadInst != null) {
             float mult = getPulseMultiplier(quadInst, partialTick);
             int currA = (int) (QUAD[3] * mult);
@@ -35,7 +35,7 @@ public class PowerupOverlay {
         }
 
         /// Envirosuit
-        MobEffectInstance suitInst = player.getEffect(ModEffects.ENVIROSUIT.getHolder().get());
+        MobEffectInstance suitInst = player.getEffect(ModEffects.ENVIROSUIT);
         if (suitInst != null) {
             float mult = getPulseMultiplier(suitInst, partialTick);
             int currA = (int) (SUIT[3] * mult);
@@ -46,7 +46,7 @@ public class PowerupOverlay {
         }
 
         /// Pent
-        MobEffectInstance pentInst = player.getEffect(ModEffects.INVULNERABILITY.getHolder().get());
+        MobEffectInstance pentInst = player.getEffect(ModEffects.INVULNERABILITY);
         if (pentInst != null) {
             float mult = getPulseMultiplier(pentInst, partialTick);
             int currA = (int) (PENT[3] * mult);

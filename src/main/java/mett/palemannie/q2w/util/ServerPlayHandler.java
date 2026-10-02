@@ -217,7 +217,7 @@ public class ServerPlayHandler {
             Vec3 scaledMotion = motionBefore.add(addedKnockback.scale(knockbackScale));
 
             target.setDeltaMovement(scaledMotion);
-            target.hurtMarked = true;
+            target.needsSync = true;
         }
 
         return hurt;
@@ -235,7 +235,7 @@ public class ServerPlayHandler {
 
         Vec3 eyePos = player.getEyePosition();
         Vec3 look = player.getLookAngle();
-        Vec3 shotDir = getMachinegunSpreadDirection(look, INACCURACY_DEGREES, serverLevel.random);
+        Vec3 shotDir = getMachinegunSpreadDirection(look, INACCURACY_DEGREES, serverLevel.getRandom());
         Vec3 endPos = eyePos.add(shotDir.scale(RANGE));
 
         BlockHitResult blockHit = serverLevel.clip(new ClipContext(eyePos, endPos, ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, player));
@@ -287,7 +287,7 @@ public class ServerPlayHandler {
 
         Vec3 eyePos = player.getEyePosition();
         Vec3 look = player.getLookAngle();
-        Vec3 shotDir = getMachinegunSpreadDirection(look, INACCURACY_DEGREES, serverLevel.random);
+        Vec3 shotDir = getMachinegunSpreadDirection(look, INACCURACY_DEGREES, serverLevel.getRandom());
         Vec3 endPos = eyePos.add(shotDir.scale(RANGE));
 
         BlockHitResult blockHit = serverLevel.clip(new ClipContext(eyePos, endPos, ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, player));
@@ -578,7 +578,7 @@ public class ServerPlayHandler {
 
         for (int i = 0; i < PELLETS; i++) {
 
-            Vec3 pelletDir = getSuperShotgunNormalizedSpreadDirection(look, SPREAD_H, SPREAD_V, sevel.random);
+            Vec3 pelletDir = getSuperShotgunNormalizedSpreadDirection(look, SPREAD_H, SPREAD_V, sevel.getRandom());
             Vec3 endPos = eyePos.add(pelletDir.scale(RANGE));
 
             BlockHitResult blockHit = sevel.clip(new ClipContext(eyePos, endPos, ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, player));
@@ -632,7 +632,7 @@ public class ServerPlayHandler {
 
         for (int i = 0; i < PELLETS; i++) {
 
-            Vec3 pelletDir = getShotgunNormalizedSpreadDirection(look, SPREAD_DEGREES, level.random);
+            Vec3 pelletDir = getShotgunNormalizedSpreadDirection(look, SPREAD_DEGREES, level.getRandom());
             Vec3 endPos = eyePos.add(pelletDir.scale(RANGE));
 
             BlockHitResult blockHit = level.clip(new ClipContext(

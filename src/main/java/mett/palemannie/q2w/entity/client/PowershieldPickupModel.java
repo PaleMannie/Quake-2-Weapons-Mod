@@ -45,4 +45,3 @@ public class PowershieldPickupModel extends EntityModel<EntityRenderState> {
 		return LayerDefinition.create(meshdefinition, 128, 128);
 	}
 }
-

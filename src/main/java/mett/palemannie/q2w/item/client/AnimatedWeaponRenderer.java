@@ -1,11 +1,11 @@
 package mett.palemannie.q2w.item.client;
 
 import net.minecraft.world.item.Item;
-import software.bernie.geckolib.animatable.GeoAnimatable;
-import software.bernie.geckolib.renderer.GeoItemRenderer;
-import software.bernie.geckolib.renderer.base.BoneSnapshots;
-import software.bernie.geckolib.renderer.base.GeoRenderState;
-import software.bernie.geckolib.renderer.base.RenderPassInfo;
+import com.geckolib.animatable.GeoAnimatable;
+import com.geckolib.renderer.GeoItemRenderer;
+import com.geckolib.renderer.base.BoneSnapshots;
+import com.geckolib.renderer.base.GeoRenderState;
+import com.geckolib.renderer.base.RenderPassInfo;
 
 public class AnimatedWeaponRenderer<T extends Item & GeoAnimatable> extends GeoItemRenderer<T> {
     public AnimatedWeaponRenderer(AnimatedWeaponModel<T> model) {

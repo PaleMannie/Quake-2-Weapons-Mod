@@ -5,7 +5,7 @@ import mett.palemannie.q2w.effect.ModEffects;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraft.core.registries.BuiltInRegistries;
 
 import javax.annotation.Nullable;
 
@@ -36,8 +36,8 @@ public class Q2WConfigStats {
     public static float applyQuadDamage(float baseDamage, @Nullable Entity attacker) {
         if (attacker instanceof LivingEntity livingEntity) {
             // Resolve the optional effect through the registry; Quakeweapons is not required.
-            if (livingEntity.hasEffect(ModEffects.QUAD_DAMAGE.getHolder().get())
-                    || ForgeRegistries.MOB_EFFECTS.getHolder(QUAKEWEAPONS_QUAD_DAMAGE)
+            if (livingEntity.hasEffect(ModEffects.QUAD_DAMAGE)
+                    || BuiltInRegistries.MOB_EFFECT.get(QUAKEWEAPONS_QUAD_DAMAGE)
                             .map(livingEntity::hasEffect).orElse(false)) {
                 return baseDamage * 4.0F;
             }

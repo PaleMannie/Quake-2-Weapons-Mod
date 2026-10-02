@@ -1,6 +1,6 @@
 package mett.palemannie.q2w.item.client;
 
-import software.bernie.geckolib.animation.state.BoneSnapshot;
+import com.geckolib.animation.state.BoneSnapshot;
 
 /** Captures only the axes changed by procedural animation, preserving keyframed axes. */
 public final class WeaponBonePose {

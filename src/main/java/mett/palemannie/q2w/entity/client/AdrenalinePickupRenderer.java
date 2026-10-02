@@ -8,8 +8,7 @@ import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.culling.Frustum;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
-import net.minecraft.client.renderer.feature.ModelFeatureRenderer;
-import net.minecraft.client.renderer.state.CameraRenderState;
+import net.minecraft.client.renderer.state.level.CameraRenderState;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.Identifier;
 
@@ -34,7 +33,7 @@ public class AdrenalinePickupRenderer extends EntityRenderer<AdrenalinePickupEnt
 
         poseStack.translate(0f, 1.75f, 0f);
         poseStack.scale(1.0f, 1.0f, 1.0f);
-        poseStack.mulPose(Axis.XP.rotationDegrees(180f));
+        poseStack.rotate(Axis.XP.rotationDegrees(180f));
 
 
         float ageInTicks = state.ageInTicks + state.partialTicks;
@@ -43,15 +42,15 @@ public class AdrenalinePickupRenderer extends EntityRenderer<AdrenalinePickupEnt
         poseStack.translate(0d, 0.25d + bob, 0d);
 
         float rotation = (ageInTicks * rotationSpeed) % 360;
-        poseStack.mulPose(Axis.YP.rotationDegrees(-rotation));
+        poseStack.rotate(Axis.YP.rotationDegrees(-rotation));
 
-        nodeCollector.submitModel(this.model, state, poseStack, this.model.renderType(ADRENALINEPICKUP_LOCATION), state.lightCoords, OverlayTexture.NO_OVERLAY, state.outlineColor, (ModelFeatureRenderer.CrumblingOverlay) null);
+        nodeCollector.submitModel(this.model, state, poseStack, this.model.renderType(ADRENALINEPICKUP_LOCATION), state.lightCoords, OverlayTexture.NO_OVERLAY, state.outlineColor);
 
         poseStack.popPose();
     }
 
     @Override
-    public boolean shouldRender(AdrenalinePickupEntity pLivingEntity, Frustum pCamera, double pCamX, double pCamY, double pCamZ) {
+    public boolean shouldRender(AdrenalinePickupEntity pLivingEntity, Frustum pCamera, double pCamX, double pCamY, double pCamZ, float partialTicks) {
         return true;
     }
 

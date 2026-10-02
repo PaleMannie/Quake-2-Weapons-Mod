@@ -3,13 +3,13 @@ package mett.palemannie.q2w.gui;
 import mett.palemannie.q2w.item.ModItems;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.client.gui.overlay.ForgeLayer;
+import net.neoforged.neoforge.client.gui.GuiLayer;
 
 public class SilencerHudOverlay {
 
-    public static final ForgeLayer HUD = (guiGraphics, deltaTracker) -> {
+    public static final GuiLayer HUD = (guiGraphics, deltaTracker) -> {
         int screenWidth = guiGraphics.guiWidth();
         int screenHeight = guiGraphics.guiHeight();
         int shotsLeft = ClientSilencerData.getSilencedShotsLeft();
@@ -20,7 +20,7 @@ public class SilencerHudOverlay {
 
         Minecraft minecraft = Minecraft.getInstance();
 
-        if (minecraft.options.hideGui || minecraft.player == null) {
+        if (minecraft.gui.hud.isHidden() || minecraft.player == null) {
             return;
         }
 
@@ -40,17 +40,17 @@ public class SilencerHudOverlay {
         int textX = iconX + 15;
         int textY = iconY + 4;
 
-        guiGraphics.renderItem(silencerStack, iconX, iconY);
+        guiGraphics.item(silencerStack, iconX, iconY);
         drawOutlinedString(guiGraphics, font, numberText, textX, textY, 0xFFFFFFFF, 0xFF000000);
     };
 
-    private static void drawOutlinedString(GuiGraphics guiGraphics, Font font, String text, int x, int y, int color, int outlineColor) {
+    private static void drawOutlinedString(GuiGraphicsExtractor guiGraphics, Font font, String text, int x, int y, int color, int outlineColor) {
 
-        guiGraphics.drawString(font, text, x - 1, y, outlineColor, false);
-        guiGraphics.drawString(font, text, x + 1, y, outlineColor, false);
-        guiGraphics.drawString(font, text, x, y - 1, outlineColor, false);
-        guiGraphics.drawString(font, text, x, y + 1, outlineColor, false);
+        guiGraphics.text(font, text, x - 1, y, outlineColor, false);
+        guiGraphics.text(font, text, x + 1, y, outlineColor, false);
+        guiGraphics.text(font, text, x, y - 1, outlineColor, false);
+        guiGraphics.text(font, text, x, y + 1, outlineColor, false);
 
-        guiGraphics.drawString(font, text, x, y, color, false);
+        guiGraphics.text(font, text, x, y, color, false);
     }
 }

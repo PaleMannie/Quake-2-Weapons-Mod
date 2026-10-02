@@ -35,4 +35,3 @@ public class SilencerPowerupModel extends EntityModel<EntityRenderState> {
 		return LayerDefinition.create(meshdefinition, 64, 64);
 	}
 }
-

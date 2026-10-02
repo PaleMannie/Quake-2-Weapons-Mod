@@ -26,8 +26,6 @@ public class SilencerPowerupEntity extends AbstractItempickupEntity {
         return ModSounds.ITEM_PICKUP.get();
     }
 
-
-
     @Override
     protected void defineSynchedData(SynchedEntityData.Builder pBuilder) {}
 

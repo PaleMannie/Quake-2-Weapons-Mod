@@ -5,11 +5,11 @@ import mett.palemannie.q2w.item.custom.Bfg10kItem;
 import mett.palemannie.q2w.item.custom.RailgunItem;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.event.TickEvent;
-import net.minecraftforge.eventbus.api.listener.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
+import net.neoforged.neoforge.event.tick.PlayerTickEvent;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
 
-@Mod.EventBusSubscriber(modid = Quake2Weapons.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE)
+@EventBusSubscriber(modid = Quake2Weapons.MODID)
 public class WeaponAggroTickHandler {
 
     /// Monsters will be aggro'd by holding Railgun & BFG10k
@@ -17,11 +17,9 @@ public class WeaponAggroTickHandler {
     private static final int HELD_AGGRO_INTERVAL_TICKS = 20;
 
     @SubscribeEvent
-    public static void onPlayerTick(TickEvent.PlayerTickEvent.Post event) {
+    public static void onPlayerTick(PlayerTickEvent.Post event) {
 
-
-
-        if (!(event.player() instanceof ServerPlayer player)) {
+        if (!(event.getEntity() instanceof ServerPlayer player)) {
             return;
         }
 

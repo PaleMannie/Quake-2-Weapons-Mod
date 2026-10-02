@@ -7,12 +7,12 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.world.entity.player.Player;
 import mett.palemannie.q2w.item.client.WeaponPresentation;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.event.TickEvent;
-import net.minecraftforge.eventbus.api.listener.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.neoforge.client.event.ClientTickEvent;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
 
-@Mod.EventBusSubscriber(modid = Quake2Weapons.MODID, value = Dist.CLIENT)
+@EventBusSubscriber(modid = Quake2Weapons.MODID, value = Dist.CLIENT)
 public class ChaingunSoundHandler {
 
     private ChaingunFireLoopSoundInstance chaingunLoop;
@@ -23,9 +23,7 @@ public class ChaingunSoundHandler {
     private static final int LOOP_START_DELAY_TICKS = 17;
 
     @SubscribeEvent
-    public static void onClientTick(TickEvent.ClientTickEvent.Post event) {
-
-
+    public static void onClientTick(ClientTickEvent.Post event) {
 
         Minecraft minecraft = Minecraft.getInstance();
         if (minecraft.level == null) {

@@ -29,4 +29,3 @@ public class ShellsAmmopickupModel extends EntityModel<EntityRenderState> {
 		return LayerDefinition.create(meshdefinition, 32, 32);
 	}
 }
-

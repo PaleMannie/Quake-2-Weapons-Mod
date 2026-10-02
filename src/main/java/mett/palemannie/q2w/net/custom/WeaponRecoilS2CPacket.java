@@ -2,18 +2,25 @@ package mett.palemannie.q2w.net.custom;
 
 import mett.palemannie.q2w.client.ClientWeaponRecoil;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraftforge.event.network.CustomPayloadEvent;
+import net.neoforged.neoforge.network.handling.IPayloadContext;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.resources.Identifier;
 
-public class WeaponRecoilS2CPacket {
+public class WeaponRecoilS2CPacket implements CustomPacketPayload {
+    public static final Type<WeaponRecoilS2CPacket> TYPE = new Type<>(Identifier.fromNamespaceAndPath("q2w", "weaponrecoils2cpacket"));
+    public static final StreamCodec<FriendlyByteBuf, WeaponRecoilS2CPacket> STREAM_CODEC = StreamCodec.of((buffer, packet) -> packet.encode(buffer), WeaponRecoilS2CPacket::decode);
+    @Override
+    public Type<WeaponRecoilS2CPacket> type() { return TYPE; }
 
-    private static float pitchKick = 0;
-    private static float rollKick = 0;
-    private static float yawKick = 0;
+    private final float pitchKick;
+    private final float rollKick;
+    private final float yawKick;
 
     public WeaponRecoilS2CPacket(float pitchKick, float rollKick, float yawKick) {
-        WeaponRecoilS2CPacket.pitchKick = pitchKick;
-        WeaponRecoilS2CPacket.rollKick = rollKick;
-        WeaponRecoilS2CPacket.yawKick = yawKick;
+        this.pitchKick = pitchKick;
+        this.rollKick = rollKick;
+        this.yawKick = yawKick;
     }
 
     public WeaponRecoilS2CPacket(FriendlyByteBuf buf) {
@@ -32,13 +39,13 @@ public class WeaponRecoilS2CPacket {
         return new WeaponRecoilS2CPacket(buf.readFloat(), buf.readFloat(), buf.readFloat());
     }
 
-    public static void handle(WeaponRecoilS2CPacket packet, CustomPayloadEvent.Context ctx) {
+    public static void handle(WeaponRecoilS2CPacket packet, IPayloadContext ctx) {
 
         ctx.enqueueWork(() -> handleClient(packet));
-        ctx.setPacketHandled(true);
+
     }
 
     public static void handleClient(WeaponRecoilS2CPacket packet) {
-        ClientWeaponRecoil.kick(pitchKick, rollKick, yawKick);
+        ClientWeaponRecoil.kick(packet.pitchKick, packet.rollKick, packet.yawKick);
     }
 }
