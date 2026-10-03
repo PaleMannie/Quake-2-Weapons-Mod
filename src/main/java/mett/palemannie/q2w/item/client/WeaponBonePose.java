@@ -4,6 +4,7 @@ import com.geckolib.animation.state.BoneSnapshot;
 
 /** Captures only the axes changed by procedural animation, preserving keyframed axes. */
 public final class WeaponBonePose {
+
     private Float rotX;
     private Float rotY;
     private Float rotZ;
@@ -33,6 +34,7 @@ public final class WeaponBonePose {
     public void setScaleZ(float value) { this.scaleZ = value; }
 
     public void applyTo(BoneSnapshot target) {
+
         if (rotX != null) target.setRotX(rotX);
         if (rotY != null) target.setRotY(rotY);
         if (rotZ != null) target.setRotZ(rotZ);
