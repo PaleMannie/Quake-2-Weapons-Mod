@@ -27,7 +27,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.event.ForgeEventFactory;
+import net.neoforged.neoforge.event.EventHooks;
 
 import javax.annotation.Nullable;
 
@@ -47,7 +47,7 @@ public class LaserProjectileEntity extends Projectile {
     }
 
     @Override
-    protected void defineSynchedData() {}
+    protected void defineSynchedData(net.minecraft.network.syncher.SynchedEntityData.Builder builder) {}
 
     @Override
     public boolean isNoGravity() {
@@ -57,7 +57,7 @@ public class LaserProjectileEntity extends Projectile {
     void hitResultHandler(){
 
         HitResult hitresult = ProjectileUtil.getHitResultOnMoveVector(this, this::canHitEntity);
-        if (hitresult.getType() != HitResult.Type.MISS && !ForgeEventFactory.onProjectileImpact(this, hitresult)) {
+        if (hitresult.getType() != HitResult.Type.MISS && !EventHooks.onProjectileImpact(this, hitresult)) {
             this.onHit(hitresult);
         }
     }

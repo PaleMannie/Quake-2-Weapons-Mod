@@ -14,7 +14,6 @@ import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.ResourceLocation;
 import org.jetbrains.annotations.NotNull;
-import org.joml.Matrix3f;
 import org.joml.Matrix4f;
 
 public class Bfg10kProjectileRenderer extends EntityRenderer<Bfg10kProjectileEntity> {
@@ -44,18 +43,18 @@ public class Bfg10kProjectileRenderer extends EntityRenderer<Bfg10kProjectileEnt
 
         PoseStack.Pose pose = poseStack.last();
         Matrix4f matrix4f = pose.pose();
-        Matrix3f matrix3f = pose.normal();
+
 
         VertexConsumer vertexConsumer = bufferSource.getBuffer(
                 RenderType.entityTranslucent(getCurrentFrame(entity))
         );
 
         int light = LightTexture.FULL_BRIGHT;
-        
-        addVertex(vertexConsumer, matrix4f, matrix3f, -0.5f, -0.5f, 0f, 0f, 1f, light);
-        addVertex(vertexConsumer, matrix4f, matrix3f,  0.5f, -0.5f, 0f, 1f, 1f, light);
-        addVertex(vertexConsumer, matrix4f, matrix3f,  0.5f,  0.5f, 0f, 1f, 0f, light);
-        addVertex(vertexConsumer, matrix4f, matrix3f, -0.5f,  0.5f, 0f, 0f, 0f, light);
+
+        addVertex(vertexConsumer, matrix4f, pose, -0.5f, -0.5f, 0f, 0f, 1f, light);
+        addVertex(vertexConsumer, matrix4f, pose,  0.5f, -0.5f, 0f, 1f, 1f, light);
+        addVertex(vertexConsumer, matrix4f, pose,  0.5f,  0.5f, 0f, 1f, 0f, light);
+        addVertex(vertexConsumer, matrix4f, pose, -0.5f,  0.5f, 0f, 0f, 0f, light);
 
         poseStack.popPose();
 
@@ -66,10 +65,10 @@ public class Bfg10kProjectileRenderer extends EntityRenderer<Bfg10kProjectileEnt
         return ((entity.tickCount / 2) & 1) == 0 ? FRAME_0 : FRAME_1;
     }
 
-    private static void addVertex(VertexConsumer vertexConsumer, Matrix4f poseMatrix, Matrix3f normalMatrix, float x, float y, float z, float u, float v, int packedLight) {
+    private static void addVertex(VertexConsumer vertexConsumer, Matrix4f poseMatrix, PoseStack.Pose pose, float x, float y, float z, float u, float v, int packedLight) {
 
-        vertexConsumer.vertex(poseMatrix, x, y, z).color(255, 255, 255, 255).uv(u, v)
-                .overlayCoords(OverlayTexture.NO_OVERLAY).uv2(packedLight).normal(normalMatrix, 0f, 1f, 0f).endVertex();
+        vertexConsumer.addVertex(poseMatrix, x, y, z).setColor(255, 255, 255, 255).setUv(u, v)
+                .setOverlay(OverlayTexture.NO_OVERLAY).setLight(packedLight).setNormal(pose, 0f, 1f, 0f);
     }
 
     @Override

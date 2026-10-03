@@ -6,15 +6,15 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.util.Mth;
 import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.client.event.RenderGuiOverlayEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.neoforge.client.event.RenderGuiEvent;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
 
-@Mod.EventBusSubscriber(modid = Quake2Weapons.MODID, value = Dist.CLIENT)
+@EventBusSubscriber(modid = Quake2Weapons.MODID, value = Dist.CLIENT)
 public class EffectOverlayRenderClientEvent {
     @SubscribeEvent
-    public static void onRenderOverlay(RenderGuiOverlayEvent.Post event) {
+    public static void onRenderOverlay(RenderGuiEvent.Post event) {
 
         /// Color added to GUI while on Quake effects
 
@@ -22,9 +22,9 @@ public class EffectOverlayRenderClientEvent {
         LocalPlayer player = mc.player;
 
         /// Quad Damage
-        if (player != null && player.hasEffect(ModEffects.QUAD_DAMAGE.get())) {
+        if (player != null && player.hasEffect(ModEffects.QUAD_DAMAGE)) {
 
-            MobEffectInstance inst = player.getEffect(ModEffects.QUAD_DAMAGE.get());
+            MobEffectInstance inst = player.getEffect(ModEffects.QUAD_DAMAGE);
             if (inst == null) return;
 
             int remaining = inst.getDuration();
@@ -54,9 +54,9 @@ public class EffectOverlayRenderClientEvent {
         }
 
         /// Pentagram of Protection
-        if (player != null && player.hasEffect(ModEffects.INVULNERABILITY.get())) {
+        if (player != null && player.hasEffect(ModEffects.INVULNERABILITY)) {
 
-            MobEffectInstance inst = player.getEffect(ModEffects.INVULNERABILITY.get());
+            MobEffectInstance inst = player.getEffect(ModEffects.INVULNERABILITY);
             if (inst == null) return;
 
             int remaining = inst.getDuration();
@@ -87,9 +87,9 @@ public class EffectOverlayRenderClientEvent {
         }
 
         ///Envirosuit
-        if (player != null && player.hasEffect(ModEffects.ENVIROSUIT.get())) {
+        if (player != null && player.hasEffect(ModEffects.ENVIROSUIT)) {
 
-            MobEffectInstance inst = player.getEffect(ModEffects.ENVIROSUIT.get());
+            MobEffectInstance inst = player.getEffect(ModEffects.ENVIROSUIT);
             if (inst == null) return;
 
             int remaining = inst.getDuration();

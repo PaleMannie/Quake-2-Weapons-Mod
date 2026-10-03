@@ -11,35 +11,34 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
+import net.neoforged.bus.api.IEventBus;
+import net.neoforged.neoforge.registries.DeferredRegister;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.neoforged.neoforge.registries.DeferredHolder;
 
 import java.util.function.Supplier;
 
 public class ModBlocks {
 
     public static final DeferredRegister<Block> BLOCKS =
-            DeferredRegister.create(ForgeRegistries.BLOCKS, Quake2Weapons.MODID);
+            DeferredRegister.create(BuiltInRegistries.BLOCK, Quake2Weapons.MODID);
 
-
-    public static final RegistryObject<Block> QUAKE_LIGHT_WATER =
+    public static final DeferredHolder<Block, Block> QUAKE_LIGHT_WATER =
             registerBlockWithoutItem("light_water", () ->
             new QuakeLightWaterBlock(Fluids.WATER, BlockBehaviour.Properties.of().mapColor(MapColor.WATER).replaceable()
                     .noCollission().strength(100.0F).pushReaction(PushReaction.DESTROY).noLootTable()
                     .liquid().sound(SoundType.EMPTY).lightLevel((x) -> x.getValue(BlockStateProperties.POWER))));
 
-    public static final RegistryObject<Block> QUAKE_LIGHT_AIR =
+    public static final DeferredHolder<Block, Block> QUAKE_LIGHT_AIR =
             registerBlockWithoutItem("quake_light_air", () -> new QuakeLightAirBlock(
-                    BlockBehaviour.Properties.copy(Blocks.AIR)
+                    BlockBehaviour.Properties.ofFullCopy(Blocks.AIR)
                             .lightLevel(state -> 15)
                             .noCollission()
                             .noOcclusion()
                             .air()
             ));
 
-    private static <T extends Block> RegistryObject<T> registerBlockWithoutItem(String name, Supplier<T> block) {
+    private static <T extends Block> DeferredHolder<Block, T> registerBlockWithoutItem(String name, Supplier<T> block) {
         return BLOCKS.register(name, block);
     }
 

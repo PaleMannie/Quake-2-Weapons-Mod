@@ -1,88 +1,37 @@
 package mett.palemannie.q2w.item.custom;
 
-import com.mojang.blaze3d.vertex.PoseStack;
 import mett.palemannie.q2w.item.ModItems;
-import mett.palemannie.q2w.item.client.Bfg10kRenderer;
 import mett.palemannie.q2w.net.ModMessages;
 import mett.palemannie.q2w.net.custom.WeaponRecoilS2CPacket;
 import mett.palemannie.q2w.sound.ModSounds;
 import mett.palemannie.q2w.util.ServerPlayHandler;
 import mett.palemannie.q2w.util.WeaponAggroHandler;
-import net.minecraft.client.model.HumanoidModel;
-import net.minecraft.client.player.LocalPlayer;
-import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.client.extensions.common.IClientItemExtensions;
 import software.bernie.geckolib.animatable.GeoItem;
-import software.bernie.geckolib.core.animation.Animation;
-import software.bernie.geckolib.core.animation.AnimationController;
-import software.bernie.geckolib.core.animation.AnimatableManager;
-import software.bernie.geckolib.core.animation.RawAnimation;
-import software.bernie.geckolib.core.object.PlayState;
+import software.bernie.geckolib.animation.Animation;
+import software.bernie.geckolib.animation.AnimationController;
+import software.bernie.geckolib.animation.AnimatableManager;
+import software.bernie.geckolib.animation.RawAnimation;
+import software.bernie.geckolib.animation.PlayState;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
-import java.util.function.Consumer;
 
 public class Bfg10kItem extends AbstractWeapon {
 
     public Bfg10kItem(Properties properties) {
         super(properties);
-    }
-
-    @Override
-    public void initializeClient(Consumer<IClientItemExtensions> consumer) {
-
-        consumer.accept(new IClientItemExtensions() {
-
-            private Bfg10kRenderer renderer;
-
-            @Override
-            public BlockEntityWithoutLevelRenderer getCustomRenderer() {
-
-                if (this.renderer == null) {
-                    this.renderer = new Bfg10kRenderer();
-                }
-
-                return this.renderer;
-            }
-
-            @Override
-            public boolean applyForgeHandTransform(PoseStack poseStack, LocalPlayer player, HumanoidArm arm, ItemStack itemInHand, float partialTick, float equipProcess, float swingProcess) {
-
-                if (itemInHand.getItem() instanceof AbstractWeapon) {
-
-                    int side = arm == HumanoidArm.RIGHT ? 1 : -1;
-                    poseStack.translate(side * 0.56f, -0.52f, -0.72f);
-
-                    return true;
-                }
-
-                return false;
-            }
-
-            @Override
-            public HumanoidModel.ArmPose getArmPose(LivingEntity entityLiving, InteractionHand hand, ItemStack itemStack) {
-
-                if (!itemStack.isEmpty() && entityLiving.getItemInHand(hand) == itemStack) {
-                    return HumanoidModel.ArmPose.BOW_AND_ARROW;
-                }
-
-                return HumanoidModel.ArmPose.EMPTY;
-            }
-        });
     }
 
     @Override

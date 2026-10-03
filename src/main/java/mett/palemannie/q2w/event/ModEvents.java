@@ -9,21 +9,21 @@ import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.Items;
-import net.minecraftforge.event.entity.living.LivingDeathEvent;
-import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
-import net.minecraftforge.event.entity.living.LivingHurtEvent;
-import net.minecraftforge.event.entity.living.MobEffectEvent;
-import net.minecraftforge.event.entity.player.ArrowLooseEvent;
-import net.minecraftforge.event.entity.player.AttackEntityEvent;
-import net.minecraftforge.event.entity.player.PlayerInteractEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
+import net.neoforged.neoforge.event.entity.living.LivingDeathEvent;
+import net.neoforged.neoforge.event.entity.living.LivingEntityUseItemEvent;
+import net.neoforged.neoforge.event.entity.living.LivingIncomingDamageEvent;
+import net.neoforged.neoforge.event.entity.living.MobEffectEvent;
+import net.neoforged.neoforge.event.entity.player.ArrowLooseEvent;
+import net.neoforged.neoforge.event.entity.player.AttackEntityEvent;
+import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
-@Mod.EventBusSubscriber(modid = Quake2Weapons.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE)
+@EventBusSubscriber(modid = Quake2Weapons.MODID)
 public class ModEvents {
 
     private static final Map<UUID, MobEffectInstance> ADRENALINE_BEFORE_MILK = new HashMap<>();
@@ -34,7 +34,7 @@ public class ModEvents {
             return;
         }
 
-        MobEffectInstance adrenaline = event.getEntity().getEffect(ModEffects.ADRENALINE_HEALTH_BOOST.get());
+        MobEffectInstance adrenaline = event.getEntity().getEffect(ModEffects.ADRENALINE_HEALTH_BOOST);
         if (adrenaline != null) {
             ADRENALINE_BEFORE_MILK.put(event.getEntity().getUUID(), new MobEffectInstance(adrenaline));
         }
@@ -65,25 +65,25 @@ public class ModEvents {
     }
 
     @SubscribeEvent
-    public static void onQuadDamageHurt(LivingHurtEvent event) {
+    public static void onQuadDamageHurt(LivingIncomingDamageEvent event) {
 
         /// Quad Damage apply damage
         if (event.getSource().getEntity() instanceof LivingEntity attacker) {
-            if(attacker.hasEffect(ModEffects.QUAD_DAMAGE.get())) {
+            if(attacker.hasEffect(ModEffects.QUAD_DAMAGE)) {
 
                 event.setAmount(event.getAmount() * 4.0F);
             }
         }
 
         /// Pentagram apply invulnerability
-        if (event.getEntity().hasEffect(ModEffects.INVULNERABILITY.get())) {
+        if (event.getEntity().hasEffect(ModEffects.INVULNERABILITY)) {
 
             event.setCanceled(true);
             event.getEntity().level().playSound(null, event.getEntity().blockPosition(), ModSounds.INVULN_USE.get(), SoundSource.PLAYERS, 1.0F, 1.0F);
         }
 
         /// Biosuit apply poison and wither immunities & Fire resistance
-        if (event.getEntity().hasEffect(ModEffects.ENVIROSUIT.get())) {
+        if (event.getEntity().hasEffect(ModEffects.ENVIROSUIT)) {
 
             DamageSource src = event.getSource();
 
@@ -108,17 +108,17 @@ public class ModEvents {
 
         LivingEntity entity = event.getEntity();
 
-        if(event.getEffectInstance().getEffect().equals(ModEffects.QUAD_DAMAGE.get())){
+        if(event.getEffectInstance().getEffect().is(ModEffects.QUAD_DAMAGE.getKey())){
 
             entity.level().playSound(null, entity.blockPosition(), ModSounds.QUAD_DAMAGE_PICKUP.get(), SoundSource.PLAYERS, 1.0F, 1.0F);
         }
 
-        if(event.getEffectInstance().getEffect().equals(ModEffects.INVULNERABILITY.get())){
+        if(event.getEffectInstance().getEffect().is(ModEffects.INVULNERABILITY.getKey())){
 
             entity.level().playSound(null, entity.blockPosition(), ModSounds.INVULN_PICKUP.get(), SoundSource.PLAYERS, 1.0F, 1.0F);
         }
 
-        if(event.getEffectInstance().getEffect().equals(ModEffects.ENVIROSUIT.get())){
+        if(event.getEffectInstance().getEffect().is(ModEffects.ENVIROSUIT.getKey())){
 
             entity.level().playSound(null, entity.blockPosition(), ModSounds.ENVIROSUIT_PICKUP.get(), SoundSource.PLAYERS, 1.0F, 1.0F);
         }
@@ -130,7 +130,7 @@ public class ModEvents {
     @SubscribeEvent
     public static void onQuadDamageAttack1(PlayerInteractEvent.LeftClickEmpty event){
 
-        if(event.getEntity().hasEffect(ModEffects.QUAD_DAMAGE.get()) && event.getLevel().isClientSide){
+        if(event.getEntity().hasEffect(ModEffects.QUAD_DAMAGE) && event.getLevel().isClientSide){
 
             event.getEntity().playSound(ModSounds.QUAD_DAMAGE_USE.get(), 1f, 1f);
         }
@@ -139,7 +139,7 @@ public class ModEvents {
     @SubscribeEvent
     public static void onQuadDamageAttack2(PlayerInteractEvent.LeftClickBlock event){
 
-        if(event.getEntity().hasEffect(ModEffects.QUAD_DAMAGE.get()) && event.getLevel().isClientSide){
+        if(event.getEntity().hasEffect(ModEffects.QUAD_DAMAGE) && event.getLevel().isClientSide){
 
             event.getEntity().playSound(ModSounds.QUAD_DAMAGE_USE.get(), 1f, 1f);
         }
@@ -148,7 +148,7 @@ public class ModEvents {
     @SubscribeEvent
     public static void onQuadDamageAttack3(PlayerInteractEvent.EntityInteract event){
 
-        if(event.getEntity().hasEffect(ModEffects.QUAD_DAMAGE.get()) && event.getLevel().isClientSide){
+        if(event.getEntity().hasEffect(ModEffects.QUAD_DAMAGE) && event.getLevel().isClientSide){
 
             event.getEntity().playSound(ModSounds.QUAD_DAMAGE_USE.get(), 1f, 1f);
         }
@@ -157,7 +157,7 @@ public class ModEvents {
     @SubscribeEvent
     public static void onQuadDamageAttack4(AttackEntityEvent event){
 
-        if(event.getEntity().hasEffect(ModEffects.QUAD_DAMAGE.get()) && event.getEntity().level().isClientSide()){
+        if(event.getEntity().hasEffect(ModEffects.QUAD_DAMAGE) && event.getEntity().level().isClientSide()){
 
             event.getEntity().playSound(ModSounds.QUAD_DAMAGE_USE.get(), 1f, 1f);
         }
@@ -166,7 +166,7 @@ public class ModEvents {
     @SubscribeEvent
     public static void onQuadDamageAttack5(ArrowLooseEvent event){
 
-        if(event.getEntity().hasEffect(ModEffects.QUAD_DAMAGE.get()) && event.getLevel().isClientSide()){
+        if(event.getEntity().hasEffect(ModEffects.QUAD_DAMAGE) && event.getLevel().isClientSide()){
 
             event.getEntity().playSound(ModSounds.QUAD_DAMAGE_USE.get(), 1f, 1f);
         }
@@ -175,7 +175,7 @@ public class ModEvents {
     @SubscribeEvent
     public static void onQuadDamageAttack6(PlayerInteractEvent.RightClickItem event){
 
-        if(event.getEntity().hasEffect(ModEffects.QUAD_DAMAGE.get()) && event.getLevel().isClientSide()){
+        if(event.getEntity().hasEffect(ModEffects.QUAD_DAMAGE) && event.getLevel().isClientSide()){
 
             event.getEntity().playSound(ModSounds.QUAD_DAMAGE_USE.get(), 1f, 1f);
         }

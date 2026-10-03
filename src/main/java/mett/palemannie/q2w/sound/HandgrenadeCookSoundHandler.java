@@ -8,28 +8,26 @@ import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.event.TickEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.neoforge.client.event.ClientTickEvent;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
 
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.UUID;
 
-@Mod.EventBusSubscriber(modid = Quake2Weapons.MODID, value = Dist.CLIENT)
+@EventBusSubscriber(modid = Quake2Weapons.MODID, value = Dist.CLIENT)
 public class HandgrenadeCookSoundHandler {
 
     private static final Map<UUID, HandgrenadePlayerCookLoopSoundInstance> PLAYER_COOK_LOOPS = new HashMap<>();
     private static final Map<Integer, HandgrenadeEntityCookLoopSoundInstance> GRENADE_COOK_LOOPS = new HashMap<>();
 
     @SubscribeEvent
-    public static void onClientTick(TickEvent.ClientTickEvent event) {
+    public static void onClientTick(ClientTickEvent.Post event) {
 
-        if (event.phase != TickEvent.Phase.END) {
-            return;
-        }
+
 
         Minecraft minecraft = Minecraft.getInstance();
         ClientLevel level = minecraft.level;
@@ -102,7 +100,7 @@ public class HandgrenadeCookSoundHandler {
             return false;
         }
 
-        int useTicks = useStack.getUseDuration() - player.getUseItemRemainingTicks();
+        int useTicks = useStack.getUseDuration(player) - player.getUseItemRemainingTicks();
 
         return useTicks >= HandgrenadeItem.COOK_START_TICK;
     }

@@ -1,16 +1,12 @@
 package mett.palemannie.q2w.item.custom;
 
-import com.mojang.blaze3d.vertex.PoseStack;
+import mett.palemannie.q2w.util.ItemData;
 import mett.palemannie.q2w.item.ModItems;
-import mett.palemannie.q2w.item.client.HandgrenadeRenderer;
 import mett.palemannie.q2w.net.ModMessages;
 import mett.palemannie.q2w.net.custom.WeaponRecoilS2CPacket;
 import mett.palemannie.q2w.sound.ModSounds;
 import mett.palemannie.q2w.util.ServerPlayHandler;
 import mett.palemannie.q2w.util.WeaponAggroHandler;
-import net.minecraft.client.model.HumanoidModel;
-import net.minecraft.client.player.LocalPlayer;
-import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
@@ -18,23 +14,20 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.client.extensions.common.IClientItemExtensions;
 import software.bernie.geckolib.animatable.GeoItem;
-import software.bernie.geckolib.core.animation.Animation;
-import software.bernie.geckolib.core.animation.AnimationController;
-import software.bernie.geckolib.core.animation.AnimatableManager;
-import software.bernie.geckolib.core.animation.RawAnimation;
-import software.bernie.geckolib.core.object.PlayState;
+import software.bernie.geckolib.animation.Animation;
+import software.bernie.geckolib.animation.AnimationController;
+import software.bernie.geckolib.animation.AnimatableManager;
+import software.bernie.geckolib.animation.RawAnimation;
+import software.bernie.geckolib.animation.PlayState;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
-import java.util.function.Consumer;
 
 public class HandgrenadeItem extends AbstractWeapon {
 
@@ -43,53 +36,9 @@ public class HandgrenadeItem extends AbstractWeapon {
     }
 
     @Override
-    public void initializeClient(Consumer<IClientItemExtensions> consumer) {
-
-        consumer.accept(new IClientItemExtensions() {
-
-            private HandgrenadeRenderer renderer;
-
-            @Override
-            public BlockEntityWithoutLevelRenderer getCustomRenderer() {
-
-                if (this.renderer == null) {
-                    this.renderer = new HandgrenadeRenderer();
-                }
-
-                return this.renderer;
-            }
-
-            @Override
-            public boolean applyForgeHandTransform(PoseStack poseStack, LocalPlayer player, HumanoidArm arm, ItemStack itemInHand, float partialTick, float equipProcess, float swingProcess) {
-
-                if (itemInHand.getItem() instanceof AbstractWeapon) {
-
-                    int side = arm == HumanoidArm.RIGHT ? 1 : -1;
-                    poseStack.translate(side * 0.56f, -0.52f, -0.72f);
-
-                    return true;
-                }
-
-                return false;
-            }
-
-            @Override
-            public HumanoidModel.ArmPose getArmPose(LivingEntity entityLiving, InteractionHand hand, ItemStack itemStack) {
-
-                if (!itemStack.isEmpty() && entityLiving.getItemInHand(hand) == itemStack) {
-                    return HumanoidModel.ArmPose.BOW_AND_ARROW;
-                }
-
-                return HumanoidModel.ArmPose.EMPTY;
-            }
-        });
-    }
-
-    @Override
     public net.minecraft.world.item.Item getAmmoItem() {
         return ModItems.GRENADE.get();
     }
-
 
     public static final int FUSE_TICKS = 84;
     public static final int PIN_SOUND_TICK = 5;
@@ -151,15 +100,17 @@ public class HandgrenadeItem extends AbstractWeapon {
             return;
         }
 
-        if (!stack.hasTag()) {
+        stack.remove(software.bernie.geckolib.GeckoLibConstants.STACK_ANIMATABLE_ID_COMPONENT.get());
+
+        if (!ItemData.hasData(stack)) {
             return;
         }
 
-        stack.getTag().remove(OLD_STACK_ID_TAG);
-        stack.getTag().remove(GECKOLIB_ID_TAG);
+        ItemData.remove(stack, OLD_STACK_ID_TAG);
+        ItemData.remove(stack, GECKOLIB_ID_TAG);
 
-        if (stack.hasTag() && stack.getTag().isEmpty()) {
-            stack.setTag(null);
+        if (ItemData.hasData(stack) && ItemData.read(stack).isEmpty()) {
+            stack.remove(net.minecraft.core.component.DataComponents.CUSTOM_DATA);
         }
     }
 
@@ -235,7 +186,6 @@ public class HandgrenadeItem extends AbstractWeapon {
     @Override
     public void inventoryTick(ItemStack stack, Level level, Entity entity, int slot, boolean selected) {
         super.inventoryTick(stack, level, entity, slot, selected);
-
 
         if (level instanceof ServerLevel serverLevel && entity instanceof ServerPlayer player) {
 
@@ -349,7 +299,6 @@ public class HandgrenadeItem extends AbstractWeapon {
                 0f,
                 player.getRandom().nextBoolean() ? 0.33f : -0.33f,
                 player.getRandom().nextBoolean() ? 0.33f : -0.33f), player);
-
 
         player.getCooldowns().addCooldown(this, RELEASE_COOLDOWN_TICKS);
         player.stopUsingItem();

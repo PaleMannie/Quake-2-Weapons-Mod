@@ -2,32 +2,32 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "pattern": [
-    "IIG",
-    "DBR",
-    "IIS"
+    "GIR",
+    "INW",
+    "RWS"
   ],
   "key": {
+    "N": {
+      "item": "q2w:machinegun"
+    },
     "I": {
       "item": "minecraft:iron_block"
+    },
+    "W": {
+      "tag": "minecraft:planks"
     },
     "S": {
       "item": "minecraft:stick"
     },
     "R": {
-      "item": "minecraft:repeater"
-    },
-    "D": {
-      "item": "minecraft:dispenser"
-    },
-    "B": {
-      "item": "minecraft:blaze_rod"
+      "item": "minecraft:redstone"
     },
     "G": {
       "item": "minecraft:gold_ingot"
     }
   },
   "result": {
-    "item": "q2w:rocketlauncher",
-    "count": 1
+    "count": 1,
+    "id": "q2w:chaingun"
   }
 }

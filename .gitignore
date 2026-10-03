@@ -23,3 +23,7 @@ run
 
 # Files from Forge MDK
 forge*changelog.txt
+
+run-gametest
+run-client-smoke
+port-*.log

@@ -36,7 +36,6 @@ public class EnvirosuitPowerupRenderer extends EntityRenderer<EnvirosuitPowerupE
         poseStack.scale(1.25f, 1.25f, 1.25f);
         poseStack.mulPose(Axis.XP.rotationDegrees(180f));
 
-
         float ageInTicks = rocketEntity.tickCount + partialTicks;
 
         double bob = Math.sin(ageInTicks * bobbingSpeed) * bobbingHeight;
@@ -46,10 +45,10 @@ public class EnvirosuitPowerupRenderer extends EntityRenderer<EnvirosuitPowerupE
         poseStack.mulPose(Axis.YP.rotationDegrees(-rotation));
 
         VertexConsumer $$6 = bufferSource.getBuffer(this.model.renderType(ENVIROSUIT_LOCATION));
-        this.model.renderToBuffer(poseStack, $$6, packedLight, OverlayTexture.NO_OVERLAY, 1f, 1f, 1f, 1f);
+        this.model.renderToBuffer(poseStack, $$6, packedLight, OverlayTexture.NO_OVERLAY, 0xFFFFFFFF);
 
         VertexConsumer $$7 = bufferSource.getBuffer(RenderType.eyes(ENVIROSUIT_LOCATION));
-        this.model.renderToBuffer(poseStack, $$7, packedLight, OverlayTexture.NO_OVERLAY, 1f, 1f, 1f, 1f);
+        this.model.renderToBuffer(poseStack, $$7, packedLight, OverlayTexture.NO_OVERLAY, 0xFFFFFFFF);
 
         poseStack.popPose();
 

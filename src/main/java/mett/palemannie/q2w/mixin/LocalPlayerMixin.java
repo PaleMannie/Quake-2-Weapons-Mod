@@ -12,7 +12,6 @@ import org.spongepowered.asm.mixin.injection.At;
  *   https://github.com/bytemaniak/mcquake3
  */
 
-
 @Mixin(LocalPlayer.class)
 public class LocalPlayerMixin {
 

@@ -5,11 +5,11 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.client.gui.overlay.IGuiOverlay;
+import net.minecraft.client.gui.LayeredDraw;
 
 public class SilencerHudOverlay {
 
-    public static final IGuiOverlay HUD = (gui, guiGraphics, partialTick, screenWidth, screenHeight) -> {
+    public static final LayeredDraw.Layer HUD = (guiGraphics, partialTick) -> {
         int shotsLeft = ClientSilencerData.getSilencedShotsLeft();
 
         if (shotsLeft <= 0) {
@@ -17,6 +17,8 @@ public class SilencerHudOverlay {
         }
 
         Minecraft minecraft = Minecraft.getInstance();
+        int screenWidth = minecraft.getWindow().getGuiScaledWidth();
+        int screenHeight = minecraft.getWindow().getGuiScaledHeight();
 
         if (minecraft.options.hideGui || minecraft.player == null) {
             return;

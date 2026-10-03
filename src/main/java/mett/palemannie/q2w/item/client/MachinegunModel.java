@@ -1,7 +1,6 @@
 package mett.palemannie.q2w.item.client;
 
 import mett.palemannie.q2w.Quake2Weapons;
-import mett.palemannie.q2w.item.custom.Bfg10kItem;
 import mett.palemannie.q2w.item.custom.MachinegunItem;
 import net.minecraft.resources.ResourceLocation;
 import software.bernie.geckolib.model.GeoModel;

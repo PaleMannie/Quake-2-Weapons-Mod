@@ -1,18 +1,18 @@
 package mett.palemannie.q2w.gui;
 
 import mett.palemannie.q2w.Quake2Weapons;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.client.event.RegisterGuiOverlaysEvent;
-import net.minecraftforge.client.gui.overlay.VanillaGuiOverlay;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.neoforge.client.event.RegisterGuiLayersEvent;
+import net.neoforged.neoforge.client.gui.VanillaGuiLayers;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
 
-@Mod.EventBusSubscriber(modid = Quake2Weapons.MODID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
+@EventBusSubscriber(modid = Quake2Weapons.MODID, value = Dist.CLIENT)
 public class ClientHudRegistry {
 
     @SubscribeEvent
-    public static void registerGuiOverlays(RegisterGuiOverlaysEvent event) {
-        event.registerAbove(VanillaGuiOverlay.CROSSHAIR.id(), "silencer_shots", SilencerHudOverlay.HUD);
-        event.registerAbove(VanillaGuiOverlay.PLAYER_HEALTH.id(), "weapon_ammo", AmmoHudOverlay.HUD);
+    public static void registerGuiOverlays(RegisterGuiLayersEvent event) {
+        event.registerAbove(VanillaGuiLayers.CROSSHAIR, net.minecraft.resources.ResourceLocation.fromNamespaceAndPath("q2w", "silencer_shots"), SilencerHudOverlay.HUD);
+        event.registerAbove(VanillaGuiLayers.PLAYER_HEALTH, net.minecraft.resources.ResourceLocation.fromNamespaceAndPath("q2w", "weapon_ammo"), AmmoHudOverlay.HUD);
     }
 }

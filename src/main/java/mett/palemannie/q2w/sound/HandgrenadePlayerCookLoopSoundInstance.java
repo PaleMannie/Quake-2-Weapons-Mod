@@ -89,7 +89,7 @@ public class HandgrenadePlayerCookLoopSoundInstance extends AbstractTickableSoun
             return false;
         }
 
-        int useTicks = useStack.getUseDuration() - player.getUseItemRemainingTicks();
+        int useTicks = useStack.getUseDuration(player) - player.getUseItemRemainingTicks();
 
         return useTicks >= HandgrenadeItem.COOK_START_TICK;
     }

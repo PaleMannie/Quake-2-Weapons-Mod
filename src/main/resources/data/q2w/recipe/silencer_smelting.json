@@ -6,5 +6,7 @@
   "ingredient": {
     "item": "q2w:silencer_item"
   },
-  "result": "minecraft:iron_ingot"
+  "result": {
+    "id": "minecraft:iron_ingot"
+  }
 }

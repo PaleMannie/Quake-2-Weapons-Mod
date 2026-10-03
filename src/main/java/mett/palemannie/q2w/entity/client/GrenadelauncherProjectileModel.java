@@ -33,8 +33,8 @@ public class GrenadelauncherProjectileModel<T extends Entity> extends Hierarchic
 	}
 
 	@Override
-	public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
-		grenade.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
+	public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, int color) {
+		grenade.render(poseStack, vertexConsumer, packedLight, packedOverlay, color);
 	}
 
 	@Override

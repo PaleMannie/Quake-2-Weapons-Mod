@@ -14,12 +14,12 @@ public class EnvirosuitItem extends AbstractPowerupItem{
     }
 
     @Override
-    public MobEffect getPowerupEffect() {
-        return ModEffects.ENVIROSUIT.get();
+    public net.minecraft.core.Holder<MobEffect> getPowerupEffect() {
+        return ModEffects.ENVIROSUIT;
     }
 
     @Override
     protected void onPowerupUse(Level level, Player player, ItemStack stack, int duration) {
-        player.addEffect(new MobEffectInstance(ModEffects.ENVIROSUIT.get(), getPowerupDuration()));
+        player.addEffect(new MobEffectInstance(ModEffects.ENVIROSUIT, getPowerupDuration()));
     }
 }

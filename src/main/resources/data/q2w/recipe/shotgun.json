@@ -2,32 +2,29 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "pattern": [
-    "GI ",
-    "ISW",
-    "PWs"
+    "  P",
+    "IIR",
+    "PWS"
   ],
   "key": {
     "I": {
       "item": "minecraft:iron_block"
     },
-    "G": {
-      "item": "minecraft:gold_ingot"
+    "R": {
+      "item": "minecraft:repeater"
     },
     "S": {
-      "item": "q2w:shotgun"
+      "item": "minecraft:stick"
     },
     "P": {
       "item": "minecraft:piston"
-    },
-    "s": {
-      "item": "minecraft:stick"
     },
     "W": {
       "tag": "minecraft:planks"
     }
   },
   "result": {
-    "item": "q2w:super_shotgun",
-    "count": 1
+    "count": 1,
+    "id": "q2w:shotgun"
   }
 }

@@ -1,5 +1,6 @@
 package mett.palemannie.q2w.sound;
 
+import mett.palemannie.q2w.util.ItemData;
 import mett.palemannie.q2w.gui.ClientSilencerData;
 import mett.palemannie.q2w.item.ModItems;
 import mett.palemannie.q2w.item.custom.HyperblasterItem;
@@ -41,7 +42,7 @@ public class HyperblasterFireLoopSoundInstance extends AbstractTickableSoundInst
     private float getCurrentVolume() {
         if (player == net.minecraft.client.Minecraft.getInstance().player
                 ? ClientSilencerData.hasSilencerActive()
-                : player.getMainHandItem().hasTag() && player.getMainHandItem().getTag().getBoolean("Q2WSilenced")) {
+                : ItemData.hasData(player.getMainHandItem()) && ItemData.read(player.getMainHandItem()).getBoolean("Q2WSilenced")) {
             return WeaponSoundRange.volume(player, this.baseVolume * WeaponAggroHandler.SILENCED_WEAPON_VOLUME_MULTIPLIER, WeaponSoundRange.BLOCKS);
         }
 

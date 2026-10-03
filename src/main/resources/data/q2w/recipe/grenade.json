@@ -2,26 +2,26 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "pattern": [
-    "III",
-    "III",
-    "PGB"
+    " II",
+    "RTG",
+    "II "
   ],
   "key": {
     "I": {
-      "item": "minecraft:iron_nugget"
+      "item": "minecraft:iron_ingot"
     },
     "G": {
       "item": "minecraft:gunpowder"
     },
-    "P": {
-      "item": "minecraft:paper"
+    "T": {
+      "item": "minecraft:tnt"
     },
-    "B": {
-      "item": "minecraft:gold_ingot"
+    "R": {
+      "item": "minecraft:redstone"
     }
   },
   "result": {
-    "item": "q2w:shell",
-    "count": 8
+    "count": 8,
+    "id": "q2w:grenade"
   }
 }

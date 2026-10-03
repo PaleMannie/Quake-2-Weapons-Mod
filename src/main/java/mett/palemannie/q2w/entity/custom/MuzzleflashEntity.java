@@ -9,7 +9,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.LightBlock;
 import net.minecraft.world.level.block.state.BlockState;
 
 public class MuzzleflashEntity extends Projectile {
@@ -25,7 +24,7 @@ public class MuzzleflashEntity extends Projectile {
     }
 
     @Override
-    protected void defineSynchedData() {}
+    protected void defineSynchedData(net.minecraft.network.syncher.SynchedEntityData.Builder builder) {}
 
     @Override
     public boolean isNoGravity() {

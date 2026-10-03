@@ -1,16 +1,11 @@
 package mett.palemannie.q2w.item.custom;
 
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.math.Axis;
-import net.minecraft.client.model.HumanoidModel;
-import net.minecraft.client.player.LocalPlayer;
-import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
+import mett.palemannie.q2w.util.ItemData;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
@@ -19,21 +14,16 @@ import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.client.extensions.common.IClientItemExtensions;
 import org.jetbrains.annotations.NotNull;
 import software.bernie.geckolib.animatable.GeoItem;
 import software.bernie.geckolib.animatable.SingletonGeoAnimatable;
-import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.core.animation.AnimatableManager;
-import software.bernie.geckolib.core.animation.Animation;
-import software.bernie.geckolib.core.animation.AnimationController;
-import software.bernie.geckolib.core.animation.RawAnimation;
-import software.bernie.geckolib.core.object.PlayState;
+import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.animation.AnimatableManager;
+import software.bernie.geckolib.animation.Animation;
+import software.bernie.geckolib.animation.AnimationController;
+import software.bernie.geckolib.animation.RawAnimation;
+import software.bernie.geckolib.animation.PlayState;
 import software.bernie.geckolib.util.GeckoLibUtil;
-
-import java.util.function.Consumer;
 
 public abstract class AbstractWeapon extends Item implements GeoItem {
 
@@ -103,7 +93,7 @@ public abstract class AbstractWeapon extends Item implements GeoItem {
 
         if (!itemStack.isEmpty() && !livingEntity.isUsingItem()) {
             livingEntity.useItem = itemStack;
-            livingEntity.useItemRemaining = itemStack.getUseDuration();
+            livingEntity.useItemRemaining = itemStack.getUseDuration(livingEntity);
 
             if (!livingEntity.level().isClientSide()) {
                 livingEntity.setLivingEntityFlag(1, true);
@@ -124,7 +114,7 @@ public abstract class AbstractWeapon extends Item implements GeoItem {
     }
 
     @Override
-    public int getUseDuration(ItemStack stack) {
+    public int getUseDuration(ItemStack stack, LivingEntity entity) {
         return 2_000_000_000;
     }
 
@@ -134,7 +124,7 @@ public abstract class AbstractWeapon extends Item implements GeoItem {
     }
 
     @Override
-    public boolean onEntitySwing(ItemStack stack, LivingEntity entity) {
+    public boolean onEntitySwing(ItemStack stack, LivingEntity entity, InteractionHand hand) {
         return true;
     }
 
@@ -189,19 +179,19 @@ public abstract class AbstractWeapon extends Item implements GeoItem {
                     break;
                 }
             }
-            stack.getOrCreateTag().putBoolean("Q2WHasAmmo", hasAmmo);
+            ItemData.putBoolean(stack, "Q2WHasAmmo", hasAmmo);
         }
 
         if (selected && entity instanceof net.minecraft.server.level.ServerPlayer player
                 && (this instanceof ChaingunItem || this instanceof HyperblasterItem
                     || this instanceof RailgunItem || this instanceof Bfg10kItem)) {
-            stack.getOrCreateTag().putBoolean("Q2WSilenced",
+            ItemData.putBoolean(stack, "Q2WSilenced",
                     mett.palemannie.q2w.util.WeaponAggroHandler.hasSilencerActive(player));
         }
 
-        if (stack.hasTag() && stack.getTag().getBoolean("WasDropped")) {
+        if (ItemData.hasData(stack) && ItemData.read(stack).getBoolean("WasDropped")) {
             hardStopTriggeredAnimations(livingEntity, serverLevel, stack);
-            stack.getTag().remove("WasDropped");
+            ItemData.remove(stack, "WasDropped");
         }
 
         if (entity instanceof Player player) {

@@ -18,11 +18,11 @@ public class EnvirosuitEffect extends MobEffect {
     /// Only Expiring sounds here
 
     @Override
-    public void applyEffectTick(LivingEntity entity, int amplifier) {
+    public boolean applyEffectTick(LivingEntity entity, int amplifier) {
 
         entity.setAirSupply(entity.getMaxAirSupply());
 
-        MobEffectInstance inst = entity.getEffect(ModEffects.ENVIROSUIT.get());
+        MobEffectInstance inst = entity.getEffect(ModEffects.ENVIROSUIT);
         if (inst != null) {
             int remaining = inst.getDuration();
 
@@ -33,10 +33,11 @@ public class EnvirosuitEffect extends MobEffect {
                 }
             }
         }
+        return true;
     }
 
     @Override
-    public boolean isDurationEffectTick(int duration, int amplifier) {
+    public boolean shouldApplyEffectTickThisTick(int duration, int amplifier) {
         return true;
     }
 }

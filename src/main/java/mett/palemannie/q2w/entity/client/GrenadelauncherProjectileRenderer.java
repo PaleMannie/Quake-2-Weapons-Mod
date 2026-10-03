@@ -67,7 +67,7 @@ public class GrenadelauncherProjectileRenderer extends EntityRenderer<Grenadelau
         }
 
         VertexConsumer vertexConsumer = bufferSource.getBuffer(RenderType.entityCutoutNoCull(GRENADE_LOCATION));
-        this.model.renderToBuffer(poseStack, vertexConsumer, packedLight, OverlayTexture.NO_OVERLAY, 1, 1, 1, 1);
+        this.model.renderToBuffer(poseStack, vertexConsumer, packedLight, OverlayTexture.NO_OVERLAY, 0xFFFFFFFF);
 
         poseStack.popPose();
 

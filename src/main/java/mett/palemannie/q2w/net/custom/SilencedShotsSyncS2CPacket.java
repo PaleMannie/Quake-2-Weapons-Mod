@@ -2,11 +2,17 @@ package mett.palemannie.q2w.net.custom;
 
 import mett.palemannie.q2w.gui.ClientSilencerData;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraftforge.network.NetworkEvent;
+import net.neoforged.neoforge.network.handling.IPayloadContext;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.resources.ResourceLocation;
 
-import java.util.function.Supplier;
+public class SilencedShotsSyncS2CPacket implements CustomPacketPayload {
+    public static final Type<SilencedShotsSyncS2CPacket> TYPE = new Type<>(ResourceLocation.fromNamespaceAndPath("q2w", "silenced_shots_sync_s2_c_packet"));
+    public static final StreamCodec<FriendlyByteBuf, SilencedShotsSyncS2CPacket> STREAM_CODEC = StreamCodec.of((buf, packet) -> packet.toBytes(buf), SilencedShotsSyncS2CPacket::new);
 
-public class SilencedShotsSyncS2CPacket {
+    @Override
+    public Type<SilencedShotsSyncS2CPacket> type() { return TYPE; }
 
     private final int shotsLeft;
 
@@ -22,15 +28,11 @@ public class SilencedShotsSyncS2CPacket {
         buf.writeVarInt(this.shotsLeft);
     }
 
-    public boolean handle(Supplier<NetworkEvent.Context> supplier) {
-
-        NetworkEvent.Context context = supplier.get();
+    public void handle(IPayloadContext context) {
 
         context.enqueueWork(() -> {
             ClientSilencerData.setSilencedShotsLeft(this.shotsLeft);
         });
 
-        context.setPacketHandled(true);
-        return true;
     }
 }

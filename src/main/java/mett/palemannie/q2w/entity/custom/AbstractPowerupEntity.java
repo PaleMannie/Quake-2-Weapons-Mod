@@ -24,7 +24,7 @@ public abstract class AbstractPowerupEntity extends Entity {
     public static int durationOnPickup = 0;
 
     @Override
-    protected void defineSynchedData() {}
+    protected void defineSynchedData(net.minecraft.network.syncher.SynchedEntityData.Builder builder) {}
 
     @Override
     protected void readAdditionalSaveData(CompoundTag tag) {
@@ -74,7 +74,7 @@ public abstract class AbstractPowerupEntity extends Entity {
         if (!level().isClientSide && stack.is(Items.DIAMOND)) {
 
             this.spawnAtLocation(getPowerupItem());
-            level().playSound(null, blockPosition(), SoundEvents.GENERIC_EXPLODE, SoundSource.PLAYERS, 1.0F, 2.0F);
+            level().playSound(null, blockPosition(), SoundEvents.GENERIC_EXPLODE.value(), SoundSource.PLAYERS, 1.0F, 2.0F);
 
             if(!player.isCreative()){
 

@@ -2,29 +2,29 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "pattern": [
-    "  P",
-    "IIR",
-    "PWS"
+    " I ",
+    "DIP",
+    " CL"
   ],
   "key": {
     "I": {
       "item": "minecraft:iron_block"
     },
-    "R": {
-      "item": "minecraft:repeater"
-    },
-    "S": {
-      "item": "minecraft:stick"
-    },
     "P": {
       "item": "minecraft:piston"
     },
-    "W": {
-      "tag": "minecraft:planks"
+    "C": {
+      "item": "minecraft:flower_pot"
+    },
+    "L": {
+      "tag": "minecraft:logs"
+    },
+    "D": {
+      "item": "minecraft:dispenser"
     }
   },
   "result": {
-    "item": "q2w:shotgun",
-    "count": 1
+    "count": 1,
+    "id": "q2w:machinegun"
   }
 }

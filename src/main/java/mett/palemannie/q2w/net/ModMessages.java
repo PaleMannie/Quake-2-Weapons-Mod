@@ -1,56 +1,22 @@
 package mett.palemannie.q2w.net;
 
-import mett.palemannie.q2w.Quake2Weapons;
-import mett.palemannie.q2w.net.custom.WeaponRecoilS2CPacket;
-import mett.palemannie.q2w.net.custom.ExplosionImpulseS2CPacket;
-import mett.palemannie.q2w.net.custom.SilencedShotsSyncS2CPacket;
-import net.minecraft.resources.ResourceLocation;
+import mett.palemannie.q2w.net.custom.*;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraftforge.network.NetworkDirection;
-import net.minecraftforge.network.NetworkRegistry;
-import net.minecraftforge.network.PacketDistributor;
-import net.minecraftforge.network.simple.SimpleChannel;
+import net.neoforged.neoforge.network.PacketDistributor;
+import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
 
-public class ModMessages {
+public final class ModMessages {
+    private ModMessages() {}
 
-    public static SimpleChannel INSTANCE;
-    private static int PacketID = 0;
-    private static int id(){
-        return PacketID++;
+    public static void register(RegisterPayloadHandlersEvent event) {
+        var registrar = event.registrar("1");
+        registrar.playToClient(SilencedShotsSyncS2CPacket.TYPE, SilencedShotsSyncS2CPacket.STREAM_CODEC, SilencedShotsSyncS2CPacket::handle);
+        registrar.playToClient(WeaponRecoilS2CPacket.TYPE, WeaponRecoilS2CPacket.STREAM_CODEC, WeaponRecoilS2CPacket::handle);
+        registrar.playToClient(ExplosionImpulseS2CPacket.TYPE, ExplosionImpulseS2CPacket.STREAM_CODEC, ExplosionImpulseS2CPacket::handle);
     }
 
-    public static void register(){
-        SimpleChannel net = NetworkRegistry.ChannelBuilder.named(ResourceLocation.fromNamespaceAndPath(Quake2Weapons.MODID, "messages"))
-                .networkProtocolVersion(()-> "1.0").clientAcceptedVersions(s -> true).serverAcceptedVersions(s -> true)
-                .simpleChannel();
-
-        INSTANCE = net;
-
-        INSTANCE.messageBuilder(SilencedShotsSyncS2CPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
-                .encoder(SilencedShotsSyncS2CPacket::toBytes)
-                .decoder(SilencedShotsSyncS2CPacket::new)
-                .consumerMainThread(SilencedShotsSyncS2CPacket::handle)
-                .add();
-
-        INSTANCE.messageBuilder(WeaponRecoilS2CPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
-                .encoder(WeaponRecoilS2CPacket::toBytes)
-                .decoder(WeaponRecoilS2CPacket::new)
-                .consumerMainThread(WeaponRecoilS2CPacket::handle)
-                .add();
-
-        INSTANCE.messageBuilder(ExplosionImpulseS2CPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
-                .encoder(ExplosionImpulseS2CPacket::toBytes)
-                .decoder(ExplosionImpulseS2CPacket::new)
-                .consumerMainThread(ExplosionImpulseS2CPacket::handle)
-                .add();
-
-    }
-
-    public static <MSG> void sendToServer(MSG message){
-        INSTANCE.sendToServer(message);
-    }
-
-    public static <MSG> void sendToPlayer(MSG message, ServerPlayer player){
-        INSTANCE.send(PacketDistributor.PLAYER.with(()->player), message);
+    public static void sendToPlayer(CustomPacketPayload message, ServerPlayer player) {
+        PacketDistributor.sendToPlayer(player, message);
     }
 }

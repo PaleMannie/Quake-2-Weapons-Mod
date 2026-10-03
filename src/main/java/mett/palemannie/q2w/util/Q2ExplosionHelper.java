@@ -63,7 +63,7 @@ public final class Q2ExplosionHelper {
 
         float quad = Q2WConfigStats.applyQuadDamage(1.0F, quadApplier);
         boolean quadHandledByEvent = source.getEntity() instanceof LivingEntity attacker
-                && attacker.hasEffect(ModEffects.QUAD_DAMAGE.get());
+                && attacker.hasEffect(ModEffects.QUAD_DAMAGE);
         float damageScale = Math.max(0.0F, maxDamage) * (quadHandledByEvent ? 1.0F : quad);
         double selfDamageMultiplier = Q2WConfig.COMMON.explosionSelfDamageMultiplier.get();
         AABB area = new AABB(center, center).inflate(radius);

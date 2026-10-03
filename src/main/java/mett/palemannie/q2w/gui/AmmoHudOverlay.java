@@ -6,14 +6,16 @@ import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.client.gui.overlay.IGuiOverlay;
+import net.minecraft.client.gui.LayeredDraw;
 
 public final class AmmoHudOverlay {
     private AmmoHudOverlay() {
     }
 
-    public static final IGuiOverlay HUD = (gui, graphics, partialTick, screenWidth, screenHeight) -> {
+    public static final LayeredDraw.Layer HUD = (graphics, partialTick) -> {
         Minecraft minecraft = Minecraft.getInstance();
+        int screenWidth = minecraft.getWindow().getGuiScaledWidth();
+        int screenHeight = minecraft.getWindow().getGuiScaledHeight();
         if (minecraft.options.hideGui || minecraft.player == null || minecraft.player.isSpectator()) {
             return;
         }
@@ -34,7 +36,7 @@ public final class AmmoHudOverlay {
         }
 
         int x = screenWidth / 2 - 91;
-        int y = minecraft.player.isCreative() ? screenHeight - gui.leftHeight : hasArmor(minecraft.player.getArmorValue()) ? screenHeight - gui.leftHeight - 18 : screenHeight - gui.leftHeight - 8;
+        int y = minecraft.player.isCreative() ? screenHeight - minecraft.gui.leftHeight : hasArmor(minecraft.player.getArmorValue()) ? screenHeight - minecraft.gui.leftHeight - 18 : screenHeight - minecraft.gui.leftHeight - 8;
         graphics.renderItem(ammo.getDefaultInstance(), x, y);
         drawOutlinedString(graphics, minecraft.font, Integer.toString(total), x + 20, y + 4, 0xFFFFFF, 0x000000);
     };

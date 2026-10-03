@@ -34,10 +34,9 @@ public class RocketlauncherProjectileRenderer extends EntityRenderer<RocketProje
         poseStack.mulPose(Axis.YP.rotationDegrees(Mth.lerp(v2, nailEntity.yRotO, nailEntity.getYRot()) + 180f));
         poseStack.mulPose(Axis.XP.rotationDegrees(Mth.lerp(v2, nailEntity.xRotO, nailEntity.getXRot()) ));
 
-
         this.model.setupAnim(nailEntity, v2, 0.0F, -0.1F, 0.0F, 0.0F);
         VertexConsumer $$6 = bufferSource.getBuffer(this.model.renderType(ROCKET_LOCATION));
-        this.model.renderToBuffer(poseStack, $$6, packedLight, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
+        this.model.renderToBuffer(poseStack, $$6, packedLight, OverlayTexture.NO_OVERLAY, 0xFFFFFFFF);
         poseStack.popPose();
 
         super.render(nailEntity, v1, v2, poseStack, bufferSource, packedLight);

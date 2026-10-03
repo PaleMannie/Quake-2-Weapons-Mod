@@ -2,26 +2,23 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "pattern": [
-    " C ",
-    "IRR",
-    " CL"
+    "IGI",
+    "GRG",
+    "IGI"
   ],
   "key": {
+    "G": {
+      "item": "minecraft:glowstone_dust"
+    },
     "I": {
       "item": "minecraft:iron_ingot"
-    },
-    "L": {
-      "tag": "minecraft:logs"
-    },
-    "C": {
-      "item": "minecraft:copper_ingot"
     },
     "R": {
       "item": "minecraft:redstone"
     }
   },
   "result": {
-    "item": "q2w:blaster",
-    "count": 1
+    "count": 16,
+    "id": "q2w:cell"
   }
 }

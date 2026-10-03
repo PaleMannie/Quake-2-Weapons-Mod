@@ -30,7 +30,7 @@
     }
   },
   "result": {
-    "item": "q2w:hyperblaster",
-    "count": 1
+    "count": 1,
+    "id": "q2w:hyperblaster"
   }
 }

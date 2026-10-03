@@ -35,7 +35,6 @@ public class PowershieldPickupRenderer extends EntityRenderer<PowershieldPickupE
         poseStack.scale(1.25f, 1.25f, 1.25f);
         poseStack.mulPose(Axis.XP.rotationDegrees(180f));
 
-
         float ageInTicks = rocketEntity.tickCount + partialTicks;
 
         double bob = Math.sin(ageInTicks * bobbingSpeed) * bobbingHeight;
@@ -45,7 +44,7 @@ public class PowershieldPickupRenderer extends EntityRenderer<PowershieldPickupE
         poseStack.mulPose(Axis.YP.rotationDegrees(-rotation));
 
         VertexConsumer $$6 = bufferSource.getBuffer(this.model.renderType(POWERSHIELDPICKUP_LOCATION));
-        this.model.renderToBuffer(poseStack, $$6, packedLight, OverlayTexture.NO_OVERLAY, 1f, 1f, 1f, 1f);
+        this.model.renderToBuffer(poseStack, $$6, packedLight, OverlayTexture.NO_OVERLAY, 0xFFFFFFFF);
 
         poseStack.popPose();
 

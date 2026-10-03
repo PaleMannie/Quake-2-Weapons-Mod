@@ -1,5 +1,6 @@
 package mett.palemannie.q2w.item.client;
 
+import mett.palemannie.q2w.util.ItemData;
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
@@ -20,8 +21,8 @@ public final class WeaponPresentation {
 
     public static boolean hasAmmo(Player player, Item ammo) {
         if (player != Minecraft.getInstance().player) {
-            return player.getMainHandItem().hasTag()
-                    && player.getMainHandItem().getTag().getBoolean("Q2WHasAmmo");
+            return ItemData.hasData(player.getMainHandItem())
+                    && ItemData.read(player.getMainHandItem()).getBoolean("Q2WHasAmmo");
         }
         if (player.isCreative()) return true;
         for (ItemStack stack : player.getInventory().items) {

@@ -2,9 +2,7 @@ package mett.palemannie.q2w.item.custom;
 
 import mett.palemannie.q2w.sound.ModSounds;
 import mett.palemannie.q2w.util.WeaponAggroHandler;
-import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;

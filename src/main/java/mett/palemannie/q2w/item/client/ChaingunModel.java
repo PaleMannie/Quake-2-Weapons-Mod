@@ -9,8 +9,8 @@ import software.bernie.geckolib.constant.DataTickets;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.item.ItemStack;
-import software.bernie.geckolib.core.animatable.model.CoreGeoBone;
-import software.bernie.geckolib.core.animation.AnimationState;
+import software.bernie.geckolib.cache.object.GeoBone;
+import software.bernie.geckolib.animation.AnimationState;
 import software.bernie.geckolib.model.GeoModel;
 
 public class ChaingunModel extends GeoModel<ChaingunItem> {
@@ -60,8 +60,8 @@ public class ChaingunModel extends GeoModel<ChaingunItem> {
     public void setCustomAnimations(ChaingunItem animatable, long instanceId, AnimationState<ChaingunItem> animationState) {
         super.setCustomAnimations(animatable, instanceId, animationState);
 
-        CoreGeoBone barrels = getAnimationProcessor().getBone("barrels");
-        CoreGeoBone fire = getAnimationProcessor().getBone("fire");
+        GeoBone barrels = getAnimationProcessor().getBone("barrels");
+        GeoBone fire = getAnimationProcessor().getBone("fire");
 
         if (barrels == null || fire == null) { return; }
 
@@ -76,7 +76,7 @@ public class ChaingunModel extends GeoModel<ChaingunItem> {
         }
 
         visual = visuals.computeIfAbsent(player, ignored -> new VisualState());
-        float renderTick = player.tickCount + minecraft.getFrameTime();
+        float renderTick = player.tickCount + minecraft.getTimer().getGameTimeDeltaPartialTick(true);
         float deltaTicks = getDeltaTicks(renderTick);
 
         ItemStack heldStack = player.getMainHandItem();
@@ -95,12 +95,12 @@ public class ChaingunModel extends GeoModel<ChaingunItem> {
 
         if (usingThisChaingun) {
 
-            useTicks = heldStack.getUseDuration() - player.getUseItemRemainingTicks();
+            useTicks = heldStack.getUseDuration(player) - player.getUseItemRemainingTicks();
         }
 
         updateSpinState(firing, jammed, useTicks, deltaTicks);
         applyBarrelRotation(barrels, renderTick, holdingThisChaingun, firing, jammed);
-        applyFireScale(fire, firing, useTicks, minecraft.getFrameTime());
+        applyFireScale(fire, firing, useTicks, minecraft.getTimer().getGameTimeDeltaPartialTick(true));
     }
 
     private float getDeltaTicks(float renderTick) {
@@ -147,7 +147,7 @@ public class ChaingunModel extends GeoModel<ChaingunItem> {
         visual.barrelAngle = visual.barrelAngle % Mth.TWO_PI;
     }
 
-    private void applyBarrelRotation(CoreGeoBone barrels, float renderTick, boolean holding, boolean firing, boolean jammed) {
+    private void applyBarrelRotation(GeoBone barrels, float renderTick, boolean holding, boolean firing, boolean jammed) {
 
         float angle = visual.barrelAngle;
 
@@ -167,7 +167,7 @@ public class ChaingunModel extends GeoModel<ChaingunItem> {
         barrels.setRotZ(-angle);
     }
 
-    private void applyFireScale(CoreGeoBone fire, boolean firing, int useTicks, float partialTick) {
+    private void applyFireScale(GeoBone fire, boolean firing, int useTicks, float partialTick) {
 
         if (!firing) {
 
@@ -245,7 +245,7 @@ public class ChaingunModel extends GeoModel<ChaingunItem> {
         visual.idleTwitchPulses = 1;
     }
 
-    private void resetVisuals(CoreGeoBone barrels, CoreGeoBone fire) {
+    private void resetVisuals(GeoBone barrels, GeoBone fire) {
 
         barrels.setRotZ(0.0F);
 

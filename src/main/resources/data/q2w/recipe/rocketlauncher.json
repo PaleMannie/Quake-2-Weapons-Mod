@@ -2,16 +2,13 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "pattern": [
-    "rII",
+    "IIG",
     "DBR",
     "IIS"
   ],
   "key": {
     "I": {
-    "item": "minecraft:iron_block"
-    },
-    "B": {
-      "item": "minecraft:blaze_rod"
+      "item": "minecraft:iron_block"
     },
     "S": {
       "item": "minecraft:stick"
@@ -19,15 +16,18 @@
     "R": {
       "item": "minecraft:repeater"
     },
-    "r": {
-      "item": "minecraft:redstone"
-    },
     "D": {
       "item": "minecraft:dispenser"
+    },
+    "B": {
+      "item": "minecraft:blaze_rod"
+    },
+    "G": {
+      "item": "minecraft:gold_ingot"
     }
   },
   "result": {
-    "item": "q2w:grenadelauncher",
-    "count": 1
+    "count": 1,
+    "id": "q2w:rocketlauncher"
   }
 }

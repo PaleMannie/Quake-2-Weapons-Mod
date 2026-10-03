@@ -6,7 +6,6 @@ import com.mojang.math.Axis;
 import mett.palemannie.q2w.Quake2Weapons;
 import mett.palemannie.q2w.entity.custom.CellsAmmopickupEntity;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.culling.Frustum;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
@@ -36,7 +35,6 @@ public class CellsAmmopickupRenderer extends EntityRenderer<CellsAmmopickupEntit
         poseStack.scale(1f, 1f, 1f);
         poseStack.mulPose(Axis.XP.rotationDegrees(180f));
 
-
         float ageInTicks = rocketEntity.tickCount + partialTicks;
 
         double bob = Math.sin(ageInTicks * bobbingSpeed) * bobbingHeight;
@@ -46,7 +44,7 @@ public class CellsAmmopickupRenderer extends EntityRenderer<CellsAmmopickupEntit
         poseStack.mulPose(Axis.YP.rotationDegrees(-rotation));
 
         VertexConsumer $$6 = bufferSource.getBuffer(this.model.renderType(CELLSPICKUP_LOCATION));
-        this.model.renderToBuffer(poseStack, $$6, packedLight, OverlayTexture.NO_OVERLAY, 1f, 1f, 1f, 1f);
+        this.model.renderToBuffer(poseStack, $$6, packedLight, OverlayTexture.NO_OVERLAY, 0xFFFFFFFF);
 
         poseStack.popPose();
 

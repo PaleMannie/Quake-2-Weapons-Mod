@@ -1,7 +1,6 @@
 package mett.palemannie.q2w.entity.custom;
 
 import mett.palemannie.q2w.Q2WConfig;
-import mett.palemannie.q2w.sound.ModSounds;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
@@ -23,7 +22,7 @@ public abstract class AbstractItempickupEntity extends Entity {
     public static int durationOnPickup = 0;
 
     @Override
-    protected void defineSynchedData() {}
+    protected void defineSynchedData(net.minecraft.network.syncher.SynchedEntityData.Builder builder) {}
 
     @Override
     protected void readAdditionalSaveData(CompoundTag tag) {

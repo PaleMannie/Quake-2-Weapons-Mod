@@ -10,13 +10,13 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.event.RegisterCommandsEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
+import net.neoforged.neoforge.event.RegisterCommandsEvent;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
 
 import java.util.List;
 
-@Mod.EventBusSubscriber(modid = Quake2Weapons.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE)
+@EventBusSubscriber(modid = Quake2Weapons.MODID)
 public final class TestKitCommands {
     private TestKitCommands() {}
 
@@ -77,7 +77,7 @@ public final class TestKitCommands {
 
         for (ItemStack stack : inventory.items) {
             if (remaining == 0) break;
-            if (!stack.isEmpty() && ItemStack.isSameItemSameTags(stack, template)) {
+            if (!stack.isEmpty() && ItemStack.isSameItemSameComponents(stack, template)) {
                 int added = Math.min(remaining, Math.max(0, stack.getMaxStackSize() - stack.getCount()));
                 stack.grow(added);
                 remaining -= added;

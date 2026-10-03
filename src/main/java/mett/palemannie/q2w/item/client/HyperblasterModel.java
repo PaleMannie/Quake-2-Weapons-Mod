@@ -10,8 +10,8 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.ItemStack;
-import software.bernie.geckolib.core.animatable.model.CoreGeoBone;
-import software.bernie.geckolib.core.animation.AnimationState;
+import software.bernie.geckolib.cache.object.GeoBone;
+import software.bernie.geckolib.animation.AnimationState;
 import software.bernie.geckolib.model.GeoModel;
 
 public class HyperblasterModel extends GeoModel<HyperblasterItem> {
@@ -71,9 +71,9 @@ public class HyperblasterModel extends GeoModel<HyperblasterItem> {
     public void setCustomAnimations(HyperblasterItem animatable, long instanceId, AnimationState<HyperblasterItem> animationState) {
         super.setCustomAnimations(animatable, instanceId, animationState);
 
-        CoreGeoBone hyperblaster = getAnimationProcessor().getBone("hyperblaster");
-        CoreGeoBone drum = getAnimationProcessor().getBone("drum");
-        CoreGeoBone fire = getAnimationProcessor().getBone("fire");
+        GeoBone hyperblaster = getAnimationProcessor().getBone("hyperblaster");
+        GeoBone drum = getAnimationProcessor().getBone("drum");
+        GeoBone fire = getAnimationProcessor().getBone("fire");
 
         if (hyperblaster == null || drum == null || fire == null) {
             return;
@@ -89,7 +89,7 @@ public class HyperblasterModel extends GeoModel<HyperblasterItem> {
         }
 
         visual = visuals.computeIfAbsent(player, ignored -> new VisualState());
-        float renderTick = player.tickCount + minecraft.getFrameTime();
+        float renderTick = player.tickCount + minecraft.getTimer().getGameTimeDeltaPartialTick(true);
         float deltaTicks = getDeltaTicks(renderTick);
 
         ItemStack heldStack = player.getMainHandItem();
@@ -107,7 +107,7 @@ public class HyperblasterModel extends GeoModel<HyperblasterItem> {
         int useTicks = 0;
 
         if (usingThisHyperblaster) {
-            useTicks = heldStack.getUseDuration() - player.getUseItemRemainingTicks();
+            useTicks = heldStack.getUseDuration(player) - player.getUseItemRemainingTicks();
         }
 
         if (!holdingThisHyperblaster) {
@@ -125,13 +125,13 @@ public class HyperblasterModel extends GeoModel<HyperblasterItem> {
             visual.returningToOrigin = false;
 
             animateShootingDrum(deltaTicks);
-            animateWeaponRecoil(hyperblaster, useTicks, minecraft.getFrameTime());
-            animateFire(fire, useTicks, minecraft.getFrameTime());
+            animateWeaponRecoil(hyperblaster, useTicks, minecraft.getTimer().getGameTimeDeltaPartialTick(true));
+            animateFire(fire, useTicks, minecraft.getTimer().getGameTimeDeltaPartialTick(true));
         } else if (emptyTryingToFire) {
             resetIdleTwitchState();
             visual.returningToOrigin = false;
 
-            animateEmptyClickDrum(drum, useTicks, minecraft.getFrameTime());
+            animateEmptyClickDrum(drum, useTicks, minecraft.getTimer().getGameTimeDeltaPartialTick(true));
             resetWeaponAndFire(hyperblaster, fire);
 
             visual.wasFiring = firing;
@@ -206,13 +206,13 @@ public class HyperblasterModel extends GeoModel<HyperblasterItem> {
         }
     }
 
-    private void animateWeaponRecoil(CoreGeoBone hyperblaster, int useTicks, float partialTick) {
+    private void animateWeaponRecoil(GeoBone hyperblaster, int useTicks, float partialTick) {
 
         float pulse = getShotPulse(useTicks, partialTick);
         hyperblaster.setPosZ(pulse * WEAPON_RECOIL_AMOUNT);
     }
 
-    private void animateFire(CoreGeoBone fire, int useTicks, float partialTick) {
+    private void animateFire(GeoBone fire, int useTicks, float partialTick) {
 
         float pulse = getShotPulse(useTicks, partialTick);
 
@@ -221,7 +221,7 @@ public class HyperblasterModel extends GeoModel<HyperblasterItem> {
         fire.setScaleZ(pulse);
     }
 
-    private void animateEmptyClickDrum(CoreGeoBone drum, int useTicks, float partialTick) {
+    private void animateEmptyClickDrum(GeoBone drum, int useTicks, float partialTick) {
 
         float pulse = getShotPulse(useTicks, partialTick);
         drum.setRotZ(visual.drumAngle + EMPTY_TWITCH_AMOUNT * pulse);
@@ -289,7 +289,7 @@ public class HyperblasterModel extends GeoModel<HyperblasterItem> {
         return WeaponPresentation.hasAmmo(player, ModItems.CELL.get());
     }
 
-    private void resetWeaponAndFire(CoreGeoBone hyperblaster, CoreGeoBone fire) {
+    private void resetWeaponAndFire(GeoBone hyperblaster, GeoBone fire) {
 
         hyperblaster.setPosX(0f);
         hyperblaster.setPosY(0f);
@@ -300,7 +300,7 @@ public class HyperblasterModel extends GeoModel<HyperblasterItem> {
         fire.setScaleZ(0f);
     }
 
-    private void resetVisuals(CoreGeoBone hyperblaster, CoreGeoBone drum, CoreGeoBone fire) {
+    private void resetVisuals(GeoBone hyperblaster, GeoBone drum, GeoBone fire) {
 
         resetWeaponAndFire(hyperblaster, fire);
 

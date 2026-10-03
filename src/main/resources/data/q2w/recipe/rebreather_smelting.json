@@ -6,5 +6,7 @@
   "ingredient": {
     "item": "q2w:rebreather_item"
   },
-  "result": "minecraft:copper_ingot"
+  "result": {
+    "id": "minecraft:copper_ingot"
+  }
 }

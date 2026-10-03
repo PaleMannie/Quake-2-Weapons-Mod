@@ -1,5 +1,6 @@
 package mett.palemannie.q2w.sound;
 
+import mett.palemannie.q2w.util.ItemData;
 import mett.palemannie.q2w.gui.ClientSilencerData;
 import mett.palemannie.q2w.util.WeaponAggroHandler;
 import net.minecraft.client.Minecraft;
@@ -42,8 +43,8 @@ public class WeaponHoldLoopSoundInstance extends AbstractTickableSoundInstance {
     private float getCurrentVolume() {
         boolean silenced = player == Minecraft.getInstance().player
                 ? ClientSilencerData.hasSilencerActive()
-                : player.getMainHandItem().hasTag()
-                    && player.getMainHandItem().getTag().getBoolean("Q2WSilenced");
+                : ItemData.hasData(player.getMainHandItem())
+                    && ItemData.read(player.getMainHandItem()).getBoolean("Q2WSilenced");
         if (silenced) {
             return WeaponSoundRange.volume(player, this.baseVolume * WeaponAggroHandler.SILENCED_WEAPON_VOLUME_MULTIPLIER, WeaponSoundRange.BLOCKS);
         }

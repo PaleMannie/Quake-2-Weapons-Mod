@@ -44,10 +44,10 @@ public class QuaddamagePowerupRenderer extends EntityRenderer<QuadDamagePowerupE
         poseStack.mulPose(Axis.YP.rotationDegrees(rotation));
 
         VertexConsumer $$6 = bufferSource.getBuffer(this.model.renderType(QUAD_LOCATION));
-        this.model.renderToBuffer(poseStack, $$6, packedLight, OverlayTexture.NO_OVERLAY, 1f, 1f, 1f, 1f);
+        this.model.renderToBuffer(poseStack, $$6, packedLight, OverlayTexture.NO_OVERLAY, 0xFFFFFFFF);
 
         VertexConsumer $$7 = bufferSource.getBuffer(RenderType.eyes(QUAD_LOCATION));
-        this.model.renderToBuffer(poseStack, $$7, packedLight, OverlayTexture.NO_OVERLAY, 1f, 1f, 1f, 1f);
+        this.model.renderToBuffer(poseStack, $$7, packedLight, OverlayTexture.NO_OVERLAY, 0xFFFFFFFF);
 
         poseStack.popPose();
 

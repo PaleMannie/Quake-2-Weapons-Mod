@@ -10,20 +10,13 @@ import mett.palemannie.q2w.net.ModMessages;
 import mett.palemannie.q2w.particle.ModParticles;
 import mett.palemannie.q2w.sound.ModSounds;
 import mett.palemannie.q2w.util.ModCreativeModeTabs;
-import net.minecraft.client.renderer.entity.EntityRenderers;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
-import net.minecraftforge.event.server.ServerStartingEvent;
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
-import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.bus.api.IEventBus;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.Mod;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.fml.ModContainer;
 import org.slf4j.Logger;
-import software.bernie.geckolib.GeckoLib;
 
 @Mod(Quake2Weapons.MODID)
 public class Quake2Weapons {
@@ -31,14 +24,10 @@ public class Quake2Weapons {
     public static final String MODID = "q2w";
     public static final Logger LOGGER = LogUtils.getLogger();
 
-    public Quake2Weapons(FMLJavaModLoadingContext context){
+    public Quake2Weapons(IEventBus modEventBus, ModContainer container){
 
-        IEventBus modEventBus = context.getModEventBus();
-        modEventBus.addListener(this::commonSetup);
-        MinecraftForge.EVENT_BUS.register(this);
-        modEventBus.addListener(this::addCreative);
+        modEventBus.addListener(ModMessages::register);
 
-        GeckoLib.initialize();
         ModCreativeModeTabs.register(modEventBus);
         ModItems.register(modEventBus);
         ModEffects.register(modEventBus);
@@ -47,52 +36,36 @@ public class Quake2Weapons {
         ModBlocks.register(modEventBus);
         ModParticles.PARTICLES.register(modEventBus);
 
-        Q2WConfig.registerConfigs();
+        Q2WConfig.registerConfigs(container);
     }
 
-    private void addCreative(BuildCreativeModeTabContentsEvent event) {
-    }
-
-    @SubscribeEvent
-    public void onServerStarting(ServerStartingEvent event) {
-    }
-
-    @Mod.EventBusSubscriber(modid = MODID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
+    @EventBusSubscriber(modid = MODID, value = Dist.CLIENT)
     public static class ClientModEvents {
 
         @SubscribeEvent
-        public static void onClientSetup(FMLClientSetupEvent event){
+        public static void registerRenderers(net.neoforged.neoforge.client.event.EntityRenderersEvent.RegisterRenderers event){
 
-            EntityRenderers.register(ModEntities.MUZZLE_FLASH.get(), MuzzleflashRenderer::new);
-            EntityRenderers.register(ModEntities.LASER_PROJECTILE.get(), LaserProjectileRenderer::new);
-            EntityRenderers.register(ModEntities.GRENADELAUNCHER_PROJECTILE.get(), GrenadelauncherProjectileRenderer::new);
-            EntityRenderers.register(ModEntities.ROCKETLAUNCHER_PROJECTILE.get(), RocketlauncherProjectileRenderer::new);
-            EntityRenderers.register(ModEntities.HANDGRENADE_PROJECTILE.get(), HandgrenadeProjectileRenderer::new);
-            EntityRenderers.register(ModEntities.BFG10K_PROJECTILE.get(), Bfg10kProjectileRenderer::new);
-            EntityRenderers.register(ModEntities.QUAD_DAMAGE_POWERUP.get(), QuaddamagePowerupRenderer::new);
-            EntityRenderers.register(ModEntities.INVULN_POWERUP.get(), InvulnerabilityPowerupRenderer::new);
-            EntityRenderers.register(ModEntities.ENVIROSUIT_POWERUP.get(), EnvirosuitPowerupRenderer::new);
-            EntityRenderers.register(ModEntities.SILENCER_POWERUP.get(), SilencerPowerupRenderer::new);
-            EntityRenderers.register(ModEntities.BULLETS_AMMOPICKUP.get(), BulletsAmmopickupRenderer::new);
-            EntityRenderers.register(ModEntities.SHELLS_AMMOPICKUP.get(), ShellsAmmopickupRenderer::new);
-            EntityRenderers.register(ModEntities.GRENADES_AMMOPICKUP.get(), GrenadesAmmopickupRenderer::new);
-            EntityRenderers.register(ModEntities.ROCKETS_AMMOPICKUP.get(), RocketsAmmopickupRenderer::new);
-            EntityRenderers.register(ModEntities.CELLS_AMMOPICKUP.get(), CellsAmmopickupRenderer::new);
-            EntityRenderers.register(ModEntities.SLUGS_AMMOPICKUP.get(), SlugsAmmopickupRenderer::new);
-            EntityRenderers.register(ModEntities.ADRENALINE_PICKUP.get(), AdrenalinePickupRenderer::new);
-            EntityRenderers.register(ModEntities.MEGAHEALTH_PICKUP.get(), MegahealthPickupRenderer::new);
-            EntityRenderers.register(ModEntities.REBREATHER_PICKUP.get(), RebreatherPickupRenderer::new);
-            EntityRenderers.register(ModEntities.POWERSHIELD_PICKUP.get(), PowershieldPickupRenderer::new);
+            event.registerEntityRenderer(ModEntities.MUZZLE_FLASH.get(), MuzzleflashRenderer::new);
+            event.registerEntityRenderer(ModEntities.LASER_PROJECTILE.get(), LaserProjectileRenderer::new);
+            event.registerEntityRenderer(ModEntities.GRENADELAUNCHER_PROJECTILE.get(), GrenadelauncherProjectileRenderer::new);
+            event.registerEntityRenderer(ModEntities.ROCKETLAUNCHER_PROJECTILE.get(), RocketlauncherProjectileRenderer::new);
+            event.registerEntityRenderer(ModEntities.HANDGRENADE_PROJECTILE.get(), HandgrenadeProjectileRenderer::new);
+            event.registerEntityRenderer(ModEntities.BFG10K_PROJECTILE.get(), Bfg10kProjectileRenderer::new);
+            event.registerEntityRenderer(ModEntities.QUAD_DAMAGE_POWERUP.get(), QuaddamagePowerupRenderer::new);
+            event.registerEntityRenderer(ModEntities.INVULN_POWERUP.get(), InvulnerabilityPowerupRenderer::new);
+            event.registerEntityRenderer(ModEntities.ENVIROSUIT_POWERUP.get(), EnvirosuitPowerupRenderer::new);
+            event.registerEntityRenderer(ModEntities.SILENCER_POWERUP.get(), SilencerPowerupRenderer::new);
+            event.registerEntityRenderer(ModEntities.BULLETS_AMMOPICKUP.get(), BulletsAmmopickupRenderer::new);
+            event.registerEntityRenderer(ModEntities.SHELLS_AMMOPICKUP.get(), ShellsAmmopickupRenderer::new);
+            event.registerEntityRenderer(ModEntities.GRENADES_AMMOPICKUP.get(), GrenadesAmmopickupRenderer::new);
+            event.registerEntityRenderer(ModEntities.ROCKETS_AMMOPICKUP.get(), RocketsAmmopickupRenderer::new);
+            event.registerEntityRenderer(ModEntities.CELLS_AMMOPICKUP.get(), CellsAmmopickupRenderer::new);
+            event.registerEntityRenderer(ModEntities.SLUGS_AMMOPICKUP.get(), SlugsAmmopickupRenderer::new);
+            event.registerEntityRenderer(ModEntities.ADRENALINE_PICKUP.get(), AdrenalinePickupRenderer::new);
+            event.registerEntityRenderer(ModEntities.MEGAHEALTH_PICKUP.get(), MegahealthPickupRenderer::new);
+            event.registerEntityRenderer(ModEntities.REBREATHER_PICKUP.get(), RebreatherPickupRenderer::new);
+            event.registerEntityRenderer(ModEntities.POWERSHIELD_PICKUP.get(), PowershieldPickupRenderer::new);
         }
     }
 
-    @SubscribeEvent
-    @OnlyIn(Dist.CLIENT)
-    public void clientSetup(FMLClientSetupEvent e) {
-    }
-
-    private void commonSetup(final FMLCommonSetupEvent event) {
-
-        event.enqueueWork(ModMessages::register);
-    }
 }

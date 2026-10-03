@@ -35,7 +35,6 @@ public class RebreatherPickupRenderer extends EntityRenderer<RebreatherPickupEnt
         poseStack.scale(1.0f, 1.0f, 1.0f);
         poseStack.mulPose(Axis.XP.rotationDegrees(180f));
 
-
         float ageInTicks = rocketEntity.tickCount + partialTicks;
 
         double bob = Math.sin(ageInTicks * bobbingSpeed) * bobbingHeight;
@@ -45,7 +44,7 @@ public class RebreatherPickupRenderer extends EntityRenderer<RebreatherPickupEnt
         poseStack.mulPose(Axis.YP.rotationDegrees(-rotation));
 
         VertexConsumer $$6 = bufferSource.getBuffer(this.model.renderType(REBREATHERPICKUP_LOCATION));
-        this.model.renderToBuffer(poseStack, $$6, packedLight, OverlayTexture.NO_OVERLAY, 1f, 1f, 1f, 1f);
+        this.model.renderToBuffer(poseStack, $$6, packedLight, OverlayTexture.NO_OVERLAY, 0xFFFFFFFF);
 
         poseStack.popPose();
 

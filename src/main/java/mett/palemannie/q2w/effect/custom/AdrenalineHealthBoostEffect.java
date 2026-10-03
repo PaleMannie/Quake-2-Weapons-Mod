@@ -2,9 +2,6 @@ package mett.palemannie.q2w.effect.custom;
 
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
-import net.minecraft.world.item.ItemStack;
-
-import java.util.List;
 
 public class AdrenalineHealthBoostEffect extends MobEffect {
 
@@ -13,7 +10,7 @@ public class AdrenalineHealthBoostEffect extends MobEffect {
     }
 
     @Override
-    public List<ItemStack> getCurativeItems() {
-        return List.of();
+    public void fillEffectCures(java.util.Set<net.neoforged.neoforge.common.EffectCure> cures, net.minecraft.world.effect.MobEffectInstance instance) {
+        cures.clear();
     }
 }

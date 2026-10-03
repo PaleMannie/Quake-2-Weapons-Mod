@@ -620,7 +620,6 @@ public class ServerPlayHandler {
         ServerLevel sevel = player.serverLevel();
         Level level = player.level();
 
-
         ///Hitscan
         final int PELLETS = 12;
         final double RANGE = 64d;

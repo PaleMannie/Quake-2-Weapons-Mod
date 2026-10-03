@@ -31,7 +31,7 @@ public class HandgrenadeProjectileEntity extends Projectile {
     boolean isOvercookKey;
 
     @Override
-    protected void defineSynchedData() {}
+    protected void defineSynchedData(net.minecraft.network.syncher.SynchedEntityData.Builder builder) {}
 
     @Override
     public boolean isNoGravity() {

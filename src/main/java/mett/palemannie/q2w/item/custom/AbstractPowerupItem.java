@@ -35,7 +35,7 @@ public abstract class AbstractPowerupItem extends Item {
     }
 
     @Nullable
-    public MobEffect getPowerupEffect() {
+    public net.minecraft.core.Holder<MobEffect> getPowerupEffect() {
         return null;
     }
 

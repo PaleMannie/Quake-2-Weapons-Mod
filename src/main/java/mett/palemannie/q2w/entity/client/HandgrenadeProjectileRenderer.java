@@ -27,7 +27,7 @@ public class HandgrenadeProjectileRenderer extends EntityRenderer<HandgrenadePro
         this.model = new HandgrenadeProjectileModel<>(context.bakeLayer(HandgrenadeProjectileModel.HANDGRENADE_LAYER));
     }
 
-   
+
 
     @Override
     public void render(HandgrenadeProjectileEntity grenadeEntity, float entityYaw, float partialTicks, PoseStack poseStack, MultiBufferSource bufferSource, int packedLight) {
@@ -61,7 +61,7 @@ public class HandgrenadeProjectileRenderer extends EntityRenderer<HandgrenadePro
         }
 
         VertexConsumer normal = bufferSource.getBuffer(RenderType.entityCutoutNoCull(GRENADE_LOCATION));
-        this.model.renderToBuffer(poseStack, normal, packedLight, OverlayTexture.NO_OVERLAY, 1, 1, 1, 1);
+        this.model.renderToBuffer(poseStack, normal, packedLight, OverlayTexture.NO_OVERLAY, 0xFFFFFFFF);
         poseStack.popPose();
 
         super.render(grenadeEntity, entityYaw, partialTicks, poseStack, bufferSource, packedLight);

@@ -17,7 +17,6 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
 
-
 public abstract class AbstractQ2Weapon extends AbstractWeapon {
 
     private static final Map<ServerPlayer, WeaponRefireClock<AbstractQ2Weapon>> REFIRE_CLOCKS = new WeakHashMap<>();
@@ -129,7 +128,7 @@ public abstract class AbstractQ2Weapon extends AbstractWeapon {
         checkSpinningWeaponSwitch(serverPlayer);
         if (!serverPlayer.isUsingItem() || serverPlayer.getCooldowns().isOnCooldown(this)) return;
 
-        int useTicks = getUseDuration(stack) - remainingUseDuration;
+        int useTicks = getUseDuration(stack, user) - remainingUseDuration;
 
         heldTick(serverLevel, serverPlayer, stack, useTicks);
 

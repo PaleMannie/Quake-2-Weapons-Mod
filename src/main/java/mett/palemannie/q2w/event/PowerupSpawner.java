@@ -1,6 +1,5 @@
 package mett.palemannie.q2w.event;
 
-
 import mett.palemannie.q2w.Quake2Weapons;
 import mett.palemannie.q2w.Q2WConfig;
 import mett.palemannie.q2w.entity.ModEntities;
@@ -15,10 +14,9 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.event.TickEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.event.config.ModConfigEvent;
+import net.neoforged.neoforge.event.tick.LevelTickEvent;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
 import com.mojang.logging.LogUtils;
 import org.slf4j.Logger;
 
@@ -28,7 +26,7 @@ import java.util.Map;
 import java.util.WeakHashMap;
 import java.util.function.Consumer;
 
-@Mod.EventBusSubscriber(modid = Quake2Weapons.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE)
+@EventBusSubscriber(modid = Quake2Weapons.MODID)
 public class PowerupSpawner {
 
     private static final Logger LOGGER = LogUtils.getLogger();
@@ -44,13 +42,6 @@ public class PowerupSpawner {
 
     private static long tickCounter = 0;
 
-    @SubscribeEvent
-    public static void onConfigReload(ModConfigEvent event) {
-
-        if (event.getConfig().getSpec() == Q2WConfig.SERVER_SPEC) {
-            reloadConfigValues();
-        }
-    }
 
     public static void reloadConfigValues() {
 
@@ -86,24 +77,22 @@ public class PowerupSpawner {
     }
 
     @SubscribeEvent
-    public static void onWorldTick(TickEvent.LevelTickEvent event) {
+    public static void onWorldTick(LevelTickEvent.Post event) {
+        if (event.getLevel().isClientSide) return;
 
         if (!powerupSpawningEnabled) {
             if (debugEnabled) {
 
                 LOGGER.warn("POWERUP SPAWNING DISABLED. DISABLE DEBUG MODE IN SERVER CONFIG OR ENABLE POWERUP SPAWNING");
-                debug(event.level.getServer().overworld(), "POWERUP SPAWNING DISABLED. DISABLE DEBUG MODE IN SERVER CONFIG OR ENABLE POWERUP SPAWNING");
+                debug(event.getLevel().getServer().overworld(), "POWERUP SPAWNING DISABLED. DISABLE DEBUG MODE IN SERVER CONFIG OR ENABLE POWERUP SPAWNING");
             }
             return;
         }
 
-        if (event.phase != TickEvent.Phase.END || event.level.isClientSide) return;
-
         int interval = spawnInterval;
         int attempts = spawnAttempts;
-        ServerLevel level = (ServerLevel) event.level;
+        ServerLevel level = (ServerLevel) event.getLevel();
         long gameTime = level.getGameTime();
-
 
         if ((gameTime % interval) != 0L) {
             return;

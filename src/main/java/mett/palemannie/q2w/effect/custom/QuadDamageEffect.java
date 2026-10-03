@@ -18,9 +18,9 @@ public class QuadDamageEffect extends MobEffect {
     /// Only Expiring sounds here
 
     @Override
-    public void applyEffectTick(LivingEntity entity, int amplifier) {
+    public boolean applyEffectTick(LivingEntity entity, int amplifier) {
 
-        MobEffectInstance inst = entity.getEffect(ModEffects.QUAD_DAMAGE.get());
+        MobEffectInstance inst = entity.getEffect(ModEffects.QUAD_DAMAGE);
         if (inst != null) {
             int remaining = inst.getDuration();
 
@@ -31,10 +31,11 @@ public class QuadDamageEffect extends MobEffect {
                 }
             }
         }
+        return true;
     }
 
     @Override
-    public boolean isDurationEffectTick(int duration, int amplifier) {
+    public boolean shouldApplyEffectTickThisTick(int duration, int amplifier) {
         return true;
     }
 }

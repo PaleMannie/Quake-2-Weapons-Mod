@@ -1,8 +1,8 @@
 package mett.palemannie.q2w.item.custom;
 
+import mett.palemannie.q2w.util.ItemData;
 import mett.palemannie.q2w.item.ModItems;
 import mett.palemannie.q2w.sound.ModSounds;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
@@ -62,24 +62,24 @@ public class PowershieldItem extends Item {
     }
 
     public static boolean isActive(ItemStack stack) {
-        return stack.hasTag() && stack.getTag().getBoolean(ACTIVE_TAG);
+        return ItemData.hasData(stack) && ItemData.read(stack).getBoolean(ACTIVE_TAG);
     }
 
     public static void setActive(ItemStack stack, boolean active) {
 
         if (active) {
-            stack.getOrCreateTag().putBoolean(ACTIVE_TAG, true);
+            ItemData.putBoolean(stack, ACTIVE_TAG, true);
             return;
         }
 
-        if (!stack.hasTag()) {
+        if (!ItemData.hasData(stack)) {
             return;
         }
 
-        stack.getTag().remove(ACTIVE_TAG);
+        ItemData.remove(stack, ACTIVE_TAG);
 
-        if (stack.getTag().isEmpty()) {
-            stack.setTag(null);
+        if (ItemData.read(stack).isEmpty()) {
+            stack.remove(net.minecraft.core.component.DataComponents.CUSTOM_DATA);
         }
     }
 

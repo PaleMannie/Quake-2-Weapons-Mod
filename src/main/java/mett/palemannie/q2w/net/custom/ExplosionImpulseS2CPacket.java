@@ -3,12 +3,18 @@ package mett.palemannie.q2w.net.custom;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.network.NetworkEvent;
-
-import java.util.function.Supplier;
+import net.neoforged.neoforge.network.handling.IPayloadContext;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.resources.ResourceLocation;
 
 /** Adds a blast impulse to the locally predicted player movement. */
-public class ExplosionImpulseS2CPacket {
+public class ExplosionImpulseS2CPacket implements CustomPacketPayload {
+    public static final Type<ExplosionImpulseS2CPacket> TYPE = new Type<>(ResourceLocation.fromNamespaceAndPath("q2w", "explosion_impulse_s2_c_packet"));
+    public static final StreamCodec<FriendlyByteBuf, ExplosionImpulseS2CPacket> STREAM_CODEC = StreamCodec.of((buf, packet) -> packet.toBytes(buf), ExplosionImpulseS2CPacket::new);
+
+    @Override
+    public Type<ExplosionImpulseS2CPacket> type() { return TYPE; }
 
     private final Vec3 impulse;
 
@@ -26,8 +32,7 @@ public class ExplosionImpulseS2CPacket {
         buffer.writeDouble(this.impulse.z);
     }
 
-    public boolean handle(Supplier<NetworkEvent.Context> supplier) {
-        NetworkEvent.Context context = supplier.get();
+    public void handle(IPayloadContext context) {
         context.enqueueWork(() -> {
             var player = Minecraft.getInstance().player;
             if (player == null) return;
@@ -35,7 +40,5 @@ public class ExplosionImpulseS2CPacket {
             player.setDeltaMovement(player.getDeltaMovement().add(this.impulse));
             if (this.impulse.y > 0.0D) player.setOnGround(false);
         });
-        context.setPacketHandled(true);
-        return true;
     }
 }

@@ -2,11 +2,17 @@ package mett.palemannie.q2w.net.custom;
 
 import mett.palemannie.q2w.client.ClientWeaponRecoil;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraftforge.network.NetworkEvent;
+import net.neoforged.neoforge.network.handling.IPayloadContext;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.resources.ResourceLocation;
 
-import java.util.function.Supplier;
+public class WeaponRecoilS2CPacket implements CustomPacketPayload {
+    public static final Type<WeaponRecoilS2CPacket> TYPE = new Type<>(ResourceLocation.fromNamespaceAndPath("q2w", "weapon_recoil_s2_c_packet"));
+    public static final StreamCodec<FriendlyByteBuf, WeaponRecoilS2CPacket> STREAM_CODEC = StreamCodec.of((buf, packet) -> packet.toBytes(buf), WeaponRecoilS2CPacket::new);
 
-public class WeaponRecoilS2CPacket {
+    @Override
+    public Type<WeaponRecoilS2CPacket> type() { return TYPE; }
 
     private final float pitchKick;
     private final float rollKick;
@@ -30,14 +36,11 @@ public class WeaponRecoilS2CPacket {
         buf.writeFloat(this.yawKick);
     }
 
-    public boolean handle(Supplier<NetworkEvent.Context> supplier) {
-        NetworkEvent.Context context = supplier.get();
+    public void handle(IPayloadContext context) {
 
         context.enqueueWork(() -> {
             ClientWeaponRecoil.kick(this.pitchKick, this.rollKick, this.yawKick);
         });
 
-        context.setPacketHandled(true);
-        return true;
     }
 }

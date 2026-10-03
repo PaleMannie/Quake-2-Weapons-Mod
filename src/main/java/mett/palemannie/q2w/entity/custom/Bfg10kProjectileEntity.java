@@ -40,7 +40,6 @@ public class Bfg10kProjectileEntity extends Projectile {
     private static final EntityDataAccessor<Boolean> EXPLODING =
             SynchedEntityData.defineId(Bfg10kProjectileEntity.class, EntityDataSerializers.BOOLEAN);
 
-
     public static final float SPEED_BLOCKS_PER_TICK = 0.625f;
     private static final double LASER_SEARCH_RADIUS = 8d;
     private static final double LASER_TRACE_RANGE = 64d;
@@ -69,8 +68,8 @@ public class Bfg10kProjectileEntity extends Projectile {
     }
 
     @Override
-    protected void defineSynchedData() {
-        this.entityData.define(EXPLODING, false);
+    protected void defineSynchedData(net.minecraft.network.syncher.SynchedEntityData.Builder builder) {
+        builder.define(EXPLODING, false);
     }
 
     public boolean isExploding() {
