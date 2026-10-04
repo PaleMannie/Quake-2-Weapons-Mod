@@ -1,122 +1,39 @@
 package mett.palemannie.q2w.event;
 
-import mett.palemannie.q2w.Quake2Weapons;
 import mett.palemannie.q2w.effect.ModEffects;
+import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.player.LocalPlayer;
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.util.Mth;
 import net.minecraft.world.effect.MobEffectInstance;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.neoforge.client.event.RenderGuiEvent;
-import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.common.EventBusSubscriber;
 
-@EventBusSubscriber(modid = Quake2Weapons.MODID, value = Dist.CLIENT)
-public class EffectOverlayRenderClientEvent {
-    @SubscribeEvent
-    public static void onRenderOverlay(RenderGuiEvent.Post event) {
+/** Full-screen powerup tint, drawn once as the top HUD layer. */
+public final class EffectOverlayRenderClientEvent {
+    private EffectOverlayRenderClientEvent() {}
 
-        /// Color added to GUI while on Quake effects
+    public static void render(GuiGraphics graphics, DeltaTracker deltaTracker) {
+        Minecraft minecraft = Minecraft.getInstance();
+        if (minecraft.player == null || minecraft.level == null || minecraft.options.hideGui) return;
 
-        Minecraft mc = Minecraft.getInstance();
-        LocalPlayer player = mc.player;
+        float time = (minecraft.level.getGameTime() % 20)
+                + deltaTracker.getGameTimeDeltaPartialTick(true);
+        drawEffect(graphics, minecraft.player.getEffect(ModEffects.QUAD_DAMAGE), time, 0x3D70F2);
+        drawEffect(graphics, minecraft.player.getEffect(ModEffects.INVULNERABILITY), time, 0xFFD600);
+        drawEffect(graphics, minecraft.player.getEffect(ModEffects.ENVIROSUIT), time, 0x00FF7F);
+    }
 
-        /// Quad Damage
-        if (player != null && player.hasEffect(ModEffects.QUAD_DAMAGE)) {
+    private static void drawEffect(GuiGraphics graphics, MobEffectInstance effect, float time, int rgb) {
+        if (effect == null) return;
 
-            MobEffectInstance inst = player.getEffect(ModEffects.QUAD_DAMAGE);
-            if (inst == null) return;
-
-            int remaining = inst.getDuration();
-            long gameTime = mc.level.getGameTime();
-
-            float r, g, b, alpha;
-            r = 0.24f;
-            g = 0.44f;
-            b = 0.95f;
-
-            if (remaining > 60) {
-                alpha = 0.01f;
-
-            } else {
-                alpha = 0.01f + 0.025f * (0.25f * (1.0f + Mth.sin((gameTime % 20) / 20.0f * Mth.TWO_PI)));
-            }
-
-            int screenW = mc.getWindow().getGuiScaledWidth();
-            int screenH = mc.getWindow().getGuiScaledHeight();
-
-            int color = ((int)(alpha * 255) << 24) |
-                    ((int)(r * 255) << 16) |
-                    ((int)(g * 255) << 8) |
-                    (int)(b * 255);
-
-            event.getGuiGraphics().fill(0, 0, screenW, screenH, color);
+        // The old Forge callback blended a 1% tint repeatedly, once per HUD element.
+        // A single NeoForge layer needs a visible opacity of its own.
+        float alpha = 0.15f;
+        if (!effect.isInfiniteDuration() && effect.getDuration() <= 60) {
+            alpha += 0.10f * (0.5f + 0.5f * Mth.sin(time / 20.0f * Mth.TWO_PI));
         }
-
-        /// Pentagram of Protection
-        if (player != null && player.hasEffect(ModEffects.INVULNERABILITY)) {
-
-            MobEffectInstance inst = player.getEffect(ModEffects.INVULNERABILITY);
-            if (inst == null) return;
-
-            int remaining = inst.getDuration();
-            long gameTime = mc.level.getGameTime();
-
-            float r, g, b, alpha;
-            r = 1f;
-            g = 0.84f;
-            b = 0f;
-
-            if (remaining > 60) {
-
-                alpha = 0.01f;
-            } else {
-
-                alpha = 0.01f + 0.025f * (0.25f * (1.0f + Mth.sin((gameTime % 20) / 20.0f * Mth.TWO_PI)));
-            }
-
-            int screenW = mc.getWindow().getGuiScaledWidth();
-            int screenH = mc.getWindow().getGuiScaledHeight();
-
-            int color = ((int)(alpha * 255) << 24) |
-                    ((int)(r * 255) << 16) |
-                    ((int)(g * 255) << 8) |
-                    (int)(b * 255);
-
-            event.getGuiGraphics().fill(0, 0, screenW, screenH, color);
-        }
-
-        ///Envirosuit
-        if (player != null && player.hasEffect(ModEffects.ENVIROSUIT)) {
-
-            MobEffectInstance inst = player.getEffect(ModEffects.ENVIROSUIT);
-            if (inst == null) return;
-
-            int remaining = inst.getDuration();
-            long gameTime = mc.level.getGameTime();
-
-            float r, g, b, alpha;
-            r = 0f;
-            g = 1f;
-            b = 0.5f;
-
-            if (remaining > 60) {
-
-                alpha = 0.01f;
-            } else {
-
-                alpha = 0.01f + 0.025f * (0.25f * (1.0f + Mth.sin((gameTime % 20) / 20.0f * Mth.TWO_PI)));
-            }
-
-            int screenW = mc.getWindow().getGuiScaledWidth();
-            int screenH = mc.getWindow().getGuiScaledHeight();
-
-            int color = ((int)(alpha * 255) << 24) |
-                    ((int)(r * 255) << 16) |
-                    ((int)(g * 255) << 8) |
-                    (int)(b * 255);
-
-            event.getGuiGraphics().fill(0, 0, screenW, screenH, color);
-        }
+        int color = (Math.round(alpha * 255) << 24) | rgb;
+        // Avoid depth occlusion by HUD elements already drawn in earlier layers.
+        graphics.fill(RenderType.guiOverlay(), 0, 0, graphics.guiWidth(), graphics.guiHeight(), color);
     }
 }

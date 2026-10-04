@@ -342,8 +342,8 @@ public class Bfg10kProjectileEntity extends Projectile {
 
         if (directTarget instanceof LivingEntity livingTarget && isEligibleTarget(livingTarget)) {
 
-            livingTarget.hurt(level.damageSources().source(DamageTypes.PLAYER_ATTACK, this.getOwner(), this.getOwner()), Float.MIN_VALUE);
-            livingTarget.hurt(level.damageSources().source(ModDamageTypes.BFG10K_DAMAGE, null, null), Q2WConfigStats.applyQuadDamage(DIRECT_BLAST_DAMAGE, this.getOwner()));
+            hurtWithScaledKnockback(livingTarget, level.damageSources().source(DamageTypes.PLAYER_ATTACK, this.getOwner(), this.getOwner()), Float.MIN_VALUE, 0.0D);
+            hurtWithScaledKnockback(livingTarget, level.damageSources().source(ModDamageTypes.BFG10K_DAMAGE, null, null), Q2WConfigStats.applyQuadDamage(DIRECT_BLAST_DAMAGE, this.getOwner()), 0.0D);
         }
 
         doBlastRadiusDamage(level, directTarget);
@@ -388,10 +388,6 @@ public class Bfg10kProjectileEntity extends Projectile {
 
         for (LivingEntity entity : level.getEntitiesOfClass(LivingEntity.class, area, Bfg10kProjectileEntity::isEligibleTarget)) {
 
-            if (entity == directTarget) {
-                continue;
-            }
-
             Vec3 targetPoint = entity.getBoundingBox().getCenter();
             double distance = targetPoint.distanceTo(center);
 
@@ -414,14 +410,13 @@ public class Bfg10kProjectileEntity extends Projectile {
                 damage *= Q2WConfig.COMMON.explosionSelfDamageMultiplier.get().floatValue();
             }
 
-            Q2ExplosionHelper.applyExplosionImpulse(level, entity, center, BLAST_RADIUS, owner, owner);
-
-            if (damage <= 0.0F) {
-                continue;
+            // Only the radial explosion impulse should move targets, including direct hits.
+            if (entity != directTarget && damage > 0.0F) {
+                hurtWithScaledKnockback(entity, creditSource, Float.MIN_VALUE, 0.0D);
+                hurtWithScaledKnockback(entity, bfgSource, damage, 0.0D);
             }
 
-            entity.hurt(creditSource, Float.MIN_VALUE);
-            entity.hurt(bfgSource, damage);
+            Q2ExplosionHelper.applyExplosionImpulse(level, entity, center, BLAST_RADIUS, owner, owner);
         }
     }
 
@@ -491,8 +486,9 @@ public class Bfg10kProjectileEntity extends Projectile {
                 continue;
             }
 
-            entity.hurt(source, Float.MIN_VALUE);
-            entity.hurt(source2, Q2WConfigStats.applyQuadDamage(damage, owner));
+            // The delayed flash must preserve the blast's outward movement.
+            hurtWithScaledKnockback(entity, source, Float.MIN_VALUE, 0.0D);
+            hurtWithScaledKnockback(entity, source2, Q2WConfigStats.applyQuadDamage(damage, owner), 0.0D);
             spawnBfgEffectHitParticles(level, entity);
         }
     }
