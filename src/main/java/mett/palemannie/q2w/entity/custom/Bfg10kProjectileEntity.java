@@ -343,8 +343,9 @@ public class Bfg10kProjectileEntity extends Projectile {
 
         if (directTarget instanceof LivingEntity livingTarget && isEligibleTarget(livingTarget)) {
 
-            livingTarget.hurt(level.damageSources().source(DamageTypes.PLAYER_ATTACK, this.getOwner(), this.getOwner()), Float.MIN_VALUE);
-            livingTarget.hurt(level.damageSources().source(ModDamageTypes.BFG10K_DAMAGE, null, null), Q2WConfigStats.applyQuadDamage(DIRECT_BLAST_DAMAGE, this.getOwner()));
+            hurtWithoutKnockback(level, livingTarget, level.damageSources().source(DamageTypes.PLAYER_ATTACK, this.getOwner(), this.getOwner()), Float.MIN_VALUE);
+            hurtWithoutKnockback(level, livingTarget, level.damageSources().source(ModDamageTypes.BFG10K_DAMAGE, null, null), Q2WConfigStats.applyQuadDamage(DIRECT_BLAST_DAMAGE, this.getOwner()));
+            QWExplosionHelper.applyExplosionImpulse(level, livingTarget, this.position(), BLAST_RADIUS, this.getOwner(), this.getOwner());
         }
 
         doBlastRadiusDamage(level, directTarget);
@@ -415,15 +416,13 @@ public class Bfg10kProjectileEntity extends Projectile {
                 damage *= Q2WConfig.COMMON.explosionSelfDamageMultiplier.get().floatValue();
             }
 
-            // Blast movement remains active even when self damage is configured to zero.
-            QWExplosionHelper.applyExplosionImpulse(level, entity, center, BLAST_RADIUS, owner, owner);
-
-            if (damage <= 0.0F) {
-                continue;
+            if (damage > 0.0F) {
+                hurtWithoutKnockback(level, entity, creditSource, Float.MIN_VALUE);
+                hurtWithoutKnockback(level, entity, bfgSource, damage);
             }
 
-            entity.hurt(creditSource, Float.MIN_VALUE);
-            entity.hurt(bfgSource, damage);
+            // Blast movement remains active even when self damage is configured to zero.
+            QWExplosionHelper.applyExplosionImpulse(level, entity, center, BLAST_RADIUS, owner, owner);
         }
     }
 
@@ -493,10 +492,21 @@ public class Bfg10kProjectileEntity extends Projectile {
                 continue;
             }
 
-            entity.hurt(source, Float.MIN_VALUE);
-            entity.hurt(source2, Q2WConfigStats.applyQuadDamage(damage, owner));
+            hurtWithoutKnockback(level, entity, source, Float.MIN_VALUE);
+            hurtWithoutKnockback(level, entity, source2, Q2WConfigStats.applyQuadDamage(damage, owner));
+            QWExplosionHelper.applyExplosionImpulse(level, entity, center, FLASH_RADIUS, owner, owner);
             spawnBfgEffectHitParticles(level, entity);
         }
+    }
+
+    private static void hurtWithoutKnockback(ServerLevel level, LivingEntity target, DamageSource source, float damage) {
+        // Damage credit must not add shooter-relative (or random self-hit) knockback.
+        // The explosion helper applies and synchronizes the radial impulse separately.
+        Vec3 motionBefore = target.getDeltaMovement();
+        boolean hurtMarkedBefore = target.hurtMarked;
+        target.hurtServer(level, source, damage);
+        target.setDeltaMovement(motionBefore);
+        target.hurtMarked = hurtMarkedBefore;
     }
 
     private boolean hasBlockLineOfSight(ServerLevel level, Vec3 from, Vec3 to) {
