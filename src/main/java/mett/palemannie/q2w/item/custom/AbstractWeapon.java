@@ -32,6 +32,12 @@ public abstract class AbstractWeapon extends Item implements GeoItem {
         return null;
     }
 
+    /** Ammunition accepted by this weapon, including compatible items. */
+    public boolean acceptsAmmo(ItemStack stack) {
+        Item ammo = getAmmoItem();
+        return ammo != null && !stack.isEmpty() && stack.is(ammo);
+    }
+
     protected final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
 
     protected static final String SHOOT_CONTROLLER = "shoot_controller";

@@ -105,6 +105,12 @@ public abstract class AbstractQ2Weapon extends AbstractWeapon {
         return null;
     }
 
+    @Override
+    public boolean acceptsAmmo(ItemStack stack) {
+        TagKey<Item> tag = ammoTag();
+        return super.acceptsAmmo(stack) || !stack.isEmpty() && tag != null && stack.is(tag);
+    }
+
     protected int shotsPerTrigger(ServerLevel level, ServerPlayer player, ItemStack stack, int useTicks) {
         return 1;
     }
