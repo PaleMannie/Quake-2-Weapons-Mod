@@ -17,7 +17,6 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -306,33 +305,12 @@ public class Bfg10kProjectileEntity extends Projectile {
 
         hits.sort(Comparator.comparingDouble(e -> e.distanceToSqr(this)));
 
-        DamageSource source = level.damageSources().source(ModDamageTypes.BFG10K_LASER_DAMAGE, null, null);
-        DamageSource source2 = level.damageSources().source(DamageTypes.PLAYER_ATTACK, this.getOwner(), this.getOwner());
+        DamageSource source = level.damageSources().source(ModDamageTypes.BFG10K_LASER_DAMAGE, this, this.getOwner());
 
         for (LivingEntity living : hits) {
-            hurtWithScaledKnockback(living ,source2, Float.MIN_VALUE, 0.1f);
-            hurtWithScaledKnockback(living ,source, Q2WConfigStats.applyQuadDamage(LASER_DAMAGE, this.getOwner()), 0.1f);
+            living.hurtServer(level, source, LASER_DAMAGE);
 
         }
-    }
-
-    private static boolean hurtWithScaledKnockback(LivingEntity target, DamageSource damageSource, float damage, double knockbackScale) {
-
-        Vec3 motionBefore = target.getDeltaMovement();
-
-        boolean hurt = target.hurtServer((ServerLevel) target.level(), damageSource, damage);
-
-        if (hurt) {
-
-            Vec3 motionAfter = target.getDeltaMovement();
-            Vec3 addedKnockback = motionAfter.subtract(motionBefore);
-            Vec3 scaledMotion = motionBefore.add(addedKnockback.scale(knockbackScale));
-
-            target.setDeltaMovement(scaledMotion);
-            target.needsSync = true;
-        }
-
-        return hurt;
     }
 
     private void impact(ServerLevel level, Entity directTarget) {
@@ -343,8 +321,14 @@ public class Bfg10kProjectileEntity extends Projectile {
 
         if (directTarget instanceof LivingEntity livingTarget && isEligibleTarget(livingTarget)) {
 
-            livingTarget.hurt(level.damageSources().source(DamageTypes.PLAYER_ATTACK, this.getOwner(), this.getOwner()), Float.MIN_VALUE);
-            livingTarget.hurt(level.damageSources().source(ModDamageTypes.BFG10K_DAMAGE, null, null), Q2WConfigStats.applyQuadDamage(DIRECT_BLAST_DAMAGE, this.getOwner()));
+            float damage = DIRECT_BLAST_DAMAGE;
+            if (livingTarget == this.getOwner()) {
+                damage *= Q2WConfig.COMMON.explosionSelfDamageMultiplier.get().floatValue();
+            }
+            if (damage > 0.0F) {
+                livingTarget.hurtServer(level,
+                        level.damageSources().source(ModDamageTypes.BFG10K_DAMAGE, this, this.getOwner()), damage);
+            }
         }
 
         doBlastRadiusDamage(level, directTarget);
@@ -383,9 +367,8 @@ public class Bfg10kProjectileEntity extends Projectile {
                 center.z + BLAST_RADIUS
         );
 
-        DamageSource creditSource = level.damageSources().source(DamageTypes.PLAYER_ATTACK, this, owner);
-
-        DamageSource bfgSource = level.damageSources().source(ModDamageTypes.BFG10K_DAMAGE, this, null);
+        // Credit the real hit to the owner; ModEvents applies Quad Damage once.
+        DamageSource bfgSource = level.damageSources().source(ModDamageTypes.BFG10K_DAMAGE, this, owner);
 
         for (LivingEntity entity : level.getEntitiesOfClass(LivingEntity.class, area, Bfg10kProjectileEntity::isEligibleTarget)) {
 
@@ -406,24 +389,17 @@ public class Bfg10kProjectileEntity extends Projectile {
                 continue;
             }
 
-            float damage = Q2WConfigStats.applyQuadDamage(
-                    RADIUS_BLAST_DAMAGE * scale,
-                    owner
-            );
+            float damage = RADIUS_BLAST_DAMAGE * scale;
 
             if (entity == owner) {
                 damage *= Q2WConfig.COMMON.explosionSelfDamageMultiplier.get().floatValue();
             }
 
-            // Blast movement remains active even when self damage is configured to zero.
-            QWExplosionHelper.applyExplosionImpulse(level, entity, center, BLAST_RADIUS, owner, owner);
-
-            if (damage <= 0.0F) {
-                continue;
+            if (damage > 0.0F) {
+                entity.hurtServer(level, bfgSource, damage);
             }
-
-            entity.hurt(creditSource, Float.MIN_VALUE);
-            entity.hurt(bfgSource, damage);
+            // Apply outward movement after damage, including when self damage is disabled.
+            QWExplosionHelper.applyExplosionImpulse(level, entity, center, BLAST_RADIUS, owner, owner);
         }
     }
 
@@ -461,8 +437,7 @@ public class Bfg10kProjectileEntity extends Projectile {
                 center.z + FLASH_RADIUS
         );
 
-        DamageSource source = level.damageSources().source(DamageTypes.PLAYER_ATTACK, this.getOwner(), this.getOwner());
-        DamageSource source2 = level.damageSources().source(ModDamageTypes.BFG10K_FLASH_DAMAGE, null, null);
+        DamageSource source = level.damageSources().source(ModDamageTypes.BFG10K_FLASH_DAMAGE, this, this.getOwner());
 
         for (LivingEntity entity : level.getEntitiesOfClass(LivingEntity.class, area, Bfg10kProjectileEntity::isEligibleTarget)) {
 
@@ -493,8 +468,7 @@ public class Bfg10kProjectileEntity extends Projectile {
                 continue;
             }
 
-            entity.hurt(source, Float.MIN_VALUE);
-            entity.hurt(source2, Q2WConfigStats.applyQuadDamage(damage, owner));
+            entity.hurtServer(level, source, damage);
             spawnBfgEffectHitParticles(level, entity);
         }
     }

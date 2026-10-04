@@ -1,0 +1,60 @@
+[03Okt.2026 13:58:22.443] [main/INFO] [cpw.mods.modlauncher.Launcher/MODLAUNCHER]: ModLauncher running: args [--launchTarget, forgeserverdev, --gameDir, ., --fml.fmlVersion, 4.0.44, --fml.mcVersion, 1.21.1, --fml.neoForgeVersion, 21.1.252, --fml.neoFormVersion, 20240808.144430]
+[03Okt.2026 13:58:22.449] [main/INFO] [cpw.mods.modlauncher.Launcher/MODLAUNCHER]: JVM identified as Eclipse Adoptium OpenJDK 64-Bit Server VM 21.0.4+7-LTS
+[03Okt.2026 13:58:22.451] [main/INFO] [cpw.mods.modlauncher.Launcher/MODLAUNCHER]: ModLauncher 11.0.5+main.901c6ea8 starting: java version 21.0.4 by Eclipse Adoptium; OS Windows 10 arch amd64 version 10.0
+[03Okt.2026 13:58:22.663] [main/INFO] [net.neoforged.fml.loading.ImmediateWindowHandler/]: ImmediateWindowProvider not loading because launch target is forgeserverdev
+[03Okt.2026 13:58:22.734] [main/INFO] [mixin/]: SpongePowered MIXIN Subsystem Version=0.8.7 Source=union:/C:/Users/User/.gradle/caches/modules-2/files-2.1/net.fabricmc/sponge-mixin/0.15.2+mixin.0.8.7/2af2f021d8e02a0220dc27a7a72b4666d66d44ca/sponge-mixin-0.15.2+mixin.0.8.7.jar%2394!/ Service=ModLauncher Env=SERVER
+[03Okt.2026 13:58:23.694] [main/INFO] [net.neoforged.fml.loading.moddiscovery.locators.JarInJarDependencyLocator/]: Found 2 dependencies adding them to mods collection
+[03Okt.2026 13:58:23.698] [main/INFO] [net.neoforged.fml.loading.moddiscovery.ModDiscoverer/]: 
+     Mod List:
+		Name Version (Mod Id)
+
+		GeckoLib 4 4.7.6 (geckolib)
+		Minecraft 1.21.1 (minecraft)
+		NeoForge 21.1.252 (neoforge)
+		Quake 2 Weapons 1.2v-1.21.1 (q2w)
+[03Okt.2026 13:58:25.879] [main/INFO] [mixin/]: Compatibility level set to JAVA_21
+[03Okt.2026 13:58:25.891] [main/INFO] [cpw.mods.modlauncher.LaunchServiceHandler/MODLAUNCHER]: Launching target 'forgeserverdev' with arguments [--gameDir, .]
+[03Okt.2026 13:58:26.031] [main/WARN] [mixin/]: Reference map 'geckolib.refmap.json' for geckolib.mixins.json could not be read. If this is a development environment you can ignore this message
+[03Okt.2026 13:58:28.879] [main/INFO] [MixinExtras|Service/]: Initializing MixinExtras via com.llamalad7.mixinextras.service.MixinExtrasServiceImpl(version=0.5.3).
+[03Okt.2026 13:58:40.106] [main/WARN] [net.minecraft.commands.Commands/]: Ambiguity between arguments [teleport, location] and [teleport, destination] with inputs: [0.1 -0.5 .9, 0 0 0]
+[03Okt.2026 13:58:40.109] [main/WARN] [net.minecraft.commands.Commands/]: Ambiguity between arguments [teleport, location] and [teleport, targets] with inputs: [0.1 -0.5 .9, 0 0 0]
+[03Okt.2026 13:58:40.113] [main/WARN] [net.minecraft.commands.Commands/]: Ambiguity between arguments [teleport, destination] and [teleport, targets] with inputs: [Player, 0123, @e, dd12be42-52a9-4a91-a8a1-11c01849e498]
+[03Okt.2026 13:58:40.117] [main/WARN] [net.minecraft.commands.Commands/]: Ambiguity between arguments [teleport, targets] and [teleport, destination] with inputs: [Player, 0123, dd12be42-52a9-4a91-a8a1-11c01849e498]
+[03Okt.2026 13:58:40.120] [main/WARN] [net.minecraft.commands.Commands/]: Ambiguity between arguments [teleport, targets, location] and [teleport, targets, destination] with inputs: [0.1 -0.5 .9, 0 0 0]
+[03Okt.2026 13:58:40.239] [modloading-worker-0/INFO] [net.neoforged.neoforge.common.NeoForgeMod/NEOFORGE-MOD]: NeoForge mod loading, version 21.1.252, for MC 1.21.1
+[03Okt.2026 13:58:41.108] [main/INFO] [com.mojang.authlib.yggdrasil.YggdrasilAuthenticationService/]: Environment: Environment[sessionHost=https://sessionserver.mojang.com, servicesHost=https://api.minecraftservices.com, name=PROD]
+[03Okt.2026 13:58:41.294] [main/WARN] [net.minecraft.server.packs.VanillaPackResourcesBuilder/]: Assets URL 'union:/G:/Minecraft%20Modifikationsfabrik/Quake%202%20Weapons/build/moddev/artifacts/neoforge-21.1.252.jar%23125!/assets/.mcassetsroot' uses unexpected schema
+[03Okt.2026 13:58:41.295] [main/WARN] [net.minecraft.server.packs.VanillaPackResourcesBuilder/]: Assets URL 'union:/G:/Minecraft%20Modifikationsfabrik/Quake%202%20Weapons/build/moddev/artifacts/neoforge-21.1.252.jar%23125!/data/.mcassetsroot' uses unexpected schema
+[03Okt.2026 13:58:41.313] [main/INFO] [net.neoforged.neoforge.gametest.GameTestHooks/]: Enabled Gametest Namespaces: [q2w]
+[03Okt.2026 13:58:43.922] [main/INFO] [net.minecraft.world.item.crafting.RecipeManager/]: Loaded 1310 recipes
+[03Okt.2026 13:58:44.204] [main/INFO] [net.minecraft.advancements.AdvancementTree/]: Loaded 1400 advancements
+[03Okt.2026 13:58:45.177] [Server thread/INFO] [mett.palemannie.q2w.event.PowerupSpawner/]: [Quake2Weapons] PowerupSpawner config reloaded:
+[03Okt.2026 13:58:45.178] [Server thread/INFO] [mett.palemannie.q2w.event.PowerupSpawner/]: interval=600 | attempts=5 | radius=5 | debug=false | enablePowerups=true, maxNearbyPowerups=4
+[03Okt.2026 13:58:45.178] [Server thread/INFO] [mett.palemannie.q2w.event.PowerupSpawner/]: [Quake2Weapons] Config values after load: powerupSpawnInterval=600, powerupSpawnAttempts=5, powerupSpawnSearchRadius=5, enablePowerups=true, powerupDebug=false, maxNearbyPowerups=net.neoforged.neoforge.common.ModConfigSpec$IntValue@223e0e8
+[03Okt.2026 13:58:45.178] [Server thread/INFO] [mett.palemannie.q2w.Quake2Weapons/]: [Quake2Weapons] Power Shield config reloaded:
+[03Okt.2026 13:58:45.179] [Server thread/INFO] [mett.palemannie.q2w.Quake2Weapons/]: powershieldAbsorbRatio=0.66 | powershieldDamagePreCellConsumed=2.0
+[03Okt.2026 13:58:45.179] [Server thread/INFO] [mett.palemannie.q2w.Quake2Weapons/]: [Quake2Weapons] Config values after load: powershieldAbsorbRatio=0.66 | powershieldDamagePreCellConsumed=2.0
+[03Okt.2026 13:58:45.624] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Preparing start region for dimension minecraft:overworld
+[03Okt.2026 13:58:45.761] [worldgen/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 2%
+[03Okt.2026 13:58:45.887] [Server thread/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Time elapsed: 262 ms
+[03Okt.2026 13:58:45.906] [Server thread/INFO] [net.minecraft.gametest.framework.GameTestServer/]: Started game test server
+[03Okt.2026 13:58:45.938] [Server thread/INFO] [net.neoforged.neoforge.server.permission.PermissionAPI/]: Successfully initialized permission handler neoforge:default_handler
+[03Okt.2026 13:58:46.018] [Server thread/INFO] [net.minecraft.gametest.framework.GameTestServer/]: 4 tests are now running at position 6895167, -59, -2875428!
+[03Okt.2026 13:58:46.731] [Server thread/INFO] [net.minecraft.gametest.framework.GameTestRunner/]: Running test batch 'defaultBatch:0' (4 tests)...
+[03Okt.2026 13:58:46.895] [Server thread/INFO] [net.minecraft.gametest.framework.GameTestServer/]: [    ]
+[03Okt.2026 13:58:47.003] [Server thread/INFO] [net.minecraft.gametest.framework.GameTestServer/]: [    ]
+[03Okt.2026 13:58:47.053] [Server thread/INFO] [net.minecraft.gametest.framework.GameTestServer/]: [++++]
+[03Okt.2026 13:58:47.055] [Server thread/INFO] [net.minecraft.gametest.framework.GameTestServer/]: ========= 4 GAME TESTS COMPLETE IN 1.035 s ======================
+[03Okt.2026 13:58:47.055] [Server thread/INFO] [net.minecraft.gametest.framework.GameTestServer/]: All 4 required tests passed :)
+[03Okt.2026 13:58:47.056] [Server thread/INFO] [net.minecraft.gametest.framework.GameTestServer/]: ====================================================
+[03Okt.2026 13:58:47.077] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Stopping server
+[03Okt.2026 13:58:47.078] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving players
+[03Okt.2026 13:58:47.078] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving worlds
+[03Okt.2026 13:58:48.088] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[Test Level]'/minecraft:overworld
+[03Okt.2026 13:58:48.793] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[Test Level]'/minecraft:the_end
+[03Okt.2026 13:58:48.801] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[Test Level]'/minecraft:the_nether
+[03Okt.2026 13:58:48.829] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: ThreadedAnvilChunkStorage (world): All chunks are saved
+[03Okt.2026 13:58:48.830] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: ThreadedAnvilChunkStorage (DIM1): All chunks are saved
+[03Okt.2026 13:58:48.830] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: ThreadedAnvilChunkStorage (DIM-1): All chunks are saved
+[03Okt.2026 13:58:48.830] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: ThreadedAnvilChunkStorage: All dimensions are saved
+[03Okt.2026 13:58:48.860] [Server thread/INFO] [net.minecraft.gametest.framework.GameTestServer/]: Game test server shutting down

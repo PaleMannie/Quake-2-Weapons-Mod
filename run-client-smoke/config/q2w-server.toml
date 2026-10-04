@@ -1,0 +1,71 @@
+["Powerup Spawner values"]
+	#
+	#Enables automatic spawning of powerups, pickups, ammo and health near players.
+	enablePowerups = true
+	#
+	#Reports successful spawns and failed spawn attempts in chat and the server console.
+	#Chat messages are sent to all players in the affected dimension.
+	powerupDebug = false
+	#
+	#Duration of powerup effects, in game ticks.
+	#At normal game speed, 20 ticks = 1 second; 600 ticks = 30 seconds.
+	# Default: 600
+	# Range: 1 ~ 2147483646
+	powerupEffectDuration = 600
+	#
+	#Time before an uncollected powerup or pickup despawns, in game ticks.
+	#At normal game speed, 20 ticks = 1 second; 6000 ticks = 5 minutes.
+	# Default: 6000
+	# Range: 1 ~ 2147483646
+	powerupLifetime = 6000
+	#
+	#Interval between automatic spawn attempt rounds, in game ticks.
+	#Each round performs the configured number of attempts for every player.
+	#An attempt only spawns a pickup if a suitable location is found.
+	#At normal game speed, 600 ticks = 30 seconds.
+	# Default: 600
+	# Range: 20 ~ 2147483646
+	powerupSpawnInterval = 600
+	#
+	#Number of spawn attempts per player during each spawn round.
+	#Each attempt can spawn one pickup. Failed attempts do not spawn anything.
+	#Higher values increase spawn opportunities and server workload.
+	# Default: 5
+	# Range: 1 ~ 512
+	powerupSpawnAttempts = 5
+	#
+	#Search distance in blocks along each axis around a randomly chosen spawn candidate.
+	#This controls the local search area, not the distance from the player.
+	#Higher values search more blocks and can significantly increase server workload.
+	# Default: 5
+	# Range: 1 ~ 512
+	powerupSpawnSearchRadius = 5
+	#Maximum automatically spawned powerups and pickups within 128 blocks of a player. Includes ammo and health.
+	#Manually placed pickups do not count. Existing pickups are not removed when lowering this limit.
+	# Default: 4
+	# Range: > 1
+	maxNearbyPowerups = 4
+
+["Weapon aggro values"]
+	#
+	#Distance in blocks within which monsters target a player firing a Quake weapon or holding a loud weapon.
+	#An active Silencer prevents this weapon-triggered aggression.
+	#Set to 0 to disable weapon-triggered aggression.
+	# Default: 24
+	# Range: 0 ~ 256
+	weaponAggroRange = 24
+
+["Power Shield values"]
+	#
+	#Fraction of incoming damage absorbed by an active Power Shield, limited by available Cells.
+	#0.0 = 0%, 0.66 = 66%, 1.0 = 100%.
+	# Default: 0.66
+	# Range: 0.0 ~ 1.0
+	powershieldAbsorbRatio = 0.66
+	#
+	#Damage points absorbed per Cell consumed by the Power Shield.
+	#Higher values make each Cell last longer. 2 damage points = 1 heart.
+	#Cell consumption is rounded up to whole Cells for each hit.
+	# Default: 2.0
+	# Range: 0.0 ~ 1.7976931348623157E308
+	powershieldDamagePreCellConsumed = 2.0

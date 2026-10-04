@@ -1,0 +1,210 @@
+src/main/java/mett/palemannie/q2w/item\custom\AbstractPowerupItem.java:38:    public MobEffect getPowerupEffect() {
+src/main/java/mett/palemannie/q2w/item\custom\Bfg10kItem.java:36:import java.util.UUID;
+src/main/java/mett/palemannie/q2w/item\custom\Bfg10kItem.java:77:    private final Map<UUID, BfgState> states = new HashMap<>();
+src/main/java/mett/palemannie/q2w/item\custom\Bfg10kItem.java:118:            UUID uuid = serverPlayer.getUUID();
+src/main/java/mett/palemannie/q2w/item\custom\Bfg10kItem.java:155:        BfgState state = states.get(player.getUUID());
+src/main/java/mett/palemannie/q2w/item\custom\Bfg10kItem.java:163:            states.remove(player.getUUID());
+src/main/java/mett/palemannie/q2w/item\custom\Bfg10kItem.java:175:        states.put(player.getUUID(), state);
+src/main/java/mett/palemannie/q2w/item\custom\Bfg10kItem.java:216:                        states.remove(player.getUUID());
+src/main/java/mett/palemannie/q2w/item\custom\Bfg10kItem.java:222:                    states.remove(player.getUUID());
+src/main/java/mett/palemannie/q2w/item\custom\Bfg10kItem.java:232:            states.remove(player.getUUID());
+src/main/java/mett/palemannie/q2w/item\custom\AbstractWeapon.java:107:            livingEntity.useItemRemaining = itemStack.getUseDuration(livingEntity);
+src/main/java/mett/palemannie/q2w/item\custom\AbstractWeapon.java:128:    public int getUseDuration(ItemStack stack, LivingEntity entity) {
+src/main/java/mett/palemannie/q2w/item\client\Bfg10kModel.java:10:    private static final ResourceLocation DEFAULT_MODEL = ResourceLocation.fromNamespaceAndPath(Quake2Weapons.MODID, "geo/bfg10k.geo.json");
+src/main/java/mett/palemannie/q2w/item\client\Bfg10kModel.java:12:    private static final ResourceLocation DEFAULT_TEXTURE = ResourceLocation.fromNamespaceAndPath(Quake2Weapons.MODID, "textures/item/bfg10k.png");
+src/main/java/mett/palemannie/q2w/item\client\Bfg10kModel.java:14:    private static final ResourceLocation DEFAULT_ANIM = ResourceLocation.fromNamespaceAndPath(Quake2Weapons.MODID, "animations/bfg10k.animation.json");
+src/main/java/mett/palemannie/q2w/item\client\BlasterModel.java:10:    private static final ResourceLocation DEFAULT_MODEL = ResourceLocation.fromNamespaceAndPath(Quake2Weapons.MODID, "geo/blaster.geo.json");
+src/main/java/mett/palemannie/q2w/item\client\BlasterModel.java:12:    private static final ResourceLocation DEFAULT_TEXTURE = ResourceLocation.fromNamespaceAndPath(Quake2Weapons.MODID, "textures/item/blaster.png");
+src/main/java/mett/palemannie/q2w/item\client\BlasterModel.java:14:    private static final ResourceLocation DEFAULT_ANIM = ResourceLocation.fromNamespaceAndPath(Quake2Weapons.MODID, "animations/blaster.animation.json");
+src/main/java/mett/palemannie/q2w/item\custom\ExplosiveAmmo.java:14:        return TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath(Quake2Weapons.MODID, path));
+src/main/java/mett/palemannie/q2w/item\custom\EnvirosuitItem.java:17:    public MobEffect getPowerupEffect() {
+src/main/java/mett/palemannie/q2w/item\custom\HandgrenadeItem.java:37:import java.util.UUID;
+src/main/java/mett/palemannie/q2w/item\custom\HandgrenadeItem.java:83:    private final Map<UUID, GrenadeState> states = new HashMap<>();
+src/main/java/mett/palemannie/q2w/item\custom\HandgrenadeItem.java:137:        if (states.containsKey(player.getUUID())) {
+src/main/java/mett/palemannie/q2w/item\custom\HandgrenadeItem.java:159:        states.put(player.getUUID(), state);
+src/main/java/mett/palemannie/q2w/item\custom\HandgrenadeItem.java:185:        GrenadeState state = states.get(player.getUUID());
+src/main/java/mett/palemannie/q2w/item\custom\HandgrenadeItem.java:202:            GrenadeState state = states.get(player.getUUID());
+src/main/java/mett/palemannie/q2w/item\custom\HandgrenadeItem.java:289:            states.remove(player.getUUID());
+src/main/java/mett/palemannie/q2w/item\custom\HandgrenadeItem.java:317:        states.remove(player.getUUID());
+src/main/java/mett/palemannie/q2w/item\custom\HandgrenadeItem.java:337:        states.remove(player.getUUID());
+src/main/java/mett/palemannie/q2w/item\custom\QuadDamageItem.java:17:    public MobEffect getPowerupEffect() {
+src/main/java/mett/palemannie/q2w/item\client\ChaingunModel.java:18:    private static final ResourceLocation DEFAULT_MODEL = ResourceLocation.fromNamespaceAndPath(Quake2Weapons.MODID, "geo/chaingun.geo.json");
+src/main/java/mett/palemannie/q2w/item\client\ChaingunModel.java:20:    private static final ResourceLocation DEFAULT_TEXTURE = ResourceLocation.fromNamespaceAndPath(Quake2Weapons.MODID, "textures/item/chaingun.png");
+src/main/java/mett/palemannie/q2w/item\client\ChaingunModel.java:22:    private static final ResourceLocation DEFAULT_ANIM = ResourceLocation.fromNamespaceAndPath(Quake2Weapons.MODID, "animations/chaingun.animation.json");
+src/main/java/mett/palemannie/q2w/item\client\ChaingunModel.java:98:            useTicks = heldStack.getUseDuration() - player.getUseItemRemainingTicks();
+src/main/java/mett/palemannie/q2w/item\client\GrenadelauncherModel.java:11:    private static final ResourceLocation DEFAULT_MODEL = ResourceLocation.fromNamespaceAndPath(Quake2Weapons.MODID, "geo/grenadelauncher.geo.json");
+src/main/java/mett/palemannie/q2w/item\client\GrenadelauncherModel.java:13:    private static final ResourceLocation DEFAULT_TEXTURE = ResourceLocation.fromNamespaceAndPath(Quake2Weapons.MODID, "textures/item/grenadelauncher.png");
+src/main/java/mett/palemannie/q2w/item\client\GrenadelauncherModel.java:15:    private static final ResourceLocation DEFAULT_ANIM = ResourceLocation.fromNamespaceAndPath(Quake2Weapons.MODID, "animations/grenadelauncher.animation.json");
+src/main/java/mett/palemannie/q2w/item\custom\ShellAmmo.java:11:            ResourceLocation.fromNamespaceAndPath(Quake2Weapons.MODID, "shotgun_shells"));
+src/main/java/mett/palemannie/q2w/item\client\HandgrenadeModel.java:11:    private static final ResourceLocation DEFAULT_MODEL = ResourceLocation.fromNamespaceAndPath(Quake2Weapons.MODID, "geo/handgrenade.geo.json");
+src/main/java/mett/palemannie/q2w/item\client\HandgrenadeModel.java:13:    private static final ResourceLocation DEFAULT_TEXTURE = ResourceLocation.fromNamespaceAndPath(Quake2Weapons.MODID, "textures/item/handgrenade.png");
+src/main/java/mett/palemannie/q2w/item\client\HandgrenadeModel.java:15:    private static final ResourceLocation DEFAULT_ANIM = ResourceLocation.fromNamespaceAndPath(Quake2Weapons.MODID, "animations/handgrenade.animation.json");
+src/main/java/mett/palemannie/q2w/item\client\MachinegunModel.java:11:    private static final ResourceLocation DEFAULT_MODEL = ResourceLocation.fromNamespaceAndPath(Quake2Weapons.MODID, "geo/machinegun.geo.json");
+src/main/java/mett/palemannie/q2w/item\client\MachinegunModel.java:13:    private static final ResourceLocation DEFAULT_TEXTURE = ResourceLocation.fromNamespaceAndPath(Quake2Weapons.MODID, "textures/item/machinegun.png");
+src/main/java/mett/palemannie/q2w/item\client\MachinegunModel.java:15:    private static final ResourceLocation DEFAULT_ANIM = ResourceLocation.fromNamespaceAndPath(Quake2Weapons.MODID, "animations/machinegun.animation.json");
+src/main/java/mett/palemannie/q2w/item\client\HyperblasterModel.java:19:    private static final ResourceLocation DEFAULT_MODEL = ResourceLocation.fromNamespaceAndPath(Quake2Weapons.MODID, "geo/hyperblaster.geo.json");
+src/main/java/mett/palemannie/q2w/item\client\HyperblasterModel.java:21:    private static final ResourceLocation DEFAULT_TEXTURE = ResourceLocation.fromNamespaceAndPath(Quake2Weapons.MODID, "textures/item/hyperblaster.png");
+src/main/java/mett/palemannie/q2w/item\client\HyperblasterModel.java:23:    private static final ResourceLocation DEFAULT_ANIM = ResourceLocation.fromNamespaceAndPath(Quake2Weapons.MODID, "animations/hyperblaster.animation.json");
+src/main/java/mett/palemannie/q2w/item\client\HyperblasterModel.java:110:            useTicks = heldStack.getUseDuration() - player.getUseItemRemainingTicks();
+src/main/java/mett/palemannie/q2w/item\custom\AbstractQ2Weapon.java:132:        int useTicks = getUseDuration(stack) - remainingUseDuration;
+src/main/java/mett/palemannie/q2w/item\custom\InvulnerabilityItem.java:17:    public MobEffect getPowerupEffect() {
+src/main/java/mett/palemannie/q2w/item\client\ShotgunModel.java:10:    private static final ResourceLocation DEFAULT_MODEL = ResourceLocation.fromNamespaceAndPath(Quake2Weapons.MODID, "geo/shotgun.geo.json");
+src/main/java/mett/palemannie/q2w/item\client\ShotgunModel.java:12:    private static final ResourceLocation DEFAULT_TEXTURE = ResourceLocation.fromNamespaceAndPath(Quake2Weapons.MODID, "textures/item/shotgun.png");
+src/main/java/mett/palemannie/q2w/item\client\ShotgunModel.java:14:    private static final ResourceLocation DEFAULT_ANIM = ResourceLocation.fromNamespaceAndPath(Quake2Weapons.MODID, "animations/shotgun.animation.json");
+src/main/java/mett/palemannie/q2w/item\client\SuperShotgunModel.java:11:    private static final ResourceLocation DEFAULT_MODEL = ResourceLocation.fromNamespaceAndPath(Quake2Weapons.MODID, "geo/super_shotgun.geo.json");
+src/main/java/mett/palemannie/q2w/item\client\SuperShotgunModel.java:13:    private static final ResourceLocation DEFAULT_TEXTURE = ResourceLocation.fromNamespaceAndPath(Quake2Weapons.MODID, "textures/item/super_shotgun.png");
+src/main/java/mett/palemannie/q2w/item\client\SuperShotgunModel.java:15:    private static final ResourceLocation DEFAULT_ANIM = ResourceLocation.fromNamespaceAndPath(Quake2Weapons.MODID, "animations/super_shotgun.animation.json");
+src/main/java/mett/palemannie/q2w/item\client\RocketlauncherModel.java:11:    private static final ResourceLocation DEFAULT_MODEL = ResourceLocation.fromNamespaceAndPath(Quake2Weapons.MODID, "geo/rocketlauncher.geo.json");
+src/main/java/mett/palemannie/q2w/item\client\RocketlauncherModel.java:13:    private static final ResourceLocation DEFAULT_TEXTURE = ResourceLocation.fromNamespaceAndPath(Quake2Weapons.MODID, "textures/item/rocketlauncher.png");
+src/main/java/mett/palemannie/q2w/item\client\RocketlauncherModel.java:15:    private static final ResourceLocation DEFAULT_ANIM = ResourceLocation.fromNamespaceAndPath(Quake2Weapons.MODID, "animations/rocketlauncher.animation.json");
+src/main/java/mett/palemannie/q2w/item\client\RailgunModel.java:11:    private static final ResourceLocation DEFAULT_MODEL = ResourceLocation.fromNamespaceAndPath(Quake2Weapons.MODID, "geo/railgun.geo.json");
+src/main/java/mett/palemannie/q2w/item\client\RailgunModel.java:13:    private static final ResourceLocation DEFAULT_TEXTURE = ResourceLocation.fromNamespaceAndPath(Quake2Weapons.MODID, "textures/item/railgun.png");
+src/main/java/mett/palemannie/q2w/item\client\RailgunModel.java:15:    private static final ResourceLocation DEFAULT_ANIM = ResourceLocation.fromNamespaceAndPath(Quake2Weapons.MODID, "animations/railgun.animation.json");
+src/main/java/mett/palemannie/q2w/util\ModDamageTypes.java:12:        return ResourceKey.create(Registries.DAMAGE_TYPE, ResourceLocation.fromNamespaceAndPath(Quake2Weapons.MODID, name));
+src/main/java/mett/palemannie/q2w/util\Q2WConfigStats.java:16:            ResourceLocation.fromNamespaceAndPath("quakeweapons", "quad_damage");
+src/main/java/mett/palemannie/q2w/util\Q2WConfigStats.java:40:            MobEffect quakeweaponsQuad = BuiltInRegistries.MOB_EFFECT.getValue(QUAKEWEAPONS_QUAD_DAMAGE);
+src/main/java/mett/palemannie/q2w/entity\client\Bfg10kProjectileModel.java:4:import com.mojang.blaze3d.vertex.VertexConsumer;
+src/main/java/mett/palemannie/q2w/entity\client\Bfg10kProjectileModel.java:16:	public static final ModelLayerLocation BALL_LAYER = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(Quake2Weapons.MODID, "bfg_ball"), "main");
+src/main/java/mett/palemannie/q2w/entity\client\Bfg10kProjectileModel.java:32:	public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
+src/main/java/mett/palemannie/q2w/entity\client\AdrenalinePickupRenderer.java:4:import com.mojang.blaze3d.vertex.VertexConsumer;
+src/main/java/mett/palemannie/q2w/entity\client\AdrenalinePickupRenderer.java:18:    private static final ResourceLocation ADRENALINEPICKUP_LOCATION = ResourceLocation.fromNamespaceAndPath(Quake2Weapons.MODID,"textures/entity/itempickups/adrenaline_pickup.png");
+src/main/java/mett/palemannie/q2w/entity\client\AdrenalinePickupRenderer.java:47:        VertexConsumer $$6 = bufferSource.getBuffer(this.model.renderType(ADRENALINEPICKUP_LOCATION));
+src/main/java/mett/palemannie/q2w/entity\client\AdrenalinePickupRenderer.java:48:        this.model.renderToBuffer(poseStack, $$6, packedLight, OverlayTexture.NO_OVERLAY, 1f, 1f, 1f, 1f);
+src/main/java/mett/palemannie/q2w/entity\client\AdrenalinePickupModel.java:4:import com.mojang.blaze3d.vertex.VertexConsumer;
+src/main/java/mett/palemannie/q2w/entity\client\AdrenalinePickupModel.java:16:	public static final ModelLayerLocation ADRENALINEPICKUP_LAYER = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(Quake2Weapons.MODID, "adrenaline_pickup"), "main");
+src/main/java/mett/palemannie/q2w/entity\client\AdrenalinePickupModel.java:40:	public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
+src/main/java/mett/palemannie/q2w/entity\client\CellsAmmopickupModel.java:4:import com.mojang.blaze3d.vertex.VertexConsumer;
+src/main/java/mett/palemannie/q2w/entity\client\CellsAmmopickupModel.java:16:	public static final ModelLayerLocation CELLSPICKUP_LAYER = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(Quake2Weapons.MODID, "cells_ammopickup"), "main");
+src/main/java/mett/palemannie/q2w/entity\client\CellsAmmopickupModel.java:45:	public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
+src/main/java/mett/palemannie/q2w/entity\client\EnvirosuitPowerupRenderer.java:4:import com.mojang.blaze3d.vertex.VertexConsumer;
+src/main/java/mett/palemannie/q2w/entity\client\EnvirosuitPowerupRenderer.java:19:    private static final ResourceLocation ENVIROSUIT_LOCATION = ResourceLocation.fromNamespaceAndPath(Quake2Weapons.MODID,"textures/entity/powerups/envirosuit_powerup.png");
+src/main/java/mett/palemannie/q2w/entity\client\EnvirosuitPowerupRenderer.java:48:        VertexConsumer $$6 = bufferSource.getBuffer(this.model.renderType(ENVIROSUIT_LOCATION));
+src/main/java/mett/palemannie/q2w/entity\client\EnvirosuitPowerupRenderer.java:49:        this.model.renderToBuffer(poseStack, $$6, packedLight, OverlayTexture.NO_OVERLAY, 1f, 1f, 1f, 1f);
+src/main/java/mett/palemannie/q2w/entity\client\EnvirosuitPowerupRenderer.java:51:        VertexConsumer $$7 = bufferSource.getBuffer(RenderType.eyes(ENVIROSUIT_LOCATION));
+src/main/java/mett/palemannie/q2w/entity\client\EnvirosuitPowerupRenderer.java:52:        this.model.renderToBuffer(poseStack, $$7, packedLight, OverlayTexture.NO_OVERLAY, 1f, 1f, 1f, 1f);
+src/main/java/mett/palemannie/q2w/entity\client\BulletsAmmopickupRenderer.java:4:import com.mojang.blaze3d.vertex.VertexConsumer;
+src/main/java/mett/palemannie/q2w/entity\client\BulletsAmmopickupRenderer.java:19:    private static final ResourceLocation BULLETSPICKUP_LOCATION = ResourceLocation.fromNamespaceAndPath(Quake2Weapons.MODID,"textures/entity/itempickups/bullets_ammopickup.png");
+src/main/java/mett/palemannie/q2w/entity\client\BulletsAmmopickupRenderer.java:48:        VertexConsumer $$6 = bufferSource.getBuffer(this.model.renderType(BULLETSPICKUP_LOCATION));
+src/main/java/mett/palemannie/q2w/entity\client\BulletsAmmopickupRenderer.java:49:        this.model.renderToBuffer(poseStack, $$6, packedLight, OverlayTexture.NO_OVERLAY, 1f, 1f, 1f, 1f);
+src/main/java/mett/palemannie/q2w/entity\client\EnvirosuitPowerupModel.java:4:import com.mojang.blaze3d.vertex.VertexConsumer;
+src/main/java/mett/palemannie/q2w/entity\client\EnvirosuitPowerupModel.java:16:	public static final ModelLayerLocation ENVIROSUIT_LAYER = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(Quake2Weapons.MODID, "invuln_powerup"), "main");
+src/main/java/mett/palemannie/q2w/entity\client\EnvirosuitPowerupModel.java:54:	public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
+src/main/java/mett/palemannie/q2w/entity\client\GrenadelauncherProjectileRenderer.java:4:import com.mojang.blaze3d.vertex.VertexConsumer;
+src/main/java/mett/palemannie/q2w/entity\client\GrenadelauncherProjectileRenderer.java:21:    private static final ResourceLocation GRENADE_LOCATION = ResourceLocation.fromNamespaceAndPath(Quake2Weapons.MODID,"textures/entity/projectiles/grenadelauncher_projectile.png");
+src/main/java/mett/palemannie/q2w/entity\client\GrenadelauncherProjectileRenderer.java:69:        VertexConsumer vertexConsumer = bufferSource.getBuffer(RenderType.entityCutoutNoCull(GRENADE_LOCATION));
+src/main/java/mett/palemannie/q2w/entity\client\GrenadelauncherProjectileRenderer.java:70:        this.model.renderToBuffer(poseStack, vertexConsumer, packedLight, OverlayTexture.NO_OVERLAY, 1, 1, 1, 1);
+src/main/java/mett/palemannie/q2w/entity\client\CellsAmmopickupRenderer.java:4:import com.mojang.blaze3d.vertex.VertexConsumer;
+src/main/java/mett/palemannie/q2w/entity\client\CellsAmmopickupRenderer.java:19:    private static final ResourceLocation CELLSPICKUP_LOCATION = ResourceLocation.fromNamespaceAndPath(Quake2Weapons.MODID,"textures/entity/itempickups/cells_ammopickup.png");
+src/main/java/mett/palemannie/q2w/entity\client\CellsAmmopickupRenderer.java:48:        VertexConsumer $$6 = bufferSource.getBuffer(this.model.renderType(CELLSPICKUP_LOCATION));
+src/main/java/mett/palemannie/q2w/entity\client\CellsAmmopickupRenderer.java:49:        this.model.renderToBuffer(poseStack, $$6, packedLight, OverlayTexture.NO_OVERLAY, 1f, 1f, 1f, 1f);
+src/main/java/mett/palemannie/q2w/entity\client\BulletsAmmopickupModel.java:4:import com.mojang.blaze3d.vertex.VertexConsumer;
+src/main/java/mett/palemannie/q2w/entity\client\BulletsAmmopickupModel.java:16:	public static final ModelLayerLocation BULLETSPICKUP_LAYER = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(Quake2Weapons.MODID, "bullets_ammopickup"), "main");
+src/main/java/mett/palemannie/q2w/entity\client\BulletsAmmopickupModel.java:34:	public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
+src/main/java/mett/palemannie/q2w/entity\client\GrenadelauncherProjectileModel.java:4:import com.mojang.blaze3d.vertex.VertexConsumer;
+src/main/java/mett/palemannie/q2w/entity\client\GrenadelauncherProjectileModel.java:16:	public static final ModelLayerLocation GRENADE_LAYER = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(Quake2Weapons.MODID, "grenadelauncher_projectile"), "main");
+src/main/java/mett/palemannie/q2w/entity\client\GrenadelauncherProjectileModel.java:36:	public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
+src/main/java/mett/palemannie/q2w/entity\client\GrenadesAmmopickupRenderer.java:4:import com.mojang.blaze3d.vertex.VertexConsumer;
+src/main/java/mett/palemannie/q2w/entity\client\GrenadesAmmopickupRenderer.java:19:    private static final ResourceLocation GRENADESPICKUP_LOCATION = ResourceLocation.fromNamespaceAndPath(Quake2Weapons.MODID,"textures/entity/itempickups/grenades_ammopickup.png");
+src/main/java/mett/palemannie/q2w/entity\client\GrenadesAmmopickupRenderer.java:48:        VertexConsumer $$6 = bufferSource.getBuffer(this.model.renderType(GRENADESPICKUP_LOCATION));
+src/main/java/mett/palemannie/q2w/entity\client\GrenadesAmmopickupRenderer.java:49:        this.model.renderToBuffer(poseStack, $$6, packedLight, OverlayTexture.NO_OVERLAY, 1f, 1f, 1f, 1f);
+src/main/java/mett/palemannie/q2w/entity\client\HandgrenadeProjectileModel.java:4:import com.mojang.blaze3d.vertex.VertexConsumer;
+src/main/java/mett/palemannie/q2w/entity\client\HandgrenadeProjectileModel.java:16:	public static final ModelLayerLocation HANDGRENADE_LAYER = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(Quake2Weapons.MODID, "handgrenade_projectile"), "main");
+src/main/java/mett/palemannie/q2w/entity\client\HandgrenadeProjectileModel.java:50:	public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
+src/main/java/mett/palemannie/q2w/entity\client\GrenadesAmmopickupModel.java:4:import com.mojang.blaze3d.vertex.VertexConsumer;
+src/main/java/mett/palemannie/q2w/entity\client\GrenadesAmmopickupModel.java:16:	public static final ModelLayerLocation GRENADESPICKUP_LAYER = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(Quake2Weapons.MODID, "grenades_ammopickup"), "main");
+src/main/java/mett/palemannie/q2w/entity\client\GrenadesAmmopickupModel.java:75:	public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
+src/main/java/mett/palemannie/q2w/entity\client\Bfg10kProjectileRenderer.java:4:import com.mojang.blaze3d.vertex.VertexConsumer;
+src/main/java/mett/palemannie/q2w/entity\client\Bfg10kProjectileRenderer.java:23:            ResourceLocation.fromNamespaceAndPath(Quake2Weapons.MODID, "textures/entity/projectiles/bfg_ball1.png");
+src/main/java/mett/palemannie/q2w/entity\client\Bfg10kProjectileRenderer.java:26:            ResourceLocation.fromNamespaceAndPath(Quake2Weapons.MODID, "textures/entity/projectiles/bfg_ball2.png");
+src/main/java/mett/palemannie/q2w/entity\client\Bfg10kProjectileRenderer.java:49:        VertexConsumer vertexConsumer = bufferSource.getBuffer(
+src/main/java/mett/palemannie/q2w/entity\client\Bfg10kProjectileRenderer.java:69:    private static void addVertex(VertexConsumer vertexConsumer, Matrix4f poseMatrix, Matrix3f normalMatrix, float x, float y, float z, float u, float v, int packedLight) {
+src/main/java/mett/palemannie/q2w/entity\client\Bfg10kProjectileRenderer.java:72:                .overlayCoords(OverlayTexture.NO_OVERLAY).uv2(packedLight).normal(normalMatrix, 0f, 1f, 0f).endVertex();
+src/main/java/mett/palemannie/q2w/entity\client\HandgrenadeProjectileRenderer.java:4:import com.mojang.blaze3d.vertex.VertexConsumer;
+src/main/java/mett/palemannie/q2w/entity\client\HandgrenadeProjectileRenderer.java:21:    private static final ResourceLocation GRENADE_LOCATION = ResourceLocation.fromNamespaceAndPath(Quake2Weapons.MODID,"textures/entity/projectiles/handgrenade_projectile.png");
+src/main/java/mett/palemannie/q2w/entity\client\HandgrenadeProjectileRenderer.java:63:        VertexConsumer normal = bufferSource.getBuffer(RenderType.entityCutoutNoCull(GRENADE_LOCATION));
+src/main/java/mett/palemannie/q2w/entity\client\HandgrenadeProjectileRenderer.java:64:        this.model.renderToBuffer(poseStack, normal, packedLight, OverlayTexture.NO_OVERLAY, 1, 1, 1, 1);
+src/main/java/mett/palemannie/q2w/entity\client\InvulnerabilityPowerupModel.java:4:import com.mojang.blaze3d.vertex.VertexConsumer;
+src/main/java/mett/palemannie/q2w/entity\client\InvulnerabilityPowerupModel.java:16:	public static final ModelLayerLocation INVULN_LAYER = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(Quake2Weapons.MODID, "invuln_powerup"), "skull");
+src/main/java/mett/palemannie/q2w/entity\client\InvulnerabilityPowerupModel.java:86:	public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
+src/main/java/mett/palemannie/q2w/entity\client\InvulnerabilityPowerupRenderer.java:4:import com.mojang.blaze3d.vertex.VertexConsumer;
+src/main/java/mett/palemannie/q2w/entity\client\InvulnerabilityPowerupRenderer.java:19:    private static final ResourceLocation INVULN_LOCATION = ResourceLocation.fromNamespaceAndPath(Quake2Weapons.MODID,"textures/entity/powerups/invuln_powerup.png");
+src/main/java/mett/palemannie/q2w/entity\client\InvulnerabilityPowerupRenderer.java:48:        VertexConsumer $$6 = bufferSource.getBuffer(this.model.renderType(INVULN_LOCATION));
+src/main/java/mett/palemannie/q2w/entity\client\InvulnerabilityPowerupRenderer.java:49:        this.model.renderToBuffer(poseStack, $$6, packedLight, OverlayTexture.NO_OVERLAY, 1f, 1f, 1f, 1f);
+src/main/java/mett/palemannie/q2w/entity\client\InvulnerabilityPowerupRenderer.java:51:        VertexConsumer $$7 = bufferSource.getBuffer(RenderType.eyes(INVULN_LOCATION));
+src/main/java/mett/palemannie/q2w/entity\client\InvulnerabilityPowerupRenderer.java:52:        this.model.renderToBuffer(poseStack, $$7, packedLight, OverlayTexture.NO_OVERLAY, 1f, 1f, 1f, 1f);
+src/main/java/mett/palemannie/q2w/entity\client\LaserProjectileModel.java:4:import com.mojang.blaze3d.vertex.VertexConsumer;
+src/main/java/mett/palemannie/q2w/entity\client\LaserProjectileModel.java:16:	public static final ModelLayerLocation LASER_LAYER = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(Quake2Weapons.MODID, "laser_projectile"), "main");
+src/main/java/mett/palemannie/q2w/entity\client\LaserProjectileModel.java:37:	public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
+src/main/java/mett/palemannie/q2w/entity\client\LaserProjectileRenderer.java:4:import com.mojang.blaze3d.vertex.VertexConsumer;
+src/main/java/mett/palemannie/q2w/entity\client\LaserProjectileRenderer.java:19:    private static final ResourceLocation LASER_LOCATION = ResourceLocation.fromNamespaceAndPath(Quake2Weapons.MODID,"textures/entity/projectiles/laser_projectile.png");
+src/main/java/mett/palemannie/q2w/entity\client\LaserProjectileRenderer.java:39:        VertexConsumer $$6 = bufferSource.getBuffer(this.model.renderType(LASER_LOCATION));
+src/main/java/mett/palemannie/q2w/entity\client\LaserProjectileRenderer.java:40:        this.model.renderToBuffer(poseStack, $$6, packedLight, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
+src/main/java/mett/palemannie/q2w/entity\client\MegahealthPickupModel.java:4:import com.mojang.blaze3d.vertex.VertexConsumer;
+src/main/java/mett/palemannie/q2w/entity\client\MegahealthPickupModel.java:16:	public static final ModelLayerLocation MEGAHEALTHPICKUP_LAYER = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(Quake2Weapons.MODID, "megahealth_pickup"), "main");
+src/main/java/mett/palemannie/q2w/entity\client\MegahealthPickupModel.java:35:	public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
+src/main/java/mett/palemannie/q2w/entity\client\MegahealthPickupRenderer.java:4:import com.mojang.blaze3d.vertex.VertexConsumer;
+src/main/java/mett/palemannie/q2w/entity\client\MegahealthPickupRenderer.java:18:    private static final ResourceLocation MEGAHEALTHPICKUP_LOCATION = ResourceLocation.fromNamespaceAndPath(Quake2Weapons.MODID,"textures/entity/itempickups/megahealth_pickup.png");
+src/main/java/mett/palemannie/q2w/entity\client\MegahealthPickupRenderer.java:47:        VertexConsumer $$6 = bufferSource.getBuffer(this.model.renderType(MEGAHEALTHPICKUP_LOCATION));
+src/main/java/mett/palemannie/q2w/entity\client\MegahealthPickupRenderer.java:48:        this.model.renderToBuffer(poseStack, $$6, packedLight, OverlayTexture.NO_OVERLAY, 1f, 1f, 1f, 1f);
+src/main/java/mett/palemannie/q2w/entity\client\MuzzleflashModel.java:4:import com.mojang.blaze3d.vertex.VertexConsumer;
+src/main/java/mett/palemannie/q2w/entity\client\MuzzleflashModel.java:16:    public static final ModelLayerLocation FLASH_LAYER = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(Quake2Weapons.MODID, "muzzleflash"), "main");
+src/main/java/mett/palemannie/q2w/entity\client\MuzzleflashModel.java:32:    public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
+src/main/java/mett/palemannie/q2w/entity\client\MuzzleflashRenderer.java:14:    private static final ResourceLocation FLASH_LOCATION = ResourceLocation.fromNamespaceAndPath(Quake2Weapons.MODID,"textures/entity/projectiles/muzzleflash.png");
+src/main/java/mett/palemannie/q2w/entity\client\PowershieldPickupRenderer.java:4:import com.mojang.blaze3d.vertex.VertexConsumer;
+src/main/java/mett/palemannie/q2w/entity\client\PowershieldPickupRenderer.java:18:    private static final ResourceLocation POWERSHIELDPICKUP_LOCATION = ResourceLocation.fromNamespaceAndPath(Quake2Weapons.MODID,"textures/entity/itempickups/powershield_pickup.png");
+src/main/java/mett/palemannie/q2w/entity\client\PowershieldPickupRenderer.java:47:        VertexConsumer $$6 = bufferSource.getBuffer(this.model.renderType(POWERSHIELDPICKUP_LOCATION));
+src/main/java/mett/palemannie/q2w/entity\client\PowershieldPickupRenderer.java:48:        this.model.renderToBuffer(poseStack, $$6, packedLight, OverlayTexture.NO_OVERLAY, 1f, 1f, 1f, 1f);
+src/main/java/mett/palemannie/q2w/entity\client\QuaddamagePowerupModel.java:4:import com.mojang.blaze3d.vertex.VertexConsumer;
+src/main/java/mett/palemannie/q2w/entity\client\QuaddamagePowerupModel.java:16:	public static final ModelLayerLocation QUAD_LAYER = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(Quake2Weapons.MODID, "quad_damage_powerup"), "main");
+src/main/java/mett/palemannie/q2w/entity\client\QuaddamagePowerupModel.java:48:	public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
+src/main/java/mett/palemannie/q2w/entity\client\RocketlauncherProjectileModel.java:4:import com.mojang.blaze3d.vertex.VertexConsumer;
+src/main/java/mett/palemannie/q2w/entity\client\RocketlauncherProjectileModel.java:16:	public static final ModelLayerLocation ROCKET_LAYER = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(Quake2Weapons.MODID, "rocketlauncher_projectile"), "main");
+src/main/java/mett/palemannie/q2w/entity\client\RocketlauncherProjectileModel.java:40:	public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
+src/main/java/mett/palemannie/q2w/entity\client\RebreatherPickupRenderer.java:4:import com.mojang.blaze3d.vertex.VertexConsumer;
+src/main/java/mett/palemannie/q2w/entity\client\RebreatherPickupRenderer.java:18:    private static final ResourceLocation REBREATHERPICKUP_LOCATION = ResourceLocation.fromNamespaceAndPath(Quake2Weapons.MODID,"textures/entity/itempickups/rebreather_pickup.png");
+src/main/java/mett/palemannie/q2w/entity\client\RebreatherPickupRenderer.java:47:        VertexConsumer $$6 = bufferSource.getBuffer(this.model.renderType(REBREATHERPICKUP_LOCATION));
+src/main/java/mett/palemannie/q2w/entity\client\RebreatherPickupRenderer.java:48:        this.model.renderToBuffer(poseStack, $$6, packedLight, OverlayTexture.NO_OVERLAY, 1f, 1f, 1f, 1f);
+src/main/java/mett/palemannie/q2w/entity\client\RebreatherPickupModel.java:4:import com.mojang.blaze3d.vertex.VertexConsumer;
+src/main/java/mett/palemannie/q2w/entity\client\RebreatherPickupModel.java:16:	public static final ModelLayerLocation REBREATHERPICKUP_LAYER = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(Quake2Weapons.MODID, "rebreather_pickup"), "main");
+src/main/java/mett/palemannie/q2w/entity\client\RebreatherPickupModel.java:42:	public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
+src/main/java/mett/palemannie/q2w/entity\client\QuaddamagePowerupRenderer.java:4:import com.mojang.blaze3d.vertex.VertexConsumer;
+src/main/java/mett/palemannie/q2w/entity\client\QuaddamagePowerupRenderer.java:19:    private static final ResourceLocation QUAD_LOCATION = ResourceLocation.fromNamespaceAndPath(Quake2Weapons.MODID,"textures/entity/powerups/quad_damage_powerup.png");
+src/main/java/mett/palemannie/q2w/entity\client\QuaddamagePowerupRenderer.java:46:        VertexConsumer $$6 = bufferSource.getBuffer(this.model.renderType(QUAD_LOCATION));
+src/main/java/mett/palemannie/q2w/entity\client\QuaddamagePowerupRenderer.java:47:        this.model.renderToBuffer(poseStack, $$6, packedLight, OverlayTexture.NO_OVERLAY, 1f, 1f, 1f, 1f);
+src/main/java/mett/palemannie/q2w/entity\client\QuaddamagePowerupRenderer.java:49:        VertexConsumer $$7 = bufferSource.getBuffer(RenderType.eyes(QUAD_LOCATION));
+src/main/java/mett/palemannie/q2w/entity\client\QuaddamagePowerupRenderer.java:50:        this.model.renderToBuffer(poseStack, $$7, packedLight, OverlayTexture.NO_OVERLAY, 1f, 1f, 1f, 1f);
+src/main/java/mett/palemannie/q2w/entity\client\SlugsAmmopickupRenderer.java:4:import com.mojang.blaze3d.vertex.VertexConsumer;
+src/main/java/mett/palemannie/q2w/entity\client\SlugsAmmopickupRenderer.java:19:    private static final ResourceLocation SLUGSPICKUP_LOCATION = ResourceLocation.fromNamespaceAndPath(Quake2Weapons.MODID,"textures/entity/itempickups/slugs_ammopickup.png");
+src/main/java/mett/palemannie/q2w/entity\client\SlugsAmmopickupRenderer.java:48:        VertexConsumer $$6 = bufferSource.getBuffer(this.model.renderType(SLUGSPICKUP_LOCATION));
+src/main/java/mett/palemannie/q2w/entity\client\SlugsAmmopickupRenderer.java:49:        this.model.renderToBuffer(poseStack, $$6, packedLight, OverlayTexture.NO_OVERLAY, 1f, 1f, 1f, 1f);
+src/main/java/mett/palemannie/q2w/entity\client\ShellsAmmopickupRenderer.java:4:import com.mojang.blaze3d.vertex.VertexConsumer;
+src/main/java/mett/palemannie/q2w/entity\client\ShellsAmmopickupRenderer.java:19:    private static final ResourceLocation SHELLPICKUP_LOCATION = ResourceLocation.fromNamespaceAndPath(Quake2Weapons.MODID,"textures/entity/itempickups/shells_ammopickup.png");
+src/main/java/mett/palemannie/q2w/entity\client\ShellsAmmopickupRenderer.java:48:        VertexConsumer $$6 = bufferSource.getBuffer(this.model.renderType(SHELLPICKUP_LOCATION));
+src/main/java/mett/palemannie/q2w/entity\client\ShellsAmmopickupRenderer.java:49:        this.model.renderToBuffer(poseStack, $$6, packedLight, OverlayTexture.NO_OVERLAY, 1f, 1f, 1f, 1f);
+src/main/java/mett/palemannie/q2w/entity\client\SlugsAmmopickupModel.java:4:import com.mojang.blaze3d.vertex.VertexConsumer;
+src/main/java/mett/palemannie/q2w/entity\client\SlugsAmmopickupModel.java:16:	public static final ModelLayerLocation SLUGSPICKUP_LAYER = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(Quake2Weapons.MODID, "slugs_ammopickup"), "main");
+src/main/java/mett/palemannie/q2w/entity\client\SlugsAmmopickupModel.java:68:	public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
+src/main/java/mett/palemannie/q2w/entity\client\SilencerPowerupRenderer.java:4:import com.mojang.blaze3d.vertex.VertexConsumer;
+src/main/java/mett/palemannie/q2w/entity\client\SilencerPowerupRenderer.java:19:    private static final ResourceLocation SILENCER_LOCATION = ResourceLocation.fromNamespaceAndPath(Quake2Weapons.MODID,"textures/entity/itempickups/silencer_powerup.png");
+src/main/java/mett/palemannie/q2w/entity\client\SilencerPowerupRenderer.java:48:        VertexConsumer $$6 = bufferSource.getBuffer(this.model.renderType(SILENCER_LOCATION));
+src/main/java/mett/palemannie/q2w/entity\client\SilencerPowerupRenderer.java:49:        this.model.renderToBuffer(poseStack, $$6, packedLight, OverlayTexture.NO_OVERLAY, 1f, 1f, 1f, 1f);
+src/main/java/mett/palemannie/q2w/entity\client\PowershieldPickupModel.java:4:import com.mojang.blaze3d.vertex.VertexConsumer;
+src/main/java/mett/palemannie/q2w/entity\client\PowershieldPickupModel.java:16:	public static final ModelLayerLocation POWERSHIELDPICKUP_LAYER = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(Quake2Weapons.MODID, "powershield_pickup"), "main");
+src/main/java/mett/palemannie/q2w/entity\client\PowershieldPickupModel.java:50:	public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
+src/main/java/mett/palemannie/q2w/entity\client\RocketlauncherProjectileRenderer.java:4:import com.mojang.blaze3d.vertex.VertexConsumer;
+src/main/java/mett/palemannie/q2w/entity\client\RocketlauncherProjectileRenderer.java:19:    private static final ResourceLocation ROCKET_LOCATION = ResourceLocation.fromNamespaceAndPath(Quake2Weapons.MODID,"textures/entity/projectiles/rocketlauncher_projectile.png");
+src/main/java/mett/palemannie/q2w/entity\client\RocketlauncherProjectileRenderer.java:39:        VertexConsumer $$6 = bufferSource.getBuffer(this.model.renderType(ROCKET_LOCATION));
+src/main/java/mett/palemannie/q2w/entity\client\RocketlauncherProjectileRenderer.java:40:        this.model.renderToBuffer(poseStack, $$6, packedLight, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
+src/main/java/mett/palemannie/q2w/entity\client\SilencerPowerupModel.java:4:import com.mojang.blaze3d.vertex.VertexConsumer;
+src/main/java/mett/palemannie/q2w/entity\client\SilencerPowerupModel.java:16:	public static final ModelLayerLocation SILENCER_LAYER = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(Quake2Weapons.MODID, "silencer_powerup"), "main");
+src/main/java/mett/palemannie/q2w/entity\client\SilencerPowerupModel.java:40:	public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
+src/main/java/mett/palemannie/q2w/entity\client\ShellsAmmopickupModel.java:4:import com.mojang.blaze3d.vertex.VertexConsumer;
+src/main/java/mett/palemannie/q2w/entity\client\ShellsAmmopickupModel.java:16:	public static final ModelLayerLocation SHELLSPICKUP_LAYER = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(Quake2Weapons.MODID, "shells_ammopickup"), "main");
+src/main/java/mett/palemannie/q2w/entity\client\ShellsAmmopickupModel.java:34:	public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
+src/main/java/mett/palemannie/q2w/entity\client\RocketsAmmopickupRenderer.java:4:import com.mojang.blaze3d.vertex.VertexConsumer;
+src/main/java/mett/palemannie/q2w/entity\client\RocketsAmmopickupRenderer.java:19:    private static final ResourceLocation BULLETPICKUP_LOCATION = ResourceLocation.fromNamespaceAndPath(Quake2Weapons.MODID,"textures/entity/itempickups/rockets_ammopickup.png");
+src/main/java/mett/palemannie/q2w/entity\client\RocketsAmmopickupRenderer.java:48:        VertexConsumer $$6 = bufferSource.getBuffer(this.model.renderType(BULLETPICKUP_LOCATION));
+src/main/java/mett/palemannie/q2w/entity\client\RocketsAmmopickupRenderer.java:49:        this.model.renderToBuffer(poseStack, $$6, packedLight, OverlayTexture.NO_OVERLAY, 1f, 1f, 1f, 1f);
+src/main/java/mett/palemannie/q2w/entity\client\RocketsAmmopickupModel.java:4:import com.mojang.blaze3d.vertex.VertexConsumer;
+src/main/java/mett/palemannie/q2w/entity\client\RocketsAmmopickupModel.java:16:	public static final ModelLayerLocation ROCKETSPICKUP_LAYER = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(Quake2Weapons.MODID, "rockets_ammopickup"), "main");
+src/main/java/mett/palemannie/q2w/entity\client\RocketsAmmopickupModel.java:43:	public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {

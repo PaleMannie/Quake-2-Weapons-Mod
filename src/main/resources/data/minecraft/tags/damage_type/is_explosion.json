@@ -1,0 +1,10 @@
+{
+  "values": [
+    "q2w:handgrenade_damage",
+    "q2w:handgrenade_overcook_damage",
+    "q2w:grenadelauncher_damage",
+    "q2w:rocketlauncher_damage",
+    "q2w:bfg10k_damage",
+    "q2w:bfg10k_flash"
+  ]
+}

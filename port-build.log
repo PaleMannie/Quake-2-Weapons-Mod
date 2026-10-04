@@ -1,0 +1,154 @@
+To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/8.14.3/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+Daemon will be stopped at the end of the build 
+
+> Task :createMinecraftArtifacts
+Loaded 145 artifacts from G:\Minecraft Modifikationsfabrik\Quake 2 Weapons\build\tmp\createMinecraftArtifacts\nfrt_artifact_manifest.properties
+*** Started working on downloadJson
+ DONE  Completed downloadJson in 0.05s
+*** Started working on downloadServer
+*** Started working on downloadClient
+*** Started working on downloadClientMappings
+ DONE  Completed downloadClientMappings in 0.06s
+ DONE  Completed downloadClient in 0.06s
+ DONE  Completed downloadServer in 0.06s
+*** Started working on mergeMappings
+ REUSE Used cache of mergeMappings in 0.00s
+*** Started working on stripClient
+ REUSE Used cache of stripClient in 0.00s
+*** Started working on extractServer
+ REUSE Used cache of extractServer in 0.00s
+*** Started working on stripServer
+ REUSE Used cache of stripServer in 0.00s
+*** Started working on merge
+ REUSE Used cache of merge in 0.00s
+*** Started working on rename
+ REUSE Used cache of rename in 0.00s
+*** Started working on decompile
+ REUSE Used cache of decompile in 0.00s
+*** Started working on inject
+ REUSE Used cache of inject in 0.00s
+*** Started working on patch
+ REUSE Used cache of patch in 0.00s
+*** Started working on applyNeoforgePatches
+ REUSE Used cache of applyNeoforgePatches in 0.00s
+*** Started working on transformSources
+ REUSE Used cache of transformSources in 0.00s
+*** Started working on recompile
+ REUSE Used cache of recompile in 0.00s
+*** Started working on sourcesWithNeoForge
+ REUSE Used cache of sourcesWithNeoForge in 0.00s
+*** Started working on compiledWithNeoForge
+ REUSE Used cache of compiledWithNeoForge in 0.00s
+*** Started working on sourcesAndCompiledWithNeoForge
+ REUSE Used cache of sourcesAndCompiledWithNeoForge in 0.00s
+Total runtime: 5.07s
+
+
+> Task :compileJava
+G:\Minecraft Modifikationsfabrik\Quake 2 Weapons\src\main\java\mett\palemannie\q2w\client\ClientItemExtensions.java:31: Warnung: [removal] bus() in EventBusSubscriber ist veraltet und wurde zum Entfernen markiert
+@EventBusSubscriber(modid = "q2w", bus = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
+                                   ^
+G:\Minecraft Modifikationsfabrik\Quake 2 Weapons\src\main\java\mett\palemannie\q2w\client\ClientItemExtensions.java:31: Warnung: [removal] Bus in EventBusSubscriber ist veraltet und wurde zum Entfernen markiert
+@EventBusSubscriber(modid = "q2w", bus = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
+                                                           ^
+G:\Minecraft Modifikationsfabrik\Quake 2 Weapons\src\main\java\mett\palemannie\q2w\command\TestKitCommands.java:19: Warnung: [removal] bus() in EventBusSubscriber ist veraltet und wurde zum Entfernen markiert
+@EventBusSubscriber(modid = Quake2Weapons.MODID, bus = EventBusSubscriber.Bus.GAME)
+                                                 ^
+G:\Minecraft Modifikationsfabrik\Quake 2 Weapons\src\main\java\mett\palemannie\q2w\command\TestKitCommands.java:19: Warnung: [removal] Bus in EventBusSubscriber ist veraltet und wurde zum Entfernen markiert
+@EventBusSubscriber(modid = Quake2Weapons.MODID, bus = EventBusSubscriber.Bus.GAME)
+                                                                         ^
+G:\Minecraft Modifikationsfabrik\Quake 2 Weapons\src\main\java\mett\palemannie\q2w\event\ModEvents.java:26: Warnung: [removal] bus() in EventBusSubscriber ist veraltet und wurde zum Entfernen markiert
+@EventBusSubscriber(modid = Quake2Weapons.MODID, bus = EventBusSubscriber.Bus.GAME)
+                                                 ^
+G:\Minecraft Modifikationsfabrik\Quake 2 Weapons\src\main\java\mett\palemannie\q2w\event\ModEvents.java:26: Warnung: [removal] Bus in EventBusSubscriber ist veraltet und wurde zum Entfernen markiert
+@EventBusSubscriber(modid = Quake2Weapons.MODID, bus = EventBusSubscriber.Bus.GAME)
+                                                                         ^
+G:\Minecraft Modifikationsfabrik\Quake 2 Weapons\src\main\java\mett\palemannie\q2w\event\ModParticleProviders.java:13: Warnung: [removal] bus() in EventBusSubscriber ist veraltet und wurde zum Entfernen markiert
+@EventBusSubscriber(modid = Quake2Weapons.MODID, bus = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
+                                                 ^
+G:\Minecraft Modifikationsfabrik\Quake 2 Weapons\src\main\java\mett\palemannie\q2w\event\ModParticleProviders.java:13: Warnung: [removal] Bus in EventBusSubscriber ist veraltet und wurde zum Entfernen markiert
+@EventBusSubscriber(modid = Quake2Weapons.MODID, bus = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
+                                                                         ^
+G:\Minecraft Modifikationsfabrik\Quake 2 Weapons\src\main\java\mett\palemannie\q2w\event\PowerShieldEventHandler.java:22: Warnung: [removal] bus() in EventBusSubscriber ist veraltet und wurde zum Entfernen markiert
+@EventBusSubscriber(modid = Quake2Weapons.MODID, bus = EventBusSubscriber.Bus.GAME)
+                                                 ^
+G:\Minecraft Modifikationsfabrik\Quake 2 Weapons\src\main\java\mett\palemannie\q2w\event\PowerShieldEventHandler.java:22: Warnung: [removal] Bus in EventBusSubscriber ist veraltet und wurde zum Entfernen markiert
+@EventBusSubscriber(modid = Quake2Weapons.MODID, bus = EventBusSubscriber.Bus.GAME)
+                                                                         ^
+G:\Minecraft Modifikationsfabrik\Quake 2 Weapons\src\main\java\mett\palemannie\q2w\event\PowerupSpawner.java:31: Warnung: [removal] bus() in EventBusSubscriber ist veraltet und wurde zum Entfernen markiert
+@EventBusSubscriber(modid = Quake2Weapons.MODID, bus = EventBusSubscriber.Bus.GAME)
+                                                 ^
+G:\Minecraft Modifikationsfabrik\Quake 2 Weapons\src\main\java\mett\palemannie\q2w\event\PowerupSpawner.java:31: Warnung: [removal] Bus in EventBusSubscriber ist veraltet und wurde zum Entfernen markiert
+@EventBusSubscriber(modid = Quake2Weapons.MODID, bus = EventBusSubscriber.Bus.GAME)
+                                                                         ^
+G:\Minecraft Modifikationsfabrik\Quake 2 Weapons\src\main\java\mett\palemannie\q2w\event\Q2WConfigEvents.java:9: Warnung: [removal] bus() in EventBusSubscriber ist veraltet und wurde zum Entfernen markiert
+@EventBusSubscriber(modid = Quake2Weapons.MODID, bus = EventBusSubscriber.Bus.MOD)
+                                                 ^
+G:\Minecraft Modifikationsfabrik\Quake 2 Weapons\src\main\java\mett\palemannie\q2w\event\Q2WConfigEvents.java:9: Warnung: [removal] Bus in EventBusSubscriber ist veraltet und wurde zum Entfernen markiert
+@EventBusSubscriber(modid = Quake2Weapons.MODID, bus = EventBusSubscriber.Bus.MOD)
+                                                                         ^
+G:\Minecraft Modifikationsfabrik\Quake 2 Weapons\src\main\java\mett\palemannie\q2w\event\WeaponRecoilClientEvents.java:13: Warnung: [removal] bus() in EventBusSubscriber ist veraltet und wurde zum Entfernen markiert
+@EventBusSubscriber(modid = Quake2Weapons.MODID, bus = EventBusSubscriber.Bus.GAME, value = Dist.CLIENT)
+                                                 ^
+G:\Minecraft Modifikationsfabrik\Quake 2 Weapons\src\main\java\mett\palemannie\q2w\event\WeaponRecoilClientEvents.java:13: Warnung: [removal] Bus in EventBusSubscriber ist veraltet und wurde zum Entfernen markiert
+@EventBusSubscriber(modid = Quake2Weapons.MODID, bus = EventBusSubscriber.Bus.GAME, value = Dist.CLIENT)
+                                                                         ^
+G:\Minecraft Modifikationsfabrik\Quake 2 Weapons\src\main\java\mett\palemannie\q2w\gui\ClientHudRegistry.java:10: Warnung: [removal] bus() in EventBusSubscriber ist veraltet und wurde zum Entfernen markiert
+@EventBusSubscriber(modid = Quake2Weapons.MODID, bus = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
+                                                 ^
+G:\Minecraft Modifikationsfabrik\Quake 2 Weapons\src\main\java\mett\palemannie\q2w\gui\ClientHudRegistry.java:10: Warnung: [removal] Bus in EventBusSubscriber ist veraltet und wurde zum Entfernen markiert
+@EventBusSubscriber(modid = Quake2Weapons.MODID, bus = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
+                                                                         ^
+G:\Minecraft Modifikationsfabrik\Quake 2 Weapons\src\main\java\mett\palemannie\q2w\gui\SilencerSyncEvents.java:10: Warnung: [removal] bus() in EventBusSubscriber ist veraltet und wurde zum Entfernen markiert
+@EventBusSubscriber(modid = Quake2Weapons.MODID, bus = EventBusSubscriber.Bus.GAME)
+                                                 ^
+G:\Minecraft Modifikationsfabrik\Quake 2 Weapons\src\main\java\mett\palemannie\q2w\gui\SilencerSyncEvents.java:10: Warnung: [removal] Bus in EventBusSubscriber ist veraltet und wurde zum Entfernen markiert
+@EventBusSubscriber(modid = Quake2Weapons.MODID, bus = EventBusSubscriber.Bus.GAME)
+                                                                         ^
+G:\Minecraft Modifikationsfabrik\Quake 2 Weapons\src\main\java\mett\palemannie\q2w\item\custom\AbstractWeapon.java:128: Warnung: [removal] onEntitySwing(ItemStack,LivingEntity) in IItemExtension ist veraltet und wurde zum Entfernen markiert
+    public boolean onEntitySwing(ItemStack stack, LivingEntity entity) {
+                   ^
+G:\Minecraft Modifikationsfabrik\Quake 2 Weapons\src\main\java\mett\palemannie\q2w\Quake2Weapons.java:60: Warnung: [removal] bus() in EventBusSubscriber ist veraltet und wurde zum Entfernen markiert
+    @EventBusSubscriber(modid = MODID, bus = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
+                                       ^
+G:\Minecraft Modifikationsfabrik\Quake 2 Weapons\src\main\java\mett\palemannie\q2w\Quake2Weapons.java:60: Warnung: [removal] Bus in EventBusSubscriber ist veraltet und wurde zum Entfernen markiert
+    @EventBusSubscriber(modid = MODID, bus = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
+                                                               ^
+G:\Minecraft Modifikationsfabrik\Quake 2 Weapons\src\main\java\mett\palemannie\q2w\util\ModCreativeModeTabs.java:14: Warnung: [removal] bus() in EventBusSubscriber ist veraltet und wurde zum Entfernen markiert
+@EventBusSubscriber(modid = Quake2Weapons.MODID, bus = EventBusSubscriber.Bus.MOD)
+                                                 ^
+G:\Minecraft Modifikationsfabrik\Quake 2 Weapons\src\main\java\mett\palemannie\q2w\util\ModCreativeModeTabs.java:14: Warnung: [removal] Bus in EventBusSubscriber ist veraltet und wurde zum Entfernen markiert
+@EventBusSubscriber(modid = Quake2Weapons.MODID, bus = EventBusSubscriber.Bus.MOD)
+                                                                         ^
+G:\Minecraft Modifikationsfabrik\Quake 2 Weapons\src\main\java\mett\palemannie\q2w\util\ModelLayerRegistry.java:10: Warnung: [removal] bus() in EventBusSubscriber ist veraltet und wurde zum Entfernen markiert
+@EventBusSubscriber(modid = Quake2Weapons.MODID, bus = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
+                                                 ^
+G:\Minecraft Modifikationsfabrik\Quake 2 Weapons\src\main\java\mett\palemannie\q2w\util\ModelLayerRegistry.java:10: Warnung: [removal] Bus in EventBusSubscriber ist veraltet und wurde zum Entfernen markiert
+@EventBusSubscriber(modid = Quake2Weapons.MODID, bus = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
+                                                                         ^
+G:\Minecraft Modifikationsfabrik\Quake 2 Weapons\src\main\java\mett\palemannie\q2w\util\WeaponAggroTickHandler.java:12: Warnung: [removal] bus() in EventBusSubscriber ist veraltet und wurde zum Entfernen markiert
+@EventBusSubscriber(modid = Quake2Weapons.MODID, bus = EventBusSubscriber.Bus.GAME)
+                                                 ^
+G:\Minecraft Modifikationsfabrik\Quake 2 Weapons\src\main\java\mett\palemannie\q2w\util\WeaponAggroTickHandler.java:12: Warnung: [removal] Bus in EventBusSubscriber ist veraltet und wurde zum Entfernen markiert
+@EventBusSubscriber(modid = Quake2Weapons.MODID, bus = EventBusSubscriber.Bus.GAME)
+                                                                         ^
+Hinweis: Einige Eingabedateien verwenden oder überschreiben eine veraltete API.
+Hinweis: Wiederholen Sie die Kompilierung mit -Xlint:deprecation, um Details zu erhalten.
+29 Warnungen
+
+> Task :processResources
+> Task :classes
+> Task :jarJar NO-SOURCE
+> Task :jar
+> Task :assemble
+> Task :compileTestJava NO-SOURCE
+> Task :processTestResources NO-SOURCE
+> Task :testClasses UP-TO-DATE
+> Task :test NO-SOURCE
+> Task :check UP-TO-DATE
+> Task :build
+
+[Incubating] Problems report is available at: file:///G:/Minecraft%20Modifikationsfabrik/Quake%202%20Weapons/build/reports/problems/problems-report.html
+
+BUILD SUCCESSFUL in 1m 2s
+4 actionable tasks: 4 executed

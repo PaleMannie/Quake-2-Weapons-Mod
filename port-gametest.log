@@ -1,0 +1,227 @@
+To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/8.14.3/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+Daemon will be stopped at the end of the build 
+> Task :createMinecraftArtifacts UP-TO-DATE
+
+> Task :compileJava
+Hinweis: Einige Eingabedateien verwenden oder überschreiben eine veraltete API.
+Hinweis: Wiederholen Sie die Kompilierung mit -Xlint:deprecation, um Details zu erhalten.
+
+> Task :processResources UP-TO-DATE
+> Task :classes
+
+> Task :downloadAssets
+Loaded 145 artifacts from G:\Minecraft Modifikationsfabrik\Quake 2 Weapons\build\tmp\downloadAssets\nfrt_artifact_manifest.properties
+Downloading asset index 17
+Using Minecraft asset root: C:\Users\User\.gradle\caches\neoformruntime\assets
+  DL    https://piston-meta.mojang.com/v1/packages/7cedb23305a218c4d1a58d27e7ad8a86ee495d48/17.json
+
+> Task :writeGameTestServerLegacyClasspath UP-TO-DATE
+> Task :prepareGameTestServerRun
+
+> Task :runGameTestServer
+WARN StatusConsoleListener Advanced terminal features are not available in this environment
+[13:54:51] [main/INFO] [cp.mo.mo.Launcher/MODLAUNCHER]: ModLauncher running: args [--launchTarget, forgeserverdev, --gameDir, ., --fml.fmlVersion, 4.0.44, --fml.mcVersion, 1.21.1, --fml.neoForgeVersion, 21.1.252, --fml.neoFormVersion, 20240808.144430]
+[13:54:51] [main/INFO] [cp.mo.mo.Launcher/MODLAUNCHER]: JVM identified as Eclipse Adoptium OpenJDK 64-Bit Server VM 21.0.4+7-LTS
+[13:54:51] [main/INFO] [cp.mo.mo.Launcher/MODLAUNCHER]: ModLauncher 11.0.5+main.901c6ea8 starting: java version 21.0.4 by Eclipse Adoptium; OS Windows 10 arch amd64 version 10.0
+[13:54:51] [main/INFO] [ne.ne.fm.lo.ImmediateWindowHandler/]: ImmediateWindowProvider not loading because launch target is forgeserverdev
+[13:54:51] [main/INFO] [mixin/]: SpongePowered MIXIN Subsystem Version=0.8.7 Source=union:/C:/Users/User/.gradle/caches/modules-2/files-2.1/net.fabricmc/sponge-mixin/0.15.2+mixin.0.8.7/2af2f021d8e02a0220dc27a7a72b4666d66d44ca/sponge-mixin-0.15.2+mixin.0.8.7.jar%2394!/ Service=ModLauncher Env=SERVER
+[13:54:52] [main/INFO] [ne.ne.fm.lo.mo.lo.JarInJarDependencyLocator/]: Found 2 dependencies adding them to mods collection
+[13:54:52] [main/INFO] [ne.ne.fm.lo.mo.ModDiscoverer/]: 
+     Mod List:
+		Name Version (Mod Id)
+
+		GeckoLib 4 4.7.6 (geckolib)
+		Minecraft 1.21.1 (minecraft)
+		NeoForge 21.1.252 (neoforge)
+		Quake 2 Weapons 1.2v-1.21.1 (q2w)
+[13:54:54] [main/INFO] [mixin/]: Compatibility level set to JAVA_21
+[13:54:54] [main/INFO] [cp.mo.mo.LaunchServiceHandler/MODLAUNCHER]: Launching target 'forgeserverdev' with arguments [--gameDir, .]
+[13:54:54] [main/WARN] [mixin/]: Reference map 'geckolib.refmap.json' for geckolib.mixins.json could not be read. If this is a development environment you can ignore this message
+[13:54:56] [main/INFO] [MixinExtras|Service/]: Initializing MixinExtras via com.llamalad7.mixinextras.service.MixinExtrasServiceImpl(version=0.5.3).
+[13:55:07] [main/WARN] [minecraft/Commands]: Ambiguity between arguments [teleport, location] and [teleport, destination] with inputs: [0.1 -0.5 .9, 0 0 0]
+[13:55:07] [main/WARN] [minecraft/Commands]: Ambiguity between arguments [teleport, location] and [teleport, targets] with inputs: [0.1 -0.5 .9, 0 0 0]
+[13:55:07] [main/WARN] [minecraft/Commands]: Ambiguity between arguments [teleport, destination] and [teleport, targets] with inputs: [Player, 0123, @e, dd12be42-52a9-4a91-a8a1-11c01849e498]
+[13:55:07] [main/WARN] [minecraft/Commands]: Ambiguity between arguments [teleport, targets] and [teleport, destination] with inputs: [Player, 0123, dd12be42-52a9-4a91-a8a1-11c01849e498]
+[13:55:07] [main/WARN] [minecraft/Commands]: Ambiguity between arguments [teleport, targets, location] and [teleport, targets, destination] with inputs: [0.1 -0.5 .9, 0 0 0]
+[13:55:07] [modloading-worker-0/INFO] [ne.ne.ne.co.NeoForgeMod/NEOFORGE-MOD]: NeoForge mod loading, version 21.1.252, for MC 1.21.1
+[13:55:08] [main/INFO] [mojang/YggdrasilAuthenticationService]: Environment: Environment[sessionHost=https://sessionserver.mojang.com, servicesHost=https://api.minecraftservices.com, name=PROD]
+[13:55:08] [main/WARN] [minecraft/VanillaPackResourcesBuilder]: Assets URL 'union:/G:/Minecraft%20Modifikationsfabrik/Quake%202%20Weapons/build/moddev/artifacts/neoforge-21.1.252.jar%23125!/assets/.mcassetsroot' uses unexpected schema
+[13:55:08] [main/WARN] [minecraft/VanillaPackResourcesBuilder]: Assets URL 'union:/G:/Minecraft%20Modifikationsfabrik/Quake%202%20Weapons/build/moddev/artifacts/neoforge-21.1.252.jar%23125!/data/.mcassetsroot' uses unexpected schema
+[13:55:08] [main/INFO] [ne.ne.ne.ga.GameTestHooks/]: Enabled Gametest Namespaces: [q2w, neoforge]
+[13:55:10] [main/INFO] [minecraft/RecipeManager]: Loaded 1310 recipes
+[13:55:10] [main/INFO] [minecraft/AdvancementTree]: Loaded 1400 advancements
+[13:55:11] [Server thread/INFO] [me.pa.q2.ev.PowerupSpawner/]: [Quake2Weapons] PowerupSpawner config reloaded:
+[13:55:11] [Server thread/INFO] [me.pa.q2.ev.PowerupSpawner/]: interval=600 | attempts=5 | radius=5 | debug=false | enablePowerups=true, maxNearbyPowerups=4
+[13:55:11] [Server thread/INFO] [me.pa.q2.ev.PowerupSpawner/]: [Quake2Weapons] Config values after load: powerupSpawnInterval=600, powerupSpawnAttempts=5, powerupSpawnSearchRadius=5, enablePowerups=true, powerupDebug=false, maxNearbyPowerups=net.neoforged.neoforge.common.ModConfigSpec$IntValue@7ce85e95
+[13:55:11] [Server thread/INFO] [me.pa.q2.Quake2Weapons/]: [Quake2Weapons] Power Shield config reloaded:
+[13:55:11] [Server thread/INFO] [me.pa.q2.Quake2Weapons/]: powershieldAbsorbRatio=0.66 | powershieldDamagePreCellConsumed=2.0
+[13:55:11] [Server thread/INFO] [me.pa.q2.Quake2Weapons/]: [Quake2Weapons] Config values after load: powershieldAbsorbRatio=0.66 | powershieldDamagePreCellConsumed=2.0
+[13:55:11] [Server thread/INFO] [me.pa.q2.Quake2Weapons/]: [Quake2Weapons] Power Shield config reloaded:
+[13:55:11] [Server thread/INFO] [me.pa.q2.Quake2Weapons/]: powershieldAbsorbRatio=0.66 | powershieldDamagePreCellConsumed=2.0
+[13:55:11] [Server thread/INFO] [me.pa.q2.Quake2Weapons/]: [Quake2Weapons] Config values after load: powershieldAbsorbRatio=0.66 | powershieldDamagePreCellConsumed=2.0
+[13:55:11] [Server thread/INFO] [me.pa.q2.ev.PowerupSpawner/]: [Quake2Weapons] PowerupSpawner config reloaded:
+[13:55:11] [Server thread/INFO] [me.pa.q2.ev.PowerupSpawner/]: interval=600 | attempts=5 | radius=5 | debug=false | enablePowerups=true, maxNearbyPowerups=4
+[13:55:11] [Server thread/INFO] [me.pa.q2.ev.PowerupSpawner/]: [Quake2Weapons] Config values after load: powerupSpawnInterval=600, powerupSpawnAttempts=5, powerupSpawnSearchRadius=5, enablePowerups=true, powerupDebug=false, maxNearbyPowerups=net.neoforged.neoforge.common.ModConfigSpec$IntValue@7ce85e95
+[13:55:12] [Server thread/INFO] [minecraft/MinecraftServer]: Preparing start region for dimension minecraft:overworld
+[13:55:12] [worldgen/INFO] [minecraft/LoggerChunkProgressListener]: Preparing spawn area: 2%
+[13:55:12] [Server thread/INFO] [minecraft/LoggerChunkProgressListener]: Time elapsed: 370 ms
+[13:55:13] [Server thread/INFO] [minecraft/GameTestServer]: Started game test server
+[13:55:13] [Server thread/INFO] [ne.ne.ne.se.pe.PermissionAPI/]: Successfully initialized permission handler neoforge:default_handler
+[13:55:13] [Server thread/INFO] [minecraft/GameTestServer]: 4 tests are now running at position 13866206, -59, -9708011!
+[13:55:13] [Server thread/ERROR] [minecraft/MinecraftServer]: Encountered an unexpected exception
+java.lang.IllegalStateException: Missing test structure: neoforge:empty
+	at TRANSFORMER/minecraft@1.21.1/net.minecraft.gametest.framework.StructureUtils.lambda$prepareTestStructure$0(StructureUtils.java:108) ~[neoforge-21.1.252.jar%23125!/:?] {re:classloading}
+	at java.base/java.util.Optional.orElseThrow(Optional.java:403) ~[?:?] {}
+	at TRANSFORMER/minecraft@1.21.1/net.minecraft.gametest.framework.StructureUtils.prepareTestStructure(StructureUtils.java:108) ~[neoforge-21.1.252.jar%23125!/:?] {re:classloading}
+	at TRANSFORMER/minecraft@1.21.1/net.minecraft.gametest.framework.GameTestInfo.prepareTestStructure(GameTestInfo.java:265) ~[neoforge-21.1.252.jar%23125!/:?] {re:classloading,pl:accesstransformer:B}
+	at TRANSFORMER/minecraft@1.21.1/net.minecraft.gametest.framework.StructureGridSpawner.spawnStructure(StructureGridSpawner.java:48) ~[neoforge-21.1.252.jar%23125!/:?] {re:classloading}
+	at TRANSFORMER/minecraft@1.21.1/net.minecraft.gametest.framework.GameTestRunner.spawn(GameTestRunner.java:163) ~[neoforge-21.1.252.jar%23125!/:?] {re:classloading}
+	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:197) ~[?:?] {}
+	at java.base/java.util.AbstractList$RandomAccessSpliterator.forEachRemaining(AbstractList.java:722) ~[?:?] {}
+	at java.base/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:509) ~[?:?] {}
+	at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:499) ~[?:?] {}
+	at java.base/java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:575) ~[?:?] {}
+	at java.base/java.util.stream.AbstractPipeline.evaluateToArrayNode(AbstractPipeline.java:260) ~[?:?] {}
+	at java.base/java.util.stream.ReferencePipeline.toArray(ReferencePipeline.java:616) ~[?:?] {}
+	at java.base/java.util.stream.ReferencePipeline.toArray(ReferencePipeline.java:622) ~[?:?] {}
+	at java.base/java.util.stream.ReferencePipeline.toList(ReferencePipeline.java:627) ~[?:?] {}
+	at TRANSFORMER/minecraft@1.21.1/net.minecraft.gametest.framework.GameTestRunner.createStructuresForBatch(GameTestRunner.java:158) ~[neoforge-21.1.252.jar%23125!/:?] {re:classloading}
+	at TRANSFORMER/minecraft@1.21.1/net.minecraft.gametest.framework.GameTestRunner.runBatch(GameTestRunner.java:90) ~[neoforge-21.1.252.jar%23125!/:?] {re:classloading}
+	at TRANSFORMER/minecraft@1.21.1/net.minecraft.gametest.framework.GameTestRunner.start(GameTestRunner.java:63) ~[neoforge-21.1.252.jar%23125!/:?] {re:classloading}
+	at TRANSFORMER/minecraft@1.21.1/net.minecraft.gametest.framework.GameTestServer.startTests(GameTestServer.java:246) ~[neoforge-21.1.252.jar%23125!/:?] {re:classloading}
+	at TRANSFORMER/minecraft@1.21.1/net.minecraft.gametest.framework.GameTestServer.tickServer(GameTestServer.java:171) ~[neoforge-21.1.252.jar%23125!/:?] {re:classloading}
+	at TRANSFORMER/minecraft@1.21.1/net.minecraft.server.MinecraftServer.runServer(MinecraftServer.java:707) ~[neoforge-21.1.252.jar%23125!/:?] {re:classloading,pl:accesstransformer:B}
+	at TRANSFORMER/minecraft@1.21.1/net.minecraft.server.MinecraftServer.lambda$spin$2(MinecraftServer.java:267) ~[neoforge-21.1.252.jar%23125!/:?] {re:classloading,pl:accesstransformer:B}
+	at java.base/java.lang.Thread.run(Thread.java:1583) [?:?] {}
+[13:55:13] [Server thread/FATAL] [ne.ne.ne.co.NeoForgeMod/]: Preparing crash report with UUID d60b89a4-3fac-4739-a07b-145ed3c99f49
+[13:55:13] [Server thread/ERROR] [minecraft/MinecraftServer]: This crash report has been saved to: G:\Minecraft Modifikationsfabrik\Quake 2 Weapons\run-gametest\crash-reports\crash-2026-10-03_13.55.13-server.txt
+[13:55:13] [Server thread/FATAL] [ne.ne.ne.co.NeoForgeMod/]: Preparing crash report with UUID b7526a69-80c5-438c-8bc1-9eb6644e6a79
+[13:55:13] [Server thread/ERROR] [minecraft/GameTestServer]: Game test server crashed
+---- Minecraft Crash Report ----
+// Uh... Did I do that?
+
+Time: 2026-10-03 13:55:13
+Description: Exception in server tick loop
+
+java.lang.IllegalStateException: Missing test structure: neoforge:empty
+	at TRANSFORMER/minecraft@1.21.1/net.minecraft.gametest.framework.StructureUtils.lambda$prepareTestStructure$0(StructureUtils.java:108) ~[neoforge-21.1.252.jar%23125!/:?] {re:classloading}
+	at java.base/java.util.Optional.orElseThrow(Optional.java:403) ~[?:?] {}
+	at TRANSFORMER/minecraft@1.21.1/net.minecraft.gametest.framework.StructureUtils.prepareTestStructure(StructureUtils.java:108) ~[neoforge-21.1.252.jar%23125!/:?] {re:classloading}
+	at TRANSFORMER/minecraft@1.21.1/net.minecraft.gametest.framework.GameTestInfo.prepareTestStructure(GameTestInfo.java:265) ~[neoforge-21.1.252.jar%23125!/:?] {re:classloading,pl:accesstransformer:B}
+	at TRANSFORMER/minecraft@1.21.1/net.minecraft.gametest.framework.StructureGridSpawner.spawnStructure(StructureGridSpawner.java:48) ~[neoforge-21.1.252.jar%23125!/:?] {re:classloading}
+	at TRANSFORMER/minecraft@1.21.1/net.minecraft.gametest.framework.GameTestRunner.spawn(GameTestRunner.java:163) ~[neoforge-21.1.252.jar%23125!/:?] {re:classloading}
+	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:197) ~[?:?] {}
+	at java.base/java.util.AbstractList$RandomAccessSpliterator.forEachRemaining(AbstractList.java:722) ~[?:?] {}
+	at java.base/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:509) ~[?:?] {}
+	at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:499) ~[?:?] {}
+	at java.base/java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:575) ~[?:?] {}
+	at java.base/java.util.stream.AbstractPipeline.evaluateToArrayNode(AbstractPipeline.java:260) ~[?:?] {}
+	at java.base/java.util.stream.ReferencePipeline.toArray(ReferencePipeline.java:616) ~[?:?] {}
+	at java.base/java.util.stream.ReferencePipeline.toArray(ReferencePipeline.java:622) ~[?:?] {}
+	at java.base/java.util.stream.ReferencePipeline.toList(ReferencePipeline.java:627) ~[?:?] {}
+	at TRANSFORMER/minecraft@1.21.1/net.minecraft.gametest.framework.GameTestRunner.createStructuresForBatch(GameTestRunner.java:158) ~[neoforge-21.1.252.jar%23125!/:?] {re:classloading}
+	at TRANSFORMER/minecraft@1.21.1/net.minecraft.gametest.framework.GameTestRunner.runBatch(GameTestRunner.java:90) ~[neoforge-21.1.252.jar%23125!/:?] {re:classloading}
+	at TRANSFORMER/minecraft@1.21.1/net.minecraft.gametest.framework.GameTestRunner.start(GameTestRunner.java:63) ~[neoforge-21.1.252.jar%23125!/:?] {re:classloading}
+	at TRANSFORMER/minecraft@1.21.1/net.minecraft.gametest.framework.GameTestServer.startTests(GameTestServer.java:246) ~[neoforge-21.1.252.jar%23125!/:?] {re:classloading}
+	at TRANSFORMER/minecraft@1.21.1/net.minecraft.gametest.framework.GameTestServer.tickServer(GameTestServer.java:171) ~[neoforge-21.1.252.jar%23125!/:?] {re:classloading}
+	at TRANSFORMER/minecraft@1.21.1/net.minecraft.server.MinecraftServer.runServer(MinecraftServer.java:707) ~[neoforge-21.1.252.jar%23125!/:?] {re:classloading,pl:accesstransformer:B}
+	at TRANSFORMER/minecraft@1.21.1/net.minecraft.server.MinecraftServer.lambda$spin$2(MinecraftServer.java:267) ~[neoforge-21.1.252.jar%23125!/:?] {re:classloading,pl:accesstransformer:B}
+	at java.base/java.lang.Thread.run(Thread.java:1583) [?:?] {}
+
+
+A detailed walkthrough of the error, its code path and all known details is as follows:
+---------------------------------------------------------------------------------------
+
+-- System Details --
+Details:
+	Minecraft Version: 1.21.1
+	Minecraft Version ID: 1.21.1
+	Operating System: Windows 10 (amd64) version 10.0
+	Java Version: 21.0.4, Eclipse Adoptium
+	Java VM Version: OpenJDK 64-Bit Server VM (mixed mode, sharing), Eclipse Adoptium
+	Memory: 161282592 bytes (153 MiB) / 423624704 bytes (404 MiB) up to 8585740288 bytes (8188 MiB)
+	CPUs: 8
+	Processor Vendor: AuthenticAMD
+	Processor Name: AMD FX(tm)-8300 Eight-Core Processor           
+	Identifier: AuthenticAMD Family 21 Model 2 Stepping 0
+	Microarchitecture: Piledriver
+	Frequency (GHz): 3.32
+	Number of physical packages: 1
+	Number of physical CPUs: 4
+	Number of logical CPUs: 8
+	Graphics card #0 name: NVIDIA GeForce GTX 1050 Ti
+	Graphics card #0 vendor: NVIDIA
+	Graphics card #0 VRAM (MiB): 4096.00
+	Graphics card #0 deviceId: VideoController1
+	Graphics card #0 versionInfo: 32.0.15.6094
+	Memory slot #0 capacity (MiB): 8192.00
+	Memory slot #0 clockSpeed (GHz): 1.60
+	Memory slot #0 type: DDR3
+	Memory slot #1 capacity (MiB): 8192.00
+	Memory slot #1 clockSpeed (GHz): 1.60
+	Memory slot #1 type: DDR3
+	Memory slot #2 capacity (MiB): 8192.00
+	Memory slot #2 clockSpeed (GHz): 1.60
+	Memory slot #2 type: DDR3
+	Memory slot #3 capacity (MiB): 8192.00
+	Memory slot #3 clockSpeed (GHz): 1.60
+	Memory slot #3 type: DDR3
+	Virtual memory max (MiB): 34798.11
+	Virtual memory used (MiB): 17544.89
+	Swap memory total (MiB): 2048.00
+	Swap memory used (MiB): 0.00
+	Space in storage for jna.tmpdir (MiB): <path not set>
+	Space in storage for org.lwjgl.system.SharedLibraryExtractPath (MiB): <path not set>
+	Space in storage for io.netty.native.workdir (MiB): <path not set>
+	Space in storage for java.io.tmpdir (MiB): available: 9836.84, total: 243102.69
+	Space in storage for workdir (MiB): available: 432512.88, total: 953867.00
+	JVM Flags: 0 total; 
+	Server Running: true
+	Player Count: 0 / 1; []
+	Active Data Packs: bundle, trade_rebalance, vanilla, mod_data, mod/q2w (incompatible), mod/geckolib, mod/neoforge
+	Available Data Packs: bundle, trade_rebalance, vanilla, mod/geckolib, mod/neoforge, mod/q2w (incompatible), mod_data
+	Enabled Feature Flags: minecraft:bundle, minecraft:vanilla, minecraft:trade_rebalance
+	World Generation: Stable
+	World Seed: 0
+	Type: Game test server
+	ModLauncher: 11.0.5+main.901c6ea8
+	ModLauncher launch target: forgeserverdev
+	ModLauncher services: 
+		sponge-mixin-0.15.2+mixin.0.8.7.jar mixin PLUGINSERVICE 
+		loader-4.0.44.jar slf4jfixer PLUGINSERVICE 
+		loader-4.0.44.jar runtime_enum_extender PLUGINSERVICE 
+		at-modlauncher-10.0.1.jar accesstransformer PLUGINSERVICE 
+		loader-4.0.44.jar runtimedistcleaner PLUGINSERVICE 
+		modlauncher-11.0.5.jar mixin TRANSFORMATIONSERVICE 
+		modlauncher-11.0.5.jar fml TRANSFORMATIONSERVICE 
+	FML Language Providers: 
+		javafml@4.0
+		lowcodefml@4.0
+		minecraft@4.0
+	Mod List: 
+		geckolib-neoforge-1.21.1-4.7.6.jar                |GeckoLib 4                    |geckolib                      |4.7.6               |Manifest: NOSIGNATURE
+		neoforge-21.1.252.jar                             |Minecraft                     |minecraft                     |1.21.1              |Manifest: NOSIGNATURE
+		neoforge-21.1.252.jar                             |NeoForge                      |neoforge                      |21.1.252            |Manifest: NOSIGNATURE
+		main                                              |Quake 2 Weapons               |q2w                           |1.2v-1.21.1         |Manifest: NOSIGNATURE
+	Crash Report UUID: b7526a69-80c5-438c-8bc1-9eb6644e6a79
+	FML: 4.0.44
+	NeoForge: 21.1.252
+
+> Task :runGameTestServer FAILED
+
+[Incubating] Problems report is available at: file:///G:/Minecraft%20Modifikationsfabrik/Quake%202%20Weapons/build/reports/problems/problems-report.html
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':runGameTestServer'.
+> Process 'command 'C:\Users\User\.gradle\jdks\eclipse_adoptium-21-amd64-windows\jdk-21.0.4+7\bin\java.exe'' finished with non-zero exit value 1
+
+* Try:
+> Run with --stacktrace option to get the stack trace.
+> Run with --info or --debug option to get more log output.
+> Run with --scan to get full insights.
+> Get more help at https://help.gradle.org.
+
+BUILD FAILED in 55s
+7 actionable tasks: 4 executed, 3 up-to-date

@@ -1,0 +1,116 @@
+["Visual Effects"]
+	#
+	#Enables muzzle flashes when firing weapons.
+	#EXPERIMENTAL: Contains flashing lights that may trigger photosensitive seizures.
+	enableMuzzleFlash = false
+	#
+	#Enables dynamic lighting for Blaster, Hyperblaster, Rocket and BFG10K projectiles.
+	#EXPERIMENTAL: Contains flashing lights that may trigger photosensitive seizures.
+	enableProjectileTrailLight = false
+	#
+	#Enables gore particles when living entities are hit by Quake weapons.
+	enableGore = false
+
+["Weapon damage"]
+	#
+	#Base damage per Blaster projectile hit.
+	#Damage is measured in health points: 2 points = 1 heart.
+	# Default: 3.0
+	# Range: 0.0 ~ 3.4028234663852886E38
+	blasterDamage = 3.0
+	#
+	#Base damage per Shotgun pellet. Each shot fires 12 pellets.
+	#Damage is measured in health points: 2 points = 1 heart.
+	# Default: 0.8
+	# Range: 0.0 ~ 3.4028234663852886E38
+	shotgunDamage = 0.8
+	#
+	#Base damage per Super Shotgun pellet. Each shot fires 20 pellets.
+	#Damage is measured in health points: 2 points = 1 heart.
+	# Default: 1.2
+	# Range: 0.0 ~ 3.4028234663852886E38
+	superShotgunDamage = 1.2
+	#
+	#Base damage per Machine Gun bullet.
+	#Damage is measured in health points: 2 points = 1 heart.
+	# Default: 1.6
+	# Range: 0.0 ~ 3.4028234663852886E38
+	machinegunDamage = 1.6
+	#
+	#Base damage per Chaingun bullet.
+	#Damage is measured in health points: 2 points = 1 heart.
+	# Default: 1.2
+	# Range: 0.0 ~ 3.4028234663852886E38
+	chaingunDamage = 1.2
+	#
+	#Maximum base damage dealt by a Hand Grenade explosion.
+	#Damage is measured in health points: 2 points = 1 heart.
+	# Default: 28.0
+	# Range: 0.0 ~ 3.4028234663852886E38
+	handgrenadeDamage = 28.0
+	#
+	#Blast radius of Hand Grenade explosions, in blocks.
+	# Default: 5.0
+	# Range: 0.0 ~ 3.4028234663852886E38
+	handgrenadeRadius = 5.0
+	#
+	#Maximum base damage dealt by a Grenade Launcher explosion.
+	#Damage is measured in health points: 2 points = 1 heart.
+	# Default: 28.0
+	# Range: 0.0 ~ 3.4028234663852886E38
+	grenadelauncherDamage = 28.0
+	#
+	#Blast radius of Grenade Launcher explosions, in blocks.
+	# Default: 5.0
+	# Range: 0.0 ~ 3.4028234663852886E38
+	grenadelauncherRadius = 5.0
+	#
+	#Maximum base damage dealt by a Rocket Launcher explosion.
+	#Damage is measured in health points: 2 points = 1 heart.
+	# Default: 28.0
+	# Range: 0.0 ~ 3.4028234663852886E38
+	rocketlauncherDamage = 28.0
+	#
+	#Blast radius of Rocket Launcher explosions, in blocks.
+	# Default: 4.0
+	# Range: 0.0 ~ 3.4028234663852886E38
+	rocketlauncherRadius = 4.0
+	#
+	#Base damage per Hyperblaster projectile hit.
+	#Damage is measured in health points: 2 points = 1 heart.
+	# Default: 4.0
+	# Range: 0.0 ~ 3.4028234663852886E38
+	hyperblasterDamage = 4.0
+	#
+	#Base damage dealt to each entity hit by a Railgun shot.
+	#Damage is measured in health points: 2 points = 1 heart.
+	# Default: 30.0
+	# Range: 0.0 ~ 3.4028234663852886E38
+	railgunDamage = 30.0
+	#
+	#Base damage dealt to the entity directly hit by a BFG10K projectile and its surrounding blast radius.
+	#Damage is measured in health points: 2 points = 1 heart.
+	# Default: 40.0
+	# Range: 0.0 ~ 3.4028234663852886E38
+	bfg10kDamage = 40.0
+	#
+	#Base damage per BFG10K laser hit while the projectile is in flight.
+	#Laser attacks are processed every 2 game ticks.
+	#Damage is measured in health points: 2 points = 1 heart.
+	# Default: 1.0
+	# Range: 0.0 ~ 3.4028234663852886E38
+	bfg10kLaserDamage = 1.0
+	#
+	#Maximum base damage of the BFG10K flash after impact.
+	#Damage decreases with distance from the explosion.
+	#Damage is measured in health points: 2 points = 1 heart.
+	# Default: 40.0
+	# Range: 0.0 ~ 3.4028234663852886E38
+	bfg10kFlashDamage = 40.0
+	#
+	#Self splash damage multiplier for rockets, grenades and the BFG blast.
+	#0 = no self damage, 0.5 = half damage, 1 = full damage.
+	#This does not change blast impulse or damage dealt to other entities.
+	# Default: 0.5
+	# Range: 0.0 ~ 1.0
+	explosionSelfDamageMultiplier = 0.5
