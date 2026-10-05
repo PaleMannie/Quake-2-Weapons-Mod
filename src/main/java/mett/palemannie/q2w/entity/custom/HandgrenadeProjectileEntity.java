@@ -42,13 +42,6 @@ public class HandgrenadeProjectileEntity extends Projectile {
 
         Vec3 center = this.position();
 
-        AABB area = new AABB(this.blockPosition()).inflate(Q2WConfigStats.HandGrenadeRadius);
-        for (LivingEntity entity : this.level().getEntitiesOfClass(LivingEntity.class, area)) {
-            if (entity != this.getOwner()) {
-                entity.hurt(this.damageSources().source(DamageTypes.PLAYER_ATTACK, this, this.getOwner()), Float.MIN_VALUE);
-            }
-        }
-
         QWExplosionHelper.handGrenadeExplosion(serverLevel, this, this.getOwner(), center,
                 this.getOwner(), isOvercookKey);
 

@@ -305,7 +305,7 @@ public class Bfg10kProjectileEntity extends Projectile {
 
         hits.sort(Comparator.comparingDouble(e -> e.distanceToSqr(this)));
 
-        DamageSource source = level.damageSources().source(ModDamageTypes.BFG10K_LASER_DAMAGE, this, this.getOwner());
+        DamageSource source = ModDamageTypes.weaponSource(level, ModDamageTypes.BFG10K_LASER_DAMAGE, this, this.getOwner());
 
         for (LivingEntity living : hits) {
             living.hurtServer(level, source, LASER_DAMAGE);
@@ -327,7 +327,7 @@ public class Bfg10kProjectileEntity extends Projectile {
             }
             if (damage > 0.0F) {
                 livingTarget.hurtServer(level,
-                        level.damageSources().source(ModDamageTypes.BFG10K_DAMAGE, this, this.getOwner()), damage);
+                        ModDamageTypes.weaponSource(level, ModDamageTypes.BFG10K_DAMAGE, this, this.getOwner()), damage);
             }
         }
 
@@ -368,7 +368,7 @@ public class Bfg10kProjectileEntity extends Projectile {
         );
 
         // Credit the real hit to the owner; ModEvents applies Quad Damage once.
-        DamageSource bfgSource = level.damageSources().source(ModDamageTypes.BFG10K_DAMAGE, this, owner);
+        DamageSource bfgSource = ModDamageTypes.weaponSource(level, ModDamageTypes.BFG10K_DAMAGE, this, owner);
 
         for (LivingEntity entity : level.getEntitiesOfClass(LivingEntity.class, area, Bfg10kProjectileEntity::isEligibleTarget)) {
 
@@ -437,7 +437,7 @@ public class Bfg10kProjectileEntity extends Projectile {
                 center.z + FLASH_RADIUS
         );
 
-        DamageSource source = level.damageSources().source(ModDamageTypes.BFG10K_FLASH_DAMAGE, this, this.getOwner());
+        DamageSource source = ModDamageTypes.weaponSource(level, ModDamageTypes.BFG10K_FLASH_DAMAGE, this, this.getOwner());
 
         for (LivingEntity entity : level.getEntitiesOfClass(LivingEntity.class, area, Bfg10kProjectileEntity::isEligibleTarget)) {
 

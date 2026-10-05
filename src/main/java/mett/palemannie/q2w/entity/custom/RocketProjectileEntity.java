@@ -215,11 +215,12 @@ public class RocketProjectileEntity extends Projectile {
     protected void onHitEntity(EntityHitResult pResult) {
         super.onHitEntity(pResult);
 
-        Player player = (Player) this.getOwner();
-
-        pResult.getEntity().hurt(level().damageSources().source(DamageTypes.PLAYER_ATTACK, this.getOwner(), this.getOwner()), Float.MIN_VALUE);
-        pResult.getEntity().hurt(level().damageSources().source(ModDamageTypes.ROCKETLAUNCHER_DAMAGE, null, null),
-                Q2WConfigStats.applyQuadDamage(Q2WConfigStats.RocketlauncherDamage * RandomSource.create().nextFloat()/4, player));
+        if (level() instanceof ServerLevel serverLevel) {
+            // The real source supplies kill credit and the Quad Damage event.
+            pResult.getEntity().hurtServer(serverLevel,
+                    ModDamageTypes.weaponSource(level(), ModDamageTypes.ROCKETLAUNCHER_DAMAGE, this, this.getOwner()),
+                    Q2WConfigStats.RocketlauncherDamage * RandomSource.create().nextFloat() / 4);
+        }
 
         quakeExplosion(this.level());
 

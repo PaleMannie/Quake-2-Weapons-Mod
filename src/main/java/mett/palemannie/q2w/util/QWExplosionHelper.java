@@ -33,7 +33,7 @@ public final class QWExplosionHelper {
     public static void handGrenadeExplosion(ServerLevel level, @Nullable Entity projectile,
                                             @Nullable Entity owner, Vec3 center,
                                             @Nullable Entity quadApplier, boolean overcooked) {
-        DamageSource source = level.damageSources().source(
+        DamageSource source = ModDamageTypes.weaponSource(level,
                 overcooked ? ModDamageTypes.HANDGRENADE_OVERCOOK_DAMAGE : ModDamageTypes.HANDGRENADE_DAMAGE,
                 projectile, owner);
         radiusDamage(level, projectile, owner, center, Q2WConfigStats.HandGrenadeDamage,
@@ -43,7 +43,7 @@ public final class QWExplosionHelper {
     public static void grenadeLauncherExplosion(ServerLevel level, @Nullable Entity projectile,
                                                 @Nullable Entity owner, Vec3 center,
                                                 @Nullable Entity quadApplier) {
-        DamageSource source = level.damageSources().source(
+        DamageSource source = ModDamageTypes.weaponSource(level,
                 ModDamageTypes.GRENADELAUNCHER_DAMAGE, projectile, owner);
         radiusDamage(level, projectile, owner, center, Q2WConfigStats.GrenadelauncherDamage,
                 Q2WConfigStats.GrenadelauncherRadius, source, quadApplier);
@@ -52,7 +52,7 @@ public final class QWExplosionHelper {
     public static void rocketExplosion(ServerLevel level, @Nullable Entity projectile,
                                        @Nullable Entity owner, Vec3 center,
                                        @Nullable Entity quadApplier) {
-        DamageSource source = level.damageSources().source(
+        DamageSource source = ModDamageTypes.weaponSource(level,
                 ModDamageTypes.ROCKETLAUNCHER_DAMAGE, projectile, owner);
         radiusDamage(level, projectile, owner, center, Q2WConfigStats.RocketlauncherDamage,
                 Q2WConfigStats.RocketlauncherRadius, source, quadApplier);
