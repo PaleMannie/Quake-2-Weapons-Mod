@@ -1,7 +1,7 @@
 {
   "type": "minecraft:smelting",
   "ingredient": [
-    "q2w:rebreather_item"
+    "q2w:q2w_rebreather_item"
   ],
   "result": {
     "id": "minecraft:copper_ingot"

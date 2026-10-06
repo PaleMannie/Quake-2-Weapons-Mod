@@ -1,9 +1,9 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    " I ",
-    "RTG",
-    " I "
+    " R ",
+    "ITI",
+    " G "
   ],
   "key": {
     "R": ["minecraft:redstone"],
@@ -12,7 +12,7 @@
     "I": ["minecraft:iron_ingot"]
   },
   "result": {
-    "id": "q2w:grenade",
+    "id": "q2w:q2w_grenade",
     "count": 8
   }
 }

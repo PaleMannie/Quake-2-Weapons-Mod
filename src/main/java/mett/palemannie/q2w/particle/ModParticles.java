@@ -14,11 +14,11 @@ public class ModParticles {
 
 
     public static final RegistryObject<SimpleParticleType> BFG_LASER_PARTICLE =
-            PARTICLES.register("bfg_laser_particle", () -> new SimpleParticleType(true));
+            PARTICLES.register("q2w_bfg_laser_particle", () -> new SimpleParticleType(true));
 
     public static final RegistryObject<SimpleParticleType> BFG_EXPLOSION_PARTICLE =
-            PARTICLES.register("bfg_explosion_particle", () -> new SimpleParticleType(true));
+            PARTICLES.register("q2w_bfg_explosion_particle", () -> new SimpleParticleType(true));
 
     public static final RegistryObject<SimpleParticleType> BFG_FLASH_PARTICLE =
-            PARTICLES.register("bfg_flash_particle", () -> new SimpleParticleType(true));
+            PARTICLES.register("q2w_bfg_flash_particle", () -> new SimpleParticleType(true));
 }

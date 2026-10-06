@@ -38,6 +38,9 @@ public class Quake2Weapons {
         ModParticles.PARTICLES.register(modBusGroup);
         ModCreativeModeTabs.register(modBusGroup);
 
+        net.minecraftforge.registries.MissingMappingsEvent.BUS.addListener(
+                mett.palemannie.q2w.util.LegacyIdMigrator::onMissingMappings);
+
         Q2WConfig.registerConfigs();
     }
 

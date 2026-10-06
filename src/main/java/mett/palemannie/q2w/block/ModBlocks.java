@@ -21,16 +21,16 @@ public class ModBlocks {
             DeferredRegister.create(ForgeRegistries.BLOCKS, Quake2Weapons.MODID);
 
 
-    public static final RegistryObject<Block> QUAKE_LIGHT_WATER = BLOCKS.register("light_water", () ->
-            new QuakeLightWaterBlock(Fluids.WATER, BlockBehaviour.Properties.of().setId(BLOCKS.key("light_water"))
+    public static final RegistryObject<Block> QUAKE_LIGHT_WATER = BLOCKS.register("q2w_light_water", () ->
+            new QuakeLightWaterBlock(Fluids.WATER, BlockBehaviour.Properties.of().setId(BLOCKS.key("q2w_light_water"))
                     .mapColor(MapColor.WATER).replaceable().noCollision().strength(100.0F)
                     .pushReaction(PushReaction.DESTROY).noLootTable().liquid().sound(SoundType.EMPTY)
                     .lightLevel((x)
                             -> x.getValue(BlockStateProperties.POWER))));
 
     public static final RegistryObject<Block> QUAKE_LIGHT_AIR =
-            BLOCKS.register("quake_light_air", () ->
-                    new QuakeLightAirBlock(BlockBehaviour.Properties.of().setId(BLOCKS.key("quake_light_air"))
+            BLOCKS.register("q2w_quake_light_air", () ->
+                    new QuakeLightAirBlock(BlockBehaviour.Properties.of().setId(BLOCKS.key("q2w_quake_light_air"))
                             .replaceable().noCollision().noLootTable().air().randomTicks().lightLevel((x)
                                     -> x.getValue(BlockStateProperties.POWER)).noLootTable().air()));
 

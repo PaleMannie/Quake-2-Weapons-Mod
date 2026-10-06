@@ -1,9 +1,9 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "III",
-    "III",
-    "PGB"
+    "IIP",
+    "IIG",
+    "IIB"
   ],
   "key": {
     "I": ["minecraft:iron_nugget"],
@@ -12,7 +12,7 @@
     "B": ["minecraft:gold_ingot"]
   },
   "result": {
-    "id": "q2w:shell",
+    "id": "q2w:q2w_shell",
     "count": 8
   }
 }

@@ -1,7 +1,7 @@
 {
   "type": "minecraft:smelting",
   "ingredient": [
-    "q2w:silencer_item"
+    "q2w:q2w_silencer_item"
   ],
   "result": {
     "id": "minecraft:iron_ingot"
