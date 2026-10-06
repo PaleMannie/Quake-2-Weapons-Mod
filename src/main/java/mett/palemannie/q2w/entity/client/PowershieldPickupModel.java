@@ -13,7 +13,7 @@ import net.minecraft.world.entity.Entity;
 
 public class PowershieldPickupModel<T extends Entity> extends HierarchicalModel<T> {
 
-	public static final ModelLayerLocation POWERSHIELDPICKUP_LAYER = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(Quake2Weapons.MODID, "powershield_pickup"), "main");
+	public static final ModelLayerLocation POWERSHIELDPICKUP_LAYER = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(Quake2Weapons.MODID, "q2w_powershield_pickup"), "main");
 	private final ModelPart root;
 
 	public PowershieldPickupModel(ModelPart root) {

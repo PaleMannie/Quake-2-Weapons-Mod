@@ -13,7 +13,7 @@ import net.minecraft.world.entity.Entity;
 
 public class RebreatherPickupModel<T extends Entity> extends HierarchicalModel<T> {
 
-	public static final ModelLayerLocation REBREATHERPICKUP_LAYER = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(Quake2Weapons.MODID, "rebreather_pickup"), "main");
+	public static final ModelLayerLocation REBREATHERPICKUP_LAYER = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(Quake2Weapons.MODID, "q2w_rebreather_pickup"), "main");
 	private final ModelPart root;
 
 	public RebreatherPickupModel(ModelPart root) {

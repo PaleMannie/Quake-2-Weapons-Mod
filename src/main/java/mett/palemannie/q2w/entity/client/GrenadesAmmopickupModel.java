@@ -13,7 +13,7 @@ import net.minecraft.world.entity.Entity;
 
 public class GrenadesAmmopickupModel<T extends Entity> extends HierarchicalModel<T> {
 
-	public static final ModelLayerLocation GRENADESPICKUP_LAYER = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(Quake2Weapons.MODID, "grenades_ammopickup"), "main");
+	public static final ModelLayerLocation GRENADESPICKUP_LAYER = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(Quake2Weapons.MODID, "q2w_grenades_ammopickup"), "main");
 	private final ModelPart root;
 
 	public GrenadesAmmopickupModel(ModelPart root) {

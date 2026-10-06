@@ -13,7 +13,7 @@ import net.minecraft.world.entity.Entity;
 
 public class SilencerPowerupModel<T extends Entity> extends HierarchicalModel<T> {
 
-	public static final ModelLayerLocation SILENCER_LAYER = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(Quake2Weapons.MODID, "silencer_powerup"), "main");
+	public static final ModelLayerLocation SILENCER_LAYER = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(Quake2Weapons.MODID, "q2w_silencer_powerup"), "main");
 	private static final String MAIN = "main";
 	private final ModelPart root;
 

@@ -1,6 +1,5 @@
 {
   "type": "minecraft:crafting_shaped",
-  "category": "misc",
   "pattern": [
     "GRR",
     "dDQ",
@@ -30,7 +29,7 @@
     }
   },
   "result": {
-    "count": 1,
-    "id": "q2w:railgun"
+    "id": "q2w:q2w_railgun",
+    "count": 1
   }
 }

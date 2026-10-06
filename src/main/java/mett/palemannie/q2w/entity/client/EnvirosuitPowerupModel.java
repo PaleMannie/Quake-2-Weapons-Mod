@@ -13,7 +13,7 @@ import net.minecraft.world.entity.Entity;
 
 public class EnvirosuitPowerupModel<T extends Entity> extends HierarchicalModel<T> {
 
-	public static final ModelLayerLocation ENVIROSUIT_LAYER = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(Quake2Weapons.MODID, "invuln_powerup"), "main");
+	public static final ModelLayerLocation ENVIROSUIT_LAYER = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(Quake2Weapons.MODID, "q2w_invuln_powerup"), "main");
 	private static final String MAIN = "main";
 	private final ModelPart root;
 

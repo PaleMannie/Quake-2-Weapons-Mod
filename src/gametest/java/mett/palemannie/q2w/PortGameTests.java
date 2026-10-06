@@ -76,10 +76,72 @@ public final class PortGameTests {
     @GameTest(template = "empty")
     public static void recipesLoaded(GameTestHelper helper) {
         for (String name : java.util.List.of("blaster", "shotgun", "super_shotgun", "machinegun", "chaingun",
-                "grenadelauncher", "rocketlauncher", "hyperblaster", "railgun", "bfg10k", "bullet", "cell", "grenade")) {
-            helper.assertTrue(helper.getLevel().getRecipeManager().byKey(ResourceLocation.fromNamespaceAndPath("q2w", name)).isPresent(),
+                "grenadelauncher", "rocketlauncher", "hyperblaster", "railgun", "bfg10k", "bullet", "cell", "grenade", "rocket", "shell", "slug",
+                "powershield_smelting", "rebreather_smelting", "silencer_smelting")) {
+            helper.assertTrue(helper.getLevel().getRecipeManager().byKey(ResourceLocation.fromNamespaceAndPath("q2w", "q2w_" + name)).isPresent(),
                     "Recipe did not load: " + name);
         }
+        helper.succeed();
+    }
+
+    @GameTest(template = "empty")
+    public static void legacySaveMigration(GameTestHelper helper) {
+        var level = helper.getLevel();
+        for (var registry : java.util.List.of(
+                net.minecraft.core.registries.BuiltInRegistries.ITEM,
+                net.minecraft.core.registries.BuiltInRegistries.BLOCK,
+                net.minecraft.core.registries.BuiltInRegistries.ENTITY_TYPE,
+                net.minecraft.core.registries.BuiltInRegistries.MOB_EFFECT,
+                net.minecraft.core.registries.BuiltInRegistries.SOUND_EVENT,
+                net.minecraft.core.registries.BuiltInRegistries.PARTICLE_TYPE)) {
+            for (var id : registry.keySet()) {
+                if (!id.getNamespace().equals("q2w") || !id.getPath().startsWith("q2w_")) continue;
+                var old = ResourceLocation.fromNamespaceAndPath("q2w", id.getPath().substring(4));
+                helper.assertTrue(registry.get(old) == registry.get(id), "Legacy alias failed: " + old);
+            }
+        }
+        for (var item : ModItems.ITEMS.getEntries()) {
+            ItemStack original = item.get().getDefaultInstance();
+            original.setCount(Math.min(3, original.getMaxStackSize()));
+            ItemData.putBoolean(original, "MigrationMarker", true);
+            var tag = (net.minecraft.nbt.CompoundTag) original.save(level.registryAccess());
+            tag.putString("id", "q2w:" + item.getId().getPath().substring(4));
+            ItemStack loaded = ItemStack.parseOptional(level.registryAccess(), tag);
+            helper.assertTrue(ItemStack.matches(original, loaded), "Legacy item lost data: " + item.getId());
+            var saved = (net.minecraft.nbt.CompoundTag) loaded.save(level.registryAccess());
+            helper.assertTrue(saved.getString("id").equals(item.getId().toString()), "Item did not save current ID");
+        }
+        var block = mett.palemannie.q2w.block.ModBlocks.QUAKE_LIGHT_AIR.get();
+        var blockTag = net.minecraft.nbt.NbtUtils.writeBlockState(block.defaultBlockState());
+        blockTag.putString("Name", "q2w:quake_light_air");
+        var loadedBlock = net.minecraft.nbt.NbtUtils.readBlockState(
+                level.holderLookup(net.minecraft.core.registries.Registries.BLOCK), blockTag);
+        helper.assertTrue(loadedBlock.is(block), "Legacy block palette failed");
+        var entity = ModEntities.HANDGRENADE_PROJECTILE.get().create(level);
+        var entityTag = new net.minecraft.nbt.CompoundTag();
+        entity.save(entityTag);
+        entityTag.putString("id", "q2w:handgrenade_projectile");
+        var loadedEntity = net.minecraft.world.entity.EntityType.loadEntityRecursive(entityTag, level, e -> e);
+        helper.assertTrue(loadedEntity != null && loadedEntity.getType() == entity.getType(), "Legacy entity failed");
+        var effect = new net.minecraft.world.effect.MobEffectInstance(
+                mett.palemannie.q2w.effect.ModEffects.QUAD_DAMAGE, 123, 1);
+        var effectTag = (net.minecraft.nbt.CompoundTag) effect.save();
+        effectTag.putString("id", "q2w:quad_damage_effect");
+        var loadedEffect = net.minecraft.world.effect.MobEffectInstance.load(effectTag);
+        helper.assertTrue(loadedEffect != null && loadedEffect.getEffect().equals(effect.getEffect())
+                && loadedEffect.getDuration() == 123 && loadedEffect.getAmplifier() == 1, "Legacy effect failed");
+        var recipeTag = new net.minecraft.nbt.CompoundTag();
+        var recipes = new net.minecraft.nbt.ListTag();
+        recipes.add(net.minecraft.nbt.StringTag.valueOf("q2w:rocket"));
+        recipeTag.put("recipes", recipes);
+        recipeTag.put("toBeDisplayed", recipes.copy());
+        var book = new net.minecraft.stats.ServerRecipeBook();
+        book.fromNbt(recipeTag, level.getRecipeManager());
+        var savedBook = book.toNbt();
+        helper.assertTrue(savedBook.getList("recipes", 8).getString(0).equals("q2w:q2w_rocket"), "Legacy recipe unlock failed");
+        helper.assertTrue(savedBook.getList("toBeDisplayed", 8).getString(0).equals("q2w:q2w_rocket"), "Legacy recipe highlight failed");
+        helper.assertTrue(level.getRecipeManager().byKey(ResourceLocation.parse("quakeweapons:rocket")).isEmpty(),
+                "Migration must not redirect QW recipes");
         helper.succeed();
     }
 }

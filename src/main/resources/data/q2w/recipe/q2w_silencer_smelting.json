@@ -1,12 +1,11 @@
 {
   "type": "minecraft:smelting",
-  "category": "misc",
-  "cookingtime": 200,
-  "experience": 0.7,
   "ingredient": {
-    "item": "q2w:silencer_item"
+    "item": "q2w:q2w_silencer_item"
   },
   "result": {
     "id": "minecraft:iron_ingot"
-  }
+  },
+  "experience": 0.7,
+  "cookingtime": 200
 }

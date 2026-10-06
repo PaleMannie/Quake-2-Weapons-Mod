@@ -1,8 +1,7 @@
 {
   "type": "minecraft:crafting_shaped",
-  "category": "misc",
   "pattern": [
-    "GI ",
+    " GI",
     "ISW",
     "PWs"
   ],
@@ -14,7 +13,7 @@
       "item": "minecraft:gold_ingot"
     },
     "S": {
-      "item": "q2w:shotgun"
+      "item": "q2w:q2w_shotgun"
     },
     "P": {
       "item": "minecraft:piston"
@@ -27,7 +26,7 @@
     }
   },
   "result": {
-    "count": 1,
-    "id": "q2w:super_shotgun"
+    "id": "q2w:q2w_super_shotgun",
+    "count": 1
   }
 }

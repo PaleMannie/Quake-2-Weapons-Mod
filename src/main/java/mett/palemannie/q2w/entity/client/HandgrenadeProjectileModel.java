@@ -13,7 +13,7 @@ import net.minecraft.world.entity.Entity;
 
 public class HandgrenadeProjectileModel<T extends Entity> extends HierarchicalModel<T> {
 
-	public static final ModelLayerLocation HANDGRENADE_LAYER = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(Quake2Weapons.MODID, "handgrenade_projectile"), "main");
+	public static final ModelLayerLocation HANDGRENADE_LAYER = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(Quake2Weapons.MODID, "q2w_handgrenade_projectile"), "main");
 	private final ModelPart handgrenade;
 
 	public HandgrenadeProjectileModel(ModelPart root) {

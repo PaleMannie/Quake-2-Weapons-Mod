@@ -13,7 +13,7 @@ import net.minecraft.world.entity.Entity;
 
 public class LaserProjectileModel<T extends Entity> extends HierarchicalModel<T> {
 
-	public static final ModelLayerLocation LASER_LAYER = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(Quake2Weapons.MODID, "laser_projectile"), "main");
+	public static final ModelLayerLocation LASER_LAYER = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(Quake2Weapons.MODID, "q2w_laser_projectile"), "main");
 	private static final String MAIN = "main";
 	private final ModelPart root;
 

@@ -7,8 +7,8 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 
 final class ExplosiveAmmo {
-    static final TagKey<Item> GRENADES = tag("launcher_grenades");
-    static final TagKey<Item> ROCKETS = tag("launcher_rockets");
+    static final TagKey<Item> GRENADES = tag("q2w_launcher_grenades");
+    static final TagKey<Item> ROCKETS = tag("q2w_launcher_rockets");
 
     private static TagKey<Item> tag(String path) {
         return TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath(Quake2Weapons.MODID, path));

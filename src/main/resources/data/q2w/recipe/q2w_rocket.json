@@ -1,9 +1,8 @@
 {
   "type": "minecraft:crafting_shaped",
-  "category": "misc",
   "pattern": [
-    " II",
-    "RTG",
+    "II ",
+    "GTI",
     "II "
   ],
   "key": {
@@ -15,13 +14,10 @@
     },
     "T": {
       "item": "minecraft:tnt"
-    },
-    "R": {
-      "item": "minecraft:redstone"
     }
   },
   "result": {
-    "count": 8,
-    "id": "q2w:grenade"
+    "id": "q2w:q2w_rocket",
+    "count": 8
   }
 }

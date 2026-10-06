@@ -1,6 +1,5 @@
 {
   "type": "minecraft:crafting_shapeless",
-  "category": "misc",
   "ingredients": [
     {
       "item": "minecraft:iron_nugget"
@@ -13,7 +12,7 @@
     }
   ],
   "result": {
-    "count": 8,
-    "id": "q2w:bullet"
+    "id": "q2w:q2w_bullet",
+    "count": 8
   }
 }

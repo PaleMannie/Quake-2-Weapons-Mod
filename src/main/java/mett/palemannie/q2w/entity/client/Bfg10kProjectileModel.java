@@ -12,7 +12,7 @@ import net.minecraft.world.entity.Entity;
 
 public class Bfg10kProjectileModel<T extends Entity> extends HierarchicalModel<T> {
 
-	public static final ModelLayerLocation BALL_LAYER = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(Quake2Weapons.MODID, "bfg_ball"), "main");
+	public static final ModelLayerLocation BALL_LAYER = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(Quake2Weapons.MODID, "q2w_bfg_ball"), "main");
 	private static final String MAIN = "main";
 	private final ModelPart root;
 

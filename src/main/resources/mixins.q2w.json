@@ -7,11 +7,11 @@
   },
   "compatibilityLevel": "JAVA_21",
   "mixins": [
+    "RecipeManagerMixin"
   ],
   "client": [
     "LocalPlayerMixin",
     "MinecraftMixin"
   ],
-  "server": [
-  ]
+  "server": []
 }

@@ -1,6 +1,5 @@
 {
   "type": "minecraft:crafting_shapeless",
-  "category": "misc",
   "ingredients": [
     {
       "item": "minecraft:iron_ingot"
@@ -13,7 +12,7 @@
     }
   ],
   "result": {
-    "count": 2,
-    "id": "q2w:slug"
+    "id": "q2w:q2w_slug",
+    "count": 2
   }
 }

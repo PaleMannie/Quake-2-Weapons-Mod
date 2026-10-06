@@ -13,7 +13,7 @@ import net.minecraft.world.entity.Entity;
 
 public class MuzzleflashModel<T extends Entity> extends HierarchicalModel<T> {
 
-    public static final ModelLayerLocation FLASH_LAYER = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(Quake2Weapons.MODID, "muzzleflash"), "main");
+    public static final ModelLayerLocation FLASH_LAYER = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(Quake2Weapons.MODID, "q2w_muzzleflash"), "main");
     private static final String MAIN = "main";
     private final ModelPart root;
 

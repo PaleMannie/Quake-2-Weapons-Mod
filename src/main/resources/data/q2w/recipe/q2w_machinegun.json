@@ -1,6 +1,5 @@
 {
   "type": "minecraft:crafting_shaped",
-  "category": "misc",
   "pattern": [
     " I ",
     "DIP",
@@ -24,7 +23,7 @@
     }
   },
   "result": {
-    "count": 1,
-    "id": "q2w:machinegun"
+    "id": "q2w:q2w_machinegun",
+    "count": 1
   }
 }

@@ -13,7 +13,7 @@ import net.minecraft.world.entity.Entity;
 
 public class MegahealthPickupModel<T extends Entity> extends HierarchicalModel<T> {
 
-	public static final ModelLayerLocation MEGAHEALTHPICKUP_LAYER = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(Quake2Weapons.MODID, "megahealth_pickup"), "main");
+	public static final ModelLayerLocation MEGAHEALTHPICKUP_LAYER = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(Quake2Weapons.MODID, "q2w_megahealth_pickup"), "main");
 	private final ModelPart root;
 
 	public MegahealthPickupModel(ModelPart root) {

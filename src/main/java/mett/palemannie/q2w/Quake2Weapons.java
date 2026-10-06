@@ -36,6 +36,7 @@ public class Quake2Weapons {
         ModBlocks.register(modEventBus);
         ModParticles.PARTICLES.register(modEventBus);
 
+        mett.palemannie.q2w.util.LegacyIdMigration.registerAliases();
         Q2WConfig.registerConfigs(container);
     }
 

@@ -13,7 +13,7 @@ import net.minecraft.world.entity.Entity;
 
 public class AdrenalinePickupModel<T extends Entity> extends HierarchicalModel<T> {
 
-	public static final ModelLayerLocation ADRENALINEPICKUP_LAYER = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(Quake2Weapons.MODID, "adrenaline_pickup"), "main");
+	public static final ModelLayerLocation ADRENALINEPICKUP_LAYER = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(Quake2Weapons.MODID, "q2w_adrenaline_pickup"), "main");
 	private final ModelPart root;
 
 	public AdrenalinePickupModel(ModelPart root) {
