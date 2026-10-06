@@ -1,6 +1,5 @@
 {
   "type": "minecraft:crafting_shaped",
-  "category": "misc",
   "pattern": [
     "IGI",
     "GRG",
@@ -18,7 +17,7 @@
     }
   },
   "result": {
-    "item": "q2w:cell",
+    "item": "q2w:q2w_cell",
     "count": 16
   }
 }

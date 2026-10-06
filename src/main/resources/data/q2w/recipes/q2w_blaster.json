@@ -1,6 +1,5 @@
 {
   "type": "minecraft:crafting_shaped",
-  "category": "misc",
   "pattern": [
     " C ",
     "IRR",
@@ -21,7 +20,7 @@
     }
   },
   "result": {
-    "item": "q2w:blaster",
+    "item": "q2w:q2w_blaster",
     "count": 1
   }
 }

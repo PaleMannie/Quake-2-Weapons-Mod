@@ -1,9 +1,8 @@
 {
   "type": "minecraft:crafting_shaped",
-  "category": "misc",
   "pattern": [
-    "  P",
-    "IIR",
+    "  R",
+    "IIP",
     "PWS"
   ],
   "key": {
@@ -24,7 +23,7 @@
     }
   },
   "result": {
-    "item": "q2w:shotgun",
+    "item": "q2w:q2w_shotgun",
     "count": 1
   }
 }

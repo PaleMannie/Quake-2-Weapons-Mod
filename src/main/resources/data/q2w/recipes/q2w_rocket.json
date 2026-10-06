@@ -1,10 +1,9 @@
 {
   "type": "minecraft:crafting_shaped",
-  "category": "misc",
   "pattern": [
-    " II",
-    "ITG",
-    " II"
+    "II ",
+    "GTI",
+    "II "
   ],
   "key": {
     "I": {
@@ -18,7 +17,7 @@
     }
   },
   "result": {
-    "item": "q2w:rocket",
+    "item": "q2w:q2w_rocket",
     "count": 8
   }
 }

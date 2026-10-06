@@ -1,47 +1,41 @@
 {
-  "weapon_switch": {
+  "q2w_weapon_switch": {
     "subtitle": "sounds.q2w.weapon_switch",
     "sounds": [
       "q2w:weapon_switch"
     ]
   },
-
-  "ammo_pickup": {
+  "q2w_ammo_pickup": {
     "subtitle": "sounds.q2w.ammo_pickup",
     "sounds": [
       "q2w:ammo_pickup"
     ]
   },
-
-  "item_pickup": {
+  "q2w_item_pickup": {
     "subtitle": "sounds.q2w.item_pickup",
     "sounds": [
       "q2w:item_pickup"
     ]
   },
-
-  "shotgun_shoot": {
+  "q2w_shotgun_shoot": {
     "subtitle": "sounds.q2w.shotgun_shoot",
     "sounds": [
       "q2w:shotgun_shoot"
     ]
   },
-
-  "blaster_shoot": {
+  "q2w_blaster_shoot": {
     "subtitle": "sounds.q2w.blaster_shoot",
     "sounds": [
       "q2w:blaster_shoot"
     ]
   },
-
-  "super_shotgun_shoot": {
+  "q2w_super_shotgun_shoot": {
     "subtitle": "sounds.q2w.super_shotgun_shoot",
     "sounds": [
       "q2w:super_shotgun_shoot"
     ]
   },
-
-  "bullet_hit": {
+  "q2w_bullet_hit": {
     "subtitle": "sounds.q2w.bullet_hit",
     "sounds": [
       "q2w:bullet_hit1",
@@ -50,15 +44,13 @@
       "q2w:bullet_hit4"
     ]
   },
-
-  "blaster_hit": {
+  "q2w_blaster_hit": {
     "subtitle": "sounds.q2w.blaster_hit",
     "sounds": [
       "q2w:blaster_hit"
     ]
   },
-
-  "chaingun_shoot": {
+  "q2w_chaingun_shoot": {
     "subtitle": "sounds.q2w.chaingun_shoot",
     "sounds": [
       "q2w:chaingun_shoot1",
@@ -68,15 +60,13 @@
       "q2w:chaingun_shoot5"
     ]
   },
-
-  "chaingun_spinup": {
+  "q2w_chaingun_spinup": {
     "subtitle": "sounds.q2w.chaingun_spinup",
     "sounds": [
       "q2w:chaingun_spinup"
     ]
   },
-
-  "chaingun_loop": {
+  "q2w_chaingun_loop": {
     "subtitle": "sounds.q2w.chaingun_loop",
     "sounds": [
       {
@@ -85,22 +75,19 @@
       }
     ]
   },
-
-  "chaingun_spindown": {
+  "q2w_chaingun_spindown": {
     "subtitle": "sounds.q2w.chaingun_spindown",
     "sounds": [
       "q2w:chaingun_spindown"
     ]
   },
-
-  "explosion": {
+  "q2w_explosion": {
     "subtitle": "sounds.q2w.explosion",
     "sounds": [
       "q2w:explosion"
     ]
   },
-
-  "handgrenade_start": {
+  "q2w_handgrenade_start": {
     "subtitle": "sounds.q2w.handgrenade_start",
     "sounds": [
       {
@@ -109,8 +96,7 @@
       }
     ]
   },
-
-  "handgrenade_cook": {
+  "q2w_handgrenade_cook": {
     "subtitle": "sounds.q2w.handgrenade_cook",
     "sounds": [
       {
@@ -120,44 +106,38 @@
       }
     ]
   },
-
-  "handgrenade_toss": {
+  "q2w_handgrenade_toss": {
     "subtitle": "sounds.q2w.handgrenade_toss",
     "sounds": [
       "q2w:handgrenade_toss"
     ]
   },
-
-  "handgrenade_bounce": {
+  "q2w_handgrenade_bounce": {
     "subtitle": "sounds.q2w.handgrenade_bounce",
     "sounds": [
       "q2w:handgrenade_bounce1",
       "q2w:handgrenade_bounce2"
     ]
   },
-
-  "grenadelauncher_bounce": {
+  "q2w_grenadelauncher_bounce": {
     "subtitle": "sounds.q2w.grenadelauncher_bounce",
     "sounds": [
       "q2w:grenadelauncher_bounce"
     ]
   },
-
-  "grenadelauncher_shoot": {
+  "q2w_grenadelauncher_shoot": {
     "subtitle": "sounds.q2w.grenadelauncher_shoot",
     "sounds": [
       "q2w:grenadelauncher_shoot"
     ]
   },
-
-  "rocketlauncher_shoot": {
+  "q2w_rocketlauncher_shoot": {
     "subtitle": "sounds.q2w.rocketlauncher_shoot",
     "sounds": [
       "q2w:rocketlauncher_shoot"
     ]
   },
-
-  "rocket_loop": {
+  "q2w_rocket_loop": {
     "subtitle": "sounds.q2w.rocket_loop",
     "sounds": [
       {
@@ -166,15 +146,13 @@
       }
     ]
   },
-
-  "hyperblaster_shoot": {
+  "q2w_hyperblaster_shoot": {
     "subtitle": "sounds.q2w.hyperblaster_shoot",
     "sounds": [
       "q2w:hyperblaster_shoot"
     ]
   },
-
-  "hyperblaster_loop": {
+  "q2w_hyperblaster_loop": {
     "subtitle": "sounds.q2w.hyperblaster_loop",
     "sounds": [
       {
@@ -183,29 +161,25 @@
       }
     ]
   },
-
-  "hyperblaster_spinup": {
+  "q2w_hyperblaster_spinup": {
     "subtitle": "sounds.q2w.hyperblaster_spinup",
     "sounds": [
       "q2w:hyperblaster_spinup"
     ]
   },
-
-  "hyperblaster_spindown": {
+  "q2w_hyperblaster_spindown": {
     "subtitle": "sounds.q2w.hyperblaster_spindown",
     "sounds": [
       "q2w:hyperblaster_spindown"
     ]
   },
-
-  "railgun_shoot": {
+  "q2w_railgun_shoot": {
     "subtitle": "sounds.q2w.railgun_shoot",
     "sounds": [
       "q2w:railgun_shoot"
     ]
   },
-
-  "railgun_hum": {
+  "q2w_railgun_hum": {
     "subtitle": "sounds.q2w.railgun_hum",
     "sounds": [
       {
@@ -214,36 +188,31 @@
       }
     ]
   },
-
-  "bfg10k_windup": {
+  "q2w_bfg10k_windup": {
     "subtitle": "sounds.q2w.bfg10k_windup",
     "sounds": [
       "q2w:bfg10k_windup"
     ]
   },
-
-  "bfg10k_shoot": {
+  "q2w_bfg10k_shoot": {
     "subtitle": "sounds.q2w.bfg10k_shoot",
     "sounds": [
       "q2w:bfg10k_shoot"
     ]
   },
-
-  "bfg10k_projectile_loop": {
+  "q2w_bfg10k_projectile_loop": {
     "subtitle": "sounds.q2w.bfg10k_projectile_loop",
     "sounds": [
       "q2w:bfg10k_projectile_loop"
     ]
   },
-
-  "bfg10k_projectile_flash": {
+  "q2w_bfg10k_projectile_flash": {
     "subtitle": "sounds.q2w.bfg10k_projectile_flash",
     "sounds": [
       "q2w:bfg10k_projectile_flash"
     ]
   },
-
-  "bfg10k_hum": {
+  "q2w_bfg10k_hum": {
     "subtitle": "sounds.q2w.bfg10k_hum",
     "sounds": [
       {
@@ -252,96 +221,82 @@
       }
     ]
   },
-
-  "quad_damage_pickup": {
+  "q2w_quad_damage_pickup": {
     "subtitle": "sounds.q2w.quad_damage_pickup",
     "sounds": [
       "q2w:quad_damage_pickup"
     ]
   },
-
-  "quad_damage_use": {
+  "q2w_quad_damage_use": {
     "subtitle": "sounds.q2w.quad_damage_use",
     "sounds": [
       "q2w:quad_damage_use"
     ]
   },
-
-  "quad_damage_expire": {
+  "q2w_quad_damage_expire": {
     "subtitle": "sounds.q2w.quad_damage_expire",
     "sounds": [
       "q2w:quad_damage_expire"
     ]
   },
-
-  "invuln_pickup": {
+  "q2w_invuln_pickup": {
     "subtitle": "sounds.q2w.invuln_pickup",
     "sounds": [
       "q2w:invuln_pickup"
     ]
   },
-
-  "invuln_use": {
+  "q2w_invuln_use": {
     "subtitle": "sounds.q2w.invuln_use",
     "sounds": [
       "q2w:invuln_use"
     ]
   },
-
-  "invuln_expire": {
+  "q2w_invuln_expire": {
     "subtitle": "sounds.q2w.invuln_expire",
     "sounds": [
       "q2w:invuln_expire"
     ]
   },
-
-  "envirosuit_pickup": {
+  "q2w_envirosuit_pickup": {
     "subtitle": "sounds.q2w.envirosuit_pickup",
     "sounds": [
       "q2w:envirosuit_pickup"
     ]
   },
-
-  "envirosuit_expire": {
+  "q2w_envirosuit_expire": {
     "subtitle": "sounds.q2w.envirosuit_expire",
     "sounds": [
       "q2w:envirosuit_expire"
     ]
   },
-
-  "rebreather_use": {
+  "q2w_rebreather_use": {
     "subtitle": "sounds.q2w.rebreather_use",
     "sounds": [
       "q2w:rebreather_use"
     ]
   },
-
-  "adrenaline_use": {
+  "q2w_adrenaline_use": {
     "subtitle": "sounds.q2w.adrenaline_use",
     "sounds": [
       "q2w:adrenaline_use"
     ]
   },
-
-  "powershield_enable": {
+  "q2w_powershield_enable": {
     "subtitle": "sounds.q2w.powershield_enable",
     "sounds": [
       "q2w:powershield_enable"
     ]
   },
-
-  "powershield_disable": {
+  "q2w_powershield_disable": {
     "subtitle": "sounds.q2w.powershield_disable",
     "sounds": [
       "q2w:powershield_disable"
     ]
   },
-
-  "ammoempty": {
+  "q2w_ammoempty": {
     "subtitle": "sounds.q2w.ammoempty",
     "sounds": [
       "q2w:ammoempty"
     ]
   }
-
 }

@@ -1,14 +1,13 @@
 {
   "type": "minecraft:crafting_shaped",
-  "category": "misc",
   "pattern": [
-    " II",
-    "RTG",
-    "II "
+    " R ",
+    "ITI",
+    " G "
   ],
   "key": {
-    "I": {
-      "item": "minecraft:iron_ingot"
+    "R": {
+      "item": "minecraft:redstone"
     },
     "G": {
       "item": "minecraft:gunpowder"
@@ -16,12 +15,12 @@
     "T": {
       "item": "minecraft:tnt"
     },
-    "R": {
-      "item": "minecraft:redstone"
+    "I": {
+      "item": "minecraft:iron_ingot"
     }
   },
   "result": {
-    "item": "q2w:grenade",
+    "item": "q2w:q2w_grenade",
     "count": 8
   }
 }

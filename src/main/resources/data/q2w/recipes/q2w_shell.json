@@ -1,10 +1,9 @@
 {
   "type": "minecraft:crafting_shaped",
-  "category": "misc",
   "pattern": [
-    "III",
-    "III",
-    "PGB"
+    "IIP",
+    "IIG",
+    "IIB"
   ],
   "key": {
     "I": {
@@ -21,7 +20,7 @@
     }
   },
   "result": {
-    "item": "q2w:shell",
+    "item": "q2w:q2w_shell",
     "count": 8
   }
 }

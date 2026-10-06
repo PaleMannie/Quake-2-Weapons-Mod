@@ -10,6 +10,7 @@ import mett.palemannie.q2w.net.ModMessages;
 import mett.palemannie.q2w.particle.ModParticles;
 import mett.palemannie.q2w.sound.ModSounds;
 import mett.palemannie.q2w.util.ModCreativeModeTabs;
+import mett.palemannie.q2w.util.LegacyIdMigrator;
 import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -46,6 +47,8 @@ public class Quake2Weapons {
         ModSounds.register(modEventBus);
         ModBlocks.register(modEventBus);
         ModParticles.PARTICLES.register(modEventBus);
+
+        MinecraftForge.EVENT_BUS.addListener(LegacyIdMigrator::onMissingMappings);
 
         Q2WConfig.registerConfigs();
     }

@@ -8,7 +8,7 @@ import net.minecraft.world.item.Item;
 
 final class ShellAmmo {
     static final TagKey<Item> TAG = TagKey.create(Registries.ITEM,
-            ResourceLocation.fromNamespaceAndPath(Quake2Weapons.MODID, "shotgun_shells"));
+            ResourceLocation.fromNamespaceAndPath(Quake2Weapons.MODID, "q2w_shotgun_shells"));
 
     private ShellAmmo() {}
 }

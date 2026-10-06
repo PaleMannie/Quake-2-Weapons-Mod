@@ -4,6 +4,9 @@ import mett.palemannie.q2w.Q2WConfig;
 import mett.palemannie.q2w.net.ModMessages;
 import mett.palemannie.q2w.net.custom.SilencedShotsSyncS2CPacket;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.monster.Monster;
@@ -17,6 +20,9 @@ public final class WeaponAggroHandler {
     private WeaponAggroHandler() {}
 
     private static final String SILENCED_SHOTS_TAG = "Q2WSilencedShots";
+
+    private static final ResourceLocation QW_RING_INVISIBILITY =
+            ResourceLocation.fromNamespaceAndPath("quakeweapons", "qw_invis");
 
     public static final int DEFAULT_SILENCER_SHOTS = 30;
 
@@ -62,6 +68,8 @@ public final class WeaponAggroHandler {
             return;
         }
 
+        breakRingInvisibility(player);
+
         if (consumeSilencerShot(player)) {
             return;
         }
@@ -73,6 +81,17 @@ public final class WeaponAggroHandler {
         }
 
         aggroMonsters(player, range);
+    }
+
+    private static void breakRingInvisibility(ServerPlayer player) {
+        // Optional QW integration, independent of weapon IDs and right-click events.
+        var ringEffect = ForgeRegistries.MOB_EFFECTS.getValue(QW_RING_INVISIBILITY);
+        if (ringEffect == null || !player.hasEffect(ringEffect)) return;
+
+        // Let QW's removal listener synchronize the final visible state.
+        player.removeEffect(MobEffects.INVISIBILITY);
+        player.removeEffect(ringEffect);
+        player.setInvisible(false);
     }
 
     public static void onLoudWeaponHeld(ServerPlayer player) {

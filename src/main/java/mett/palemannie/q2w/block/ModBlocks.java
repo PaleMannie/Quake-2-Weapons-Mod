@@ -25,13 +25,13 @@ public class ModBlocks {
 
 
     public static final RegistryObject<Block> QUAKE_LIGHT_WATER =
-            registerBlockWithoutItem("light_water", () ->
+            registerBlockWithoutItem("q2w_light_water", () ->
             new QuakeLightWaterBlock(Fluids.WATER, BlockBehaviour.Properties.of().mapColor(MapColor.WATER).replaceable()
                     .noCollission().strength(100.0F).pushReaction(PushReaction.DESTROY).noLootTable()
                     .liquid().sound(SoundType.EMPTY).lightLevel((x) -> x.getValue(BlockStateProperties.POWER))));
 
     public static final RegistryObject<Block> QUAKE_LIGHT_AIR =
-            registerBlockWithoutItem("quake_light_air", () -> new QuakeLightAirBlock(
+            registerBlockWithoutItem("q2w_quake_light_air", () -> new QuakeLightAirBlock(
                     BlockBehaviour.Properties.copy(Blocks.AIR)
                             .lightLevel(state -> 15)
                             .noCollission()

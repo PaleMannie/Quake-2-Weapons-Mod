@@ -1,6 +1,5 @@
 {
   "type": "minecraft:crafting_shaped",
-  "category": "misc",
   "pattern": [
     "GI ",
     "BDR",
@@ -14,7 +13,7 @@
       "tag": "minecraft:logs"
     },
     "B": {
-      "item": "q2w:blaster"
+      "item": "q2w:q2w_blaster"
     },
     "D": {
       "item": "minecraft:dispenser"
@@ -30,7 +29,7 @@
     }
   },
   "result": {
-    "item": "q2w:hyperblaster",
+    "item": "q2w:q2w_hyperblaster",
     "count": 1
   }
 }
