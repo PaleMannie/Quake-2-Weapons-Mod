@@ -4,6 +4,9 @@ import mett.palemannie.q2w.Q2WConfig;
 import mett.palemannie.q2w.net.ModMessages;
 import mett.palemannie.q2w.net.custom.SilencedShotsSyncS2CPacket;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.monster.Monster;
@@ -15,6 +18,9 @@ public final class WeaponAggroHandler {
     /// the Silencer undoes that
 
     private WeaponAggroHandler() {}
+
+    private static final ResourceLocation QW_RING_EFFECT =
+            ResourceLocation.fromNamespaceAndPath("quakeweapons", "qw_invis");
 
     private static final String SILENCED_SHOTS_TAG = "Q2WSilencedShots";
 
@@ -61,6 +67,17 @@ public final class WeaponAggroHandler {
         if (player.level().isClientSide) {
             return;
         }
+
+        // QW's item-name allowlist predates our ID migration. Break the ring on every
+        // actual shot, independently of silencing and the configured monster aggro range.
+        BuiltInRegistries.MOB_EFFECT.getHolder(QW_RING_EFFECT).ifPresent(ring -> {
+            if (player.hasEffect(ring) && player.removeEffect(ring)) {
+                // Match QW's ring-breaking behavior. Its removal event synchronizes
+                // the custom invisibility state with tracking clients.
+                player.removeEffect(MobEffects.INVISIBILITY);
+                player.setInvisible(false);
+            }
+        });
 
         if (consumeSilencerShot(player)) {
             return;
