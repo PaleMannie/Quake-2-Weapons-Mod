@@ -1,0 +1,81 @@
+To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/8.14.3/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+Daemon will be stopped at the end of the build 
+> Task :createMinecraftArtifacts UP-TO-DATE
+
+> Task :compileJava
+Hinweis: Einige Eingabedateien verwenden oder überschreiben eine veraltete API.
+Hinweis: Wiederholen Sie die Kompilierung mit -Xlint:deprecation, um Details zu erhalten.
+
+> Task :processResources
+> Task :classes
+> Task :downloadAssets UP-TO-DATE
+> Task :writeGameTestServerLegacyClasspath UP-TO-DATE
+> Task :prepareGameTestServerRun UP-TO-DATE
+
+> Task :runGameTestServer
+WARN StatusConsoleListener Advanced terminal features are not available in this environment
+[15:09:02] [main/INFO] [cp.mo.mo.Launcher/MODLAUNCHER]: ModLauncher running: args [--launchTarget, forgeserverdev, --gameDir, ., --fml.fmlVersion, 4.0.44, --fml.mcVersion, 1.21.1, --fml.neoForgeVersion, 21.1.252, --fml.neoFormVersion, 20240808.144430]
+[15:09:02] [main/INFO] [cp.mo.mo.Launcher/MODLAUNCHER]: JVM identified as Eclipse Adoptium OpenJDK 64-Bit Server VM 21.0.4+7-LTS
+[15:09:02] [main/INFO] [cp.mo.mo.Launcher/MODLAUNCHER]: ModLauncher 11.0.5+main.901c6ea8 starting: java version 21.0.4 by Eclipse Adoptium; OS Windows 10 arch amd64 version 10.0
+[15:09:02] [main/INFO] [ne.ne.fm.lo.ImmediateWindowHandler/]: ImmediateWindowProvider not loading because launch target is forgeserverdev
+[15:09:02] [main/INFO] [mixin/]: SpongePowered MIXIN Subsystem Version=0.8.7 Source=union:/C:/Users/User/.gradle/caches/modules-2/files-2.1/net.fabricmc/sponge-mixin/0.15.2+mixin.0.8.7/2af2f021d8e02a0220dc27a7a72b4666d66d44ca/sponge-mixin-0.15.2+mixin.0.8.7.jar%2394!/ Service=ModLauncher Env=SERVER
+[15:09:03] [main/INFO] [ne.ne.fm.lo.mo.lo.JarInJarDependencyLocator/]: Found 2 dependencies adding them to mods collection
+[15:09:03] [main/INFO] [ne.ne.fm.lo.mo.ModDiscoverer/]: 
+     Mod List:
+		Name Version (Mod Id)
+
+		GeckoLib 4 4.7.6 (geckolib)
+		Minecraft 1.21.1 (minecraft)
+		NeoForge 21.1.252 (neoforge)
+		Quake 2 Weapons 1v-1.21.1-neoforge (q2w)
+[15:09:05] [main/INFO] [mixin/]: Compatibility level set to JAVA_21
+[15:09:05] [main/INFO] [cp.mo.mo.LaunchServiceHandler/MODLAUNCHER]: Launching target 'forgeserverdev' with arguments [--gameDir, .]
+[15:09:05] [main/WARN] [mixin/]: Reference map 'geckolib.refmap.json' for geckolib.mixins.json could not be read. If this is a development environment you can ignore this message
+[15:09:07] [main/INFO] [MixinExtras|Service/]: Initializing MixinExtras via com.llamalad7.mixinextras.service.MixinExtrasServiceImpl(version=0.5.3).
+[15:09:17] [main/WARN] [minecraft/Commands]: Ambiguity between arguments [teleport, location] and [teleport, destination] with inputs: [0.1 -0.5 .9, 0 0 0]
+[15:09:17] [main/WARN] [minecraft/Commands]: Ambiguity between arguments [teleport, location] and [teleport, targets] with inputs: [0.1 -0.5 .9, 0 0 0]
+[15:09:17] [main/WARN] [minecraft/Commands]: Ambiguity between arguments [teleport, destination] and [teleport, targets] with inputs: [Player, 0123, @e, dd12be42-52a9-4a91-a8a1-11c01849e498]
+[15:09:17] [main/WARN] [minecraft/Commands]: Ambiguity between arguments [teleport, targets] and [teleport, destination] with inputs: [Player, 0123, dd12be42-52a9-4a91-a8a1-11c01849e498]
+[15:09:17] [main/WARN] [minecraft/Commands]: Ambiguity between arguments [teleport, targets, location] and [teleport, targets, destination] with inputs: [0.1 -0.5 .9, 0 0 0]
+[15:09:17] [modloading-worker-0/INFO] [ne.ne.ne.co.NeoForgeMod/NEOFORGE-MOD]: NeoForge mod loading, version 21.1.252, for MC 1.21.1
+[15:09:18] [main/INFO] [mojang/YggdrasilAuthenticationService]: Environment: Environment[sessionHost=https://sessionserver.mojang.com, servicesHost=https://api.minecraftservices.com, name=PROD]
+[15:09:18] [main/WARN] [minecraft/VanillaPackResourcesBuilder]: Assets URL 'union:/G:/Minecraft%20Modifikationsfabrik/Quake%202%20Weapons/build/moddev/artifacts/neoforge-21.1.252.jar%23125!/assets/.mcassetsroot' uses unexpected schema
+[15:09:18] [main/WARN] [minecraft/VanillaPackResourcesBuilder]: Assets URL 'union:/G:/Minecraft%20Modifikationsfabrik/Quake%202%20Weapons/build/moddev/artifacts/neoforge-21.1.252.jar%23125!/data/.mcassetsroot' uses unexpected schema
+[15:09:18] [main/INFO] [ne.ne.ne.ga.GameTestHooks/]: Enabled Gametest Namespaces: [q2w]
+[15:09:20] [main/INFO] [minecraft/RecipeManager]: Loaded 1310 recipes
+[15:09:20] [main/INFO] [minecraft/AdvancementTree]: Loaded 1400 advancements
+[15:09:21] [Server thread/INFO] [me.pa.q2.ev.PowerupSpawner/]: [Quake2Weapons] PowerupSpawner config reloaded:
+[15:09:21] [Server thread/INFO] [me.pa.q2.ev.PowerupSpawner/]: interval=600 | attempts=5 | radius=5 | debug=false | enablePowerups=true, maxNearbyPowerups=4
+[15:09:21] [Server thread/INFO] [me.pa.q2.ev.PowerupSpawner/]: [Quake2Weapons] Config values after load: powerupSpawnInterval=600, powerupSpawnAttempts=5, powerupSpawnSearchRadius=5, enablePowerups=true, powerupDebug=false, maxNearbyPowerups=net.neoforged.neoforge.common.ModConfigSpec$IntValue@4aab7861
+[15:09:21] [Server thread/INFO] [me.pa.q2.Quake2Weapons/]: [Quake2Weapons] Power Shield config reloaded:
+[15:09:21] [Server thread/INFO] [me.pa.q2.Quake2Weapons/]: powershieldAbsorbRatio=0.66 | powershieldDamagePreCellConsumed=2.0
+[15:09:21] [Server thread/INFO] [me.pa.q2.Quake2Weapons/]: [Quake2Weapons] Config values after load: powershieldAbsorbRatio=0.66 | powershieldDamagePreCellConsumed=2.0
+[15:09:22] [Server thread/INFO] [minecraft/MinecraftServer]: Preparing start region for dimension minecraft:overworld
+[15:09:22] [worldgen/INFO] [minecraft/LoggerChunkProgressListener]: Preparing spawn area: 2%
+[15:09:22] [Server thread/INFO] [minecraft/LoggerChunkProgressListener]: Time elapsed: 256 ms
+[15:09:22] [Server thread/INFO] [minecraft/GameTestServer]: Started game test server
+[15:09:22] [Server thread/INFO] [ne.ne.ne.se.pe.PermissionAPI/]: Successfully initialized permission handler neoforge:default_handler
+[15:09:22] [Server thread/INFO] [minecraft/GameTestServer]: 5 tests are now running at position 10207204, -59, 14821747!
+[15:09:23] [Server thread/INFO] [minecraft/GameTestRunner]: Running test batch 'defaultBatch:0' (5 tests)...
+[15:09:23] [Server thread/INFO] [minecraft/GameTestServer]: [     ]
+[15:09:23] [Server thread/INFO] [minecraft/GameTestServer]: [++++ ]
+[15:09:23] [Server thread/INFO] [minecraft/GameTestServer]: [+++++]
+[15:09:23] [Server thread/INFO] [minecraft/GameTestServer]: ========= 5 GAME TESTS COMPLETE IN 1.074 s ======================
+[15:09:23] [Server thread/INFO] [minecraft/GameTestServer]: All 5 required tests passed :)
+[15:09:23] [Server thread/INFO] [minecraft/GameTestServer]: ====================================================
+[15:09:23] [Server thread/INFO] [minecraft/MinecraftServer]: Stopping server
+[15:09:23] [Server thread/INFO] [minecraft/MinecraftServer]: Saving players
+[15:09:23] [Server thread/INFO] [minecraft/MinecraftServer]: Saving worlds
+[15:09:24] [Server thread/INFO] [minecraft/MinecraftServer]: Saving chunks for level 'ServerLevel[Test Level]'/minecraft:overworld
+[15:09:24] [Server thread/INFO] [minecraft/MinecraftServer]: Saving chunks for level 'ServerLevel[Test Level]'/minecraft:the_end
+[15:09:24] [Server thread/INFO] [minecraft/MinecraftServer]: Saving chunks for level 'ServerLevel[Test Level]'/minecraft:the_nether
+[15:09:24] [Server thread/INFO] [minecraft/MinecraftServer]: ThreadedAnvilChunkStorage (world): All chunks are saved
+[15:09:24] [Server thread/INFO] [minecraft/MinecraftServer]: ThreadedAnvilChunkStorage (DIM1): All chunks are saved
+[15:09:24] [Server thread/INFO] [minecraft/MinecraftServer]: ThreadedAnvilChunkStorage (DIM-1): All chunks are saved
+[15:09:24] [Server thread/INFO] [minecraft/MinecraftServer]: ThreadedAnvilChunkStorage: All dimensions are saved
+[15:09:24] [Server thread/INFO] [minecraft/GameTestServer]: Game test server shutting down
+
+[Incubating] Problems report is available at: file:///G:/Minecraft%20Modifikationsfabrik/Quake%202%20Weapons/build/reports/problems/problems-report.html
+
+BUILD SUCCESSFUL in 49s
+7 actionable tasks: 3 executed, 4 up-to-date

@@ -10,6 +10,7 @@ import mett.palemannie.q2w.net.ModMessages;
 import mett.palemannie.q2w.particle.ModParticles;
 import mett.palemannie.q2w.sound.ModSounds;
 import mett.palemannie.q2w.util.ModCreativeModeTabs;
+import mett.palemannie.q2w.util.LegacyIdMigrator;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -37,6 +38,8 @@ public class Quake2Weapons {
         ModBlocks.register(modBusGroup);
         ModParticles.PARTICLES.register(modBusGroup);
         ModCreativeModeTabs.register(modBusGroup);
+
+        LegacyIdMigrator.registerAliases();
 
         Q2WConfig.registerConfigs(container);
     }
