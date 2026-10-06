@@ -62,6 +62,8 @@ public final class WeaponAggroHandler {
             return;
         }
 
+        QWRingCompatibility.onWeaponShot(player);
+
         if (consumeSilencerShot(player)) {
             return;
         }
