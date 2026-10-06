@@ -11,7 +11,7 @@ import net.minecraft.resources.Identifier;
 
 public class SilencerPowerupModel extends EntityModel<EntityRenderState> {
 
-	public static final ModelLayerLocation SILENCER_LAYER = new ModelLayerLocation(Identifier.fromNamespaceAndPath(Quake2Weapons.MODID, "silencer_powerup"), "main");
+	public static final ModelLayerLocation SILENCER_LAYER = new ModelLayerLocation(Identifier.fromNamespaceAndPath(Quake2Weapons.MODID, "q2w_silencer_powerup"), "main");
 	private static final String MAIN = "main";
 	private final ModelPart root;
 

@@ -11,7 +11,7 @@ import net.minecraft.resources.Identifier;
 
 public class MuzzleflashModel extends EntityModel<EntityRenderState> {
 
-    public static final ModelLayerLocation FLASH_LAYER = new ModelLayerLocation(Identifier.fromNamespaceAndPath(Quake2Weapons.MODID, "muzzleflash"), "main");
+    public static final ModelLayerLocation FLASH_LAYER = new ModelLayerLocation(Identifier.fromNamespaceAndPath(Quake2Weapons.MODID, "q2w_muzzleflash"), "main");
     private static final String MAIN = "main";
     private final ModelPart root;
 

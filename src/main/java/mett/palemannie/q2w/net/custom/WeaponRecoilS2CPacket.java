@@ -8,7 +8,7 @@ import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.Identifier;
 
 public class WeaponRecoilS2CPacket implements CustomPacketPayload {
-    public static final Type<WeaponRecoilS2CPacket> TYPE = new Type<>(Identifier.fromNamespaceAndPath("q2w", "weaponrecoils2cpacket"));
+    public static final Type<WeaponRecoilS2CPacket> TYPE = new Type<>(Identifier.fromNamespaceAndPath("q2w", "q2w_weaponrecoils2cpacket"));
     public static final StreamCodec<FriendlyByteBuf, WeaponRecoilS2CPacket> STREAM_CODEC = StreamCodec.of((buffer, packet) -> packet.encode(buffer), WeaponRecoilS2CPacket::decode);
     @Override
     public Type<WeaponRecoilS2CPacket> type() { return TYPE; }

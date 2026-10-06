@@ -11,7 +11,7 @@ import net.minecraft.resources.Identifier;
 
 public class GrenadesAmmopickupModel extends EntityModel<EntityRenderState> {
 
-	public static final ModelLayerLocation GRENADESPICKUP_LAYER = new ModelLayerLocation(Identifier.fromNamespaceAndPath(Quake2Weapons.MODID, "grenades_ammopickup"), "main");
+	public static final ModelLayerLocation GRENADESPICKUP_LAYER = new ModelLayerLocation(Identifier.fromNamespaceAndPath(Quake2Weapons.MODID, "q2w_grenades_ammopickup"), "main");
 	private final ModelPart root;
 
 	public GrenadesAmmopickupModel(ModelPart root) {

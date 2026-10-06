@@ -11,7 +11,7 @@ import net.minecraft.resources.Identifier;
 
 public class ShellsAmmopickupModel extends EntityModel<EntityRenderState> {
 
-	public static final ModelLayerLocation SHELLSPICKUP_LAYER = new ModelLayerLocation(Identifier.fromNamespaceAndPath(Quake2Weapons.MODID, "shells_ammopickup"), "main");
+	public static final ModelLayerLocation SHELLSPICKUP_LAYER = new ModelLayerLocation(Identifier.fromNamespaceAndPath(Quake2Weapons.MODID, "q2w_shells_ammopickup"), "main");
 	private final ModelPart root;
 
 	public ShellsAmmopickupModel(ModelPart root) {

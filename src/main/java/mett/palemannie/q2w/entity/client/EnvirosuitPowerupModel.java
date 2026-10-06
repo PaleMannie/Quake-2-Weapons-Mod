@@ -11,7 +11,7 @@ import net.minecraft.resources.Identifier;
 
 public class EnvirosuitPowerupModel extends EntityModel<EntityRenderState> {
 
-	public static final ModelLayerLocation ENVIROSUIT_LAYER = new ModelLayerLocation(Identifier.fromNamespaceAndPath(Quake2Weapons.MODID, "invuln_powerup"), "main");
+	public static final ModelLayerLocation ENVIROSUIT_LAYER = new ModelLayerLocation(Identifier.fromNamespaceAndPath(Quake2Weapons.MODID, "q2w_invuln_powerup"), "main");
 	private static final String MAIN = "main";
 	private final ModelPart root;
 

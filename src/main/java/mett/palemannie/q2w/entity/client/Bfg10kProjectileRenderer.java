@@ -29,7 +29,7 @@ public class Bfg10kProjectileRenderer extends EntityRenderer<Bfg10kProjectileEnt
             Identifier.fromNamespaceAndPath(Quake2Weapons.MODID, "textures/entity/projectiles/bfg_ball2.png");
 
     private static final RenderPipeline EMISSIVE_CUTOUT_PIPELINE = RenderPipeline.builder(RenderPipelines.ENTITY_EMISSIVE_SNIPPET)
-            .withLocation("q2w/pipeline/bfg_ball_emissive_cutout")
+            .withLocation(Identifier.fromNamespaceAndPath(Quake2Weapons.MODID, "q2w_pipeline/bfg_ball_emissive_cutout"))
             .withShaderDefine("ALPHA_CUTOUT", 0.1f)
             // 26.3 snippets do not declare the main render pass's color attachment.
             .withColorTargetState(ColorTargetState.DEFAULT)

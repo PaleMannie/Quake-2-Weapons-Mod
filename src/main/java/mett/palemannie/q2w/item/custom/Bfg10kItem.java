@@ -70,7 +70,7 @@ public class Bfg10kItem extends AbstractWeapon {
     private static final String WINDUP_TRIGGER = "windup";
     private static final String SHOOT_TRIGGER = "shoot";
 
-    private static final String AMMO_EMPTY_TRIGGER = "ammoempty";
+    private static final String AMMO_EMPTY_TRIGGER = "q2w_ammoempty";
 
     private static final RawAnimation IDLE_ANIM = RawAnimation.begin()
             .then("bfg10k.animation.idle", LoopType.LOOP);

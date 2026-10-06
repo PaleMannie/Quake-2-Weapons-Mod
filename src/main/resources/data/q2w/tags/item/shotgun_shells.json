@@ -1,6 +1,0 @@
-{
-  "values": [
-    "q2w:shell",
-    { "id": "quakeweapons:shell", "required": false }
-  ]
-}

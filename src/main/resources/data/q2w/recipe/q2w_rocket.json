@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "II ",
+    "GTI",
+    "II "
+  ],
+  "key": {
+    "I": ["minecraft:iron_ingot"],
+    "G": ["minecraft:gunpowder"],
+    "T": ["minecraft:tnt"]
+  },
+  "result": {
+    "id": "q2w:q2w_rocket",
+    "count": 8
+  }
+}

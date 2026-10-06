@@ -11,7 +11,7 @@ import net.minecraft.resources.Identifier;
 
 public class GrenadelauncherProjectileModel extends EntityModel<EntityRenderState> {
 
-	public static final ModelLayerLocation GRENADE_LAYER = new ModelLayerLocation(Identifier.fromNamespaceAndPath(Quake2Weapons.MODID, "grenadelauncher_projectile"), "main");
+	public static final ModelLayerLocation GRENADE_LAYER = new ModelLayerLocation(Identifier.fromNamespaceAndPath(Quake2Weapons.MODID, "q2w_grenadelauncher_projectile"), "main");
 	private final ModelPart grenade;
 
 	public GrenadelauncherProjectileModel(ModelPart root) {

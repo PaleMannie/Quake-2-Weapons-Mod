@@ -42,7 +42,7 @@ public abstract class AbstractWeapon extends Item implements GeoItem {
     protected static final String IDLE_CONTROLLER = "idle_controller";
 
     protected static final String SHOOT_TRIGGER = "shoot";
-    protected static final String AMMO_EMPTY_TRIGGER = "ammoempty";
+    protected static final String AMMO_EMPTY_TRIGGER = "q2w_ammoempty";
 
     public AbstractWeapon(Properties properties) {
         super(properties);
@@ -89,14 +89,14 @@ public abstract class AbstractWeapon extends Item implements GeoItem {
             var point = state.controller().getCurrentAnimationPoint();
             if (point != null && point.hasFinished()) {
                 state.controller().stopTriggeredAnimation();
-            } else if (state.controller().isTriggeredAnimation("shoot") || state.controller().isTriggeredAnimation("ammoempty")) {
+            } else if (state.controller().isTriggeredAnimation("shoot") || state.controller().isTriggeredAnimation("q2w_ammoempty")) {
                 return PlayState.CONTINUE;
             }
             return state.setAndContinue(idleAnim);
         })
                 .receiveTriggeredAnimations()
                 .triggerableAnim("shoot", shootingAnim)
-                .triggerableAnim("ammoempty", ammoEmptyAnim));
+                .triggerableAnim("q2w_ammoempty", ammoEmptyAnim));
     }
 
     public void setCurrentHand(InteractionHand hand, LivingEntity player) {
@@ -228,7 +228,7 @@ public abstract class AbstractWeapon extends Item implements GeoItem {
                 livingEntity,
                 GeoItem.getOrAssignId(stack, serverLevel),
                 "weapon_controller",
-                "ammoempty"
+                "q2w_ammoempty"
         );
     }
 
@@ -244,7 +244,7 @@ public abstract class AbstractWeapon extends Item implements GeoItem {
                 livingEntity,
                 GeoItem.getOrAssignId(stack, serverLevel),
                 "weapon_controller",
-                "ammoempty"
+                "q2w_ammoempty"
         );
     }
 }

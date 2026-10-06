@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "  R",
+    "IIP",
+    "PWS"
+  ],
+  "key": {
+    "I": ["minecraft:iron_block"],
+    "R": ["minecraft:repeater"],
+    "S": ["minecraft:stick"],
+    "P": ["minecraft:piston"],
+    "W": "#minecraft:planks"
+  },
+  "result": {
+    "id": "q2w:q2w_shotgun",
+    "count": 1
+  }
+}

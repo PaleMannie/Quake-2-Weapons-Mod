@@ -11,7 +11,7 @@ import net.minecraft.resources.Identifier;
 
 public class AdrenalinePickupModel extends EntityModel<EntityRenderState> {
 
-	public static final ModelLayerLocation ADRENALINEPICKUP_LAYER = new ModelLayerLocation(Identifier.fromNamespaceAndPath(Quake2Weapons.MODID, "adrenaline_pickup"), "main");
+	public static final ModelLayerLocation ADRENALINEPICKUP_LAYER = new ModelLayerLocation(Identifier.fromNamespaceAndPath(Quake2Weapons.MODID, "q2w_adrenaline_pickup"), "main");
 	private final ModelPart root;
 
 	public AdrenalinePickupModel(ModelPart root) {

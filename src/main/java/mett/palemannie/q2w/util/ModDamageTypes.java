@@ -42,18 +42,18 @@ public class ModDamageTypes {
         return ResourceKey.create(Registries.DAMAGE_TYPE, Identifier.fromNamespaceAndPath(Quake2Weapons.MODID, name));
     }
 
-    public static final ResourceKey<DamageType> BLASTER_DAMAGE = register("blaster_damage");
-    public static final ResourceKey<DamageType> SHOTGUN_DAMAGE = register("shotgun_damage");
-    public static final ResourceKey<DamageType> SUPER_SHOTGUN_DAMAGE = register("super_shotgun_damage");
-    public static final ResourceKey<DamageType> MACHINEGUN_DAMAGE = register("machinegun_damage");
-    public static final ResourceKey<DamageType> CHAINGUN_DAMAGE = register("chaingun_damage");
-    public static final ResourceKey<DamageType> HANDGRENADE_DAMAGE = register("handgrenade_damage");
-    public static final ResourceKey<DamageType> HANDGRENADE_OVERCOOK_DAMAGE = register("handgrenade_overcook_damage");
-    public static final ResourceKey<DamageType> GRENADELAUNCHER_DAMAGE = register("grenadelauncher_damage");
-    public static final ResourceKey<DamageType> ROCKETLAUNCHER_DAMAGE = register("rocketlauncher_damage");
-    public static final ResourceKey<DamageType> HYPERBLASTER_DAMAGE = register("hyperblaster_damage");
-    public static final ResourceKey<DamageType> RAILGUN_DAMAGE = register("railgun_damage");
-    public static final ResourceKey<DamageType> BFG10K_DAMAGE = register("bfg10k_damage");
-    public static final ResourceKey<DamageType> BFG10K_LASER_DAMAGE = register("bfg10k_laser");
-    public static final ResourceKey<DamageType> BFG10K_FLASH_DAMAGE = register("bfg10k_flash");
+    public static final ResourceKey<DamageType> BLASTER_DAMAGE = register("q2w_blaster_damage");
+    public static final ResourceKey<DamageType> SHOTGUN_DAMAGE = register("q2w_shotgun_damage");
+    public static final ResourceKey<DamageType> SUPER_SHOTGUN_DAMAGE = register("q2w_super_shotgun_damage");
+    public static final ResourceKey<DamageType> MACHINEGUN_DAMAGE = register("q2w_machinegun_damage");
+    public static final ResourceKey<DamageType> CHAINGUN_DAMAGE = register("q2w_chaingun_damage");
+    public static final ResourceKey<DamageType> HANDGRENADE_DAMAGE = register("q2w_handgrenade_damage");
+    public static final ResourceKey<DamageType> HANDGRENADE_OVERCOOK_DAMAGE = register("q2w_handgrenade_overcook_damage");
+    public static final ResourceKey<DamageType> GRENADELAUNCHER_DAMAGE = register("q2w_grenadelauncher_damage");
+    public static final ResourceKey<DamageType> ROCKETLAUNCHER_DAMAGE = register("q2w_rocketlauncher_damage");
+    public static final ResourceKey<DamageType> HYPERBLASTER_DAMAGE = register("q2w_hyperblaster_damage");
+    public static final ResourceKey<DamageType> RAILGUN_DAMAGE = register("q2w_railgun_damage");
+    public static final ResourceKey<DamageType> BFG10K_DAMAGE = register("q2w_bfg10k_damage");
+    public static final ResourceKey<DamageType> BFG10K_LASER_DAMAGE = register("q2w_bfg10k_laser");
+    public static final ResourceKey<DamageType> BFG10K_FLASH_DAMAGE = register("q2w_bfg10k_flash");
 }

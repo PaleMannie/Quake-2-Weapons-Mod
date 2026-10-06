@@ -11,7 +11,7 @@ import net.minecraft.resources.Identifier;
 
 public class MegahealthPickupModel extends EntityModel<EntityRenderState> {
 
-	public static final ModelLayerLocation MEGAHEALTHPICKUP_LAYER = new ModelLayerLocation(Identifier.fromNamespaceAndPath(Quake2Weapons.MODID, "megahealth_pickup"), "main");
+	public static final ModelLayerLocation MEGAHEALTHPICKUP_LAYER = new ModelLayerLocation(Identifier.fromNamespaceAndPath(Quake2Weapons.MODID, "q2w_megahealth_pickup"), "main");
 	private final ModelPart root;
 
 	public MegahealthPickupModel(ModelPart root) {

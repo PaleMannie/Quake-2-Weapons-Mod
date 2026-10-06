@@ -11,7 +11,7 @@ import net.minecraft.resources.Identifier;
 
 public class CellsAmmopickupModel extends EntityModel<EntityRenderState> {
 
-	public static final ModelLayerLocation CELLSPICKUP_LAYER = new ModelLayerLocation(Identifier.fromNamespaceAndPath(Quake2Weapons.MODID, "cells_ammopickup"), "main");
+	public static final ModelLayerLocation CELLSPICKUP_LAYER = new ModelLayerLocation(Identifier.fromNamespaceAndPath(Quake2Weapons.MODID, "q2w_cells_ammopickup"), "main");
 	private final ModelPart root;
 
 	public CellsAmmopickupModel(ModelPart root) {

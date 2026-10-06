@@ -10,7 +10,7 @@ import net.minecraft.resources.Identifier;
 
 /** Adds a blast impulse to the locally predicted player movement. */
 public record ExplosionImpulseS2CPacket(Vec3 impulse) implements CustomPacketPayload {
-    public static final Type<ExplosionImpulseS2CPacket> TYPE = new Type<>(Identifier.fromNamespaceAndPath("q2w", "explosionimpulses2cpacket"));
+    public static final Type<ExplosionImpulseS2CPacket> TYPE = new Type<>(Identifier.fromNamespaceAndPath("q2w", "q2w_explosionimpulses2cpacket"));
     public static final StreamCodec<FriendlyByteBuf, ExplosionImpulseS2CPacket> STREAM_CODEC = StreamCodec.of((buffer, packet) -> encode(packet, buffer), ExplosionImpulseS2CPacket::decode);
     @Override
     public Type<ExplosionImpulseS2CPacket> type() { return TYPE; }

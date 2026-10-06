@@ -11,7 +11,7 @@ import net.minecraft.resources.Identifier;
 
 public class SlugsAmmopickupModel extends EntityModel<EntityRenderState> {
 
-	public static final ModelLayerLocation SLUGSPICKUP_LAYER = new ModelLayerLocation(Identifier.fromNamespaceAndPath(Quake2Weapons.MODID, "slugs_ammopickup"), "main");
+	public static final ModelLayerLocation SLUGSPICKUP_LAYER = new ModelLayerLocation(Identifier.fromNamespaceAndPath(Quake2Weapons.MODID, "q2w_slugs_ammopickup"), "main");
 	private final ModelPart root;
 
 	public SlugsAmmopickupModel(ModelPart root) {

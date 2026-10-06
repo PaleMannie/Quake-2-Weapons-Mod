@@ -8,7 +8,7 @@ import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.Identifier;
 
 public class SilencedShotsSyncS2CPacket implements CustomPacketPayload {
-    public static final Type<SilencedShotsSyncS2CPacket> TYPE = new Type<>(Identifier.fromNamespaceAndPath("q2w", "silencedshotssyncs2cpacket"));
+    public static final Type<SilencedShotsSyncS2CPacket> TYPE = new Type<>(Identifier.fromNamespaceAndPath("q2w", "q2w_silencedshotssyncs2cpacket"));
     public static final StreamCodec<FriendlyByteBuf, SilencedShotsSyncS2CPacket> STREAM_CODEC = StreamCodec.of((buffer, packet) -> packet.encode(buffer), SilencedShotsSyncS2CPacket::decode);
     @Override
     public Type<SilencedShotsSyncS2CPacket> type() { return TYPE; }

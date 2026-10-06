@@ -11,7 +11,7 @@ import net.minecraft.resources.Identifier;
 
 public class QuaddamagePowerupModel extends EntityModel<EntityRenderState> {
 
-	public static final ModelLayerLocation QUAD_LAYER = new ModelLayerLocation(Identifier.fromNamespaceAndPath(Quake2Weapons.MODID, "quad_damage_powerup"), "main");
+	public static final ModelLayerLocation QUAD_LAYER = new ModelLayerLocation(Identifier.fromNamespaceAndPath(Quake2Weapons.MODID, "q2w_quad_damage_powerup"), "main");
 	private static final String MAIN = "main";
 	private final ModelPart root;
 

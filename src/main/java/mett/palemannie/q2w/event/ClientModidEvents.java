@@ -16,7 +16,7 @@ public class ClientModidEvents {
     public static void registerPowerupOverlay(RegisterGuiLayersEvent event) {
         // The chat customization event is skipped while the chat screen is open.
         event.registerBelow(VanillaGuiLayers.CHAT,
-                Identifier.fromNamespaceAndPath(Quake2Weapons.MODID, "powerup_overlay"),
+                Identifier.fromNamespaceAndPath(Quake2Weapons.MODID, "q2w_powerup_overlay"),
                 (graphics, deltaTracker) -> PowerupOverlay.render(graphics,
                         deltaTracker.getGameTimeDeltaPartialTick(false),
                         graphics.guiWidth(), graphics.guiHeight()));

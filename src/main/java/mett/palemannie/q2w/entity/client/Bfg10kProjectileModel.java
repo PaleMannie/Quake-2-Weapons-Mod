@@ -11,7 +11,7 @@ import net.minecraft.resources.Identifier;
 
 public class Bfg10kProjectileModel extends EntityModel<EntityRenderState> {
 
-	public static final ModelLayerLocation BALL_LAYER = new ModelLayerLocation(Identifier.fromNamespaceAndPath(Quake2Weapons.MODID, "bfg_ball"), "main");
+	public static final ModelLayerLocation BALL_LAYER = new ModelLayerLocation(Identifier.fromNamespaceAndPath(Quake2Weapons.MODID, "q2w_bfg_ball"), "main");
 	private static final String MAIN = "main";
 	private final ModelPart root;
 

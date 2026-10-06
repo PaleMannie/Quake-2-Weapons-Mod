@@ -11,7 +11,7 @@ import net.minecraft.resources.Identifier;
 
 public class RebreatherPickupModel extends EntityModel<EntityRenderState> {
 
-	public static final ModelLayerLocation REBREATHERPICKUP_LAYER = new ModelLayerLocation(Identifier.fromNamespaceAndPath(Quake2Weapons.MODID, "rebreather_pickup"), "main");
+	public static final ModelLayerLocation REBREATHERPICKUP_LAYER = new ModelLayerLocation(Identifier.fromNamespaceAndPath(Quake2Weapons.MODID, "q2w_rebreather_pickup"), "main");
 	private final ModelPart root;
 
 	public RebreatherPickupModel(ModelPart root) {

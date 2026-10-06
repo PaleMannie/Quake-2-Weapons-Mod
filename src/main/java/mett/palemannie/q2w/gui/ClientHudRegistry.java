@@ -13,10 +13,10 @@ public class ClientHudRegistry {
     @SubscribeEvent
     public static void registerGuiOverlays(RegisterGuiLayersEvent event) {
         event.registerAbove(VanillaGuiLayers.HOTBAR,
-                Identifier.fromNamespaceAndPath(Quake2Weapons.MODID, "silencer_shots"),
+                Identifier.fromNamespaceAndPath(Quake2Weapons.MODID, "q2w_silencer_shots"),
                 SilencerHudOverlay.HUD);
         event.registerAbove(VanillaGuiLayers.HOTBAR,
-                Identifier.fromNamespaceAndPath(Quake2Weapons.MODID, "weapon_ammo"),
+                Identifier.fromNamespaceAndPath(Quake2Weapons.MODID, "q2w_weapon_ammo"),
                 AmmoHudOverlay.HUD);
     }
 }

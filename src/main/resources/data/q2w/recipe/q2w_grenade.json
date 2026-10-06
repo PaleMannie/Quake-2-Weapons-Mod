@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " R ",
+    "ITI",
+    " G "
+  ],
+  "key": {
+    "R": ["minecraft:redstone"],
+    "G": ["minecraft:gunpowder"],
+    "T": ["minecraft:tnt"],
+    "I": ["minecraft:iron_ingot"]
+  },
+  "result": {
+    "id": "q2w:q2w_grenade",
+    "count": 8
+  }
+}
